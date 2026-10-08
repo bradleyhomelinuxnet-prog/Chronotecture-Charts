@@ -1,0 +1,266 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart II·b — The Palindrome of the Great Flood</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0;
+    --c-flood:#37b6a6; --c-impact:#ef6f6f; --c-eden:#7ed491; --c-anun:#c58bf0;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:.98;margin:.22em 0 .1em}
+  h1 .sub{display:block;font-size:.44em;letter-spacing:.05em;color:var(--c-flood);font-weight:600;margin-top:.35em}
+  .prov{color:var(--muted);font-size:13px;max-width:800px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;padding:18px 20px 10px;position:relative;overflow:hidden}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:6px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .barrow text{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink)}
+  .mrow .cap{font-size:11px;color:var(--muted)}
+  .hl{color:var(--anchor);font-weight:600}
+  .flo{color:var(--c-flood);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;II·b</div>
+    <h1>The Palindrome of the Great Flood
+      <span class="sub">Annunaki "Ner" Chronology — 7300 years, mirrored on 2239&nbsp;BC</span>
+    </h1>
+    <p class="prov">A modern rebuild of Breshears' hand-drawn chart&nbsp;II·b (<b>2007</b>), preserved verbatim. Its defining structure is a <b>palindrome centred on the Great Flood</b>: <b>1656 years</b> of Antediluvian world before it, <b>1656 years</b> of Postdiluvian world after it, wrapped inside a 1344-year Pre-Adamic age. Four Flood-symmetric cycles — 792, 1200, 1656, 3000 — land on paired events on either side.</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Timeline, eras &amp; the Flood-symmetric cycles</h2>
+      <div class="hint">Three era-brackets above; the Great Flood at centre; four nested arcs show spans that land on mirrored events each side. Hover anything for detail.</div>
+      <svg id="tl" viewBox="0 0 1400 700" role="img" aria-label="Chart IIb timeline"></svg>
+    </div>
+    <div class="bottom">
+      <div class="card">
+        <h2>Annunaki chronology spans</h2>
+        <div class="hint">Long counts anchored to the Flood and the 5239&nbsp;BC calendar-start, terminating on dated events.</div>
+        <svg id="bars" viewBox="0 0 700 430" role="img" aria-label="Chronology spans"></svg>
+      </div>
+      <div class="card">
+        <h2>Cycle mathematics</h2>
+        <div class="hint">The numeric skeleton, straight from the chart.</div>
+        <div class="mathgrid">
+          <div class="mrow"><span class="eq"><span class="flo">1656</span> │ Flood │ <span class="flo">1656</span></span><span class="cap">Eden 3895 BC → Flood 2239 BC → Medo-Lydian 583 BC. 1656 = 444×4 = 864+792</span></div>
+          <div class="mrow"><span class="eq">7300 → 1962 AD (+<span class="hl">144</span> → 2106)</span><span class="cap">Annunaki Ner calendar; 144 years to Armageddon [6000 AM]</span></div>
+          <div class="mrow"><span class="eq">4200 = 600×7 · 2880 = 360×8 = 444×20</span><span class="cap">Flood → 1962 AD · Flood → 641 AD (Alexandrian Library)</span></div>
+          <div class="mrow"><span class="eq">4440 = 444×10 · 2070 = impact→impact</span><span class="cap">Stonehenge chronology → 1902 AD · 4309 BC → 2239 BC</span></div>
+          <div class="mrow"><span class="eq">1104 = 552×2 = <span class="hl">138×8</span> · 552 = 138×4</span><span class="cap">Comet-occult cycle: 1688 BC → 1135 BC</span></div>
+          <div class="mrow"><span class="eq">Pyramid: 90 yrs = 32,400 days = 10,800×3</span><span class="cap">2905–2815 BC · 1344 = 1200+144 = 600+744</span></div>
+        </div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6">The whole chart reads the same distance forward and backward from the Flood — a chronological palindrome — while the long counts resolve on the shared base-<b class="hl">138</b>/144/444 grid.</div>
+        <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture</i> (2017), chart&nbsp;II·b. Content transcribed unchanged; interpretive redraw for study.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="tip"></div>
+
+<script>
+const CAT={
+  flood:{c:'#37b6a6',label:'The Flood (centre)'},
+  impact:{c:'#ef6f6f',label:'Impact / cataclysm'},
+  eden:{c:'#7ed491',label:'Eden / Annus Mundi'},
+  comet:{c:'#5cb3f2',label:'Comet / celestial'},
+  proph:{c:'#e7c355',label:'Prophetic'},
+  hist:{c:'#9c8bf0',label:'Historical'},
+  anun:{c:'#c58bf0',label:'Annunaki calendar'}
+};
+const FLOOD=-2239;
+const EVENTS=[
+  {y:-5239,cat:'impact',t:'Annunaki Ner chronology begins',yr:'5239 BC [−1344 AM]',b:'7300 years to 1962 AD. Also an impact.'},
+  {y:-4309,cat:'impact',t:'Pre-Adamic world destroyed',yr:'4309 BC [−411 AM]',b:'Asteroid impact. Stonehenge chronoliths over 3070×3 = 9210 years begin.'},
+  {y:-3895,cat:'eden',t:'Man banished from Eden',yr:'3895 BC [1 AM]',b:'Annus Mundi Year I; post-impact Edenic world. 1656 yrs to the Flood.'},
+  {y:-2860,cat:'eden',t:'Great Pyramid built',yr:'2905–2815 BC [1080 AM]',b:'90 years = 32,400 days = 10,800×3.'},
+  {y:-2239,cat:'flood',t:'THE GREAT FLOOD',yr:'2239 BC [1656 AM]',b:'Centre of the palindrome: 1656 years each side.'},
+  {y:-1688,cat:'comet',t:'Sun darkened by comet (occult)',yr:'1688 BC [2208 AM]',b:'552 years to 1135 BC. 2208 AM = 138×16.'},
+  {y:-1447,cat:'proph',t:'Ten Plagues — Exodus',yr:'1447 BC [2448 AM]',b:'792 years after the Flood.'},
+  {y:-1135,cat:'comet',t:'Sun darkened by comet (occult)',yr:'1135 BC [2670 AM]',b:'End of the 552×2 comet cycle.'},
+  {y:-1039,cat:'hist',t:'King David born',yr:'1039 BC',b:'1200 years after the Flood.'},
+  {y:-583,cat:'comet',t:'Sun darkened, Medo-Lydian War',yr:'583 BC',b:'1656 years after the Flood — the mirror of Eden.'},
+  {y:641,cat:'hist',t:'Muslims destroy the Alexandrian Library',yr:'641 AD [4535 AM]',b:'2880 years [444×20 or 360×8] from the Flood.'},
+  {y:762,cat:'hist',t:'Abbasid dynasty makes Baghdad (Babylon, Iraq) seat of the Islamic Empire',yr:'762 AD [4656 AM]',b:'3000 years after the Flood.'},
+  {y:1902,cat:'anun',t:'Stonehenge chronology ends',yr:'1902 AD',b:'4440 years [444×10].'},
+  {y:1962,cat:'anun',t:'Annunaki calendar of 7300 yrs ends',yr:'1962 AD',b:'144 years to Armageddon 2106 AD.'},
+  {y:2046,cat:'impact',t:'Asteroid impact',yr:'2046 AD',b:'144 years after 1902 AD.'},
+  {y:2106,cat:'proph',t:'Armageddon — Return of the Chief Cornerstone',yr:'2106 AD [6000 AM]',b:'End of the count.'}
+];
+const ERAS=[
+  {a:-5239,b:-3895,label:'Pre-Adamic History',val:'1344 yrs · 1200+144 or 600+744'},
+  {a:-3895,b:-2239,label:'Antediluvian World',val:'1656 yrs · 444×4 or 864+792'},
+  {a:-2239,b:-583, label:'Postdiluvian World',val:'1656 yrs · 444×4 or 864+792'}
+];
+// flood-symmetric rings: value, left year, right year, right event
+const RINGS=[
+  {v:792, l:-3031, r:-1447, cat:'proph', re:'Exodus'},
+  {v:1200,l:-3439, r:-1039, cat:'hist',  re:'King David'},
+  {v:1656,l:-3895, r:-583,  cat:'flood', re:'Eden ⇄ Medo-Lydian'},
+  {v:3000,l:-5239, r:762,   cat:'hist',  re:'Ner start ⇄ Abbasid'}
+];
+const BARS=[
+  {span:'7300 yrs', form:'Ner calendar', a:-5239, b:1962, cat:'anun', ev:'Full Annunaki chronology → 1962 AD (+144 → 2106 AD)'},
+  {span:'4200 yrs', form:'600×7', a:-2239, b:1962, cat:'anun', ev:'Flood → end of Annunaki chronology 1962 AD'},
+  {span:'4440 yrs', form:'444×10', a:-2539, b:1902, cat:'hist', ev:'Stonehenge chronology → 1902 AD'},
+  {span:'2880 yrs', form:'444×20 or 360×8', a:-2239, b:641, cat:'hist', ev:'Flood → Muslims destroy the Alexandrian Library, 641 AD'},
+  {span:'2070 yrs', form:'impact→impact', a:-4309, b:-2239, cat:'impact', ev:'Pre-Adamic impact 4309 BC → the Flood 2239 BC'},
+  {span:'1104 yrs', form:'552×2 · 138×8', a:-2239, b:-1135, cat:'comet', ev:'Comet-occult cycle (1688 BC → 1135 BC = 552×2)'}
+];
+
+const YMIN=-5450, YMAX=2260, PL=70, PR=1330;
+const X=y=>PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;let x=e.clientX+16,yy=e.clientY+14;if(x+310>innerWidth)x=e.clientX-316;if(yy+150>innerHeight)yy=e.clientY-150;tip.style.left=x+'px';tip.style.top=yy+'px';}
+function hideTip(){tip.style.opacity=0;}
+const NS='http://www.w3.org/2000/svg';
+function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+
+(function(){
+  const svg=document.getElementById('tl');
+  const AXIS=250;
+  // era brackets
+  ERAS.forEach((er,i)=>{
+    const x1=X(er.a),x2=X(er.b),y=70+i*0;
+    const yy=64+i*18;
+    const g=el('g',{style:'cursor:default'});
+    g.appendChild(el('line',{x1:x1,y1:yy,x2:x2,y2:yy,stroke:'#4a5a80',['stroke-width']:1.5}));
+    g.appendChild(el('line',{x1:x1,y1:yy-5,x2:x1,y2:yy+5,stroke:'#4a5a80',['stroke-width']:1.5}));
+    g.appendChild(el('line',{x1:x2,y1:yy-5,x2:x2,y2:yy+5,stroke:'#4a5a80',['stroke-width']:1.5}));
+    const t=el('text',{x:(x1+x2)/2,y:yy-7,fill:'#c3ccdf','font-size':11.5,'text-anchor':'middle','font-weight':600});
+    t.textContent=er.label; g.appendChild(t);
+    const v=el('text',{x:(x1+x2)/2,y:yy+15,fill:'#7b86a4','font-size':10,'text-anchor':'middle','font-family':'JetBrains Mono'});
+    v.textContent=er.val; g.appendChild(v);
+    svg.appendChild(g);
+  });
+  // axis
+  for(let yv=-5000;yv<=2000;yv+=500){const xx=X(yv);
+    svg.appendChild(el('line',{x1:xx,y1:AXIS-6,x2:xx,y2:AXIS+6,stroke:'#2a3652',['stroke-width']:1}));
+    const t=el('text',{x:xx,y:AXIS+20,fill:'#5d6885','font-size':9.5,'text-anchor':'middle','font-family':'JetBrains Mono'});
+    t.textContent=(yv<0?Math.abs(yv)+'BC':(yv===0?'':yv+'AD'));svg.appendChild(t);}
+  svg.appendChild(el('line',{x1:PL,y1:AXIS,x2:PR,y2:AXIS,stroke:'#3a486a',['stroke-width']:2}));
+  const x0=X(0);
+  svg.appendChild(el('line',{x1:x0,y1:AXIS-150,x2:x0,y2:AXIS+8,stroke:'#56628f',['stroke-width']:1.2,['stroke-dasharray']:'4 5'}));
+  ['BC','AD'].forEach((s,i)=>{const t=el('text',{x:x0+(i?7:-7),y:AXIS-6,fill:'#7b86a4','font-size':11,'text-anchor':i?'start':'end','font-family':'JetBrains Mono'});t.textContent=s;svg.appendChild(t);});
+  // Flood centre line
+  const xf=X(FLOOD);
+  svg.appendChild(el('line',{x1:xf,y1:96,x2:xf,y2:560,stroke:'#37b6a6',['stroke-width']:2,opacity:.9}));
+  const fl=el('text',{x:xf,y:110,fill:'#37b6a6','font-size':12,'text-anchor':'middle','font-family':'JetBrains Mono','letter-spacing':'.08em'});
+  fl.textContent='◆ GREAT FLOOD 2239 BC'; svg.appendChild(fl);
+  // flood-symmetric rings (arcs opening downward, endpoints on axis)
+  RINGS.forEach(rg=>{
+    const xl=X(rg.l),xr=X(rg.r),col=CAT[rg.cat].c;
+    const rx=(xr-xl)/2, ry=Math.min(150, rx*0.5), cxm=(xl+xr)/2;
+    const d=`M ${xl} ${AXIS} A ${rx} ${ry} 0 0 0 ${xr} ${AXIS}`;
+    const g=el('g',{class:'ringrow','data-cat':rg.cat,style:'cursor:pointer'});
+    g.appendChild(el('path',{d,fill:'none',stroke:col,['stroke-width']:2,opacity:.8}));
+    g.appendChild(el('circle',{cx:xl,cy:AXIS,r:3.5,fill:col}));
+    g.appendChild(el('circle',{cx:xr,cy:AXIS,r:3.5,fill:col}));
+    const t=el('text',{x:cxm,y:AXIS+ry+14,fill:col,'font-size':11,'text-anchor':'middle','font-family':'JetBrains Mono'});
+    t.textContent=rg.v+' yrs'; g.appendChild(t);
+    g.addEventListener('mousemove',e=>showTip(`<div class="t-h"><span class="d" style="background:${col}"></span>${rg.v}-year Flood-symmetric cycle</div><div class="t-yr">${Math.abs(rg.l)} BC ⇄ ${rg.r<0?Math.abs(rg.r)+' BC':rg.r+' AD'}</div><div class="t-b">${rg.re}</div>`,e));
+    g.addEventListener('mouseleave',hideTip);
+    svg.appendChild(g);
+  });
+  // events with collision-aware staggered labels
+  const evs=EVENTS.map(e=>({...e,x:X(e.y)})).sort((a,b)=>a.x-b.x);
+  let lastA=-1e9,lastB=-1e9,lvlA=0,lvlB=0;
+  evs.forEach((ev,ix)=>{
+    const xx=ev.x,col=CAT[ev.cat].c;
+    const g=el('g',{class:'evrow','data-cat':ev.cat,style:'cursor:pointer'});
+    if(ev.cat==='flood'){g.appendChild(el('path',{d:`M${xx-6} ${AXIS-6} L${xx} ${AXIS-14} L${xx+6} ${AXIS-6} L${xx} ${AXIS+2} Z`,fill:col}));}
+    else g.appendChild(el('circle',{cx:xx,cy:AXIS,r:4.5,fill:col,stroke:'#0b0f1a',['stroke-width']:1}));
+    const above=(ix%2===0); let ly;
+    if(above){ lvlA=(xx-lastA<50)?lvlA+1:0; lastA=xx; ly=AXIS-30-lvlA*12; }
+    else { lvlB=(xx-lastB<50)?lvlB+1:0; lastB=xx; ly=AXIS+32+lvlB*12; }
+    g.appendChild(el('line',{x1:xx,y1:above?AXIS-4:AXIS+4,x2:xx,y2:above?ly+3:ly-8,stroke:col,['stroke-width']:0.8,opacity:.4}));
+    const yr=el('text',{x:xx,y:ly,fill:'#9aa4bd','font-size':9,'text-anchor':'middle','font-family':'JetBrains Mono'});
+    yr.textContent=ev.yr.split(' [')[0]; g.appendChild(yr);
+    g.addEventListener('mousemove',e=>showTip(`<div class="t-h"><span class="d" style="background:${col}"></span>${ev.t}</div><div class="t-yr">${ev.yr}</div><div class="t-b">${ev.b}</div>`,e));
+    g.addEventListener('mouseleave',hideTip);
+    svg.appendChild(g);
+  });
+})();
+
+(function(){
+  const svg=document.getElementById('bars');
+  const PL2=54,PR2=560,y0=-5450,y1=2260;
+  const XX=y=>PL2+(y-y0)/(y1-y0)*(PR2-PL2);
+  const rowTop=30,rowH=58;
+  // axis ticks
+  for(let yv=-5000;yv<=2000;yv+=1000){const xx=XX(yv);
+    svg.appendChild(el('line',{x1:xx,y1:20,x2:xx,y2:rowTop+BARS.length*rowH-20,stroke:'#1b2740',['stroke-width']:1}));
+    const t=el('text',{x:xx,y:rowTop+BARS.length*rowH,fill:'#5d6885','font-size':9,'text-anchor':'middle','font-family':'JetBrains Mono'});t.textContent=(yv<0?Math.abs(yv)+'BC':(yv===0?'0':yv+'AD'));svg.appendChild(t);}
+  const xf=XX(-2239);
+  svg.appendChild(el('line',{x1:xf,y1:16,x2:xf,y2:rowTop+BARS.length*rowH-18,stroke:'#37b6a6',['stroke-width']:1.4,opacity:.7,['stroke-dasharray']:'3 4'}));
+  BARS.forEach((b,i)=>{
+    const y=rowTop+i*rowH, xa=XX(b.a), xb=XX(b.b), col=CAT[b.cat].c;
+    const g=el('g',{class:'barrow','data-cat':b.cat,style:'cursor:pointer'});
+    g.appendChild(el('line',{x1:xa,y1:y+14,x2:xb,y2:y+14,stroke:col,['stroke-width']:7,['stroke-linecap']:'round',opacity:.9}));
+    g.appendChild(el('circle',{cx:xa,cy:y+14,r:4,fill:col}));
+    g.appendChild(el('circle',{cx:xb,cy:y+14,r:4,fill:col}));
+    const lab=el('text',{x:xa,y:y+6,fill:'#dfe6f5','font-size':12,'font-weight':600});
+    lab.textContent=`${b.span} · ${b.form}`; g.appendChild(lab);
+    const lab2=el('text',{x:xa,y:y+30,fill:'#8b95ad','font-size':10.5});
+    lab2.textContent=b.ev.length>62?b.ev.slice(0,60)+'…':b.ev; g.appendChild(lab2);
+    g.addEventListener('mousemove',e=>showTip(`<div class="t-h"><span class="d" style="background:${col}"></span>${b.span} &nbsp;<span class="mono" style="color:#8b95ad">${b.form}</span></div><div class="t-b">${b.ev}</div>`,e));
+    g.addEventListener('mouseleave',hideTip);
+    svg.appendChild(g);
+  });
+})();
+
+(function(){
+  const bar=document.getElementById('filters');
+  const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{
+    const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(active.has(k)){active.delete(k);c.classList.add('off');}else{active.add(k);c.classList.remove('off');}
+      document.querySelectorAll('.evrow,.ringrow,.barrow').forEach(g=>{g.style.display=active.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);
+  });
+})();
+</script>
+</body>
+</html>

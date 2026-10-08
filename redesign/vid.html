@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart VI·d — The Hijrah Doublings</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#05070d;--panel:#0b1120;--ink:#e8eefc;--muted:#7f8db0;--line:#1a2338;--line2:#26324f;
+    --cyan:#4fe3ff;--gold:#ffd15c;--green:#7ed491;--red:#ff7a6b;--comet:#5cb3f2;--war:#9c8bf0;--proph:#ffd15c;--quake:#f08a4b;--hist:#37e0c8;
+    --glow-cyan:0 0 18px #4fe3ff55,0 0 4px #4fe3ff88;}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 720px at 70% -12%,#14213f 0%,#05070d 62%);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;background:repeating-linear-gradient(0deg,#ffffff05 0,#ffffff05 1px,transparent 1px,transparent 3px);mix-blend-mode:overlay}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px;position:relative;z-index:2}
+  header.mast{border-bottom:1px solid var(--line2);padding-bottom:18px;margin-bottom:8px}
+  .kick{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--cyan);text-transform:uppercase;text-shadow:var(--glow-cyan)}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:.98;margin:.2em 0 .08em;
+    background:linear-gradient(180deg,#fff,#bfe9ff 55%,#4fe3ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 24px #4fe3ff33)}
+  h1 .s{display:block;font-size:.42em;letter-spacing:.04em;color:var(--gold);font-weight:600;margin-top:.35em;-webkit-text-fill-color:var(--gold)}
+  .prov{color:var(--muted);font-size:13px;max-width:850px;line-height:1.6;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:22px}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:960px){.bottom{grid-template-columns:1fr}}
+  .grid>*,.bottom>*{min-width:0}
+  .card{min-width:0;background:linear-gradient(180deg,#0b1120,#080d18);border:1px solid var(--line2);border-radius:16px;padding:16px 18px}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;margin:2px 0 4px;color:#eaf4ff}
+  .card .hint{color:var(--muted);font-size:12px;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .scroll svg{min-width:760px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .mrow{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;margin-bottom:9px}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13px;color:#eaf4ff}
+  .mrow .cap{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5}
+  .g{color:var(--gold);font-weight:600}.c{color:var(--cyan);font-weight:600}
+  table.chk{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px}
+  table.chk th{color:var(--muted);font-weight:500;text-align:left;border-bottom:1px solid var(--line2);padding:6px 6px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+  table.chk td{padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.chk td.n{text-align:right;font-variant-numeric:tabular-nums}
+  .ok{color:var(--green)}.bad{color:var(--red);font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);font:12px 'JetBrains Mono',monospace;border-radius:100px;padding:6px 12px;display:inline-flex;align-items:center;gap:7px}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip[aria-pressed="false"]{opacity:.32;filter:saturate(.2)}
+  .chip:focus-visible,.bar:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:14px;padding-top:12px}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);border-radius:11px;
+    padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transition:.12s;box-shadow:0 18px 40px -18px #000}
+  #tip .h{font-weight:600;font-family:'JetBrains Mono',monospace;color:var(--cyan)}
+  #tip .y{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11.5px;margin-top:2px}
+  #tip .b{color:var(--muted);margin-top:4px}
+  .back{position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px;backdrop-filter:blur(6px)}
+  .back:hover{border-color:#4fe3ff;box-shadow:0 0 14px #4fe3ff55}
+  @media(max-width:640px){.wrap{padding:56px 16px 60px}.back{top:10px;right:12px}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">&larr; Atlas</a>
+<div class="wrap">
+  <header class="mast">
+    <div class="kick">Lost Science of Prophetic Engineering · Chart VI·d · Breshears '07</div>
+    <h1>The Hijrah Doublings<span class="s">Six spans from 622 AD, each run twice</span></h1>
+    <p class="prov">A modern rebuild of Breshears' Chart VI·d, preserved verbatim. Every bar starts at <b>622 AD [4516 AM]</b>, the Hijrah. It runs a span of years to a medieval event, and then the same span again to a later one: <b>622, 632, 692, 711, 726 and 734 years</b>, doubled. The chart is framed by 50-year jubilees and ends at <b>6000 AM (2106 AD)</b>. Its principal icon is the black meteoric rock in the Kaaba.</p>
+  </header>
+
+  <div class="chips" id="chips" role="group" aria-label="Show or hide a doubling"></div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Doubled spans from the Hijrah</h2>
+      <div class="hint">Solid bar = first span · second bar = the same span again · hover or tap for the event · ticks every 50 years (jubilees)</div>
+      <div class="scroll"><svg id="tl" viewBox="0 0 1400 560" role="img" aria-label="Six doubled spans from 622 AD to 2090 AD"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card">
+        <h2>Every figure, checked</h2>
+        <div class="hint">Worked out from the chart's own numbers · AM = years since 3895 BC (1 AM)</div>
+        <div class="scroll"><table class="chk" id="chk"><thead><tr><th>Claim on the chart</th><th class="n">Chart</th><th class="n">Worked out</th><th></th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="card">
+        <h2>The measures</h2>
+        <div class="mrow"><div class="eq"><span class="g">622</span> + <span class="c">622</span> = 1244 · + <span class="c">622</span> = 1866</div><div class="cap">The Hijrah's own number, run twice: Muslim capture of Jerusalem, then the last of the seven comets.</div></div>
+        <div class="mrow"><div class="eq">632 · 692 · 711 · 726 · 734</div><div class="cap">Five more spans, each doubled: 1886, 2006, 2044, 2074 and 2090 AD. The last three fall inside the final 144 years before 6000 AM.</div></div>
+        <div class="mrow"><div class="eq">622 AD = <span class="g">4516 AM</span> · 2106 AD = <span class="g">6000 AM</span></div><div class="cap">1484 years from the Hijrah to the end of the count.</div></div>
+        <div class="mrow"><div class="eq">50-year jubilees</div><div class="cap">The chart's time strip is ruled in jubilees; the ticks on the timeline above follow it.</div></div>
+        <div class="foot">Source: J. M. Breshears, <i>Chronotecture</i> (2017), Chart VI·d (plate 30). Content transcribed unchanged; interpretive redraw for study.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="tip" role="status" aria-live="polite"></div>
+<script>
+var NS='http://www.w3.org/2000/svg';
+function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+var tip=document.getElementById('tip');
+function show(h,e){tip.innerHTML=h;tip.style.opacity=1;var r=e.clientX!=null?{x:e.clientX,y:e.clientY}:(function(){var b=e.target.getBoundingClientRect();return{x:b.left+b.width/2,y:b.top};})();var x=r.x+15,y=r.y+13;if(x+300>innerWidth)x=Math.max(8,r.x-306);if(y+150>innerHeight)y=r.y-150;tip.style.left=x+'px';tip.style.top=y+'px';}
+function hide(){tip.style.opacity=0;}
+
+var HIJRAH=622, AM_START=-3895;
+function am(y){return (y<0?y+1:y)-(AM_START+1);}   // years since 3895 BC, no year 0
+
+// Transcribed from the plate. am = the Anno Mundi label printed on the chart (null = none printed).
+var ROWS=[
+  {span:622, col:'#ffd15c', mid:{y:1244,am:5238,t:'Muslim capture of Jerusalem',n:'1244 AD [622 AD + 622 AD]'}, end:{y:1866,am:null,t:'Last of 7 comets pass; earthquake activity',n:'622 more years'}},
+  {span:632, col:'#5cb3f2', mid:{y:1254,am:5148,t:'Anunnaki planet Nibiru passes over ecliptic, entering',n:''}, end:{y:1886,am:null,t:'Enochian text found; Statue of Liberty',n:'632 more years'}},
+  {span:692, col:'#37e0c8', mid:{y:1314,am:5208,t:'Nibiru seen from Earth as it exits the system',n:''}, end:{y:2006,am:5900,t:'Undetected asteroid passes Earth in July; meteorite impacts a mountain in Norway',n:'692 years'}},
+  {span:711, col:'#f08a4b', mid:{y:1333,am:5227,t:'Meteorite impacts Central Asia',n:''}, end:{y:2044,am:5938,t:'First Trumpet: meteorites hit Earth',n:'711 more years'}},
+  {span:726, col:'#9c8bf0', mid:{y:1348,am:5242,t:'Height of the Great Black Death',n:''}, end:{y:2074,am:5968,t:'Seven comets bring 7 plagues',n:'726 more years'}},
+  {span:734, col:'#ff7a6b', mid:{y:1356,am:5250,t:'Muslims strip Great Pyramid blocks after a quake',n:''}, end:{y:2090,am:5984,t:'7 plagues finished',n:'734 years more'}}
+];
+var shown=ROWS.map(function(){return true;});
+
+var YMIN=600, YMAX=2120, PL=70, PR=1350, TOP=96, RH=76;
+function X(y){return PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);}
+
+function draw(){
+  var svg=document.getElementById('tl'); while(svg.firstChild) svg.removeChild(svg.firstChild);
+  var bottom=TOP+ROWS.length*RH+10;
+  // jubilee ruler
+  for(var yv=650;yv<=2100;yv+=50){var xx=X(yv),major=yv%250===0;
+    svg.appendChild(el('line',{x1:xx,y1:TOP-26,x2:xx,y2:bottom,stroke:major?'#223050':'#141d31','stroke-width':1}));
+    if(major){var t=el('text',{x:xx,y:TOP-32,fill:'#5d6885','font-size':10,'text-anchor':'middle','font-family':'JetBrains Mono'});t.textContent=yv+' AD';svg.appendChild(t);}}
+  // anchor and terminus
+  [[HIJRAH,'☪ HIJRAH · 622 AD [4516 AM]','#ffd15c','start'],[2106,'2106 AD · 6000 AM','#7f8db0','end']].forEach(function(a){
+    var xx=X(a[0]);svg.appendChild(el('line',{x1:xx,y1:TOP-60,x2:xx,y2:bottom+6,stroke:a[2],'stroke-width':a[0]===HIJRAH?2:1.2,'stroke-dasharray':a[0]===HIJRAH?'':'4 5',opacity:.9}));
+    var t=el('text',{x:xx+(a[3]==='start'?6:-6),y:TOP-64,fill:a[2],'font-size':12,'text-anchor':a[3],'font-family':'JetBrains Mono','letter-spacing':'.05em'});t.textContent=a[1];svg.appendChild(t);});
+  ROWS.forEach(function(r,i){
+    if(!shown[i]) return;
+    var y=TOP+i*RH, x0=X(HIJRAH), x1=X(r.mid.y), x2=X(r.end.y);
+    function seg(xa,xb,yy,solid,ev,label){
+      var g=el('g',{class:'bar',tabindex:'0',role:'button','aria-label':label,style:'cursor:pointer'});
+      g.appendChild(el('rect',{x:xa,y:yy,width:Math.max(2,xb-xa),height:18,rx:4,fill:solid?r.col:'none',stroke:r.col,'stroke-width':1.6,opacity:solid?.9:1}));
+      g.appendChild(el('circle',{cx:xb,cy:yy+9,r:5,fill:r.col,stroke:'#05070d','stroke-width':1.5}));
+      var h='<div class="h">'+esc(label)+'</div><div class="y">'+esc(ev.y+' AD'+(ev.am!=null?' ['+ev.am+' AM]':''))+'</div><div class="b">'+esc(ev.t)+'</div>';
+      g.addEventListener('mousemove',function(e){show(h,e);}); g.addEventListener('mouseleave',hide);
+      g.addEventListener('focus',function(e){show(h,e);}); g.addEventListener('blur',hide);
+      g.addEventListener('click',function(e){show(h,e);});
+      svg.appendChild(g);
+      return g;
+    }
+    seg(x0,x1,y,true,r.mid,r.span+' years to '+r.mid.y+' AD');
+    seg(x1,x2,y+22,false,r.end,r.span+' more years to '+r.end.y+' AD');
+    var t=el('text',{x:x0+8,y:y+13,fill:'#05070d','font-size':11,'font-weight':600,'font-family':'JetBrains Mono','pointer-events':'none'});t.textContent=r.span+' yrs → '+r.mid.y;svg.appendChild(t);
+    var t2=el('text',{x:x1+8,y:y+35,fill:r.col,'font-size':11,'font-family':'JetBrains Mono','pointer-events':'none'});t2.textContent=r.span+' more → '+r.end.y;svg.appendChild(t2);
+    var t3=el('text',{x:x1+8,y:y+56,fill:'#aeb7cd','font-size':10.5,'pointer-events':'none'});t3.textContent=r.mid.y+': '+r.mid.t+'  ·  '+r.end.y+': '+(r.end.t.length>58?r.end.t.slice(0,56)+'…':r.end.t);svg.appendChild(t3);
+  });
+  svg.setAttribute('viewBox','0 0 1400 '+(TOP+ROWS.length*RH+30));
+}
+
+(function chips(){
+  var box=document.getElementById('chips');
+  ROWS.forEach(function(r,i){
+    var b=document.createElement('button');b.type='button';b.className='chip';b.setAttribute('aria-pressed','true');
+    b.innerHTML='<span class="dot" style="background:'+r.col+'"></span>'+r.span+' × 2';
+    b.onclick=function(){shown[i]=!shown[i];b.setAttribute('aria-pressed',String(shown[i]));draw();};
+    box.appendChild(b);
+  });
+})();
+
+(function check(){
+  var body=document.querySelector('#chk tbody'), rows=[];
+  function add(claim,chart,got){rows.push([claim,chart,got]);}
+  add('622 AD in AM',4516,am(622));
+  ROWS.forEach(function(r){
+    add('622 + '+r.span,r.mid.y,HIJRAH+r.span);
+    add(r.mid.y+' + '+r.span,r.end.y,r.mid.y+r.span);
+    if(r.mid.am!=null) add(r.mid.y+' AD in AM',r.mid.am,am(r.mid.y));
+    if(r.end.am!=null) add(r.end.y+' AD in AM',r.end.am,am(r.end.y));
+  });
+  add('2106 AD in AM',6000,am(2106));
+  rows.forEach(function(r){
+    var ok=r[1]===r[2],tr=document.createElement('tr');
+    tr.innerHTML='<td>'+esc(r[0])+'</td><td class="n">'+r[1]+'</td><td class="n">'+r[2]+'</td><td class="'+(ok?'ok':'bad')+'">'+(ok?'✓':'✗')+'</td>';
+    body.appendChild(tr);
+  });
+  var misses=rows.filter(function(r){return r[1]!==r[2];});
+  var note=(rows.length-misses.length)+' of '+rows.length+' figures check out.';
+  if(misses.length) note+=' '+misses.map(function(r){return r[0]+' is '+r[2]+', not '+r[1]+'.';}).join(' ');
+  var tr=document.createElement('tr');tr.innerHTML='<td colspan="4" style="color:var(--muted);padding-top:10px">'+esc(note)+'</td>';body.appendChild(tr);
+})();
+draw();
+</script>
+</body>
+</html>

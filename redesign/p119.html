@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Plate 119 — The Recursive Palindrome</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#0b0f1a;--panel:#141b2d;--ink:#e9edf6;--muted:#8b95ad;--line:#24304a;--line2:#33415f;--gold:#ffcf5c;--blue:#5cb3f2;--teal:#37b6a6}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 50% -10%,#16203a 0%,var(--bg) 58%);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  .wrap{max-width:1240px;margin:0 auto;padding:30px 26px 70px}
+  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:12px;text-align:center}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,6vw,64px);line-height:.98;margin:.2em 0 .06em}
+  .eqline{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:clamp(14px,2vw,19px);letter-spacing:.06em}
+  .prov{color:var(--muted);font-size:13px;max-width:720px;line-height:1.55;margin:12px auto 0}
+  .prov b{color:var(--ink);font-weight:500}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin-top:18px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:280px;background:#0c1220f2;border:1px solid var(--line2);border-radius:11px;padding:10px 12px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transition:.12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;font-family:'JetBrains Mono',monospace;color:var(--gold)}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:20px;padding-top:14px;text-align:center}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header>
+    <div class="kicker">Chronotecture · Atlas colophon · a mirror added</div>
+    <h1>Plate 119 — The Recursive Palindrome</h1>
+    <div class="eqline">118 &nbsp;+&nbsp; 1 &nbsp;=&nbsp; 119 &nbsp;=&nbsp; 138 − 19</div>
+    <p class="prov">Not from Breshears — an original closing plate for the atlas. It reads the same distance out from the centre in both directions (a <b>palindrome</b>), built on the two numbers that quietly run through the whole work: <b>138</b>, whose recursive doubling (138 · 276 · 552 · 1104 · 2208) supplies the cycles in charts II·b and II·c, and <b>19</b>, the Metonic year-cycle. Their difference, <b>138 − 19 = 119</b>, is the plate you asked for.</p>
+  </header>
+  <div class="card">
+    <svg id="art" viewBox="0 0 1200 760" role="img" aria-label="Recursive palindrome plate"></svg>
+  </div>
+  <div class="foot">An original addition · numbers 19 &amp; 138 · recursive &amp; palindromic by construction.</div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;let x=e.clientX+15,y=e.clientY+13;if(x+290>innerWidth)x=e.clientX-296;tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+const svg=document.getElementById('art');
+const CX=600;
+// mirror axis
+svg.appendChild(el('line',{x1:CX,y1:40,x2:CX,y2:720,stroke:'#ffcf5c',['stroke-width']:1.5,opacity:.55,['stroke-dasharray']:'2 6'}));
+
+// ---- 19 · Metonic semicircle (top) ----
+(function(){
+  const cy=250,R=150;
+  const g=el('g',{});
+  g.appendChild(el('path',{d:`M ${CX-R} ${cy} A ${R} ${R} 0 0 1 ${CX+R} ${cy}`,fill:'none',stroke:'#5cb3f2',['stroke-width']:2,opacity:.85}));
+  for(let i=0;i<=19;i++){
+    const a=Math.PI*(1 - i/19);
+    const x=CX+Math.cos(a)*R, y=cy-Math.sin(a)*R;
+    const mid=(i===0||i===19);
+    g.appendChild(el('circle',{cx:x,cy:y,r:mid?4:2.6,fill:mid?'#ffcf5c':'#5cb3f2'}));
+  }
+  const t=el('text',{x:CX,y:cy-R-14,fill:'#5cb3f2','font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono'});
+  t.textContent='19 · the Metonic cycle'; g.appendChild(t);
+  const s=el('text',{x:CX,y:cy-18,fill:'#8b95ad','font-size':11,'text-anchor':'middle'});
+  s.textContent='19 years = 235 lunations — sun & moon realign'; g.appendChild(s);
+  svg.appendChild(g);
+})();
+
+// ---- 138 doubling pyramid (mirrored = palindrome) ----
+(function(){
+  const rows=[
+    {v:138, m:'×1',  note:'the base'},
+    {v:276, m:'×2',  note:'138 · 2'},
+    {v:552, m:'×4',  note:'appears in II·b / II·c (the 552-yr cycle)'},
+    {v:1104,m:'×8',  note:'552×2 — the doubled comet cycle'},
+    {v:2208,m:'×16', note:'marked 2208 AM on chart II·b (1688 BC)'}
+  ];
+  const maxHW=430, top=330, step=72;
+  rows.forEach((r,i)=>{
+    const hw=r.v/2208*maxHW, y=top+i*step;
+    const inAtlas=[552,1104,2208].includes(r.v);
+    const col=inAtlas?'#ffcf5c':'#5c6a8f';
+    const g=el('g',{style:'cursor:pointer'});
+    // symmetric bar (left mirror + right)
+    g.appendChild(el('line',{x1:CX-hw,y1:y,x2:CX+hw,y2:y,stroke:col,['stroke-width']:11,['stroke-linecap']:'round',opacity:inAtlas?.95:.6}));
+    g.appendChild(el('circle',{cx:CX-hw,cy:y,r:4,fill:col}));
+    g.appendChild(el('circle',{cx:CX+hw,cy:y,r:4,fill:col}));
+    // value chip at centre
+    g.appendChild(el('rect',{x:CX-34,y:y-13,width:68,height:26,rx:13,fill:'#0b0f1a',stroke:col,['stroke-width']:1.3}));
+    const t=el('text',{x:CX,y:y+5,fill:col,'font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono','font-weight':500});
+    t.textContent=r.v; g.appendChild(t);
+    // 138 × m labels on each side (palindrome)
+    ['L','R'].forEach(side=>{
+      const sx=side==='L'?CX-hw-12:CX+hw+12;
+      const tt=el('text',{x:sx,y:y+4,fill:'#aeb7cd','font-size':11,'text-anchor':side==='L'?'end':'start','font-family':'JetBrains Mono'});
+      tt.textContent=`138${r.m}`; g.appendChild(tt);
+    });
+    g.addEventListener('mousemove',e=>showTip(`<div class="t-h">138 ${r.m} = ${r.v}</div><div style="color:#8b95ad;margin-top:3px">${r.note}</div>`,e));
+    g.addEventListener('mouseleave',hideTip);
+    svg.appendChild(g);
+  });
+  const cap=el('text',{x:CX,y:top-22,fill:'#ffcf5c','font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono'});
+  cap.textContent='138 · recursive doubling (mirrored)'; svg.appendChild(cap);
+})();
+
+// ---- palindrome frieze (bottom) ----
+(function(){
+  const y=728;
+  const items=[['19 ↔ 91'],['138 ↔ 831'],['1·1·9 ↔ 9·1·1'],['138 − 19 = 119']];
+  const gap=300; let x=CX-1.5*gap;
+  items.forEach(it=>{
+    const t=el('text',{x:x,y:y,fill:'#c3ccdf','font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono','letter-spacing':'.05em'});
+    t.textContent=it[0]; svg.appendChild(t); x+=gap;
+  });
+})();
+
+// corner label box (book-style)
+(function(){
+  svg.appendChild(el('rect',{x:24,y:24,width:64,height:40,rx:4,fill:'none',stroke:'#4a5a80',['stroke-width']:1.4}));
+  const t=el('text',{x:56,y:51,fill:'#ffcf5c','font-size':20,'text-anchor':'middle','font-family':'Cormorant Garamond','font-weight':700});
+  t.textContent='119'; svg.appendChild(t);
+})();
+</script>
+</body>
+</html>

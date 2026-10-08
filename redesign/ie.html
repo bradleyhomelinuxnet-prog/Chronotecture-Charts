@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart I·e — The Giza Course Countdown</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{--bg:#05070d;--panel:#0b1120;--ink:#e8eefc;--muted:#7f8db0;--line:#1a2338;--line2:#26324f;
+    --cyan:#4fe3ff;--gold:#ffd15c;--green:#7ed491;--red:#ff7a6b;--comet:#5cb3f2;--war:#9c8bf0;--proph:#ffd15c;--quake:#f08a4b;--hist:#37e0c8;
+    --glow-cyan:0 0 18px #4fe3ff55,0 0 4px #4fe3ff88;}
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 720px at 70% -12%,#14213f 0%,#05070d 62%);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;background:repeating-linear-gradient(0deg,#ffffff05 0,#ffffff05 1px,transparent 1px,transparent 3px);mix-blend-mode:overlay}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px;position:relative;z-index:2}
+  header.mast{border-bottom:1px solid var(--line2);padding-bottom:18px;margin-bottom:8px}
+  .kick{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--cyan);text-transform:uppercase;text-shadow:var(--glow-cyan)}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:.98;margin:.2em 0 .08em;
+    background:linear-gradient(180deg,#fff,#bfe9ff 55%,#4fe3ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 24px #4fe3ff33)}
+  h1 .s{display:block;font-size:.42em;letter-spacing:.04em;color:var(--gold);font-weight:600;margin-top:.35em;-webkit-text-fill-color:var(--gold)}
+  .prov{color:var(--muted);font-size:13px;max-width:850px;line-height:1.6;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:22px}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:960px){.bottom{grid-template-columns:1fr}}
+  .grid>*,.bottom>*{min-width:0}
+  .card{min-width:0;background:linear-gradient(180deg,#0b1120,#080d18);border:1px solid var(--line2);border-radius:16px;padding:16px 18px}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;margin:2px 0 4px;color:#eaf4ff}
+  .card .hint{color:var(--muted);font-size:12px;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  .scroll svg{min-width:760px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .mrow{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;margin-bottom:9px}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13px;color:#eaf4ff}
+  .mrow .cap{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5}
+  .g{color:var(--gold);font-weight:600}.c{color:var(--cyan);font-weight:600}
+  table.chk{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px}
+  table.chk th{color:var(--muted);font-weight:500;text-align:left;border-bottom:1px solid var(--line2);padding:6px 6px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
+  table.chk td{padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:top}
+  table.chk td.n{text-align:right;font-variant-numeric:tabular-nums}
+  .ok{color:var(--green)}.bad{color:var(--red);font-weight:600}
+  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);font:12px 'JetBrains Mono',monospace;border-radius:100px;padding:6px 12px;display:inline-flex;align-items:center;gap:7px}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip[aria-pressed="false"]{opacity:.32;filter:saturate(.2)}
+  .chip:focus-visible,.bar:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:14px;padding-top:12px}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);border-radius:11px;
+    padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transition:.12s;box-shadow:0 18px 40px -18px #000}
+  #tip .h{font-weight:600;font-family:'JetBrains Mono',monospace;color:var(--cyan)}
+  #tip .y{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11.5px;margin-top:2px}
+  #tip .b{color:var(--muted);margin-top:4px}
+  .back{position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px;backdrop-filter:blur(6px)}
+  .back:hover{border-color:#4fe3ff;box-shadow:0 0 14px #4fe3ff55}
+  @media(max-width:640px){.wrap{padding:56px 16px 60px}.back{top:10px;right:12px}}
+  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+</style>
+</head>
+<body>
+<a class="back" href="../index.html">&larr; Atlas</a>
+<div class="wrap">
+  <header class="mast">
+    <div class="kick">Lost Science of Prophetic Engineering · Chart I·e · Breshears '07</div>
+    <h1>The Giza Course Countdown<span class="s">204 levels of bricks, read as years: 1902 to 2106 AD</span></h1>
+    <p class="prov">A modern rebuild of Breshears' Chart I·e, preserved verbatim. The count starts at <b>1902 AD [5796 AM]</b>, where the Stonehenge chronolithic system ends. Seven bars run from there, each to a dated event, and the whole countdown ends at <b>6000 AM (2106 AD)</b>: <b>204 years, or 2448 months</b>, the same number as the Anno Mundi year of the Exodus.</p>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Counts from 1902 AD</h2>
+      <div class="hint">Bars start at 1902 AD [5796 AM] · hover or tap for the event · ruled in decades, as on the plate</div>
+      <div class="scroll"><svg id="tl" viewBox="0 0 1400 600" role="img" aria-label="Seven counts from 1902 AD to 2046 AD, and the countdown to 2106 AD"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card">
+        <h2>Every figure, checked</h2>
+        <div class="hint">Worked out from the chart's own numbers · AM = years since 3895 BC (1 AM)</div>
+        <div class="scroll"><table class="chk" id="chk"><thead><tr><th>Claim on the chart</th><th class="n">Chart</th><th class="n">Worked out</th><th></th></tr></thead><tbody></tbody></table></div>
+      </div>
+      <div class="card">
+        <h2>The measures</h2>
+        <div class="mrow"><div class="eq"><span class="g">204</span> years × 12 = <span class="c">2448</span> months</div><div class="cap">The Giza Course countdown, 1902 to 2106 AD. It parallels 2448 AM, the year of the Exodus in 1447 BC [144.7 decans BC]: 6000 AM in its 2448th month is "Man's Exodus from 6000 years in exile."</div></div>
+        <div class="mrow"><div class="eq">72 + 72 = <span class="g">144</span></div><div class="cap">72 bricks plus the shaded face (an inferred 72 bricks) is 144, the length of the longest bar.</div></div>
+        <div class="mrow"><div class="eq">5940 = 660×9 = 108×55</div><div class="cap">2046 AD [5940 AM], the asteroid impact: the Second Trumpet of Revelation, a third of Earth destroyed.</div></div>
+        <div class="mrow"><div class="eq">33 × 365 = 12,045 = 10,000 + 2045</div><div class="cap">1935 AD, the Great Seal on US currency: 33 years in days.</div></div>
+        <div class="mrow"><div class="eq">70 + 70 = <span class="c">140</span></div><div class="cap">1972 AD, then 70 more years to 2042 AD [5936 AM], the Sixth Seal.</div></div>
+        <div class="foot">Source: J. M. Breshears, <i>Chronotecture</i> (2017), Chart I·e (plate 17). Content transcribed unchanged; interpretive redraw for study.</div>
+      </div>
+    </div>
+  </div>
+</div>
+<div id="tip" role="status" aria-live="polite"></div>
+<script>
+var NS='http://www.w3.org/2000/svg';
+function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
+function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
+var tip=document.getElementById('tip');
+function show(h,e){tip.innerHTML=h;tip.style.opacity=1;var r=e.clientX!=null?{x:e.clientX,y:e.clientY}:(function(){var b=e.target.getBoundingClientRect();return{x:b.left+b.width/2,y:b.top};})();var x=r.x+15,y=r.y+13;if(x+300>innerWidth)x=Math.max(8,r.x-306);if(y+150>innerHeight)y=r.y-150;tip.style.left=x+'px';tip.style.top=y+'px';}
+function hide(){tip.style.opacity=0;}
+
+var START=1902, END=2106, AM_START=-3895;
+function am(y){return (y<0?y+1:y)-(AM_START+1);}   // years since 3895 BC, no year 0
+
+// Transcribed from the plate. months/am = as printed (null = not printed).
+var BARS=[
+  {yrs:12,  months:144, label:'144 months', to:1914, am:5808, col:'#9c8bf0', t:'World War I begins; typhus epidemic'},
+  {yrs:33,  months:null,label:'33 years',   to:1935, am:5829, col:'#37e0c8', t:'The United States publishes the Great Seal on US currency. 33 years × 365 days is 12,045 days, or 10,000 plus 2045 days.'},
+  {yrs:60,  months:720, label:'60 years [720 months]', to:1962, am:5856, col:'#ffd15c', t:'Ends all 7200 years of the Anunnaki Ner chronology'},
+  {yrs:70,  months:840, label:'70 years [840 months]', to:1972, am:5866, col:'#5cb3f2', t:'A football-field-sized meteorite blazes over the northern USA and Canada', more:{yrs:70,to:2042,am:5936,t:'Sixth Seal of Revelation; meteorites bombard Earth',label:'70 more years [140 yrs]'}},
+  {yrs:90,  months:1080,label:'90 years [1080 months]', to:1992, am:5886, col:'#4fe3ff', t:'Swift-Tuttle comet. The USA completes its dominion over Babylon [Iraq].'},
+  {yrs:120, months:1440,label:'120 years (1440 months)', to:2022, am:5916, col:'#f08a4b', t:'USA foreign armies destroyed: Islamic forces completely destroy Middle East American armies'},
+  {yrs:144, months:null,label:'144 years', to:2046, am:5940, col:'#ff7a6b', t:'Asteroid impact. 2046 AD is the Second Trumpet of Revelation; a third of Earth destroyed. 5940 is 660×9 or 108×55.'}
+];
+
+var YMIN=1896, YMAX=2112, PL=70, PR=1350, TOP=92, RH=56;
+function X(y){return PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);}
+
+(function draw(){
+  var svg=document.getElementById('tl');
+  var bottom=TOP+BARS.length*RH+16;
+  for(var yv=1900;yv<=2110;yv+=10){var xx=X(yv),major=yv%50===0;
+    svg.appendChild(el('line',{x1:xx,y1:TOP-24,x2:xx,y2:bottom,stroke:major?'#223050':'#141d31','stroke-width':1}));
+    var t=el('text',{x:xx,y:bottom+18,fill:major?'#7f8db0':'#4a5572','font-size':major?11:9.5,'text-anchor':'middle','font-family':'JetBrains Mono'});t.textContent=yv;svg.appendChild(t);}
+  // countdown strip 1902 -> 2106
+  var cy=bottom+54;
+  svg.appendChild(el('line',{x1:X(START),y1:cy,x2:X(END),y2:cy,stroke:'#ffd15c','stroke-width':3}));
+  svg.appendChild(el('path',{d:'M '+X(END)+' '+cy+' l -12 -7 l 0 14 z',fill:'#ffd15c'}));
+  var ct=el('text',{x:(X(START)+X(END))/2,y:cy-10,fill:'#ffd15c','font-size':12,'text-anchor':'middle','font-family':'JetBrains Mono'});ct.textContent='Giza Course countdown · 204 levels of bricks [years] · 2448 months';svg.appendChild(ct);
+  [[START,'1902 AD [5796 AM] · Stonehenge chronolithic system ends','#ffd15c','start'],[END,'6000 AM [2106 AD] · Armageddon; return of the Chief Cornerstone','#ffd15c','end']].forEach(function(a){
+    var xx=X(a[0]);svg.appendChild(el('line',{x1:xx,y1:TOP-60,x2:xx,y2:cy,stroke:a[2],'stroke-width':a[0]===START?2:1.2,'stroke-dasharray':a[0]===START?'':'4 5',opacity:.9}));
+    var t=el('text',{x:xx+(a[3]==='start'?6:-6),y:TOP-64,fill:a[2],'font-size':12,'text-anchor':a[3],'font-family':'JetBrains Mono'});t.textContent=a[1];svg.appendChild(t);});
+  function bind(g,h){g.addEventListener('mousemove',function(e){show(h,e);});g.addEventListener('mouseleave',hide);g.addEventListener('focus',function(e){show(h,e);});g.addEventListener('blur',hide);g.addEventListener('click',function(e){show(h,e);});}
+  BARS.forEach(function(b,i){
+    var y=TOP+i*RH, x0=X(START), x1=X(b.to);
+    var g=el('g',{class:'bar',tabindex:'0',role:'button','aria-label':b.label+' to '+b.to+' AD',style:'cursor:pointer'});
+    g.appendChild(el('rect',{x:x0,y:y,width:x1-x0,height:20,rx:4,fill:b.col,opacity:.9}));
+    g.appendChild(el('circle',{cx:x1,cy:y+10,r:5.5,fill:b.col,stroke:'#05070d','stroke-width':1.5}));
+    bind(g,'<div class="h">'+esc(b.label+' to '+b.to+' AD')+'</div><div class="y">'+esc(b.to+' AD ['+b.am+' AM]')+'</div><div class="b">'+esc(b.t)+'</div>');
+    svg.appendChild(g);
+    var lx=(b.more?X(b.more.to):x1)+10;
+    var lab=el('text',{x:lx,y:y+14,fill:'#dfe6f5','font-size':11.5,'font-family':'JetBrains Mono','pointer-events':'none'});lab.textContent=b.label+' → '+b.to+' AD ['+b.am+' AM]';svg.appendChild(lab);
+    var l2=el('text',{x:lx,y:y+30,fill:'#8b95ad','font-size':10.5,'pointer-events':'none'});var tt=b.more?b.more.label+' → '+b.more.to+' AD ['+b.more.am+'] · Sixth Seal':b.t.split('. ')[0];l2.textContent=tt.length>60?tt.slice(0,58)+'…':tt;svg.appendChild(l2);
+    if(b.more){
+      var x2=X(b.more.to), ym=y+4;
+      var g2=el('g',{class:'bar',tabindex:'0',role:'button','aria-label':b.more.label+' to '+b.more.to+' AD',style:'cursor:pointer'});
+      g2.appendChild(el('rect',{x:x1,y:ym,width:x2-x1,height:12,rx:3,fill:'none',stroke:b.col,'stroke-width':1.5,'stroke-dasharray':'5 4'}));
+      g2.appendChild(el('circle',{cx:x2,cy:ym+6,r:4.5,fill:b.col}));
+      bind(g2,'<div class="h">'+esc(b.more.label)+'</div><div class="y">'+esc(b.more.to+' AD ['+b.more.am+' AM]')+'</div><div class="b">'+esc(b.more.t)+'</div>');
+      svg.appendChild(g2);
+    }
+  });
+  svg.setAttribute('viewBox','0 0 1400 '+(cy+26));
+})();
+
+(function check(){
+  var body=document.querySelector('#chk tbody'), rows=[];
+  function add(claim,chart,got){rows.push([claim,chart,got]);}
+  add('1902 AD in AM',5796,am(1902));
+  BARS.forEach(function(b){
+    add(START+' + '+b.yrs,b.to,START+b.yrs);
+    if(b.months!=null) add(b.yrs+' years in months',b.months,b.yrs*12);
+    add(b.to+' AD in AM',b.am,am(b.to));
+    if(b.more){ add(b.to+' + '+b.more.yrs,b.more.to,b.to+b.more.yrs); add('70 + 70',140,b.yrs+b.more.yrs); add(b.more.to+' AD in AM',b.more.am,am(b.more.to)); }
+  });
+  add('33 years × 365 days',12045,33*365);
+  add('10,000 + 2045',12045,10000+2045);
+  add('660 × 9',5940,660*9);
+  add('108 × 55',5940,108*55);
+  add('72 + 72 bricks',144,72+72);
+  add('2106 − 1902 (levels)',204,END-START);
+  add('204 years in months',2448,204*12);
+  add('1447 BC in AM',2448,am(-1447));
+  add('2106 AD in AM',6000,am(2106));
+  rows.forEach(function(r){
+    var ok=r[1]===r[2],tr=document.createElement('tr');
+    tr.innerHTML='<td>'+esc(r[0])+'</td><td class="n">'+r[1]+'</td><td class="n">'+r[2]+'</td><td class="'+(ok?'ok':'bad')+'">'+(ok?'✓':'✗')+'</td>';
+    body.appendChild(tr);
+  });
+  var misses=rows.filter(function(r){return r[1]!==r[2];});
+  var note=(rows.length-misses.length)+' of '+rows.length+' figures check out.';
+  if(misses.length) note+=' '+misses.map(function(r){return r[0]+' is '+r[2]+', not '+r[1]+'.';}).join(' ');
+  var tr=document.createElement('tr');tr.innerHTML='<td colspan="4" style="color:var(--muted);padding-top:10px">'+esc(note)+'</td>';body.appendChild(tr);
+})();
+</script>
+</body>
+</html>
