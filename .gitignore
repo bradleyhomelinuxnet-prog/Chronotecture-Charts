@@ -1,3 +1,7 @@
 *.oph
 .DS_Store
 Thumbs.db
+
+# Local working files kept next to the backup; never part of it
+/Chronotecture-Charts_Update_v1/
+*.mp4
