@@ -16,5 +16,5 @@ window.PLATE = {
     { from: 622, to: 2022, years: 1400, label: '1400 years after the Hijrah', cat: 'hist' },
     { from: -2815, to: 1986, years: 4800, label: '4800 Anno Pyramid', cat: 'hist' } ],
   math: [ { eq: '666 × 3 = 1998', cap: 'The text writes “1998 is 666x8”; 666 × 3 = 1998' }, { eq: '600 × 8 = 4800', cap: '1986 AD is 4800 Anno Pyramid' } ],
-  notes: [ 'Note: 2010 is year 108 of the countdown from 1902 (2010 − 1902 = 108). 2815 BC to 1986 AD is 4800 years.', 'Note: the text dates Armageddon “2106 AD (600 AM)”; elsewhere it is 6000 AM.' ],
+  notes: [ 'Note: 2010 is year 108 of the countdown from 1902 (2010 − 1902 = 108). 2815 BC to 1986 AD is 4800 years.', 'Note: the text dates Armageddon (2106 CE) as “600 AM”; elsewhere it is 6000 AM.' ],
 };

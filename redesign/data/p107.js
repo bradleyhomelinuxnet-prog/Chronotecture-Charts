@@ -30,5 +30,5 @@ window.PLATE = {
     { from: 1, to: 1948, years: 1948, label: '1948 years to Israel', cat: 'hist' },
     { from: -1273, to: -1129, years: 144, label: 'Exactly 144 years', cat: 'hist' } ],
   math: [ { eq: '990 - 744 = 246', cap: 'Enoch Emperor in 744 AM, 246 years before 990 AM' } ],
-  notes: [ '“If it can be shown that the design of the Great Pyramid embodies a prophetic chronology, then we have the very evidence which God Himself declared would be proof that the design is from Him.” E. Raymond Capt.', 'Note: 3895 BC less 1948 years is 1947 BC, and 1948 BC to 1948 AD is 3895 years with no year zero; the text counts 1948 each way.' ],
+  notes: [ '“If it can be shown that the design of the Great Pyramid embodies a prophetic chronology, then we have the very evidence which God Himself declared would be proof that the design is from Him.” E. Raymond Capt.', 'Note: 3895 BCE less 1948 years is 1947 BCE, and 1948 BCE to 1948 CE is 3895 years with no year zero; the text counts 1948 each way.' ],
 };
