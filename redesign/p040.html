@@ -1,0 +1,392 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart IX — The 2045 AD Subterranean Calendar</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-measure:#5cb3f2; --c-date:#e7c355; --c-event:#9c8bf0; --c-quake:#f08a4b; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  @media(max-width:600px){.wrap{padding:22px 16px 60px}}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px;padding-right:90px}
+  @media(max-width:600px){header.masthead{padding-right:0;padding-top:30px}}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;color:var(--muted);text-transform:uppercase;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-date);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  @media(max-width:880px){.bottom,.two{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  @media(max-width:600px){.card{padding:14px 12px 12px}}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card h2 .pn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;color:var(--anchor);border:1px solid #5a4a1f;border-radius:6px;padding:2px 7px;margin-right:9px;vertical-align:4px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.halo,svg .halo text{paint-order:stroke;stroke:#0b0f1a;stroke-width:4px;stroke-linejoin:round}
+  .hot{cursor:pointer}
+  .hot:hover .hl,.hot.on .hl{stroke-width:3.2px;filter:drop-shadow(0 0 6px currentColor)}
+  .hot:hover text{fill:#fff}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:min(300px,calc(100vw - 24px));background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-date);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  #tip q{color:#cfd6e8;font-style:italic;quotes:"“" "”"}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:11px;color:#6f7a96;font-style:italic;margin-top:2px}
+  .mrow.off{border-color:#4a3a2a}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+
+  details.tr summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none;display:flex;align-items:center;gap:10px}
+  details.tr summary::-webkit-details-marker{display:none}
+  details.tr summary::before{content:'▸';font-size:15px;color:var(--muted);transition:.15s}
+  details.tr[open] summary::before{transform:rotate(90deg)}
+  details.tr summary small{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);font-weight:400}
+  .trgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:8px 26px;margin-top:12px}
+  .trgrid h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--c-measure);margin:12px 0 6px;font-weight:500}
+  .trgrid ul{margin:0;padding:0 0 0 16px}
+  .trgrid li{font-size:13px;line-height:1.5;color:#cfd6e8;margin-bottom:5px}
+  .trgrid li .u{color:#f0a85a;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .uncert{font-size:12px;color:var(--muted);margin-top:12px;border-top:1px dashed var(--line2);padding-top:10px;line-height:1.55}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin:2px 0 6px}
+  .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:3px}
+
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;IX · Plate&nbsp;40</div>
+    <h1>Chronotecture
+      <span class="sub">2045&nbsp;AD, Chief Calendrical Theme of the Great Pyramid: the Subterranean Level</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn chart&nbsp;IX (<b>2006</b>). Every date, span, measurement and annotation is preserved verbatim; only the visual language is redesigned. Its structural key: <b>the descending passage (4146&nbsp;P″) lands on a floor joint at 1699&nbsp;AD, and each horizontal pyramid-inch south of it adds one year</b>: 302 to the central axis (2001&nbsp;AD), 44 to the chamber's north wall (2045&nbsp;AD), 162 to the well-pit axis (2207&nbsp;AD).</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+
+  <div class="grid">
+    <div class="card">
+      <h2><span class="pn">IX</span>Section and subterranean year-chain</h2>
+      <div class="hint">North face on the right, as drawn on the plate. The lower strip expands the subterranean level (not to scale): 1&nbsp;P″ = 1&nbsp;year, counted southward from the floor joint. Hover or tap any line, node or note.</div>
+      <svg id="sec" viewBox="0 -20 1000 840" role="img" aria-label="Great Pyramid section with subterranean year chain"></svg>
+    </div>
+
+    <div class="bottom">
+      <div class="card">
+        <h2>Cycle mathematics</h2>
+        <div class="hint">The arithmetic written on the plate, checked. AD + 3894 = AM throughout.</div>
+        <div class="mathgrid">
+          <div class="mrow"><span class="eq">302 + 1699 = 2001 AD [5895 AM]</span><span class="cap">Floor joint → central axis; "Muslim attack on World Trade Center."</span></div>
+          <div class="mrow"><span class="eq">2001 + 44 = 2045 AD [5939 AM]</span><span class="cap">North wall of chamber, 44&nbsp;P″ from the central axis.</span></div>
+          <div class="mrow"><span class="eq">2045 + 162 → 2207 AD</span><span class="cap">The 162&nbsp;P″ dimension to the well-pit axis (sum implied by the drawing).</span></div>
+          <div class="mrow"><span class="eq">2207 + 906 / 907 → 3113 / 3114</span><span class="cap">Uneven terminus 906–907&nbsp;P″ from the axis; read across calendars as the Mayan Long-Count starts 3114 or 3113&nbsp;BC.</span></div>
+          <div class="mrow"><span class="eq">4146 = <span class="base138">414</span> × 10 + 6</span><span class="cap">"10 Cursed Earth Periods +6 [<span class="base138">414</span>x10]", entrance to floor joint. (414 = 138×3.)</span></div>
+          <div class="mrow"><span class="eq">3114 BC [781 AM] → 1447 AM [2448 BC]</span><span class="cap">Mayan start mirrored onto the Exodus, 1447&nbsp;BC [2448&nbsp;AM].</span></div>
+          <div class="mrow"><span class="eq">2207 AM = 1688 BC</span><span class="cap">The well-pit year read as Anno Mundi: when Stonehenge was built.</span></div>
+          <div class="mrow"><span class="eq">1902 + 144 = 2046 AD</span><span class="cap">"The Chronoliths terminate at 1902&nbsp;AD ..... 144 years before 2046&nbsp;AD."</span></div>
+          <div class="mrow"><span class="eq">51 × 4 faces = 204</span><span class="cap">The 51.51 angle; 2045 → 204.5 courses, or 204 decans of 10 years.</span></div>
+          <div class="mrow"><span class="eq">666</span><span class="cap">Dashed height marked from the pyramid entry down to the base line.</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>Courses and chronoliths</h2>
+        <div class="hint">The plate's Stonehenge inset: each course of masonry is a decade, and the top-stone is 15, the number of Stonehenge chronoliths.</div>
+        <svg id="stone" viewBox="0 0 520 360" role="img" aria-label="Stonehenge chronoliths inset"></svg>
+      </div>
+    </div>
+
+    <div class="card">
+      <details class="tr">
+        <summary>Full transcription <small>every annotation on the plate, verbatim, grouped by region</small></summary>
+        <div class="trgrid">
+          <div>
+            <h3>Upper left (title)</h3>
+            <ul>
+              <li>2045 AD Chief Calendrical Theme of Great Pyramid</li>
+              <li>2045 AD translates architecturally as 204.5 courses of masonry or 204 decans, each level of bricks and top-stone representing 10 years except top stone which is <u>15</u> [number of Stonehenge chronoliths.</li>
+              <li>(on the south face) 51.51 angle · 51x4 faces = 204</li>
+              <li>(inset) 10 pillars · 15 chrono-liths</li>
+            </ul>
+            <h3>Pyramid</h3>
+            <ul>
+              <li>Central North-South Axis</li>
+              <li>204 P" between both axis</li>
+              <li>(along the descending passage) 4146 P"</li>
+              <li>666 (dashed height at the entry)</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Upper right</h3>
+            <ul>
+              <li>Breshears '06 · IX</li>
+              <li>Start of Mayan Long-Count 3114 BC [781 AM] becomes 1447 Annus Mundi [2448 BC]; a cross-calendrical parallel of Exodus and 10 Plagues in 1447 BC [2448 AM]</li>
+              <li>Entrance to Floor Joint 4146 P", or 10 Cursed Earth Periods +6 [414x10]</li>
+              <li>4146 P" to Pyramid Entry.</li>
+            </ul>
+            <h3>Subterranean level</h3>
+            <ul>
+              <li>Floor Joint is 1699 AD [5593 AM]</li>
+              <li>302 P"</li>
+              <li>302+1699 AD is 2001 AD [5895 AM] Muslim attack on World Trade Center.</li>
+              <li>44 P" · 162 P" · Great Step · Central Axis</li>
+              <li>North wall of Chamber 44 P" from Central Axis [2001 AD], resulting with date of <u>2045 AD</u> [5939 AM]; <u>End</u> of Western Civilization in Northern Hemispheric America</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Lower left</h3>
+            <ul>
+              <li>906-907 P"</li>
+              <li>Uneven terminus of 906-907 P" from axis at 2207 AD provides us cross-calendrical dates <u>both</u> cited by scholars to be start dates for the Mayan Long-Count 3114 or 3113 BC</li>
+              <li>Well Pit Axis marks the year 2207 AD, a cross-calendrical parallel of 2207 Annus Mundi, or 1688 BC when <u>Stonehenge</u> was built. The Chronoliths terminate at 1902 AD ..... 144 years before <u>2046 AD</u>.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="uncert"><b>Reading notes.</b> The title note says 2045&nbsp;AD; the well-pit note ends on "2046&nbsp;AD" (as written). "204&nbsp;P″ between both axis" and the 44&nbsp;+&nbsp;162 chain are kept as separate dimensions as drawn; the plate is not to scale. "666" carries no unit on this plate.</div>
+      </details>
+    </div>
+
+    <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;IX (plate&nbsp;40). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+  </div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function tx(parent,x,y,str,a){const t=el('text',Object.assign({x,y,fill:'#cfd6e8','font-size':14},a||{}),parent);
+  const lines=String(str).split('\n');
+  if(lines.length===1){t.textContent=str;}
+  else{const lh=(a&&a.lh)||((+(a&&a['font-size'])||14)*1.25);lines.forEach((l,i)=>{const s=el('tspan',{x,dy:i?lh:0},t);s.textContent=l;});}
+  return t;}
+const tip=document.getElementById('tip');
+let tipLock=false;
+function showTip(html,e){tip.innerHTML=html;tip.style.opacity=1;
+  const w=tip.offsetWidth||290,h=tip.offsetHeight||120;
+  let x=e.clientX+16,y=e.clientY+14;
+  if(x+w>innerWidth-8)x=Math.max(8,e.clientX-w-12);
+  if(y+h>innerHeight-8)y=Math.max(8,e.clientY-h-12);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;document.querySelectorAll('.hot.on').forEach(g=>g.classList.remove('on'));}
+function T(col,title,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function hot(g,html){g.classList.add('hot');
+  g.addEventListener('mousemove',e=>{if(!tipLock)showTip(html,e);});
+  g.addEventListener('mouseleave',()=>{if(!tipLock)hideTip();});
+  g.addEventListener('click',e=>{e.stopPropagation();hideTip();g.classList.add('on');tipLock=true;showTip(html,e);});
+  return g;}
+document.addEventListener('click',()=>{tipLock=false;hideTip();});
+window.addEventListener('scroll',()=>{if(tipLock){tipLock=false;hideTip();}},{passive:true});
+
+/* ---------- filter chips ---------- */
+function makeChips(CAT,barId){
+  const bar=document.getElementById(barId||'filters');if(!bar)return;
+  const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{
+    const c=document.createElement('div');c.className='chip';c.dataset.k=k;
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=(e)=>{e.stopPropagation();if(active.has(k)){active.delete(k);c.classList.add('off');}else{active.add(k);c.classList.remove('off');}
+      document.querySelectorAll('[data-cat]').forEach(g=>{g.style.display=active.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);});
+}
+
+/* ---------- Great Pyramid section (shared schematic geometry) ----------
+   Base frame: ground y=330, apex (500,0), central axis x=500, north face on the RIGHT. */
+function section(svg,o){
+  o=Object.assign({ox:500,oy:330,s:1,sub:true,subDepth:150,wide:440,chambers:true,courses:true},o||{});
+  const P=(x,y)=>[o.ox+o.s*(x-500),o.oy+o.s*(y-330)];
+  const R={P,s:o.s};
+  R.apex=P(500,0);R.bL=P(238,330);R.bR=P(762,330);
+  R.E=P(730,290);R.C=P(683,313);R.F=P(509,400);R.Gs=P(610,278);R.GS=P(512,230);
+  R.Q=P(503,278);R.K=P(465,222);R.S=P(432,394);R.T=P(330,400);R.pit=P(430,440);
+  R.groundY=R.bL[1];R.axisX=R.apex[0];
+  const g=el('g',{},svg);R.g=g;
+  const L=o.ox-o.s*o.wide,Rr=o.ox+o.s*o.wide;
+  if(o.sub){el('rect',{x:L,y:R.groundY,width:Rr-L,height:o.s*o.subDepth,fill:'#070b14',opacity:.85},g);
+    for(let y=R.groundY+14*o.s;y<R.groundY+o.s*o.subDepth;y+=16*o.s)el('line',{x1:L,y1:y,x2:Rr,y2:y,stroke:'#121a2c','stroke-width':1},g);}
+  el('polygon',{points:`${R.apex} ${R.bL} ${R.bR}`,fill:'#111a2e',stroke:'#3a4a6e','stroke-width':1.4},g);
+  if(o.courses){for(let y=R.apex[1]+14*o.s;y<R.groundY;y+=13*o.s){const t=(y-R.apex[1])/(R.groundY-R.apex[1]);
+    el('line',{x1:R.apex[0]+(R.bL[0]-R.apex[0])*t+2,y1:y,x2:R.apex[0]+(R.bR[0]-R.apex[0])*t-2,y2:y,stroke:'#1d2944','stroke-width':1},g);}}
+  el('line',{x1:L,y1:R.groundY,x2:Rr,y2:R.groundY,stroke:'#4a5a80','stroke-width':1.6},g);
+  const pas=(pts,w)=>{const d='M'+pts.map(p=>p.join(' ')).join(' L');
+    el('path',{d,fill:'none',stroke:'#5f7299','stroke-width':(w||7)*o.s,'stroke-linejoin':'round','stroke-linecap':'round',opacity:.45},g);
+    el('path',{d,fill:'none',stroke:'#e3e9f6','stroke-width':1.8,'stroke-linejoin':'round','stroke-linecap':'round'},g);};
+  // descending passage + subterranean
+  pas([R.E,R.F,P(470,400)]);
+  if(o.chambers){
+    pas([R.C,R.Gs]);                         // ascending
+    pas([R.Gs,R.GS],11);                     // grand gallery
+    pas([R.Gs,P(512,278)],5);                // queen's passage
+    el('path',{d:`M${P(493,279)} L${P(493,268)} L${P(502,262)} L${P(511,268)} L${P(511,279)} Z`,fill:'#e3e9f6',opacity:.85},g); // queen's chamber
+    el('path',{d:`M${P(512,231)} L${P(502,231)} L${P(502,226)} L${P(490,226)} L${P(490,231)} L${P(486,231)} L${P(486,213)} L${P(442,213)} L${P(442,232)} L${P(512,232)} Z`,fill:'#e3e9f6',opacity:.85},g); // antechamber + king's chamber
+  }
+  // subterranean chamber, pit, dead-end
+  el('rect',{x:P(395,386)[0],y:P(395,386)[1],width:75*o.s,height:18*o.s,fill:'#e3e9f6',opacity:.85},g);
+  el('rect',{x:P(426,404)[0],y:P(426,404)[1],width:9*o.s,height:36*o.s,fill:'#e3e9f6',opacity:.7},g);
+  pas([P(395,400),R.T],4);
+  // central axis
+  el('line',{x1:R.axisX,y1:R.apex[1]-10*o.s,x2:R.axisX,y2:R.groundY+o.s*(o.subDepth-6),stroke:'#56628f','stroke-width':1.1,'stroke-dasharray':'4 5',opacity:.8},g);
+  return R;
+}
+/* dimension line between a and b, offset perpendicular by off; label along it */
+function dim(parent,a,b,label,col,off,o){o=o||{};
+  const dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len;
+  const A=[a[0]+nx*off,a[1]+ny*off],B=[b[0]+nx*off,b[1]+ny*off];
+  const g=el('g',{},parent);
+  if(off){el('line',{x1:a[0],y1:a[1],x2:A[0]+nx*4*Math.sign(off),y2:A[1]+ny*4*Math.sign(off),stroke:col,'stroke-width':.8,opacity:.5},g);
+    el('line',{x1:b[0],y1:b[1],x2:B[0]+nx*4*Math.sign(off),y2:B[1]+ny*4*Math.sign(off),stroke:col,'stroke-width':.8,opacity:.5},g);}
+  el('line',{x1:A[0],y1:A[1],x2:B[0],y2:B[1],stroke:col,'stroke-width':1.6,class:'hl',...(o.dash?{'stroke-dasharray':o.dash}:{})},g);
+  const ah=(p,ux,uy)=>el('path',{d:`M${p[0]} ${p[1]} L${p[0]-ux*9-uy*4} ${p[1]-uy*9+ux*4} L${p[0]-ux*9+uy*4} ${p[1]-uy*9-ux*4} Z`,fill:col},g);
+  if(o.arrows!==false){ah(B,dx/len,dy/len);ah(A,-dx/len,-dy/len);}
+  if(label){let ang=Math.atan2(dy,dx)*180/Math.PI;if(ang>90)ang-=180;if(ang<-90)ang+=180;
+    const m=[(A[0]+B[0])/2+nx*(o.lo||12)*Math.sign(off||1),(A[1]+B[1])/2+ny*(o.lo||12)*Math.sign(off||1)];
+    const t=tx(g,m[0],m[1]+4,label,{fill:col,'font-size':o.fs||14,'text-anchor':'middle','font-family':'JetBrains Mono','font-weight':500,class:'halo',transform:`rotate(${ang} ${m[0]} ${m[1]})`});}
+  return g;}
+/* pin: dot at p with a leader to a label block */
+function pin(parent,p,lp,label,col,o){o=o||{};
+  const g=el('g',{},parent);
+  el('line',{x1:p[0],y1:p[1],x2:lp[0],y2:lp[1]-4,stroke:col,'stroke-width':1,opacity:.6,'stroke-dasharray':o.dash||'none'},g);
+  el('circle',{cx:p[0],cy:p[1],r:o.r||5.5,fill:col,stroke:'#0b0f1a','stroke-width':1.5,class:'hl'},g);
+  el('circle',{cx:p[0],cy:p[1],r:(o.r||5.5)+5,fill:'none',stroke:col,'stroke-width':1,opacity:.45},g);
+  tx(g,lp[0],lp[1],label,{fill:o.fill||col,'font-size':o.fs||14,'text-anchor':o.anchor||'start','font-family':o.mono===false?'Space Grotesk':'JetBrains Mono','font-weight':500,class:'halo',lh:o.lh});
+  return g;}
+function arrowHead(parent,p,ang,col,sz){sz=sz||9;const c=Math.cos(ang),s=Math.sin(ang);
+  return el('path',{d:`M${p[0]} ${p[1]} L${p[0]-c*sz-s*sz*.45} ${p[1]-s*sz+c*sz*.45} L${p[0]-c*sz+s*sz*.45} ${p[1]-s*sz-c*sz*.45} Z`,fill:col},parent);}
+
+const CAT={
+  measure :{c:'#5cb3f2',label:'Passage measures (P″)'},
+  modern  :{c:'#e7c355',label:'AD landing dates'},
+  parallel:{c:'#9c8bf0',label:'Cross-calendrical parallels'},
+  stone   :{c:'#37b6a6',label:'Courses & chronoliths'}
+};
+const C=k=>CAT[k].c;
+(function(){
+  const svg=document.getElementById('sec');
+  const R=section(svg,{ox:500,oy:330,s:1,subDepth:150});
+  const lay=k=>el('g',{'data-cat':k},svg);
+
+  // axis label
+  tx(svg,R.axisX+8,40,'CENTRAL NORTH–SOUTH AXIS',{fill:'#7b86a4','font-size':11,'font-family':'JetBrains Mono',transform:`rotate(90 ${R.axisX+8} 40)`,'letter-spacing':'.1em'});
+
+  // --- stone: face angle + title note
+  {const g=hot(lay('stone'),T(C('stone'),'51.51 angle · 51×4 faces = 204','204 courses / decans','"2045 AD translates architecturally as 204.5 courses of masonry or 204 decans, each level of bricks and top-stone representing 10 years except top stone which is 15 [number of Stonehenge chronoliths."'));
+   const a=R.P(330,115),b=R.P(268,193);
+   el('line',{x1:R.apex[0]-4,y1:R.apex[1]+6,x2:R.bL[0]-4,y2:R.bL[1]-4,stroke:C('stone'),'stroke-width':2,class:'hl',opacity:.8},g);
+   tx(g,382,176,'51.51 ANGLE · 51×4 FACES = 204',{fill:C('stone'),'font-size':12.5,'font-family':'JetBrains Mono','text-anchor':'middle',class:'halo',transform:'rotate(-51.6 382 176)'});
+   tx(g,6,22,'2045 AD Chief Calendrical\nTheme of Great Pyramid',{fill:'#e9edf6','font-size':19,'font-family':'Cormorant Garamond','font-weight':700,lh:22});
+   tx(g,6,82,'2045 AD translates architecturally\nas 204.5 courses of masonry or\n204 decans, each level 10 years,\nexcept the top stone: 15',{fill:'#9fb0cf','font-size':12.5,lh:16});}
+
+  // --- 666 entry height
+  {const g=hot(lay('measure'),T(C('measure'),'666','entry height','Dashed vertical from the pyramid entry on the north face down to the base line, marked "666".'));
+   el('line',{x1:R.E[0]+3,y1:R.E[1],x2:R.E[0]+3,y2:R.groundY,stroke:C('measure'),'stroke-width':1.6,'stroke-dasharray':'3 3',class:'hl'},g);
+   tx(g,R.E[0]+10,R.E[1]+30,'666',{fill:C('measure'),'font-size':14,'font-family':'JetBrains Mono',class:'halo'});}
+
+  // --- descending passage 4146
+  {const g=hot(lay('measure'),T(C('measure'),'4146 P″ · entrance to floor joint','10 Cursed Earth Periods +6 [414×10]','"Entrance to Floor Joint 4146 P", or 10 Cursed Earth Periods +6 [414x10]." The same 4146 P″ is marked again from the floor joint "to Pyramid Entry."'));
+   dim(g,R.E,R.F,'4146 P″',C('measure'),20,{fs:15});}
+
+  // --- 204 P" between both axis
+  {const g=hot(lay('measure'),T(C('measure'),'204 P″ between both axis','central N–S axis ↔ well-pit axis','The two dashed axes: the pyramid\'s central north-south axis and the axis that drops through the subterranean well pit.'));
+   el('line',{x1:430,y1:250,x2:430,y2:478,stroke:C('measure'),'stroke-width':1,'stroke-dasharray':'2 4',opacity:.8},g);
+   dim(g,[430,312],[500,312],'',C('measure'),0);
+   tx(g,402,300,'204 P″ between both axis',{fill:C('measure'),'font-size':12.5,'font-family':'JetBrains Mono','text-anchor':'end',class:'halo'});}
+
+  // --- upper-right note: Mayan Long-Count / Exodus
+  {const g=hot(lay('parallel'),T(C('parallel'),'Start of Mayan Long-Count','3114 BC [781 AM] → 1447 AM [2448 BC]','"Start of Mayan Long-Count 3114 BC [781 AM] becomes 1447 Annus Mundi [2448 BC]; a cross-calendrical parallel of Exodus and 10 Plagues in 1447 BC [2448 AM]."'));
+   tx(g,770,28,'Start of Mayan Long-Count',{fill:C('parallel'),'font-size':15,'font-weight':600});
+   tx(g,770,50,'3114 BC [781 AM] becomes\n1447 Annus Mundi [2448 BC];\na cross-calendrical parallel\nof Exodus and 10 Plagues\nin 1447 BC [2448 AM]',{fill:'#b9b0f0','font-size':12.5,lh:16});
+   el('line',{x1:770,y1:128,x2:R.E[0]+2,y2:R.E[1]-4,stroke:C('parallel'),'stroke-width':1,'stroke-dasharray':'3 4',opacity:.7},g);}
+
+  // --- pins on section
+  {const g=hot(lay('measure'),T(C('measure'),'Pyramid entry','north face',''));
+   pin(g,R.E,[R.E[0]+34,R.E[1]-26],'ENTRY',C('measure'),{fs:12});}
+
+  // --- year chain strip
+  const Y=650;
+  const N=[ // north → south (right → left)
+    {x:925,sx:R.F[0],sy:R.F[1],cat:'modern',yr:'1699 AD',am:'[5593 AM]',lb:'Floor joint',h:'Floor Joint is 1699 AD [5593 AM]',b:'End of the 4146 P″ descending passage; start of the horizontal year-count.'},
+    {x:760,sx:R.axisX,sy:R.groundY+140,cat:'modern',yr:'2001 AD',am:'[5895 AM]',lb:'Central axis',h:'Central Axis · 2001 AD [5895 AM]',b:'"302+1699 AD is 2001 AD [5895 AM] Muslim attack on World Trade Center."'},
+    {x:595,sx:R.P(470,395)[0],sy:R.P(470,395)[1],cat:'modern',yr:'2045 AD',am:'[5939 AM]',lb:'Great Step ·\nN. wall of chamber',h:'North wall of chamber · 2045 AD [5939 AM]',b:'"North wall of Chamber 44 P" from Central Axis [2001 AD], resulting with date of 2045 AD [5939 AM]; End of Western Civilization in Northern Hemispheric America."'},
+    {x:415,sx:430,sy:R.pit[1],cat:'parallel',yr:'2207 AD',am:'≈ 2207 AM · 1688 BC',lb:'Well pit axis',h:'Well Pit Axis · 2207 AD',b:'"Well Pit Axis marks the year 2207 AD, a cross-calendrical parallel of 2207 Annus Mundi, or 1688 BC when Stonehenge was built. The Chronoliths terminate at 1902 AD ..... 144 years before 2046 AD."'},
+    {x:80,sx:R.T[0],sy:R.T[1],cat:'parallel',yr:'3114 or 3113 BC',am:'Mayan Long-Count',lb:'Uneven terminus',h:'Uneven terminus · 906–907 P″ from axis',b:'"Uneven terminus of 906-907 P" from axis at 2207 AD provides us cross-calendrical dates both cited by scholars to be start dates for the Mayan Long-Count 3114 or 3113 BC."',anchor:'start'}
+  ];
+  // strip frame
+  el('rect',{x:20,y:Y-120,width:960,height:250,rx:14,fill:'#0c1322',stroke:'#24304a'},svg);
+  tx(svg,36,Y-96,'SUBTERRANEAN LEVEL · 1 P″ = 1 YEAR · NOT TO SCALE',{fill:'#6b7699','font-size':11,'font-family':'JetBrains Mono','letter-spacing':'.12em'});
+  tx(svg,964,Y-96,'NORTH →',{fill:'#6b7699','font-size':11,'font-family':'JetBrains Mono','text-anchor':'end','letter-spacing':'.12em'});
+  el('line',{x1:60,y1:Y,x2:940,y2:Y,stroke:'#3a486a','stroke-width':2},svg);
+  const SEG=[[0,1,'302 P″','302 P″ · floor joint → central axis','1699 + 302 = 2001 AD'],[1,2,'44 P″','44 P″ · central axis → north wall','2001 + 44 = 2045 AD'],[2,3,'162 P″','162 P″ · Great Step → well-pit axis','2045 + 162 → 2207 AD'],[3,4,'906–907 P″','906–907 P″ · well-pit axis → uneven terminus','"Uneven terminus of 906-907 P" from axis at 2207 AD"']];
+  SEG.forEach(([i,j,l,h,b])=>{const g=hot(el('g',{'data-cat':'measure'},svg),T(C('measure'),h,'',b));
+    dim(g,[N[j].x+8,Y-26],[N[i].x-8,Y-26],'',C('measure'),0);
+    tx(g,(N[i].x+N[j].x)/2,Y-36,l,{fill:C('measure'),'font-size':15,'font-family':'JetBrains Mono','text-anchor':'middle','font-weight':500,class:'halo'});});
+  N.forEach((n,i)=>{const col=C(n.cat);const g=hot(el('g',{'data-cat':n.cat},svg),T(col,n.h,n.yr+(n.am&&n.am[0]==='['?' '+n.am:''),n.b));
+    el('path',{d:`M${n.sx} ${n.sy} L${n.x} ${Y-60}`,stroke:col,'stroke-width':1,'stroke-dasharray':'1 4',opacity:.55,fill:'none'},g);
+    el('circle',{cx:n.sx,cy:n.sy,r:3.2,fill:col},g);
+    el('line',{x1:n.x,y1:Y-60,x2:n.x,y2:Y+10,stroke:col,'stroke-width':1.4,opacity:.7},g);
+    el('circle',{cx:n.x,cy:Y,r:7,fill:col,stroke:'#0b0f1a','stroke-width':2,class:'hl'},g);
+    const an=n.anchor||'middle';
+    tx(g,n.x,Y+34,n.yr,{fill:col,'font-size':17,'font-family':'JetBrains Mono','font-weight':500,'text-anchor':an,class:'halo'});
+    tx(g,n.x,Y+54,n.am,{fill:'#aeb7cd','font-size':12,'font-family':'JetBrains Mono','text-anchor':an});
+    tx(g,n.x,Y+76,n.lb,{fill:'#8b95ad','font-size':12.5,'text-anchor':an,lh:15});});
+  // 4146 to entry arrow from floor joint node
+  {const g=hot(el('g',{'data-cat':'measure'},svg),T(C('measure'),'4146 P″ to Pyramid Entry','floor joint → entry','Marked beside the floor joint on the plate.'));
+   el('line',{x1:925,y1:Y-8,x2:965,y2:Y-58,stroke:C('measure'),'stroke-width':1.6,class:'hl'},g);arrowHead(g,[965,Y-58],Math.atan2(-50,40),C('measure'));
+   tx(g,958,Y-70,'4146 P″ to entry',{fill:C('measure'),'font-size':11.5,'font-family':'JetBrains Mono','text-anchor':'end',class:'halo'});}
+})();
+
+(function(){ // Stonehenge inset
+  const svg=document.getElementById('stone');const col=C('stone');
+  const g=hot(el('g',{'data-cat':'stone'},svg),T(col,'10 pillars · 15 chronoliths','top stone = 15','"…each level of bricks and top-stone representing 10 years except top stone which is 15 [number of Stonehenge chronoliths."'));
+  // horseshoe of pillars drawn as uprights
+  const cx=260,cy=200;
+  const pts=[];for(let i=0;i<10;i++){const a=Math.PI*(0.1+0.8*(i+Math.floor(i/2)*0.9)/13.5);pts.push([cx-Math.cos(a)*190,cy-Math.sin(a)*120+40]);}
+  pts.forEach(([x,y])=>el('rect',{x:x-8,y:y-40,width:16,height:58,rx:2,fill:'#0f1f26',stroke:col,'stroke-width':1.6,class:'hl'},g));
+  for(let i=0;i<5;i++){const [x1,y1]=pts[2*i],[x2,y2]=pts[2*i+1];
+    el('line',{x1:x1-8,y1:y1-44,x2:x2+8,y2:y2-44,stroke:col,'stroke-width':8,'stroke-linecap':'round',opacity:.8},g);}
+  tx(g,cx,cy+70,'10 PILLARS',{fill:'#e9edf6','font-size':16,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  tx(g,cx,cy+94,'15 CHRONOLITHS',{fill:col,'font-size':16,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  // course ladder
+  const g2=hot(el('g',{'data-cat':'stone'},svg),T(col,'204.5 courses = 2045 AD','each course = 10 years','"2045 AD translates architecturally as 204.5 courses of masonry or 204 decans."'));
+  tx(g2,20,30,'204.5 courses × 10 yrs → 2045',{fill:'#9fb0cf','font-size':13,'font-family':'JetBrains Mono'});
+  tx(g2,20,50,'top stone = 15',{fill:col,'font-size':13,'font-family':'JetBrains Mono'});
+  tx(svg,cx,350,'interpretive glyph after the plate\'s inset sketch',{fill:'#5d6885','font-size':11,'text-anchor':'middle'});
+})();
+makeChips(CAT);
+</script>
+</body>
+</html>

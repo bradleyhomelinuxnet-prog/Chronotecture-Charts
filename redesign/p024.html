@@ -1,0 +1,389 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart V — The 3014 P″ Horizontal Axis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:96px;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:880px){.bottom,.two{grid-template-columns:1fr}}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -6px;padding:0 6px}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.12em;margin-bottom:4px}
+  @media(max-width:700px){ .scroll svg.wide{min-width:760px} .swipe{display:block} }
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .halo{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  .hot{cursor:pointer}
+  .hot:hover > .hl, .hot.on > .hl{filter:brightness(1.35)}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transform:translateY(4px);
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#c9906e;font-family:'JetBrains Mono',monospace;margin-top:3px}
+  .mrow.off{border-color:#5a3a2a88}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:22px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+
+  details.tx summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none;display:flex;align-items:center;gap:10px}
+  details.tx summary::-webkit-details-marker{display:none}
+  details.tx summary::before{content:'+';font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--c-proph);width:14px}
+  details.tx[open] summary::before{content:'\2212'}
+  .txgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:4px 26px;margin-top:10px}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:14px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:16px}
+  .tx li{font-size:13px;line-height:1.55;margin-bottom:5px;color:#d5dbea}
+  .tx .q{font-family:'JetBrains Mono',monospace;font-size:12px}
+  .unc{color:#f0a36b}
+  @media(max-width:600px){ .wrap{padding:22px 16px 60px} .card{padding:16px 14px 12px} }
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;V · Plate&nbsp;24</div>
+    <h1>Chronotecture
+      <span class="sub">The Entrance, the 3014&nbsp;P″ Axis and the 2090&nbsp;AD Well-Pit Differential</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn chart&nbsp;V (<b>'06</b>), preserved verbatim; only the visual language is redesigned. Its structural key: <b>one chained path of pyramid-inches</b> — 666&nbsp;P″ up to the entrance, 1110&nbsp;P″ down the descending passage, 3014&nbsp;P″ along a horizontal axis and a 204&nbsp;P″ differential — carries the count from 990&nbsp;AM to 2090&nbsp;AD.</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Layers</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2>The passage path read as years</h2>
+      <div class="hint">North face (entry) at right. The heavy path runs 1110&nbsp;P″ down the descending passage, then 3014&nbsp;P″ along a horizontal axis to the well-pit axis. 1&nbsp;P″ = 1&nbsp;year. Hover or tap any line, node or note.</div>
+      <svg id="sec" viewBox="0 0 1000 640" role="img" aria-label="Great Pyramid cross-section with measured path"></svg>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h2>Entrance detail — the 19th course</h2>
+        <div class="hint">The lower inset of the plate: the entrance sits on the 19th masonry course, 666&nbsp;P″ above the base.</div>
+        <svg id="ent" viewBox="0 0 720 470" role="img" aria-label="Entrance detail at the 19th course"></svg>
+      </div>
+      <div class="card">
+        <h2>Year ruler</h2>
+        <div class="hint">The chained measurements laid end to end, from the start of construction to 2090&nbsp;AD (to scale).</div>
+        <svg id="rul" viewBox="0 0 720 470" role="img" aria-label="Chained year ruler"></svg>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="card">
+        <h2>Cycle mathematics</h2>
+        <div class="hint">Every sum written on the plate. Each step adds a passage length in pyramid-inches to the previous date.</div>
+        <div class="mathgrid">
+          <div class="mrow"><span class="eq">990 AM + 666 P″ = 1656 AM</span><span class="cap">Sethites begin construction [2905&nbsp;BC] + height of entrance above base → Great Flood [2239&nbsp;BC]</span></div>
+          <div class="mrow"><span class="eq">1656 AM + 1110 P″ = 2766 AM</span><span class="cap">Flood + descending passage to the axis conjunct → [1129&nbsp;BC]</span></div>
+          <div class="mrow"><span class="eq">2766 AM + 3014 P″ = 5780 AM</span><span class="cap">+ horizontal P″ axis "to axis" → [1886&nbsp;AD]</span></div>
+          <div class="mrow"><span class="eq">1886 AD + 204 = 2090 AD</span><span class="cap">Differential of 204&nbsp;P″ to the vertical well-pit axis → return of the Seven Comets, 33rd visitation</span></div>
+        </div>
+        <div style="font-size:12.5px;color:var(--muted);line-height:1.6">All four sums check. The plate's paired dates are mutually consistent (990&nbsp;AM = 2905&nbsp;BC, 1656&nbsp;AM = 2239&nbsp;BC, 2766&nbsp;AM = 1129&nbsp;BC, 5780&nbsp;AM = 1886&nbsp;AD). The total path is 666 + 1110 + 3014 + 204 = 4994&nbsp;P″.</div>
+      </div>
+      <div class="card">
+        <details class="tx">
+          <summary>Full transcription</summary>
+          <div class="tx">
+            <h3>Plate corners</h3>
+            <ul><li class="q">V</li><li class="q">Breshears '06</li></ul>
+            <h3>Pyramid cross-section</h3>
+            <ul>
+              <li class="q">Differential of 204 P″</li>
+              <li class="q">3014 Horizontal P″ Axis — To Axis</li>
+              <li class="q">1110 P″ <span style="color:var(--muted)">(along the descending passage from the entrance)</span></li>
+              <li class="q">666 P″ <span style="color:var(--muted)">(vertical, entrance to base, right side)</span></li>
+              <li class="q">2090 AD <span style="color:var(--muted)">(written down the well-pit axis)</span></li>
+              <li class="q">Flood 1656 AM + 1110 P″ is 2766 AM [1129 BC].</li>
+              <li class="q">2766 Annus Mundi + 3014 P″ is 5780 AM [1886 AD]</li>
+              <li class="q">1886 AD to Vertical Well Pit Axis is 204 years, or 2090 AD Return of the Seven Comets for 33rd Visitation to Bring the Seven Plagues of Revelation from the Deep</li>
+            </ul>
+            <h3>Entrance detail (lower inset)</h3>
+            <ul>
+              <li class="q">19th Course Marks Entrance</li>
+              <li class="q">1110 P″ To Axis Conjunct 1129 BC [2766 AM]</li>
+              <li class="q">2239 BC Deluge <span style="color:var(--muted)">(dashed link up to the entrance in the main figure)</span></li>
+              <li class="q">666 P″ Down to Base</li>
+              <li class="q">Sethites Began Pyramid Construction 990 AM [2905 BC]. 990 AM + 666 P″ is 1656 AM Great Flood [2239 BC]</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;V (plate&nbsp;24). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function tx(parent,x,y,s,o){o=o||{};const t=el('text',Object.assign({x:x,y:y,fill:'#dfe6f5','font-size':12},o),parent);t.textContent=s;return t;}
+const tip=document.getElementById('tip');
+let pinned=null;
+function showTip(html,e){ tip.innerHTML=html; tip.style.opacity=1;
+  const w=Math.min(300,window.innerWidth-20);
+  let x=e.clientX+16, yy=e.clientY+14;
+  if(x+w>window.innerWidth) x=Math.max(8,e.clientX-w-10);
+  const h=tip.offsetHeight||140;
+  if(yy+h>window.innerHeight) yy=Math.max(8,e.clientY-h-10);
+  tip.style.left=x+'px'; tip.style.top=yy+'px'; }
+function hideTip(){ tip.style.opacity=0; if(pinned){pinned.classList.remove('on');pinned=null;} }
+function hov(g,html){
+  g.classList.add('hot');
+  g.addEventListener('mousemove',e=>{ if(!pinned) showTip(typeof html==='function'?html():html,e); });
+  g.addEventListener('mouseleave',()=>{ if(!pinned) tip.style.opacity=0; });
+  g.addEventListener('click',e=>{ e.stopPropagation(); if(pinned===g){hideTip();return;}
+    if(pinned) pinned.classList.remove('on'); pinned=g; g.classList.add('on'); showTip(typeof html==='function'?html():html,e); });
+}
+document.addEventListener('click',()=>hideTip());
+window.addEventListener('scroll',()=>{ if(pinned) hideTip(); },{passive:true});
+function T(col,h,yr,b){return `<div class="t-h"><span class="d" style="background:${col}"></span>${h}</div>`+(yr?`<div class="t-yr">${yr}</div>`:'')+(b?`<div class="t-b">${b}</div>`:'');}
+function chips(CAT){
+  const bar=document.getElementById('filters'); if(!bar) return;
+  const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{
+    const c=document.createElement('div'); c.className='chip'; c.dataset.k=k;
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=(e)=>{ e.stopPropagation(); if(active.has(k)){active.delete(k);c.classList.add('off');} else {active.add(k);c.classList.remove('off');} apply(); };
+    bar.appendChild(c);
+  });
+  function apply(){ document.querySelectorAll('[data-cat]').forEach(g=>{ g.style.display = active.has(g.getAttribute('data-cat'))?'':'none'; }); }
+}
+
+
+const CAT={ meas:{c:'#4fe3ff',label:'Measured P″ lengths'}, date:{c:'#e7c355',label:'Dated notes'} };
+const CY='#4fe3ff', GD='#e7c355', VI='#9c8bf0', OR='#f08a4b';
+chips(CAT);
+
+/* ---------- main section ---------- */
+(function(){
+  const s=document.getElementById('sec');
+  const A=[470,40], baseY=470, BL=[52,470], BR=[888,470];
+  const fx=y=>470+(y-40)*(418/430);           // right face x at height y
+  // bedrock
+  el('rect',{x:20,y:baseY,width:960,height:150,fill:'#0a1120'},s);
+  for(let y=baseY+24;y<615;y+=24) el('line',{x1:20,y1:y,x2:980,y2:y,stroke:'#152036','stroke-width':1},s);
+  // body + courses
+  el('polygon',{points:`${A} ${BL} ${BR}`,fill:'#0f1a2f',stroke:'#3a4a6e','stroke-width':1.5},s);
+  for(let y=56;y<baseY;y+=11){const t=(y-40)/430; el('line',{x1:470-418*t,y1:y,x2:470+418*t,y2:y,stroke:'#1b2843','stroke-width':1},s);}
+  el('line',{x1:20,y1:baseY,x2:980,y2:baseY,stroke:'#3a4a6e','stroke-width':1.5},s);
+  tx(s,30,baseY+18,'BASE',{fill:'#56628f','font-size':10,'font-family':'JetBrains Mono','letter-spacing':'.15em'});
+  tx(s,fx(150)+12,150,'NORTH FACE',{fill:'#56628f','font-size':10,'font-family':'JetBrains Mono','letter-spacing':'.15em',transform:`rotate(46 ${fx(150)+12} 150)`});
+
+  // chambers & passages (structure, not interactive)
+  const KC=[318,236], WX=345, AX=372;
+  const E=[fx(330),330], J=[650,384], G0=[520,321], GK=[392,258];
+  const pas=(p,w,c)=>el('polyline',{points:p.map(q=>q.join(',')).join(' '),fill:'none',stroke:c||'#d9e1f2','stroke-width':w,'stroke-linejoin':'round','stroke-linecap':'butt'},s);
+  // grand gallery (wide) + ascending passage
+  pas([GK,G0],16,'#cfd8ea'); pas([G0,J],6,'#cfd8ea');
+  // king's chamber + antechamber
+  el('rect',{x:KC[0],y:KC[1],width:58,height:22,fill:'#cfd8ea'},s);
+  el('rect',{x:376,y:242,width:18,height:16,fill:'#cfd8ea'},s);
+  el('rect',{x:338,y:226,width:12,height:12,fill:'#0f1a2f',stroke:'#cfd8ea','stroke-width':2},s);
+  // queen's chamber + passage
+  el('polygon',{points:'352,322 366,310 380,322 380,336 352,336',fill:'#cfd8ea'},s);
+  pas([[380,331],[515,331]],5,'#cfd8ea');
+  // descending passage (built) + dashed continuation to the pit
+  pas([E,J],7,'#cfd8ea');
+  el('polyline',{points:`${J} 452,566 360,566`,fill:'none',stroke:'#8fa0c4','stroke-width':2,'stroke-dasharray':'6 5'},s);
+  el('rect',{x:322,y:556,width:46,height:20,fill:'none',stroke:'#8fa0c4','stroke-width':2,'stroke-dasharray':'5 4'},s);
+  // well shaft (dashed, from gallery foot down to the descending passage)
+  el('polyline',{points:`${G0[0]-150},331 ${G0[0]-150},470 ${WX+20},470 ${WX+20},540`,fill:'none',stroke:'#3c4a6e','stroke-width':1},s);
+  // axes
+  el('line',{x1:WX,y1:200,x2:WX,y2:612,stroke:'#9c8bf0','stroke-width':1.4,'stroke-dasharray':'4 5'},s);
+  el('line',{x1:AX,y1:200,x2:AX,y2:500,stroke:'#56628f','stroke-width':1.2,'stroke-dasharray':'4 5'},s);
+  tx(s,327,212,'KING’S CH.',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end'});
+  tx(s,456,276,'GRAND GALLERY',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono',transform:'rotate(26 456 276)'});
+  tx(s,345,350,'QUEEN’S CH.',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end'});
+  tx(s,316,590,'PIT',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end'});
+
+  // ---- interactive measured path ----
+  function seg(cat,pts,col,w,html,dash){
+    const g=el('g',{'data-cat':cat},s);
+    el('polyline',{points:pts.map(q=>q.join(',')).join(' '),fill:'none',stroke:'transparent','stroke-width':22},g);
+    el('polyline',{class:'hl',points:pts.map(q=>q.join(',')).join(' '),fill:'none',stroke:col,'stroke-width':w,'stroke-linecap':'round',...(dash?{'stroke-dasharray':dash}:{})},g);
+    hov(g,html); return g;
+  }
+  // 1110 along descending passage
+  const g1=seg('meas',[E,J],CY,5,T(CY,'1110 P″ — descending passage','1656 AM [2239 BC] → 2766 AM [1129 BC]','From the entrance down to the axis conjunct. "Flood 1656 AM + 1110 P″ is 2766 AM [1129 BC]."'));
+  tx(g1,708,350,'1110 P″',{fill:CY,'font-size':13,'font-family':'JetBrains Mono','font-weight':500,class:'halo',transform:'rotate(-26 708 350)'});
+  // 3014 horizontal
+  const g2=seg('meas',[J,[AX,384]],CY,5,T(CY,'3014 Horizontal P″ Axis — to axis','2766 AM [1129 BC] → 5780 AM [1886 AD]','"2766 Annus Mundi + 3014 P″ is 5780 AM [1886 AD]"'));
+  el('path',{d:`M${AX+2} 384 l12 -7 v14 z`,fill:CY},g2);
+  tx(g2,512,376,'3014 HORIZONTAL P″ AXIS',{fill:CY,'font-size':12.5,'font-family':'JetBrains Mono','font-weight':500,'text-anchor':'middle',class:'halo'});
+  tx(g2,512,402,'TO AXIS',{fill:'#8fdcf0','font-size':10.5,'font-family':'JetBrains Mono','text-anchor':'middle',class:'halo'});
+  // 204 differential
+  const g3=seg('meas',[[AX,420],[WX,420]],VI,3,T(VI,'Differential of 204 P″','1886 AD → 2090 AD','The gap between the end of the 3014 P″ axis and the vertical well-pit axis: "1886 AD to Vertical Well Pit Axis is 204 years, or 2090 AD."'));
+  el('line',{x1:AX,y1:412,x2:AX,y2:428,stroke:VI,'stroke-width':2},g3); el('line',{x1:WX,y1:412,x2:WX,y2:428,stroke:VI,'stroke-width':2},g3);
+  tx(g3,250,422,'204 P″',{fill:VI,'font-size':13,'font-family':'JetBrains Mono','font-weight':500,'text-anchor':'end',class:'halo'});
+  el('line',{x1:254,y1:418,x2:WX-3,y2:420,stroke:VI,'stroke-width':1,opacity:.7},g3);
+  tx(g3,250,437,'DIFFERENTIAL',{fill:'#b3a8f2','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end',class:'halo'});
+  // 666 vertical (entrance to base)
+  const g4=seg('meas',[[E[0]+46,E[1]],[E[0]+46,baseY]],CY,3,T(CY,'666 P″ — entrance to base','990 AM [2905 BC] → 1656 AM [2239 BC]','"990 AM + 666 P″ is 1656 AM Great Flood [2239 BC]"'));
+  el('line',{x1:E[0],y1:E[1],x2:E[0]+60,y2:E[1],stroke:CY,'stroke-width':1,'stroke-dasharray':'3 3',opacity:.7},g4);
+  el('path',{d:`M${E[0]+46} ${E[1]} l-5 10 h10 z M${E[0]+46} ${baseY} l-5 -10 h10 z`,fill:CY},g4);
+  tx(g4,E[0]+56,410,'666 P″',{fill:CY,'font-size':13,'font-family':'JetBrains Mono','font-weight':500,class:'halo'});
+
+  // ---- dated nodes & notes ----
+  function node(cat,p,col,lab,lx,ly,anc,html){
+    const g=el('g',{'data-cat':cat},s);
+    el('circle',{cx:p[0],cy:p[1],r:14,fill:'transparent'},g);
+    el('circle',{class:'hl',cx:p[0],cy:p[1],r:6,fill:col,stroke:'#0b0f1a','stroke-width':1.5},g);
+    el('circle',{cx:p[0],cy:p[1],r:11,fill:'none',stroke:col,'stroke-width':1,opacity:.5},g);
+    if(lab){ const L=lab.split('|'); L.forEach((t,i)=>tx(g,lx,ly+i*14,t,{fill:col,'font-size':11.5,'font-family':'JetBrains Mono','text-anchor':anc,class:'halo'})); }
+    hov(g,html); return g;
+  }
+  node('date',E,GD,'ENTRANCE|1656 AM · 2239 BC',E[0]+18,E[1]-26,'start',T(GD,'Entrance — the Flood','1656 AM [2239 BC]','990 AM + 666 P″ is 1656 AM Great Flood [2239 BC]. In the inset the dashed line marked "2239 BC Deluge" rises to this point; the 19th course marks the entrance.'));
+  node('date',J,GD,'2766 AM|1129 BC',J[0]+4,J[1]+30,'start',T(GD,'Axis conjunct','2766 AM [1129 BC]','Flood 1656 AM + 1110 P″ is 2766 AM [1129 BC].'));
+  node('date',[AX,384],GD,'5780 AM|1886 AD',AX+10,356,'start',T(GD,'End of the horizontal axis','5780 AM [1886 AD]','2766 Annus Mundi + 3014 P″ is 5780 AM [1886 AD].'));
+  const n4=node('date',[WX,470],OR,'',0,0,'start',T(OR,'Vertical well-pit axis — 2090 AD','1886 AD + 204 = 2090 AD','"1886 AD to Vertical Well Pit Axis is 204 years, or 2090 AD Return of the Seven Comets for 33rd Visitation to Bring the Seven Plagues of Revelation from the Deep"'));
+  tx(n4,WX-8,540,'2090 AD',{fill:OR,'font-size':13,'font-family':'JetBrains Mono','font-weight':500,'text-anchor':'middle',class:'halo',transform:`rotate(90 ${WX-8} 540)`});
+
+  // left note block
+  const nb=el('g',{'data-cat':'date'},s);
+  el('rect',{x:20,y:478,width:290,height:128,rx:10,fill:'#0e1526',stroke:'#3a2f1e'},nb);
+  ['1886 AD to Vertical Well Pit Axis','is 204 years, or 2090 AD Return of','the Seven Comets for 33rd Visitation','to Bring the SEVEN PLAGUES of','Revelation from the Deep'].forEach((t,i)=>tx(nb,32,500+i*20,t,{fill:i===0?'#f6c89f':'#c9d1e4','font-size':12}));
+  el('path',{d:`M310 540 C 330 540, 330 520, ${WX-4} 500`,fill:'none',stroke:OR,'stroke-width':1.5},nb);
+  hov(nb,T(OR,'Return of the Seven Comets','2090 AD','33rd visitation, bringing the Seven Plagues of Revelation "from the Deep" — read off the vertical well-pit axis, 204 years after 1886 AD.'));
+})();
+
+/* ---------- entrance inset ---------- */
+(function(){
+  const s=document.getElementById('ent');
+  const baseY=440, ch=20;               // 19 courses * 20 = 380 -> entrance course top y=60
+  const fx=y=>420+y*0.75;               // face line x at y (face from (420,0) to (750,440))
+  el('rect',{x:0,y:0,width:720,height:470,fill:'#0b111e'},s);
+  // masonry
+  for(let c=0;c<22;c++){
+    const y1=baseY-c*ch, y0=y1-ch; if(y0<0) break;
+    const xr=fx(y0);
+    el('line',{x1:0,y1:y1,x2:fx(y1),y2:y1,stroke:'#2a3856','stroke-width':1},s);
+    for(let x=(c%2?30:70);x<xr-10;x+=80) el('line',{x1:x,y1:y0,x2:x,y2:y1,stroke:'#22304c','stroke-width':1},s);
+  }
+  el('line',{x1:420,y1:0,x2:fx(baseY),y2:baseY,stroke:'#9fb0d6','stroke-width':2.4},s);
+  el('line',{x1:0,y1:baseY,x2:720,y2:baseY,stroke:'#3a4a6e','stroke-width':2},s);
+  // course numbers
+  [1,5,10,15,19].forEach(n=>tx(s,8,baseY-(n-1)*ch-6,String(n),{fill:n===19?'#e7c355':'#56628f','font-size':10,'font-family':'JetBrains Mono'}));
+  // entrance on the 19th course
+  const ey=baseY-19*ch+ch/2, ex=fx(ey);
+  const band=el('g',{},s);
+  el('polygon',{points:`${ex-4},${ey-14} ${ex+10},${ey+12} ${-20},${ey+12+ (ex+30)*0.49} ${-20},${ey-14+(ex+16)*0.49}`,fill:'#0b0f1a',stroke:'#cfd8ea','stroke-width':1.6},band);
+  // 19th course highlight
+  const hc=el('g',{'data-cat':'date'},s);
+  el('rect',{class:'hl',x:0,y:baseY-19*ch,width:fx(baseY-19*ch)-6,height:ch,fill:'#e7c35522',stroke:'#e7c35577','stroke-width':1},hc);
+  tx(hc,128,baseY-19*ch-8,'19TH COURSE MARKS ENTRANCE →',{fill:'#e7c355','font-size':12,'font-family':'JetBrains Mono',class:'halo'});
+  hov(hc,T('#e7c355','19th Course Marks Entrance','1656 AM · 2239 BC','The entrance is set in the 19th masonry course; its height above the base is 666 P″.'));
+  // passage label (1110)
+  const pg=el('g',{'data-cat':'meas'},s);
+  el('line',{x1:ex-30,y1:ey+12,x2:40,y2:ey+12+(ex-70)*0.49+6,stroke:'transparent','stroke-width':30},pg);
+  const ang=Math.atan(0.49)*180/Math.PI;
+  tx(pg,300,ey+12+(ex-300)*0.49-2,'◄ 1110 P″ TO AXIS CONJUNCT 1129 BC [2766 AM]',{fill:'#4fe3ff','font-size':12,'font-family':'JetBrains Mono','text-anchor':'middle',transform:`rotate(${-ang} 300 ${ey+12+(ex-300)*0.49-2})`,class:'halo'});
+  hov(pg,T('#4fe3ff','1110 P″ to Axis Conjunct','1129 BC [2766 AM]','The descending passage from the entrance down to the conjunct with the axis.'));
+  // 666 vertical
+  const vg=el('g',{'data-cat':'meas'},s);
+  const vx=ex+70;
+  el('line',{x1:vx,y1:ey,x2:vx,y2:baseY,stroke:'transparent','stroke-width':22},vg);
+  el('line',{class:'hl',x1:vx,y1:ey+4,x2:vx,y2:baseY-4,stroke:'#4fe3ff','stroke-width':2},vg);
+  el('path',{d:`M${vx} ${ey} l-5 10 h10 z M${vx} ${baseY} l-5 -10 h10 z`,fill:'#4fe3ff'},vg);
+  el('line',{x1:ex+6,y1:ey,x2:vx+8,y2:ey,stroke:'#4fe3ff','stroke-width':1,'stroke-dasharray':'3 3'},vg);
+  tx(vg,vx+10,300,'666 P″',{fill:'#4fe3ff','font-size':14,'font-family':'JetBrains Mono','font-weight':500,class:'halo'});
+  tx(vg,vx+10,318,'DOWN TO BASE',{fill:'#8fdcf0','font-size':10.5,'font-family':'JetBrains Mono',class:'halo'});
+  hov(vg,T('#4fe3ff','666 P″ Down to Base','990 AM [2905 BC] → 1656 AM [2239 BC]','"Sethites Began Pyramid Construction 990 AM [2905 BC]. 990 AM + 666 P″ is 1656 AM Great Flood [2239 BC]"'));
+  // deluge dashed link
+  const dg=el('g',{'data-cat':'date'},s);
+  el('line',{x1:ex+6,y1:ey-6,x2:ex+6,y2:6,stroke:'#e7c355','stroke-width':1.4,'stroke-dasharray':'4 4'},dg);
+  tx(dg,ex+14,24,'2239 BC DELUGE ↑',{fill:'#e7c355','font-size':11.5,'font-family':'JetBrains Mono',class:'halo'});
+  hov(dg,T('#e7c355','2239 BC Deluge','1656 AM','Dashed link from the inset entrance up to the entrance of the main cross-section.'));
+  // sethites note
+  const ng=el('g',{'data-cat':'date'},s);
+  el('rect',{x:470,y:120,width:236,height:112,rx:9,fill:'#0e1526',stroke:'#3a2f1e'},ng);
+  ['Sethites began pyramid construct-','ion 990 AM [2905 BC]. 990 AM +','666 P″ is 1656 AM GREAT FLOOD','[2239 BC]'].forEach((t,i)=>tx(ng,482,144+i*20,t,{fill:'#c9d1e4','font-size':11.5}));
+  hov(ng,T('#e7c355','Start of construction','990 AM [2905 BC]','990 AM + 666 P″ is 1656 AM Great Flood [2239 BC].'));
+})();
+
+/* ---------- year ruler ---------- */
+(function(){
+  const s=document.getElementById('rul');
+  const steps=[{y:-2905,am:'990 AM',d:'2905 BC',t:'Construction begins'},{y:-2239,am:'1656 AM',d:'2239 BC',t:'Great Flood'},{y:-1129,am:'2766 AM',d:'1129 BC',t:'Axis conjunct'},{y:1886,am:'5780 AM',d:'1886 AD',t:'End of horizontal axis'},{y:2090,am:'',d:'2090 AD',t:'Return of the Seven Comets'}];
+  const segs=[{v:'666 P″',c:'#4fe3ff'},{v:'1110 P″',c:'#4fe3ff'},{v:'3014 P″',c:'#4fe3ff'},{v:'204',c:'#9c8bf0'}];
+  // vertical ruler: top = 2905 BC, bottom = 2090 AD
+  const Y0=40, Y1=440, X=230;
+  const Y=y=>Y0+(y+2905)/(2090+2905)*(Y1-Y0);
+  el('line',{x1:X,y1:Y0,x2:X,y2:Y1,stroke:'#33415f','stroke-width':2},s);
+  for(let y=-2500;y<=2000;y+=500){const yy=Y(y);el('line',{x1:X-6,y1:yy,x2:X,y2:yy,stroke:'#33415f'},s);
+    tx(s,X-10,yy+3,y<0?(-y)+' BC':(y===0?'':y+' AD'),{fill:'#56628f','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end'});}
+  el('line',{x1:X-30,y1:Y(0),x2:X+300,y2:Y(0),stroke:'#56628f','stroke-dasharray':'4 5'},s);
+  tx(s,X+300,Y(0)-5,'BC',{fill:'#7b86a4','font-size':10,'font-family':'JetBrains Mono','text-anchor':'end'});
+  tx(s,X+300,Y(0)+13,'AD',{fill:'#7b86a4','font-size':10,'font-family':'JetBrains Mono','text-anchor':'end'});
+  segs.forEach((sg,i)=>{
+    const a=Y(steps[i].y), b=Y(steps[i+1].y);
+    const g=el('g',{'data-cat':'meas'},s);
+    el('rect',{x:X+8,y:a,width:30,height:b-a,fill:'transparent'},g);
+    el('rect',{class:'hl',x:X+12,y:a+1,width:16,height:Math.max(3,b-a-2),rx:3,fill:sg.c,opacity:.85},g);
+    tx(g,X+36,(a+b)/2+4,sg.v,{fill:sg.c,'font-size':12,'font-family':'JetBrains Mono','font-weight':500,class:'halo'});
+    hov(g,T(sg.c,sg.v,`${steps[i].am||steps[i].d} → ${steps[i+1].am||steps[i+1].d}`,`${steps[i].d} → ${steps[i+1].d}`));
+  });
+  const offs=[0,0,0,-8,10];
+  steps.forEach((st,i)=>{
+    const yy=Y(st.y)+offs[i];
+    const g=el('g',{'data-cat':'date'},s);
+    el('circle',{class:'hl',cx:X,cy:Y(st.y),r:5,fill:i===4?'#f08a4b':'#e7c355',stroke:'#0b0f1a','stroke-width':1.5},g);
+    el('line',{x1:X+100,y1:yy,x2:X+130,y2:yy,stroke:'#3a4a6e'},g);
+    tx(g,X+136,yy-2,(st.am?st.am+' · ':'')+st.d,{fill:'#e7c355','font-size':11.5,'font-family':'JetBrains Mono'});
+    tx(g,X+136,yy+12,st.t,{fill:'#8b95ad','font-size':10.5});
+    el('rect',{x:X+130,y:yy-14,width:320,height:30,fill:'transparent'},g);
+    hov(g,T('#e7c355',st.t,(st.am?st.am+' ['+st.d+']':st.d),''));
+  });
+})();
+
+</script>
+</body>
+</html>
