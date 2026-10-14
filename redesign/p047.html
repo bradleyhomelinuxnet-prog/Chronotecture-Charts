@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XIV·b — The 820 AD Discovery</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  @media(max-width:600px){.wrap{padding:22px 16px 60px}}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px;padding-right:90px}
+  @media(max-width:600px){header.masthead{padding-right:0;padding-top:30px}}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;color:var(--muted);text-transform:uppercase;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  @media(max-width:600px){.card{padding:14px 12px 12px}}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card h2 .pn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;color:var(--anchor);border:1px solid #5a4a1f;border-radius:6px;padding:2px 7px;margin-right:9px;vertical-align:4px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.halo,svg .halo text{paint-order:stroke;stroke:#0b0f1a;stroke-width:4px;stroke-linejoin:round}
+  .hot{cursor:pointer}
+  .hot:hover .hl,.hot.on .hl{filter:drop-shadow(0 0 6px currentColor)}
+  .hot:hover text,.hot.on text{fill:#fff}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:min(300px,calc(100vw - 24px));background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:11px;color:#6f7a96;font-style:italic;margin-top:2px}
+  .mrow.off{border-color:#4a3a2a}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  details.tr summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  details.tr summary::-webkit-details-marker{display:none}
+  details.tr summary::before{content:'▸';font-size:15px;color:var(--muted);transition:.15s}
+  details.tr[open] summary::before{transform:rotate(90deg)}
+  details.tr summary small{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);font-weight:400}
+  .trgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:8px 26px;margin-top:12px}
+  .trgrid h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--c-comet);margin:12px 0 6px;font-weight:500}
+  .trgrid ul{margin:0;padding:0 0 0 16px}
+  .trgrid li{font-size:13px;line-height:1.5;color:#cfd6e8;margin-bottom:5px}
+  .uncert{font-size:12px;color:var(--muted);margin-top:12px;border-top:1px dashed var(--line2);padding-top:10px;line-height:1.55}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XIV·b · Plate&nbsp;47</div>
+    <h1>Chronotecture
+      <span class="sub">From the 820&nbsp;AD opening of the hidden upper passages</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn chart&nbsp;XIV·b (<b>2007</b>). Every date, span and annotation is kept verbatim; only the visual language is redesigned. Its structural key: <b>820&nbsp;AD [4714&nbsp;AM], when Muslims discovered the Pyramid's hidden upper passage and chambers, is the arrow</b>. 758-year arcs mirror 62&nbsp;AD to 1578&nbsp;AD, two 246-year hops reach 1066 and 1312, and spans of 260 to 1100 years land on 1080 to 1920&nbsp;AD.</p>
+  </header>
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+
+    <div class="card">
+      <h2><span class="pn">XIV·b</span>Arcs and spans from 820&nbsp;AD</h2>
+      <div class="hint">Above: the plate's arcs. Two 758-year halves mirror 62&nbsp;AD to 1578&nbsp;AD about 820&nbsp;AD, and two 246-year hops reach 1066 and 1312&nbsp;AD. Below: forward spans from 820&nbsp;AD. Hover or tap anything. <span class="anchor-key"><i></i>ANCHOR 820 AD [4714 AM]</span></div>
+      <svg id="tl" role="img" aria-label="Arcs and span bars anchored at 820 AD"></svg>
+    </div>
+    <div class="card">
+      <h2>Cycle mathematics</h2>
+      <div class="hint">The arithmetic written on the plate, checked. AM = AD year + 3894.</div>
+      <div class="mathgrid"><div class="mrow"><span class="eq">758 ◁▷ 758</span><span class="cap">62&nbsp;AD → 820&nbsp;AD → 1578&nbsp;AD (catacombs martyrdom / rediscovery).</span></div><div class="mrow"><span class="eq">246 + 246</span><span class="cap">820 → 1066&nbsp;AD → 1312&nbsp;AD (comet before Norman invasion; seven comets over Europe).</span></div><div class="mrow"><span class="eq">260 · 800 · 1000 · 1080 · 1100</span><span class="cap">820&nbsp;AD → 1080, 1620, 1820, 1900, 1920&nbsp;AD.</span></div><div class="mrow"><span class="eq">1920 AD = 5814 AM</span><span class="cap">"5814 is height of Pyramid in P″" (1920 + 3894 = 5814).</span></div><div class="mrow"><span class="eq">1080 AM = 2815 BC</span><span class="cap">Great Pyramid finished; 1900&nbsp;AD is 1080 after 820&nbsp;AD (3895 − 2815 = 1080).</span></div><div class="mrow"><span class="eq">820 AD = 4714 AM</span><span class="cap">Muslims discover Pyramid's hidden upper passage\chambers.</span></div></div>
+      <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XIV·b (plate&nbsp;47). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+    </div>
+    <div class="card"><details class="tr"><summary>Full transcription <small>every annotation on the plate, verbatim, grouped by region</small></summary><div class="trgrid"><div><h3>Header / frame</h3><ul><li>XIV·b</li><li>820 AD [4714 AM] Muslims discover Pyramid's hidden upper passage\chambers (arrow)</li><li>BC | AD (left column, three times)</li><li>2106 AD [6000 AM]</li><li>Breshears '07</li></ul></div><div><h3>Arcs</h3><ul><li>758 (left arc)</li><li>758 (right arc)</li><li>1066 AD comet seen just prior to Norman invasion of Britain</li><li>Comet seen during seven comets over Europe</li><li>▷ 246 to 1066 AD</li><li>▷ 246 to 1312 AD</li></ul></div><div><h3>Mirror bar</h3><ul><li>62 AD martyred Christians in catacombs, Rome ◁▷ 1578 AD catacombs in Rome rediscovered</li></ul></div><div><h3>Forward bars</h3><ul><li>▷ 1100 yrs to 1920 AD when radio broadcasting changed world</li><li>▷ 1080 yrs 1900 AD famous Antikythera computer discovered</li><li>▷ 1000 yrs to 1820 AD discovery of Antarctica in South</li><li>▷ 800 yrs. to 1620 AD Mayflower sails America</li><li>▷ 260 to 1080 AD</li><li>1080 AD · 1620 AD · 1900 AD · 1920 AD (dashed leaders)</li></ul></div><div><h3>Notes</h3><ul><li>1920 AD is 5814 AM; 5814 is height of Pyramid in P″ (pyramid drawn with 5814 P″ bracket)</li><li>1080 Anno Domini marks discovery of decimal system based off units of 10 [decans], paralleling Annus Mundi year of 1080 when Great Pyramid finished in 2815 BC.</li><li>Novum Organum [New Method] published by Sir Francis Bacon</li><li>Sophisticated astronomical computer calculates forward &amp; backward in time just like Great Pyramid finished in 1080 AM [2815 BC] as 1900 AD is 1080 after 820 AD</li></ul></div></div><div class="uncert"><b>Reading notes.</b> The large outer arc, spanning 62 to 1578&nbsp;AD, has no label on the plate. The ampersand in "forward &amp; backward" is a small hand-drawn mark and the reading is probable. No other doubtful readings.</div></details></div>
+
+  </div>
+</div>
+<div id="tip"></div>
+<script>
+
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function tx(parent,x,y,str,a){const t=el('text',Object.assign({x,y,fill:'#cfd6e8','font-size':14},a||{}),parent);
+  const lines=String(str).split('\n');
+  if(lines.length===1){t.textContent=str;}
+  else{const lh=(a&&a.lh)||((+(a&&a['font-size'])||14)*1.25);lines.forEach((l,i)=>{const s=el('tspan',{x,dy:i?lh:0},t);s.textContent=l;});}
+  return t;}
+const tip=document.getElementById('tip');
+let tipLock=false;
+function showTip(html,e){tip.innerHTML=html;tip.style.opacity=1;
+  const w=tip.offsetWidth||290,h=tip.offsetHeight||120;
+  let x=e.clientX+16,y=e.clientY+14;
+  if(x+w>innerWidth-8)x=Math.max(8,e.clientX-w-12);
+  if(y+h>innerHeight-8)y=Math.max(8,e.clientY-h-12);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;document.querySelectorAll('.hot.on').forEach(g=>g.classList.remove('on'));}
+function T(col,title,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function hot(g,html){g.classList.add('hot');
+  g.addEventListener('mousemove',e=>{if(!tipLock)showTip(html,e);});
+  g.addEventListener('mouseleave',()=>{if(!tipLock)hideTip();});
+  g.addEventListener('click',e=>{e.stopPropagation();hideTip();g.classList.add('on');tipLock=true;showTip(html,e);});
+  return g;}
+document.addEventListener('click',()=>{tipLock=false;hideTip();});
+window.addEventListener('scroll',()=>{if(tipLock){tipLock=false;hideTip();}},{passive:true});
+function makeChips(CAT){
+  const bar=document.getElementById('filters');if(!bar)return;
+  const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{
+    const c=document.createElement('div');c.className='chip';c.dataset.k=k;
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=(e)=>{e.stopPropagation();if(active.has(k)){active.delete(k);c.classList.add('off');}else{active.add(k);c.classList.remove('off');}
+      document.querySelectorAll('[data-cat]').forEach(g=>{g.style.display=active.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);});
+}
+const yl=y=>y<0?(-y)+' BC':y+' AD';
+/* Generic span-bar timeline.
+   cfg: {svg, ymin, ymax, PL, PR, top, rowH, rows:[{a,b,r,cat,lbl,pos,dash,tip}], events:[{y,cat,t,yr,b,lv}],
+         anchor, anchorLbl, ticks:[...], CAT, sectionLbls:[{r,txt}]} */
+function timeline(c){
+  const svg=c.svg, X=y=>c.PL+(y-c.ymin)/(c.ymax-c.ymin)*(c.PR-c.PL);
+  const nRows=Math.max(...c.rows.map(r=>r.r))+1;
+  const AX=c.top+nRows*c.rowH+10;
+  const Hev=(c.evH||150)+22;
+  svg.setAttribute('viewBox',`0 0 ${c.W} ${AX+Hev}`);
+  if(c.ymin<0&&c.ymax>0) el('rect',{x:c.PL,y:c.top-30,width:X(0)-c.PL,height:AX-c.top+30,fill:'#0e1626',opacity:.55},svg);
+  c.ticks.forEach(t=>{const x=X(t);el('line',{x1:x,y1:c.top-30,x2:x,y2:AX,stroke:'#1c2740'},svg);
+    tx(svg,x,AX+20,t===0?'':yl(t),{fill:'#5d6885','font-size':12,'text-anchor':'middle','font-family':'JetBrains Mono'});});
+  el('line',{x1:c.PL,y1:AX,x2:c.PR,y2:AX,stroke:'#3a486a','stroke-width':2},svg);
+  if(c.ymin<0&&c.ymax>0){const x0=X(0);el('line',{x1:x0,y1:c.top-30,x2:x0,y2:AX+30,stroke:'#56628f','stroke-width':1.4,'stroke-dasharray':'4 5'},svg);
+    tx(svg,x0-8,c.top-36,'BC',{fill:'#7b86a4','font-size':13,'text-anchor':'end','font-family':'JetBrains Mono'});
+    tx(svg,x0+8,c.top-36,'AD',{fill:'#7b86a4','font-size':13,'font-family':'JetBrains Mono'});}
+  (c.sectionLbls||[]).forEach(s=>{const y=c.top+s.r*c.rowH+c.rowH*.62+4;
+    tx(svg,c.PL,y,s.txt,{fill:'#6f7a96','font-size':11.5,'font-family':'JetBrains Mono','letter-spacing':'.18em'});});
+  const xa=X(c.anchor);
+  el('line',{x1:xa,y1:c.top-44,x2:xa,y2:AX+40,stroke:'#ffcf5c','stroke-width':2,opacity:.9},svg);
+  el('circle',{cx:xa,cy:AX,r:5.5,fill:'#ffcf5c'},svg);
+  tx(svg,xa,c.top-52,c.anchorLbl,{fill:'#ffcf5c','font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono','letter-spacing':'.1em',class:'halo'});
+  c.rows.forEach(b=>{
+    const y=c.top+b.r*c.rowH+c.rowH*.62, x1=X(Math.min(b.a,b.b)), x2=X(Math.max(b.a,b.b)), col=c.CAT[b.cat].c;
+    const g=el('g',{'data-cat':b.cat,class:'halo'},svg);
+    const ln=el('line',{x1,y1:y,x2,y2:y,stroke:col,'stroke-width':8,'stroke-linecap':'round',opacity:.92,class:'hl',color:col},g);
+    if(b.dash) ln.setAttribute('stroke-dasharray','3 7');
+    el('circle',{cx:X(b.b),cy:y,r:5.5,fill:col,stroke:'#0b0f1a','stroke-width':1.5},g);
+    el('line',{x1:X(b.b),y1:y,x2:X(b.b),y2:AX,stroke:col,'stroke-dasharray':'2 4',opacity:.45},g);
+    el('rect',{x:x1-4,y:y-c.rowH*.6,width:Math.max(x2-x1+8,30),height:c.rowH*.8,fill:'transparent'},g);
+    let tX,anc;
+    if(b.pos==='L'){tX=x2-4;anc='end';} else if(b.pos==='before'){tX=x1-12;anc='end';}
+    else if(b.pos==='after'){tX=x2+12;anc='start';} else {tX=x1+4;anc='start';}
+    const ty=(b.pos==='before'||b.pos==='after')?y+5:y-9;
+    tx(g,tX,ty,b.lbl,{fill:'#dfe6f5','font-size':14,'text-anchor':anc,'font-weight':500});
+    hot(g,T(col,b.tip.t,b.tip.yr,b.tip.b));
+  });
+  (c.events||[]).forEach(ev=>{
+    const x=X(ev.y), col=ev.cat==='anchor'?'#ffcf5c':c.CAT[ev.cat].c, yT=AX+48+(ev.lv||0)*26;
+    const g=el('g',{'data-cat':ev.cat==='anchor'?(c.anchorCat||Object.keys(c.CAT)[0]):ev.cat,class:'halo'},svg);
+    el('line',{x1:x,y1:AX,x2:x,y2:yT-8,stroke:col,opacity:.5},g);
+    el('rect',{x:x-5,y:yT-11,width:10,height:10,rx:2,fill:col,transform:`rotate(45 ${x} ${yT-6})`,class:'hl',color:col},g);
+    const lb=ev.lbl||ev.yr.split(' [')[0];
+    tx(g,x+(ev.al==='end'?-10:ev.al==='middle'?0:10),yT-1,lb,{fill:'#aeb7cd','font-size':12.5,'font-family':'JetBrains Mono','text-anchor':ev.al||'start'});
+    el('rect',{x:x-12,y:yT-18,width:24,height:24,fill:'transparent'},g);
+    hot(g,T(col,ev.t,ev.yr,ev.b));
+  });
+  return X;
+}
+
+const CAT={mir:{c:'#9c8bf0',label:'Mirror about 820 AD (758)'},chain:{c:'#5cb3f2',label:'246-year hops'},fwd:{c:'#e7c355',label:'Forward spans from 820 AD'},
+ comet:{c:'#f08a4b',label:'Comets'},hist:{c:'#37b6a6',label:'Discoveries / events'}};
+makeChips(CAT);
+const svg=document.getElementById('tl');
+const TOP=330;
+const X=timeline({svg,W:1300,PL:60,PR:1250,ymin:0,ymax:2150,top:TOP,rowH:44,anchor:820,anchorLbl:'◇ 820 AD [4714 AM]',CAT,anchorCat:'mir',
+ ticks:[200,400,600,800,1000,1200,1400,1600,1800,2000],evH:130,
+ rows:[
+  {r:0,a:62,b:820,cat:'mir',pos:'L',lbl:'62 AD martyred Christians in catacombs, Rome',tip:{t:'758 years',yr:'62 AD → 820 AD',b:'62 AD martyred Christians in catacombs, Rome.'}},
+  {r:0,a:820,b:1578,cat:'mir',lbl:'▷ 1578 AD catacombs in Rome rediscovered',tip:{t:'758 years (mirror)',yr:'820 AD → 1578 AD',b:'1578 AD catacombs in Rome rediscovered.'}},
+  {r:1,a:820,b:1066,cat:'chain',lbl:'▷ 246 to 1066 AD',tip:{t:'246 years',yr:'820 AD → 1066 AD',b:'1066 AD comet seen just prior to Norman invasion of Britain.'}},
+  {r:1,a:1066,b:1312,cat:'chain',lbl:'▷ 246 to 1312 AD',tip:{t:'246 years',yr:'1066 AD → 1312 AD',b:'Comet seen during seven comets over Europe.'}},
+  {r:2,a:820,b:1080,cat:'fwd',pos:'after',lbl:'▷ 260 to 1080 AD',tip:{t:'260 years',yr:'820 AD → 1080 AD',b:'1080 Anno Domini marks discovery of decimal system based off units of 10 [decans], paralleling Annus Mundi year of 1080 when Great Pyramid finished in 2815 BC.'}},
+  {r:3,a:820,b:1620,cat:'fwd',lbl:'▷ 800 yrs. to 1620 AD Mayflower sails America',tip:{t:'800 years',yr:'820 AD → 1620 AD',b:'Mayflower sails America. Novum Organum [New Method] published by Sir Francis Bacon.'}},
+  {r:4,a:820,b:1820,cat:'fwd',lbl:'▷ 1000 yrs to 1820 AD discovery of Antarctica in South',tip:{t:'1000 years',yr:'820 AD → 1820 AD',b:'Discovery of Antarctica in South.'}},
+  {r:5,a:820,b:1900,cat:'fwd',lbl:'▷ 1080 yrs 1900 AD famous Antikythera computer discovered',tip:{t:'1080 years',yr:'820 AD → 1900 AD',b:'Sophisticated astronomical computer calculates forward &amp; backward in time just like Great Pyramid finished in 1080 AM [2815 BC] as 1900 AD is 1080 after 820 AD.'}},
+  {r:6,a:820,b:1920,cat:'fwd',lbl:'▷ 1100 yrs to 1920 AD when radio broadcasting changed world',tip:{t:'1100 years',yr:'820 AD → 1920 AD [5814 AM]',b:'1920 AD is 5814 AM; 5814 is height of Pyramid in P″.'}}],
+ events:[
+  {y:62,cat:'hist',lv:0,t:'Martyred Christians in catacombs, Rome',yr:'62 AD',b:''},
+  {y:1066,cat:'comet',lv:0,al:'end',t:'Comet before the Norman invasion',yr:'1066 AD',b:'Comet seen just prior to Norman invasion of Britain.'},
+  {y:1080,cat:'hist',lv:2,t:'Decimal system',yr:'1080 AD',b:'Discovery of decimal system based off units of 10 [decans]; parallels 1080 AM, Great Pyramid finished 2815 BC.'},
+  {y:1312,cat:'comet',lv:1,t:'Seven comets over Europe',yr:'1312 AD',b:'Comet seen during seven comets over Europe.'},
+  {y:1578,cat:'hist',lv:0,t:'Catacombs in Rome rediscovered',yr:'1578 AD',b:''},
+  {y:1620,cat:'hist',lv:1,t:'Mayflower; Novum Organum',yr:'1620 AD',b:'Mayflower sails America. Novum Organum [New Method] published by Sir Francis Bacon.'},
+  {y:1820,cat:'hist',lv:2,al:'end',t:'Discovery of Antarctica',yr:'1820 AD',b:''},
+  {y:1900,cat:'hist',lv:0,al:'end',t:'Antikythera computer discovered',yr:'1900 AD',b:'1080 after 820 AD.'},
+  {y:1920,cat:'hist',lv:1,al:'end',t:'Radio broadcasting changed world',yr:'1920 AD [5814 AM]',b:'5814 is height of Pyramid in P″.'},
+  {y:2106,cat:'hist',lv:3,al:'end',t:'End of the chart',yr:'2106 AD [6000 AM]',b:''}]});
+const BASE=TOP-70;
+function arc(a,b,h,col,cat,lbl,html,w,arrow){const x1=X(a),x2=X(b),rx=(x2-x1)/2;const g=el('g',{'data-cat':cat,class:'halo'},svg);
+  el('path',{d:`M${x1} ${BASE} A ${rx} ${h} 0 0 1 ${x2} ${BASE}`,fill:'none',stroke:col,'stroke-width':w||2.2,class:'hl',color:col},g);
+  el('path',{d:`M${x1} ${BASE} A ${rx} ${h} 0 0 1 ${x2} ${BASE}`,fill:'none',stroke:'transparent','stroke-width':14},g);
+  if(arrow) el('path',{d:`M${x2-6} ${BASE-10} L${x2} ${BASE} L${x2+5} ${BASE-11}`,fill:'none',stroke:col,'stroke-width':2},g);
+  if(lbl) tx(g,(x1+x2)/2,BASE-h-8,lbl,{fill:col,'font-size':15,'text-anchor':'middle','font-family':'JetBrains Mono'});
+  hot(g,html);}
+el('line',{x1:X(0),y1:BASE,x2:X(2150),y2:BASE,stroke:'#24304a'},svg);
+arc(62,1578,230,'#6f63b8','mir','',T('#9c8bf0','62 AD → 1578 AD','1516 years · two 758-year halves','Outer arc (unlabelled on the plate).'),1.6);
+arc(62,820,130,'#9c8bf0','mir','758',T('#9c8bf0','758 years','62 AD → 820 AD','Martyred Christians in catacombs, Rome.'));
+arc(820,1578,130,'#9c8bf0','mir','758',T('#9c8bf0','758 years','820 AD → 1578 AD','Catacombs in Rome rediscovered.'));
+arc(820,1066,50,'#5cb3f2','chain','246',T('#5cb3f2','246 years','820 AD → 1066 AD','1066 AD comet seen just prior to Norman invasion of Britain.'),2.2,1);
+arc(1066,1312,50,'#5cb3f2','chain','246',T('#5cb3f2','246 years','1066 AD → 1312 AD','Comet seen during seven comets over Europe.'),2.2,1);
+(function(){const x=X(1920),g=el('g',{'data-cat':'fwd',class:'halo'},svg),top=BASE-200,bot=BASE-40;
+ el('path',{d:`M${x} ${top} L${x+80} ${bot} L${x-80} ${bot} Z`,fill:'#e7c35522',stroke:'#e7c355','stroke-width':1.8,class:'hl',color:'#e7c355'},g);
+ for(let y=top+12;y<bot;y+=9){const hw=(y-top)/(bot-top)*80;el('line',{x1:x-hw+2,y1:y,x2:x+hw-2,y2:y,stroke:'#e7c355',opacity:.25},g);}
+ el('path',{d:`M${x-104} ${top} h-8 V${bot} h8`,fill:'none',stroke:'#cfd6e8','stroke-width':1.5},g);
+ tx(g,x-120,(top+bot)/2+5,'5814 P″',{fill:'#cfd6e8','font-size':14,'text-anchor':'end','font-family':'JetBrains Mono'});
+ el('line',{x1:x,y1:bot,x2:x,y2:TOP+30,stroke:'#e7c355','stroke-dasharray':'3 4',opacity:.6},g);
+ tx(g,x,top-12,'1920 AD is 5814 AM',{fill:'#e7c355','font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono'});
+ hot(g,T('#e7c355','Height of the Pyramid','5814 P″ ↔ 1920 AD = 5814 AM','"1920 AD is 5814 AM; 5814 is height of Pyramid in P″."'));})();
+
+</script>
+</body>
+</html>

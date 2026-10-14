@@ -1,0 +1,244 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart X·b — Convergence on 1054 AD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  @media(max-width:600px){.wrap{padding:22px 16px 60px}}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px;padding-right:90px}
+  @media(max-width:600px){header.masthead{padding-right:0;padding-top:30px}}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;color:var(--muted);text-transform:uppercase;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  @media(max-width:600px){.card{padding:14px 12px 12px}}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card h2 .pn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;color:var(--anchor);border:1px solid #5a4a1f;border-radius:6px;padding:2px 7px;margin-right:9px;vertical-align:4px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.halo,svg .halo text{paint-order:stroke;stroke:#0b0f1a;stroke-width:4px;stroke-linejoin:round}
+  .hot{cursor:pointer}
+  .hot:hover .hl,.hot.on .hl{filter:drop-shadow(0 0 6px currentColor)}
+  .hot:hover text,.hot.on text{fill:#fff}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:min(300px,calc(100vw - 24px));background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:11px;color:#6f7a96;font-style:italic;margin-top:2px}
+  .mrow.off{border-color:#4a3a2a}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  details.tr summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none;display:flex;align-items:center;gap:10px;flex-wrap:wrap}
+  details.tr summary::-webkit-details-marker{display:none}
+  details.tr summary::before{content:'▸';font-size:15px;color:var(--muted);transition:.15s}
+  details.tr[open] summary::before{transform:rotate(90deg)}
+  details.tr summary small{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);font-weight:400}
+  .trgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:8px 26px;margin-top:12px}
+  .trgrid h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--c-comet);margin:12px 0 6px;font-weight:500}
+  .trgrid ul{margin:0;padding:0 0 0 16px}
+  .trgrid li{font-size:13px;line-height:1.5;color:#cfd6e8;margin-bottom:5px}
+  .uncert{font-size:12px;color:var(--muted);margin-top:12px;border-top:1px dashed var(--line2);padding-top:10px;line-height:1.55}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;X·b · Plate&nbsp;43</div>
+    <h1>Chronotecture
+      <span class="sub">Spans converging on the 1054&nbsp;AD supernova in Taurus</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn chart&nbsp;X·b (<b>2007</b>). Every date, span and annotation is kept verbatim; only the visual language is redesigned. Its structural key: <b>1054&nbsp;AD [4948&nbsp;AM], the supernova in Taurus and the split of Roman papal authority, is the arrowhead</b>. Bars of 3000, 2500, 1600 and 432 years end on it, and 744 and 1052 years run on from it to 1798 and 2106&nbsp;AD.</p>
+  </header>
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+
+    <div class="card">
+      <h2><span class="pn">X·b</span>Span-bars converging on 1054&nbsp;AD</h2>
+      <div class="hint">Five bars end on the 1054&nbsp;AD arrow, and two run on from it, to 1798&nbsp;AD and to 2106&nbsp;AD. Hover or tap any bar or marker. <span class="anchor-key"><i></i>ANCHOR 1054 AD [4948 AM]</span></div>
+      <svg id="tl" role="img" aria-label="Span-bar timeline anchored at 1054 AD"></svg>
+    </div>
+    <div class="bottom">
+      <div class="card">
+        <h2>The 3000-year circle</h2>
+        <div class="hint">The plate's circle has the 3000-year span as its diameter, from Abraham's birth (1948&nbsp;BC) to the 1054&nbsp;AD supernova. The other bars are marked along it.</div>
+        <svg id="circ" viewBox="0 0 620 470" role="img" aria-label="3000-year circle"></svg>
+      </div>
+      <div class="card">
+        <h2>Cycle mathematics</h2>
+        <div class="hint">The arithmetic written on the plate, checked. AM = 3895 − BC year, or AD year + 3894.</div>
+        <div class="mathgrid"><div class="mrow"><span class="eq">3000 = 600 × 5</span><span class="cap">1948&nbsp;BC [1948&nbsp;AM] → 1054&nbsp;AD [4948&nbsp;AM]. In AM years 4948 − 1948 = 3000.</span></div><div class="mrow"><span class="eq">2500</span><span class="cap">1447&nbsp;BC [2448&nbsp;AM] → 1054&nbsp;AD: 4948 − 2448 = 2500.</span></div><div class="mrow off"><span class="eq">1600 = 40 × 40</span><span class="cap">607&nbsp;BC [3288&nbsp;AM] → 1054&nbsp;AD. 3288 + 1600 = 4888, not 4948. 607&nbsp;BC to 1054&nbsp;AD is about 1660 years.</span><span class="aw">as written — the plate's arithmetic does not close here</span></div><div class="mrow"><span class="eq">432 = 144 × 3</span><span class="cap">622&nbsp;AD (Muslim Hijrah calendar) → 1054&nbsp;AD.</span></div><div class="mrow"><span class="eq">1052 = 526 + 526</span><span class="cap">1054&nbsp;AD → 2106&nbsp;AD [6000&nbsp;AM]; the 526&nbsp;AD Anno Domini system doubled.</span></div><div class="mrow"><span class="eq">744 = 600 + 144</span><span class="cap">1054&nbsp;AD → 1798&nbsp;AD, the French surveys of Giza.</span></div><div class="mrow"><span class="eq">526 AD [52.6 Decans]</span><span class="cap">Anno Domini chronology designed by Dionysius Exiguus.</span></div><div class="mrow"><span class="eq">1054 AD = 4948 AM</span><span class="cap">1054 + 3894 = 4948.</span></div></div>
+        <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;X·b (plate&nbsp;43). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+      </div>
+    </div>
+    <div class="card"><details class="tr"><summary>Full transcription <small>every annotation on the plate, verbatim, grouped by region</small></summary><div class="trgrid"><div><h3>Frame / headers</h3><ul><li>X·b</li><li>1054 AD [4948 AM] (arrow)</li><li>1054 AD Supernova in Taurus; Roman Papal Authority splits</li><li>3000 years (on the circle)</li><li>BC | AD (column marks)</li><li>Breshears '07</li></ul></div><div><h3>Left columns</h3><ul><li>3895 BC [Year 1 Annus Mundi]</li><li>Antediluvian World</li><li>2239 BC Great Flood</li><li>1948 BC is 1948 AM</li><li>1948 BC Abraham born during first regnal year of Sargon I of Akkad [Nimrod]</li><li>1447 BC Exodus and Ten Plagues of Egypt</li></ul></div><div><h3>Span-bars</h3><ul><li>1948 BC [1948 AM] is 3000 years [600×5] to 1054 AD</li><li>1447 BC [2448 AM]: 2500 yrs. to 1054 AD</li><li>607 BC [3288 AM] 1600 yrs. [40×40]</li><li>526 AD ◁▷ 1052 yrs. [526+526]</li><li>432 yrs.</li><li>▷ 744 yrs [600+144]</li></ul></div><div><h3>Right columns</h3><ul><li>526 AD Anno Domini chronology designed by Dionysius Exiguus [52.6 Decans]</li><li>622 AD is 432 years [144×3] to 1054 AD. 622 AD is Muslim Hijrah calendar</li><li>526 AD Anno Domini system made</li><li>1798 AD famous major French surveys and archaeological studies of Giza and Great Pyramid\Egyptian monuments</li><li>2106 Anno Domini [Year of the Lord] 6000 AM Armageddon</li></ul></div></div><div class="uncert"><b>Reading notes.</b> The 1600-year bar from 607&nbsp;BC does not reach 1054&nbsp;AD by the plate's own AM figures (3288 + 1600 = 4888); it is kept as written. The 526&nbsp;AD box is labelled only "526 AD" and ends at the 1054 arrow; the dashed 1052-year box runs from the arrow to the 2106&nbsp;AD column. The bracket "[52.6 … Decans]" is split by a dashed leader line on the plate.</div></details></div>
+
+  </div>
+</div>
+<div id="tip"></div>
+<script>
+
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function tx(parent,x,y,str,a){const t=el('text',Object.assign({x,y,fill:'#cfd6e8','font-size':14},a||{}),parent);
+  const lines=String(str).split('\n');
+  if(lines.length===1){t.textContent=str;}
+  else{const lh=(a&&a.lh)||((+(a&&a['font-size'])||14)*1.25);lines.forEach((l,i)=>{const s=el('tspan',{x,dy:i?lh:0},t);s.textContent=l;});}
+  return t;}
+const tip=document.getElementById('tip');
+let tipLock=false;
+function showTip(html,e){tip.innerHTML=html;tip.style.opacity=1;
+  const w=tip.offsetWidth||290,h=tip.offsetHeight||120;
+  let x=e.clientX+16,y=e.clientY+14;
+  if(x+w>innerWidth-8)x=Math.max(8,e.clientX-w-12);
+  if(y+h>innerHeight-8)y=Math.max(8,e.clientY-h-12);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;document.querySelectorAll('.hot.on').forEach(g=>g.classList.remove('on'));}
+function T(col,title,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function hot(g,html){g.classList.add('hot');
+  g.addEventListener('mousemove',e=>{if(!tipLock)showTip(html,e);});
+  g.addEventListener('mouseleave',()=>{if(!tipLock)hideTip();});
+  g.addEventListener('click',e=>{e.stopPropagation();hideTip();g.classList.add('on');tipLock=true;showTip(html,e);});
+  return g;}
+document.addEventListener('click',()=>{tipLock=false;hideTip();});
+window.addEventListener('scroll',()=>{if(tipLock){tipLock=false;hideTip();}},{passive:true});
+function makeChips(CAT){
+  const bar=document.getElementById('filters');if(!bar)return;
+  const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{
+    const c=document.createElement('div');c.className='chip';c.dataset.k=k;
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=(e)=>{e.stopPropagation();if(active.has(k)){active.delete(k);c.classList.add('off');}else{active.add(k);c.classList.remove('off');}
+      document.querySelectorAll('[data-cat]').forEach(g=>{g.style.display=active.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);});
+}
+const yl=y=>y<0?(-y)+' BC':y+' AD';
+/* Generic span-bar timeline.
+   cfg: {svg, ymin, ymax, PL, PR, top, rowH, rows:[{a,b,r,cat,lbl,pos,dash,tip}], events:[{y,cat,t,yr,b,lv}],
+         anchor, anchorLbl, ticks:[...], CAT, sectionLbls:[{r,txt}]} */
+function timeline(c){
+  const svg=c.svg, X=y=>c.PL+(y-c.ymin)/(c.ymax-c.ymin)*(c.PR-c.PL);
+  const nRows=Math.max(...c.rows.map(r=>r.r))+1;
+  const AX=c.top+nRows*c.rowH+10;
+  const Hev=(c.evH||150)+22;
+  svg.setAttribute('viewBox',`0 0 ${c.W} ${AX+Hev}`);
+  if(c.ymin<0&&c.ymax>0) el('rect',{x:c.PL,y:c.top-30,width:X(0)-c.PL,height:AX-c.top+30,fill:'#0e1626',opacity:.55},svg);
+  c.ticks.forEach(t=>{const x=X(t);el('line',{x1:x,y1:c.top-30,x2:x,y2:AX,stroke:'#1c2740'},svg);
+    tx(svg,x,AX+20,t===0?'':yl(t),{fill:'#5d6885','font-size':12,'text-anchor':'middle','font-family':'JetBrains Mono'});});
+  el('line',{x1:c.PL,y1:AX,x2:c.PR,y2:AX,stroke:'#3a486a','stroke-width':2},svg);
+  if(c.ymin<0&&c.ymax>0){const x0=X(0);el('line',{x1:x0,y1:c.top-30,x2:x0,y2:AX+30,stroke:'#56628f','stroke-width':1.4,'stroke-dasharray':'4 5'},svg);
+    tx(svg,x0-8,c.top-36,'BC',{fill:'#7b86a4','font-size':13,'text-anchor':'end','font-family':'JetBrains Mono'});
+    tx(svg,x0+8,c.top-36,'AD',{fill:'#7b86a4','font-size':13,'font-family':'JetBrains Mono'});}
+  (c.sectionLbls||[]).forEach(s=>{const y=c.top+s.r*c.rowH+c.rowH*.62+4;
+    tx(svg,c.PL,y,s.txt,{fill:'#6f7a96','font-size':11.5,'font-family':'JetBrains Mono','letter-spacing':'.18em'});});
+  const xa=X(c.anchor);
+  el('line',{x1:xa,y1:c.top-44,x2:xa,y2:AX+40,stroke:'#ffcf5c','stroke-width':2,opacity:.9},svg);
+  el('circle',{cx:xa,cy:AX,r:5.5,fill:'#ffcf5c'},svg);
+  tx(svg,xa,c.top-52,c.anchorLbl,{fill:'#ffcf5c','font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono','letter-spacing':'.1em',class:'halo'});
+  c.rows.forEach(b=>{
+    const y=c.top+b.r*c.rowH+c.rowH*.62, x1=X(Math.min(b.a,b.b)), x2=X(Math.max(b.a,b.b)), col=c.CAT[b.cat].c;
+    const g=el('g',{'data-cat':b.cat,class:'halo'},svg);
+    const ln=el('line',{x1,y1:y,x2,y2:y,stroke:col,'stroke-width':8,'stroke-linecap':'round',opacity:.92,class:'hl',color:col},g);
+    if(b.dash) ln.setAttribute('stroke-dasharray','3 7');
+    el('circle',{cx:X(b.b),cy:y,r:5.5,fill:col,stroke:'#0b0f1a','stroke-width':1.5},g);
+    el('line',{x1:X(b.b),y1:y,x2:X(b.b),y2:AX,stroke:col,'stroke-dasharray':'2 4',opacity:.45},g);
+    el('rect',{x:x1-4,y:y-c.rowH*.6,width:Math.max(x2-x1+8,30),height:c.rowH*.8,fill:'transparent'},g);
+    let tX,anc;
+    if(b.pos==='L'){tX=x2-4;anc='end';} else if(b.pos==='before'){tX=x1-12;anc='end';}
+    else if(b.pos==='after'){tX=x2+12;anc='start';} else {tX=x1+4;anc='start';}
+    const ty=(b.pos==='before'||b.pos==='after')?y+5:y-9;
+    tx(g,tX,ty,b.lbl,{fill:'#dfe6f5','font-size':14,'text-anchor':anc,'font-weight':500});
+    hot(g,T(col,b.tip.t,b.tip.yr,b.tip.b));
+  });
+  (c.events||[]).forEach(ev=>{
+    const x=X(ev.y), col=ev.cat==='anchor'?'#ffcf5c':c.CAT[ev.cat].c, yT=AX+48+(ev.lv||0)*26;
+    const g=el('g',{'data-cat':ev.cat==='anchor'?(c.anchorCat||Object.keys(c.CAT)[0]):ev.cat,class:'halo'},svg);
+    el('line',{x1:x,y1:AX,x2:x,y2:yT-8,stroke:col,opacity:.5},g);
+    el('rect',{x:x-5,y:yT-11,width:10,height:10,rx:2,fill:col,transform:`rotate(45 ${x} ${yT-6})`,class:'hl',color:col},g);
+    const lb=ev.lbl||ev.yr.split(' [')[0];
+    tx(g,x+(ev.al==='end'?-10:ev.al==='middle'?0:10),yT-1,lb,{fill:'#aeb7cd','font-size':12.5,'font-family':'JetBrains Mono','text-anchor':ev.al||'start'});
+    el('rect',{x:x-12,y:yT-18,width:24,height:24,fill:'transparent'},g);
+    hot(g,T(col,ev.t,ev.yr,ev.b));
+  });
+  return X;
+}
+
+const CAT={into:{c:'#5cb3f2',label:'Spans into 1054 AD'},out:{c:'#e7c355',label:'Spans out of 1054 AD'},
+ hist:{c:'#9c8bf0',label:'Textual / historical'},flood:{c:'#37b6a6',label:'Epoch / flood'}};
+makeChips(CAT);
+timeline({svg:document.getElementById('tl'),W:1300,PL:60,PR:1250,ymin:-4000,ymax:2200,top:96,rowH:46,anchor:1054,anchorLbl:'◇ 1054 AD [4948 AM]',CAT,anchorCat:'into',
+ ticks:[-4000,-3000,-2000,-1000,0,1000,2000],evH:130,
+ rows:[
+  {r:0,a:-1948,b:1054,cat:'into',lbl:'1948 BC [1948 AM] is 3000 years [600×5] to 1054 AD',tip:{t:'3000 years · 600×5',yr:'1948 BC [1948 AM] → 1054 AD',b:'Abraham born during first regnal year of Sargon I of Akkad [Nimrod]. The diameter of the plate\'s circle.'}},
+  {r:1,a:-1447,b:1054,cat:'into',lbl:'1447 BC [2448 AM]: 2500 yrs. to 1054 AD',tip:{t:'2500 years',yr:'1447 BC [2448 AM] → 1054 AD',b:'Exodus and Ten Plagues of Egypt.'}},
+  {r:2,a:-607,b:1054,cat:'into',lbl:'607 BC [3288 AM] 1600 yrs. [40×40]',tip:{t:'1600 years · 40×40',yr:'607 BC [3288 AM] → 1054 AD',b:'As written; see Cycle mathematics.'}},
+  {r:3,a:526,b:1054,cat:'into',pos:'before',lbl:'526 AD',tip:{t:'526 AD',yr:'526 AD → 1054 AD',b:'Anno Domini chronology designed by Dionysius Exiguus [52.6 Decans].'}},
+  {r:3,a:1054,b:2106,cat:'out',lbl:'▷ 1052 yrs. [526+526]',tip:{t:'1052 years · 526+526',yr:'1054 AD → 2106 AD [6000 AM]',b:'526 AD Anno Domini system made. 2106 Anno Domini [Year of the Lord], 6000 AM Armageddon.'}},
+  {r:4,a:622,b:1054,cat:'into',pos:'before',lbl:'622 AD · 432 yrs. [144×3]',tip:{t:'432 years · 144×3',yr:'622 AD → 1054 AD',b:'622 AD is Muslim Hijrah calendar.'}},
+  {r:5,a:1054,b:1798,cat:'out',lbl:'▷ 744 yrs [600+144]',tip:{t:'744 years · 600+144',yr:'1054 AD → 1798 AD',b:'1798 AD famous major French surveys and archaeological studies of Giza and Great Pyramid\\Egyptian monuments.'}}],
+ events:[
+  {y:-3895,cat:'flood',lv:0,t:'Year 1 Annus Mundi',yr:'3895 BC [Year 1 Annus Mundi]',b:'Antediluvian World begins.'},
+  {y:-2239,cat:'flood',lv:0,t:'Great Flood',yr:'2239 BC',b:''},
+  {y:-1948,cat:'hist',lv:1,t:'Abraham born',yr:'1948 BC [1948 AM]',b:'During first regnal year of Sargon I of Akkad [Nimrod]. "1948 BC is 1948 AM."'},
+  {y:-1447,cat:'hist',lv:2,t:'Exodus and Ten Plagues of Egypt',yr:'1447 BC [2448 AM]',b:''},
+  {y:526,cat:'hist',lv:0,al:'end',t:'Anno Domini chronology designed',yr:'526 AD',b:'By Dionysius Exiguus [52.6 Decans].'},
+  {y:622,cat:'hist',lv:1,al:'end',t:'Muslim Hijrah calendar',yr:'622 AD',b:'432 years [144×3] to 1054 AD.'},
+  {y:1798,cat:'hist',lv:2,al:'end',t:'French surveys of Giza',yr:'1798 AD',b:'Famous major French surveys and archaeological studies of Giza and Great Pyramid\\Egyptian monuments.'},
+  {y:2106,cat:'flood',lv:0,al:'end',t:'Armageddon',yr:'2106 Anno Domini [Year of the Lord] · 6000 AM',b:''}]});
+(function(){const svg=document.getElementById('circ'),L=110,Rx=510,cy=240,R=(Rx-L)/2,cx=L+R,X=y=>L+(y+1948)/3002*(Rx-L);
+ el('circle',{cx,cy,r:R,fill:'none',stroke:'#5cb3f2','stroke-width':2.2,opacity:.9},svg);
+ el('line',{x1:L,y1:cy,x2:Rx,y2:cy,stroke:'#33415f','stroke-width':1.5},svg);
+ tx(svg,cx,cy-R-10,'3000 YEARS',{fill:'#5cb3f2','font-size':14,'text-anchor':'middle','font-family':'JetBrains Mono','letter-spacing':'.12em'});
+ const x0=X(0);el('line',{x1:x0,y1:cy-R,x2:x0,y2:cy+R,stroke:'#56628f','stroke-dasharray':'4 5'},svg);
+ tx(svg,x0-6,cy+R-6,'BC',{fill:'#7b86a4','font-size':12,'text-anchor':'end','font-family':'JetBrains Mono'});tx(svg,x0+6,cy+R-6,'AD',{fill:'#7b86a4','font-size':12,'font-family':'JetBrains Mono'});
+ [[-1948,'1948 BC','Abraham born',0],[-1447,'1447 BC','Exodus',1],[-607,'607 BC','1600 yrs [40×40]',0],[526,'526 AD','Anno Domini',1],[622,'622 AD','Hijrah · 432',2],[1054,'1054 AD','Supernova in Taurus',0]].forEach(([y,l,d,lv])=>{
+  const x=X(y),col=y===1054?'#ffcf5c':'#9c8bf0',g=el('g',{class:'halo'},svg);
+  el('circle',{cx:x,cy,r:5,fill:col,class:'hl',color:col},g);
+  const ty=cy+24+lv*30;el('line',{x1:x,y1:cy+6,x2:x,y2:ty-12,stroke:col,opacity:.5},g);
+  tx(g,x,ty,l,{fill:col,'font-size':12,'text-anchor':y>800?'end':y<-1800?'start':'middle','font-family':'JetBrains Mono'});
+  el('rect',{x:x-12,y:cy-12,width:24,height:24,fill:'transparent'},g);
+  hot(g,T(col,d,l,''));});
+})();
+
+</script>
+</body>
+</html>
