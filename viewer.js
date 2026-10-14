@@ -59,12 +59,23 @@
       var pane=document.createElement('div'); pane.className='frame textpane';
       var lines=t.split('\n'), head=lines.shift(), h2=lines.shift(), html='<div class="tp-in"><div class="tp-k">'+esc(head)+'</div>';
       if(h2) html+='<h2 class="serif">'+esc(h2)+'</h2>';
-      lines.join('\n').split(/\n\s*\n/).forEach(function(par){ par=par.trim(); if(par) html+='<p>'+esc(par).replace(/\n/g,'<br>')+'</p>'; });
+      var first=true;
+      lines.join('\n').split(/\n\s*\n/).forEach(function(par){ par=par.trim(); if(!par) return;
+        var t=mark(esc(par).replace(/\n/g,'<br>'));
+        if(/^(\*|&gt;|-)\s/.test(par)) html+='<ul class="tp-ul">'+par.split(/\n/).map(function(l){return '<li>'+mark(esc(l.replace(/^(\*|>|-)\s*/,'')))+'</li>';}).join('')+'</ul>';
+        else if(/^["“]/.test(par)&&par.length<600) html+='<blockquote>'+t+'</blockquote>';
+        else if(par.length<90&&!/[.,;:]$/.test(par)&&!/\d{3,}/.test(par.slice(0,4))) html+='<h3 class="tp-h">'+t+'</h3>';
+        else { html+='<p'+(first?' class="tp-first"':'')+'>'+t+'</p>'; first=false; } });
       pane.innerHTML=html+'</div>'; wrap.appendChild(pane);
       bindSegs(); addEngine(wrap);
     };
     document.head.appendChild(sc);
     function esc(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
+    // dates, Anno Mundi years and pyramid-inch figures stand out from the prose
+    function mark(h){return h
+      .replace(/\b(\d{1,4}(?:[.,]\d+)?)\s?(AD|BC|AM|Annus Mundi|Anno Domini)\b/g,'<span class="tp-d">$1 $2</span>')
+      .replace(/\b(\d{1,5}(?:\.\d+)?)\s?(P"|P″|P&quot;|Pyramid Inches)/g,'<span class="tp-p">$1 $2</span>')
+      .replace(/\[\?\]/g,'<span class="tp-q">[?]</span>');}
   })();
 
   // Layout fixes: the redesign switch sits on the plate, not under the top bar; on phones
@@ -77,6 +88,17 @@
       '.textpane{overflow:auto;-webkit-overflow-scrolling:touch}.textpane .tp-in{max-width:760px;margin:0 auto;padding:84px 30px 70px;color:#dfe6f5;font-size:17px;line-height:1.75}'+
       '.textpane .tp-k{font-family:\'JetBrains Mono\',monospace;font-size:11px;letter-spacing:.3em;color:#7f8db0;text-transform:uppercase}'+
       '.textpane h2{font-size:30px;color:#ffcf5c;margin:.3em 0 .8em;line-height:1.15}.textpane p{margin:0 0 1.05em}'+
+    '.textpane .tp-in{font-family:\'Cormorant Garamond\',Georgia,serif;font-size:21px;line-height:1.62;color:#e4e9f4}'+
+    '.textpane .tp-in>*{max-width:680px;margin-left:auto;margin-right:auto}'+
+    '.textpane .tp-first::first-letter{float:left;font-size:3.4em;line-height:.85;padding:.06em .1em 0 0;color:#ffcf5c;font-weight:700}'+
+    '.textpane h2{font-family:\'Cormorant Garamond\',serif;font-weight:700;border-bottom:1px solid #26324f;padding-bottom:.35em}'+
+    '.textpane .tp-h{font-family:\'JetBrains Mono\',monospace;font-size:12px;letter-spacing:.22em;text-transform:uppercase;color:#4fe3ff;margin:1.8em auto .7em;font-weight:500}'+
+    '.textpane blockquote{border-left:3px solid #ffcf5c;margin:1.2em auto;padding:.3em 0 .3em 1.1em;font-style:italic;color:#cfd7e8}'+
+    '.textpane .tp-ul{padding-left:1.3em}.textpane .tp-ul li{margin:.35em 0}.textpane .tp-ul li::marker{color:#ffcf5c}'+
+    '.textpane .tp-d{font-family:\'JetBrains Mono\',monospace;font-size:.78em;color:#ffcf5c;white-space:nowrap}'+
+    '.textpane .tp-p{font-family:\'JetBrains Mono\',monospace;font-size:.78em;color:#7fd8ff;white-space:nowrap}'+
+    '.textpane .tp-q{font-family:\'JetBrains Mono\',monospace;font-size:.7em;color:#f08a4b}'+
+    '.textpane .tp-k{max-width:680px;margin:0 auto}'+
       '@media(max-width:640px){'+
       '.topbar{gap:8px!important;padding-left:12px!important;padding-right:12px!important}'+
       '.topbar .brand{font-size:17px!important}.topbar .brand small{display:none!important}'+
