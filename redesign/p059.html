@@ -106,7 +106,7 @@
     </div>
     <div class="card">
       <h2><span class="lab">XIX</span>Base foundation, entrance and the conjunct of 1039&nbsp;BC</h2>
-      <div class="hint">Schematic section (not to scale): the 666&nbsp;P″ entrance triangle on the face, the 1110&nbsp;P″ run to the axis conjunct, the 3036&nbsp;P″ run to the lower chamber floor joint, and (right) the plate's enlarged detail of the passage junction in the bedrock.</div>
+      <div class="hint">Schematic section (not to scale): the 666&nbsp;P″ entrance triangle on the face, the 1110&nbsp;P″ run to the axis conjunct, the 3036&nbsp;P″ run to the Lower Chamber floor joint, and (right) the plate's enlarged detail of the passage junction in the bedrock.</div>
       <svg id="s19" viewBox="0 0 1000 700" role="img" aria-label="Chart XIX pyramid passage schematic"></svg>
     </div>
 <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked. Rows marked “as written” do not compute as stated and are left unchanged.</div><div class="mathgrid">
@@ -162,7 +162,7 @@
 <li>Perimeter 1998</li>
 <li>1080 AM (arrow)</li>
 </ul>
-<h3>XIX — lower chamber</h3><ul>
+<h3>XIX — Lower Chamber</h3><ul>
 <li>108 year countdown to return of Chief Cornerstone 6000 AM</li>
 <li>1998 AD [5892 AM]</li>
 <li>[2106 AD]</li>
@@ -247,16 +247,16 @@ function lab(p,x,y,t,a){return tx(p,x,y,t,Object.assign({fill:'#e6ebf5','font-si
   el('line',{x1:0,y1:420,x2:330,y2:2,stroke:'#56628f','stroke-width':1.6},s);
   el('rect',{x:0,y:BY,width:1000,height:58,fill:'#05080f'},s);
   tx(s,900,BY+34,'Base line',{fill:'#c9cfdd','font-size':12,'text-anchor':'middle','font-family':'JetBrains Mono'});
-  const J=[170,439],dv=[0.899,0.438],E=[J[0]-150*dv[0],J[1]-150*dv[1]],DE=[J[0]+330*dv[0],J[1]+330*dv[1]];
+  const J=[170,439],dv=[0.899,0.438],E=[J[0]-150*dv[0],J[1]-150*dv[1]],DE=[J[0]+185*dv[0],J[1]+185*dv[1]];
   const G1=[J[0]+260*dv[0],J[1]-260*dv[1]],GS=[729,167];
   band(s,E,DE,13,'#d9e2f2',.85);
   band(s,J,G1,13,'#d9e2f2',.85);
   // gallery
   el('polygon',{points:`${G1[0]},${G1[1]+6} ${GS[0]},${GS[1]+6} ${GS[0]},${GS[1]-50} ${G1[0]+10},${G1[1]-44}`,fill:'#d9e2f2','fill-opacity':.85},s);
-  // middle chamber passage + chamber
+  // middle passage + chamber
   el('rect',{x:G1[0],y:G1[1]-2,width:236,height:9,fill:'#d9e2f2','fill-opacity':.85},s);
   el('path',{d:`M${G1[0]+230} ${G1[1]+7} v-22 l24 -16 l24 16 v22z`,fill:'#d9e2f2','fill-opacity':.85},s);
-  // Upper chamber + relieving stack
+  // upper chamber + relieving stack
   el('rect',{x:GS[0],y:GS[1]-4,width:100,height:10,fill:'#d9e2f2','fill-opacity':.85},s);
   el('rect',{x:GS[0]+18,y:GS[1]-26,width:14,height:22,fill:'#d9e2f2','fill-opacity':.85},s);
   el('rect',{x:776,y:132,width:56,height:35,fill:'#d9e2f2','fill-opacity':.9},s);
@@ -346,7 +346,8 @@ function lab(p,x,y,t,a){return tx(p,x,y,t,Object.assign({fill:'#e6ebf5','font-si
   el('polygon',{points:`0,${BY} 0,2 640,2 ${B[0]},${B[1]}`,fill:'url(#h19)'},s);
   el('line',{x1:640,y1:2,x2:B[0],y2:B[1],stroke:'#56628f','stroke-width':1.6},s);
   el('rect',{x:0,y:BY,width:1000,height:400,fill:'#070b14'},s);
-  el('rect',{x:640,y:BY+16,width:360,height:384,fill:'url(#k19)'},s);
+  el('rect',{x:560,y:BY+16,width:440,height:384,fill:'url(#k19)'},s);
+  tx(s,990,BY+390,'enlarged junction detail',{fill:'#5d6885','font-size':10,'text-anchor':'end','font-family':'JetBrains Mono'});
   el('line',{x1:0,y1:BY,x2:1000,y2:BY,stroke:'#56628f','stroke-width':1.4},s);
   const dv=[-0.899,0.438];const C=[E[0]+183*dv[0],BY],P=[C[0]+484*dv[0],C[1]+484*dv[1]];
   band(s,E,C,12,'#d9e2f2',.85);band(s,C,P,12,'#d9e2f2',.85);
@@ -373,9 +374,8 @@ function lab(p,x,y,t,a){return tx(p,x,y,t,Object.assign({fill:'#e6ebf5','font-si
   bind(m2,T(C1,'1110 P″ to axis conjunct','2149 BC [1746 AM] + 1110 = 1039 BC [2856 AM]','King David\'s birth.'));
   const m3=el('g',{'data-cat':'meas'},s);
   const pm=[(C[0]+P[0])/2,(C[1]+P[1])/2];
-  lab(m3,pm[0]+10,pm[1]-14,'3036 P″ floor joint to conjunct',{fill:C1,transform:`rotate(26 ${pm[0]+10} ${pm[1]-14})`,'text-anchor':'middle'});
-  el('line',{x1:pm[0]+150,y1:pm[1]+60,x2:C[0]-20,y2:C[1]+14,stroke:C1,'marker-end':'url(#a19)'},m3);
-  bind(m3,T(C1,'3036 P″','floor joint to conjunct','The descending passage from the lower chamber floor joint up to the axis conjunct.'));
+  lab(m3,pm[0]-4,pm[1]+24,'3036 P″ floor joint to conjunct',{fill:C1,transform:`rotate(-26 ${pm[0]-4} ${pm[1]+24})`,'text-anchor':'middle'});
+  bind(m3,T(C1,'3036 P″','floor joint to conjunct','The descending passage from the Lower Chamber floor joint up to the axis conjunct.'));
   // conjunct / David
   const dg=el('g',{'data-cat':'year'},s);
   el('circle',{cx:C[0],cy:C[1],r:5,fill:C2},dg);
@@ -427,9 +427,9 @@ function lab(p,x,y,t,a){return tx(p,x,y,t,Object.assign({fill:'#e6ebf5','font-si
   lab(jg,584,560,'52°',{fill:C1,'font-family':'JetBrains Mono'});
   el('path',{d:'M600 510 Q580 560 610 610',fill:'none',stroke:C1,'stroke-dasharray':'3 3'},jg);
   el('line',{x1:Y[0],y1:Y[1]+4,x2:Y[0],y2:665,stroke:'#e6ebf5','marker-end':'url(#a19)'},jg);
-  lab(jg,736,640,'176 P″ to base [176×6=1056',{fill:'#e6ebf5','font-size':11.5});
-  lab(jg,736,656,'AM [2839 BC]: Noah\'s birth',{fill:'#e6ebf5','font-size':11.5});
-  lab(jg,736,672,'at fourth Ner from 5239 BC',{fill:'#e6ebf5','font-size':11.5});
+  lab(jg,752,640,'176 P″ to base [176×6=1056',{fill:'#e6ebf5','font-size':11.5});
+  lab(jg,752,656,'AM [2839 BC]: Noah\'s birth',{fill:'#e6ebf5','font-size':11.5});
+  lab(jg,752,672,'at fourth Ner from 5239 BC',{fill:'#e6ebf5','font-size':11.5});
   bind(jg,T(C1,'Junction detail','52 P″ · 26° · 26° · 52° · 176 P″ to base','176 P″ to base [176×6=1056 AM [2839 BC]: Noah\'s birth at fourth Ner from 5239 BC'));
 })();
 chips(CAT);

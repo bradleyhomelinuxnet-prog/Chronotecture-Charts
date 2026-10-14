@@ -105,7 +105,7 @@
   <div class="grid">
     <div class="card">
       <h2><span class="pn">X</span>5200 years back from the supernova</h2>
-      <div class="hint">North face on the right. The strip below expands the lower chamber level (not to scale), 1&nbsp;P″ = 1&nbsp;year. Hover or tap any element.</div>
+      <div class="hint">North face on the right. The strip below expands the Lower Chamber level (not to scale), 1&nbsp;P″ = 1&nbsp;year. Hover or tap any element.</div>
       <svg id="x" viewBox="0 -20 1000 800" role="img" aria-label="Chart X section"></svg>
     </div>
     <div class="grid" style="margin-top:0">
@@ -130,7 +130,7 @@
         <div class="mrow"><span class="eq">1054 AD − 5200 = 4146 BC</span><span class="cap">"exactly 252 years prior to Year 1 AM [3895 BC]".</span><span class="aw">As written: 4146 − 3895 = 251 (252 counting inclusively).</span></div>
         <div class="mrow"><span class="eq">1054 + 252 = 1306 AD [5200 AM]</span><span class="cap">"End of Maya Count 1306 AD".</span></div>
         <div class="mrow"><span class="eq">1054 + 302 = 1356 AD [5250 AM]</span><span class="cap">Casing blocks stripped after the earthquake.</span></div>
-        <div class="mrow"><span class="eq">781 AM + 1414 = 2195 AM = 1700 BC</span><span class="cap">Long-Count start + lower chamber length = 1700, the height of the Great Step from base (1700&nbsp;P″).</span></div>
+        <div class="mrow"><span class="eq">781 AM + 1414 = 2195 AM = 1700 BC</span><span class="cap">Long-Count start + Lower Chamber length = 1700, the height of the Great Step from base (1700&nbsp;P″).</span></div>
         <div class="mrow"><span class="eq">252 × 10 = 2520 [360 × 7]</span><span class="cap">Tetractys, pyramid #10; "Mene Mene Tekel Upharsin".</span></div>
         <div class="mrow"><span class="eq">3114 BC − 1110 = 2004 BC [1891 AM]</span><span class="cap">XI: entry to axis passage conjunct.</span></div>
         <div class="mrow"><span class="eq">3360 − 2004 = 1356 AD</span><span class="cap">XI: "1356 AD [3360 P" − 2004 BC]".</span></div>
@@ -153,7 +153,7 @@
               <li>252x10=2520 [360x7]</li>
               <li>Mene Mene Tekel Upharsin</li>
             </ul>
-            <h3>X · lower chamber</h3>
+            <h3>X · Lower Chamber</h3>
             <ul>
               <li>Muslims began stripping 144,000 casing blocks after earthquake 1356 AD</li>
               <li>1356 AD [5250 AM] · 302 · 1054 AD</li>
@@ -256,16 +256,16 @@ function section(svg,o){
   const pas=(pts,w)=>{const d='M'+pts.map(p=>p.join(' ')).join(' L');
     el('path',{d,fill:'none',stroke:'#5f7299','stroke-width':(w||7)*o.s,'stroke-linejoin':'round','stroke-linecap':'round',opacity:.45},g);
     el('path',{d,fill:'none',stroke:'#e3e9f6','stroke-width':1.8,'stroke-linejoin':'round','stroke-linecap':'round'},g);};
-  // descending passage + lower chamber
+  // descending passage + Lower Chamber
   pas([R.E,R.F,P(470,400)]);
   if(o.chambers){
     pas([R.C,R.Gs]);                         // ascending
     pas([R.Gs,R.GS],11);                     // grand gallery
-    pas([R.Gs,P(512,278)],5);                // middle chamber passage
-    el('path',{d:`M${P(493,279)} L${P(493,268)} L${P(502,262)} L${P(511,268)} L${P(511,279)} Z`,fill:'#e3e9f6',opacity:.85},g); // middle chamber
-    el('path',{d:`M${P(512,231)} L${P(502,231)} L${P(502,226)} L${P(490,226)} L${P(490,231)} L${P(486,231)} L${P(486,213)} L${P(442,213)} L${P(442,232)} L${P(512,232)} Z`,fill:'#e3e9f6',opacity:.85},g); // antechamber + upper chamber
+    pas([R.Gs,P(512,278)],5);                // Middle Chamber passage
+    el('path',{d:`M${P(493,279)} L${P(493,268)} L${P(502,262)} L${P(511,268)} L${P(511,279)} Z`,fill:'#e3e9f6',opacity:.85},g); // Middle Chamber
+    el('path',{d:`M${P(512,231)} L${P(502,231)} L${P(502,226)} L${P(490,226)} L${P(490,231)} L${P(486,231)} L${P(486,213)} L${P(442,213)} L${P(442,232)} L${P(512,232)} Z`,fill:'#e3e9f6',opacity:.85},g); // antechamber + Upper Chamber
   }
-  // lower chamber, pit, dead-end
+  // Lower Chamber, pit, dead-end
   el('rect',{x:P(395,386)[0],y:P(395,386)[1],width:75*o.s,height:18*o.s,fill:'#e3e9f6',opacity:.85},g);
   el('rect',{x:P(426,404)[0],y:P(426,404)[1],width:9*o.s,height:36*o.s,fill:'#e3e9f6',opacity:.7},g);
   pas([P(395,400),R.T],4);
@@ -344,10 +344,10 @@ function note(svg,k,x,y,title,body,tipT,tipB,o){o=o||{};const g=hot(lay(svg,k),T
   [[0,1,'252 years','252 years to 1306 AD [5200 AM]'],[0,2,'302','302 · 1054 AD → 1356 AD']].forEach(([i,j,l,h],q)=>{const g=hot(lay(svg,'measure'),T(C('measure'),h,'',''));
     const yy=Y-30-q*34;dim(g,[nodes[j].x+8,yy],[nodes[i].x-8,yy],'',C('measure'),0);
     tx(g,(nodes[i].x+nodes[j].x)/2+(q?60:0),yy-8,l,{fill:C('measure'),'font-size':14,'font-family':'JetBrains Mono','text-anchor':'middle',class:'halo'});});
-  // 1414 span (lower chamber length)
-  {const g=hot(lay(svg,'maya'),T(C('maya'),'1414 P″ · length of lower chamber level','781 AM + 1414 = 2195 AM = 1700 BC','"Mayan Long-Count start 3114 BC is 781 Annus Mundi. 781 AM + 1414 P" length of Lower Chamber level is 2195 AM, or 1700 BC [height of Great Step from base]."'));
+  // 1414 span (Lower Chamber length)
+  {const g=hot(lay(svg,'maya'),T(C('maya'),'1414 P″ · length of Lower Chamber level','781 AM + 1414 = 2195 AM = 1700 BC','"Mayan Long-Count start 3114 BC is 781 Annus Mundi. 781 AM + 1414 P" length of Lower Chamber level is 2195 AM, or 1700 BC [height of Great Step from base]."'));
    dim(g,[90,Y+30],[520,Y+30],'',C('maya'),0);
-   tx(g,305,Y+20,'1414 P″ · length of lower chamber level',{fill:C('maya'),'font-size':14,'font-family':'JetBrains Mono','text-anchor':'middle',class:'halo'});
+   tx(g,305,Y+20,'1414 P″ · length of Lower Chamber level',{fill:C('maya'),'font-size':14,'font-family':'JetBrains Mono','text-anchor':'middle',class:'halo'});
    tx(g,305,Y+56,'781 AM + 1414 = 2195 AM, or 1700 BC',{fill:'#c4bdf3','font-size':13,'text-anchor':'middle'});
    tx(g,305,Y+76,'[height of Great Step from base]',{fill:'#8b95ad','font-size':12,'text-anchor':'middle'});
    el('path',{d:`M${R.T[0]} ${R.T[1]} L90 ${Y+22} M${R.P(470,404)[0]} ${R.P(470,404)[1]} L520 ${Y+22}`,stroke:C('maya'),'stroke-dasharray':'1 4',fill:'none',opacity:.6},g);}
@@ -375,7 +375,7 @@ function note(svg,k,x,y,title,body,tipT,tipB,o){o=o||{};const g=hot(lay(svg,k),T
   {const g=hot(lay(svg,'measure'),T(C('measure'),'3360 P″','conjunct → Great Step','Ascending passage and gallery to the Great Step: 3360 − 2004 = 1356 AD.'));
    dim(g,R.C,R.Gs,'',C('measure'),-18);dim(g,R.Gs,R.GS,'',C('measure'),-18);
    tx(g,R.Gs[0]-30,R.Gs[1]-46,'3360 P″',{fill:C('measure'),'font-size':15,'font-family':'JetBrains Mono','text-anchor':'middle',class:'halo'});}
-  {const g=hot(lay(svg,'event'),T(C('event'),'1356 AD · Great Step','1356 AD [3360 P″ − 2004 BC]','The Great Step axis drops to the lower chamber level; marked "1356 AD [3360 P"-2004 BC]".'));
+  {const g=hot(lay(svg,'event'),T(C('event'),'1356 AD · Great Step','1356 AD [3360 P″ − 2004 BC]','The Great Step axis drops to the Lower Chamber level; marked "1356 AD [3360 P"-2004 BC]".'));
    el('line',{x1:R.GS[0],y1:R.GS[1],x2:R.GS[0],y2:R.groundY+140,stroke:C('event'),'stroke-width':1.4,'stroke-dasharray':'3 4',class:'hl'},g);
    pin(g,R.GS,[R.GS[0]-150,R.GS[1]-56],'1356 AD · Great Step',C('event'),{fs:14});
    tx(g,R.GS[0]+10,R.groundY+128,'1356 AD [3360 P″ − 2004 BC]',{fill:C('event'),'font-size':14,'font-family':'JetBrains Mono',class:'halo'});
