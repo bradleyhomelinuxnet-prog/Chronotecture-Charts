@@ -2,19 +2,10 @@
 window.PLATE = {
   plate: 103, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p103.txt)',
-  title: 'The Leaf to 2052 AD: Seven Kings', subtitle: '2042, 2046, 2050; ceiling blocks of 38.8 P" from 2014 AD', range: [2010, 2135],
-  events: [
-    { year: 2040, label: 'Phoenix returns', am: 5934, cat: 'comet' },
-    { year: 2042, label: 'Centre of the Leaf: comet, meteoric fallout', am: 5936, cat: 'comet' },
-    { year: 2046, label: 'NIBIRU pushes Earth sunward; impacts', am: 5940, cat: 'impact' },
-    { year: 2050, label: 'End of the Leaf', cat: 'cycle' },
-    { year: 2052, label: 'Dark Satillite releases the Seven Kings', am: 5946, cat: 'anun' },
-    { year: 2130, label: 'Face of the Antechamber’s South Wall', cat: 'cycle' } ],
-  spans: [
-    { from: 2034, to: 2050, years: 16, label: 'Granite Leaf, 16 years', cat: 'proph' },
-    { from: 1902, to: 2046, years: 144, label: '144 years after the Great Step face', cat: 'impact' },
-    { from: 1962, to: 2046, years: 84, label: '84 years after 1962', cat: 'impact' },
-    { from: 2046, to: 2130, years: 84, label: '84 years before 2130', cat: 'impact' },
-    { from: 2014, to: 2052, label: 'First ceiling block, 38.8 P"', cat: 'anun' } ],
-  notes: [ 'Note: a 38.8 P" block from 2014 ends in 2052.8, lettered 2052.' ],
+  title: 'The Granite Leaf Apocalypse and the Granite Ceiling', subtitle: 'Four 4-year periods of the Leaf; three ceiling blocks of 38.8 P"', range: [2010, 2095],
+  anchors: [ { year: 2046, label: '2046 AD', note: 'Nibiru ascends; comet impacts North America' } ],
+  events: [ { year: 2014, label: 'Ceiling block 1 begins', cat: 'cycle' }, { year: 2034, label: 'Boss', cat: 'comet' }, { year: 2040, label: 'Phoenic occults the sun; Sixth Seal', am: 5934, cat: 'comet' }, { year: 2042, label: 'Centre of the Leaf: comet, meteoric fallout', am: 5936, cat: 'comet' }, { year: 2046, label: 'Nibiru; North America impact', am: 5940, cat: 'impact' }, { year: 2050, label: 'End of the Leaf: rest, rebuilding', cat: 'hist' }, { year: 2052, label: 'Seven Kings return', am: 5946, cat: 'anun' }, { year: 2066, label: 'Enoch and Elijah return', cat: 'proph' }, { year: 2090, label: 'Seven Plagues end; block 2 ends', cat: 'proph' } ],
+  spans: [ { from: 2034, to: 2050, years: 16, label: 'The Leaf, 4 × 4', cat: 'proph' }, { from: 2014, to: 2066, years: 52, label: '52 P", four 13s', cat: 'cycle' }, { from: 2014, to: 2052, years: 38, label: 'Ceiling block 1', cat: 'anun' }, { from: 2052, to: 2090, years: 38, label: 'Ceiling block 2', cat: 'anun' } ],
+  math: [ { eq: '1902 + 144 = 2046', cap: 'Step face to 2046' }, { eq: '1962 + 84 = 2046 = 2130 − 84', cap: 'Centre between both entries' }, { eq: '2034 + 6 + 6 + 6 = 2052', cap: 'The 6-year pattern' } ],
+  notes: [ 'Note: a 38.8 P" block from 2014 gives 2052.8, which the text rounds to 2052.' ],
 };
