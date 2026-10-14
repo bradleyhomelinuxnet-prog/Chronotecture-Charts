@@ -27,5 +27,6 @@ window.PLATE = {
     { from: -2815, to: -745, years: 2070, label: '2070 years (414×5)', cat: 'hist' },
     { from: -745, to: 1776, years: 2520, label: '2520 year (360×7) countdown', cat: 'hist' },
     { from: 1782, to: 1902, years: 120, label: 'Phoenix Seal for 120 years', cat: 'hist' } ],
-  math: [ { eq: '666 + 524 + 808 = 1998', cap: 'The right triangle at the Entry' }, { eq: '90 × 11 = 990', cap: '990 AM' }, { eq: '90 × 12 = 1080', cap: '1080 AM' }, { eq: '108 × 11 = 1188', cap: '1188 AM' }, { eq: '144 × 9 = 1296', cap: 'Note: the text writes 1404 years as “(144)”; 1404 = 108 × 13' } ],
+  notes: [ 'Note: the text writes 1404 years as “(144)”; 1404 = 108 × 13.' ],
+  math: [ { eq: '666 + 524 + 808 = 1998', cap: 'The right triangle at the Entry' }, { eq: '90 × 11 = 990', cap: '990 AM' }, { eq: '90 × 12 = 1080', cap: '1080 AM' }, { eq: '108 × 11 = 1188', cap: '1188 AM' } ],
 };
