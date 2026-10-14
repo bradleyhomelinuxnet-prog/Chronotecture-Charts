@@ -247,16 +247,16 @@ function section(svg,o){
   const pas=(pts,w)=>{const d='M'+pts.map(p=>p.join(' ')).join(' L');
     el('path',{d,fill:'none',stroke:'#5f7299','stroke-width':(w||7)*o.s,'stroke-linejoin':'round','stroke-linecap':'round',opacity:.45},g);
     el('path',{d,fill:'none',stroke:'#e3e9f6','stroke-width':1.8,'stroke-linejoin':'round','stroke-linecap':'round'},g);};
-  // descending passage + subterranean
+  // descending passage + lower chamber
   pas([R.E,R.F,P(470,400)]);
   if(o.chambers){
     pas([R.C,R.Gs]);                         // ascending
     pas([R.Gs,R.GS],11);                     // grand gallery
-    pas([R.Gs,P(512,278)],5);                // queen's passage
-    el('path',{d:`M${P(493,279)} L${P(493,268)} L${P(502,262)} L${P(511,268)} L${P(511,279)} Z`,fill:'#e3e9f6',opacity:.85},g); // queen's chamber
-    el('path',{d:`M${P(512,231)} L${P(502,231)} L${P(502,226)} L${P(490,226)} L${P(490,231)} L${P(486,231)} L${P(486,213)} L${P(442,213)} L${P(442,232)} L${P(512,232)} Z`,fill:'#e3e9f6',opacity:.85},g); // antechamber + king's chamber
+    pas([R.Gs,P(512,278)],5);                // middle chamber passage
+    el('path',{d:`M${P(493,279)} L${P(493,268)} L${P(502,262)} L${P(511,268)} L${P(511,279)} Z`,fill:'#e3e9f6',opacity:.85},g); // middle chamber
+    el('path',{d:`M${P(512,231)} L${P(502,231)} L${P(502,226)} L${P(490,226)} L${P(490,231)} L${P(486,231)} L${P(486,213)} L${P(442,213)} L${P(442,232)} L${P(512,232)} Z`,fill:'#e3e9f6',opacity:.85},g); // antechamber + upper chamber
   }
-  // subterranean chamber, pit, dead-end
+  // lower chamber, pit, dead-end
   el('rect',{x:P(395,386)[0],y:P(395,386)[1],width:75*o.s,height:18*o.s,fill:'#e3e9f6',opacity:.85},g);
   el('rect',{x:P(426,404)[0],y:P(426,404)[1],width:9*o.s,height:36*o.s,fill:'#e3e9f6',opacity:.7},g);
   pas([P(395,400),R.T],4);

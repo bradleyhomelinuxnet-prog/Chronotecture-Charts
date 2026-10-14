@@ -102,7 +102,7 @@
     <div class="card">
       <h2>The passage path read as years</h2>
       <div class="hint">North face (entry) at right. The heavy path runs 1110&nbsp;P″ down the descending passage, then 3014&nbsp;P″ along a horizontal axis to the well-pit axis. 1&nbsp;P″ = 1&nbsp;year. Hover or tap any line, node or note.</div>
-      <svg id="sec" viewBox="0 0 1000 640" role="img" aria-label="Great Pyramid cross-section with measured path"></svg>
+      <div class="swipe">← swipe the diagram →</div><div class="scroll"><svg id="sec" class="wide" viewBox="0 0 1000 640" role="img" aria-label="Great Pyramid cross-section with measured path"></svg></div>
     </div>
     <div class="two">
       <div class="card">
@@ -224,11 +224,11 @@ chips(CAT);
   const pas=(p,w,c)=>el('polyline',{points:p.map(q=>q.join(',')).join(' '),fill:'none',stroke:c||'#d9e1f2','stroke-width':w,'stroke-linejoin':'round','stroke-linecap':'butt'},s);
   // grand gallery (wide) + ascending passage
   pas([GK,G0],16,'#cfd8ea'); pas([G0,J],6,'#cfd8ea');
-  // king's chamber + antechamber
+  // upper chamber + antechamber
   el('rect',{x:KC[0],y:KC[1],width:58,height:22,fill:'#cfd8ea'},s);
   el('rect',{x:376,y:242,width:18,height:16,fill:'#cfd8ea'},s);
   el('rect',{x:338,y:226,width:12,height:12,fill:'#0f1a2f',stroke:'#cfd8ea','stroke-width':2},s);
-  // queen's chamber + passage
+  // middle chamber + passage
   el('polygon',{points:'352,322 366,310 380,322 380,336 352,336',fill:'#cfd8ea'},s);
   pas([[380,331],[515,331]],5,'#cfd8ea');
   // descending passage (built) + dashed continuation to the pit

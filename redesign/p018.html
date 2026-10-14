@@ -127,7 +127,7 @@
 <div class="mathgrid">
 <div class="mrow"><span class="eq">3361 − 3036 = 325 P″</span><span class="cap">Variance between the ascending (to the Step) and descending passage lengths</span></div>
 <div class="mrow"><span class="eq">1460 BC − 325 P″ = 1135 BC</span><span class="cap">Sun darkening of 1135&nbsp;BC becomes the new Axis Conjunct</span></div>
-<div class="mrow"><span class="eq">1902 − 1460 = 442 AD</span><span class="cap">Queen's Chamber walls tangent with −1460&nbsp;P″ from the Great Step; 442&nbsp;AD = 4336 Annus Mundi</span></div>
+<div class="mrow"><span class="eq">1902 − 1460 = 442 AD</span><span class="cap">Middle Chamber walls tangent with −1460&nbsp;P″ from the Great Step; 442&nbsp;AD = 4336 Annus Mundi</span></div>
 <div class="mrow"><span class="eq">442 AD − 1447 BC → 1888 years</span><span class="cap">"This is 1888 years after the Exodus in 1447 BC"</span></div>
 <div class="mrow"><span class="eq">666 + 990 = 1656</span><span class="cap">Central-axis heights: "1656 [666+990]: Deluge"; 1656 Annus Mundi is 2239&nbsp;BC</span></div>
 <div class="mrow"><span class="eq">1656 + 34 = 1700</span><span class="cap">1700&nbsp;P″ surface of Great Step; step is 34&nbsp;P″ high</span><span class="aw">as written — 1656 + 34 sums to 1690</span></div>
@@ -146,9 +146,9 @@
 <div class="txg"><h3>Notes on the plate</h3><ul>
 <li>"Variance between passage lengths from 1460 BC is 325 P″ [3361-3036]. 1460 BC - 325 P″ is Sun Darkening of 1135 BC; 1135 BC becomes New Axis Conjunct"</li>
 <li>"1700 P″ surface of Great Step: Step is 34 P″ high [1656+34=1700]"</li>
-<li>"Queens Chamber walls 144 P″ high, tangent with -1460 P″ from Great Step indicating year 442 AD [1902-1460], or 4336 Annus Mundi."</li>
+<li>"Middle Chamber walls 144 P″ high, tangent with -1460 P″ from Great Step indicating year 442 AD [1902-1460], or 4336 Annus Mundi."</li>
 <li>"This is 1888 years after the Exodus in 1447 BC"</li>
-<li>"666 P″" (King's Chamber level down to Queen's Chamber) · "990 P″" (Queen's Chamber down to base line)</li>
+<li>"666 P″" (Upper Chamber level down to Middle Chamber) · "990 P″" (Middle Chamber down to base line)</li>
 <li>"1656 [666+990]: Deluge"</li>
 <li>"1656 Annus Mundi is 2239 BC: Great Flood"</li>
 </ul></div>
@@ -221,11 +221,11 @@ pline(J,G0,C.pass,7);
 el('polygon',{points:`${G0[0]},${G0[1]+4} ${S[0]},${S[1]+4} ${S[0]},${S[1]-34} ${G0[0]},${G0[1]-34}`,fill:'#2a2614',stroke:C.pass,'stroke-width':1.6},svg);
 // great step block
 el('rect',{x:S[0]-10,y:S[1]-46,width:AXX-S[0]+10,height:12,fill:C.pass,opacity:.9},svg);
-// king's chamber + relieving chambers
+// upper chamber + relieving chambers
 el('rect',{x:AXX,y:S[1]-80,width:70,height:46,fill:'#1d1a33',stroke:C.ch,'stroke-width':1.6},svg);
 for(let i=0;i<4;i++)el('rect',{x:AXX+4,y:S[1]-102-i*20,width:62,height:16,fill:'#17152a',stroke:C.ch,'stroke-width':1,opacity:.8},svg);
 el('path',{d:`M${AXX-6} ${S[1]-178} L${AXX+35} ${S[1]-210} L${AXX+76} ${S[1]-178}`,fill:'none',stroke:C.ch,'stroke-width':3},svg);
-// queen's chamber
+// middle chamber
 const QY=G0[1]+6;
 el('rect',{x:G0[0],y:QY,width:AXX-20-G0[0],height:7,fill:'#1d1a33',stroke:C.ch,'stroke-width':1},svg);
 el('rect',{x:AXX-22,y:QY-22,width:44,height:30,fill:'#1d1a33',stroke:C.ch,'stroke-width':1.4},svg);
@@ -265,10 +265,10 @@ const NOTES=[
  {n:1,col:C.pass,at:[J[0],J[1]],h:'Axis Conjunct · 1460 BC',y:'origin of both passage counts',b:'The ascending and descending passages are both measured from this junction.'},
  {n:2,col:C.var,at:[J[0]+128,J[1]+52],h:'325 P″ variance',y:'3361 − 3036',b:'"Variance between passage lengths from 1460 BC is 325 P″ [3361-3036]. 1460 BC - 325 P″ is Sun Darkening of 1135 BC; 1135 BC becomes New Axis Conjunct".'},
  {n:3,col:C.pass,at:[S[0]-4,S[1]-60],h:'1700 P″ surface of Great Step',y:'Step is 34 P″ high',b:'"1700 P″ surface of Great Step: Step is 34 P″ high [1656+34=1700]".'},
- {n:4,col:C.ch,at:[AXX,QY-58],h:'Queen\'s Chamber · 442 AD',y:'1902 − 1460 = 442 AD · 4336 Annus Mundi',b:'"Queens Chamber walls 144 P″ high, tangent with -1460 P″ from Great Step indicating year 442 AD [1902-1460], or 4336 Annus Mundi. This is 1888 years after the Exodus in 1447 BC".'},
+ {n:4,col:C.ch,at:[AXX,QY-58],h:'Middle Chamber · 442 AD',y:'1902 − 1460 = 442 AD · 4336 Annus Mundi',b:'"Middle Chamber walls 144 P″ high, tangent with -1460 P″ from Great Step indicating year 442 AD [1902-1460], or 4336 Annus Mundi. This is 1888 years after the Exodus in 1447 BC".'},
  {n:5,col:C.axis,at:[940,BASE+28],h:'1656 [666+990]: Deluge',y:'1656 Annus Mundi is 2239 BC',b:'Central-axis heights 666 P″ + 990 P″. "1656 Annus Mundi is 2239 BC: Great Flood".'},
  {n:6,col:C.desc,at:[D[0]-30,D[1]-40],h:'Descending passage · 3036 P″',y:'from the Axis Conjunct',b:'The shorter of the two lengths whose difference is the 325 P″ variance.'},
- {n:7,col:C.pass,at:[(G0[0]+S[0])/2,(G0[1]+S[1])/2-15],h:'Grand Gallery · ← 1460 P″ →',y:'Great Step back to the Queen\'s Chamber tangent',b:'−1460 P″ from the Great Step (1902 AD) gives 442 AD.'}
+ {n:7,col:C.pass,at:[(G0[0]+S[0])/2,(G0[1]+S[1])/2-15],h:'Grand Gallery · ← 1460 P″ →',y:'Great Step back to the Middle Chamber tangent',b:'−1460 P″ from the Great Step (1902 AD) gives 442 AD.'}
 ];
 const leg=document.getElementById('legend');
 NOTES.forEach(o=>{const g=el('g',{},svg);
@@ -284,7 +284,7 @@ NOTES.forEach(o=>{const g=el('g',{},svg);
   el('line',{x1:P0,y1:Y,x2:P1,y2:Y,stroke:'#3a486a','stroke-width':2},r);
   for(let p=0;p<=MAX;p+=100){el('line',{x1:Xp(p),y1:Y-(p%500?4:9),x2:Xp(p),y2:Y+(p%500?4:9),stroke:'#3a486a'},r);
     if(p%500===0)txt(r,Xp(p),Y+26,p+' P″',{'text-anchor':'middle','font-size':10.5,fill:'#5d6885','font-family':'JetBrains Mono'});}
-  const marks=[[0,'1460 BC','Axis Conjunct','#ffcf5c'],[325,'1135 BC','New Axis Conjunct','#f08a4b'],[1901,'442 AD','Queen\'s Chamber tangent','#9c8bf0'],[3361,'1902 AD','Great Step','#ffcf5c']];
+  const marks=[[0,'1460 BC','Axis Conjunct','#ffcf5c'],[325,'1135 BC','New Axis Conjunct','#f08a4b'],[1901,'442 AD','Middle Chamber tangent','#9c8bf0'],[3361,'1902 AD','Great Step','#ffcf5c']];
   marks.forEach(([p,yr,l,c],i)=>{const g=el('g',{},r);const x=Xp(p);el('circle',{cx:x,cy:Y,r:6,fill:c},g);
     el('line',{x1:x,y1:Y,x2:x,y2:i===1?40:62,stroke:c,'stroke-width':1,opacity:.7},g);
     txt(g,x+(i===0?-4:4),i===1?32:54,[yr,l],{'font-size':11.5,fill:c,'font-family':'JetBrains Mono','text-anchor':i===3?'end':'start','class':'halo'});
