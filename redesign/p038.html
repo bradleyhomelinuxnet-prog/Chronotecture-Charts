@@ -1,0 +1,399 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart VIII — The Mayan Long-Count Entrance</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:96px;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:880px){.bottom,.two{grid-template-columns:1fr}}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -6px;padding:0 6px}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.12em;margin-bottom:4px}
+  @media(max-width:700px){ .scroll svg.wide{min-width:760px} .swipe{display:block} }
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .halo{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  .hot{cursor:pointer}
+  .hot:hover > .hl, .hot.on > .hl{filter:brightness(1.35)}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transform:translateY(4px);
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#c9906e;font-family:'JetBrains Mono',monospace;margin-top:3px}
+  .mrow.off{border-color:#5a3a2a88}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:22px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+
+  details.tx summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none;display:flex;align-items:center;gap:10px}
+  details.tx summary::-webkit-details-marker{display:none}
+  details.tx summary::before{content:'+';font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--c-proph);width:14px}
+  details.tx[open] summary::before{content:'\2212'}
+  .txgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:4px 26px;margin-top:10px}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:14px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:16px}
+  .tx li{font-size:13px;line-height:1.55;margin-bottom:5px;color:#d5dbea}
+  .tx .q{font-family:'JetBrains Mono',monospace;font-size:12px}
+  .unc{color:#f0a36b}
+  @media(max-width:600px){ .wrap{padding:22px 16px 60px} .card{padding:16px 14px 12px} }
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;VIII · Plate&nbsp;38</div>
+    <h1>Chronotecture
+      <span class="sub">The Entrance at 2590&nbsp;BC, the Mayan Long-Count and the 2070&nbsp;AD Well-Pit Axis</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn chart&nbsp;VIII (<b>'06</b>), preserved verbatim (chamber names follow the atlas's Upper / Middle / Lower convention); only the visual language is redesigned. Its structural key: <b>the entrance is dated 2590&nbsp;BC</b> — 524&nbsp;P″ back to 3114&nbsp;BC starts the Mayan Long-Count, while 1110 + 3036 + 346 + 168&nbsp;P″ forward run through 1480&nbsp;BC, 1556 and 1902 to 2070&nbsp;AD.</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Layers</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2>From the entrance to the well-pit axis</h2>
+      <div class="hint">North face (entry) at right. 1&nbsp;P″ = 1&nbsp;year: the entrance (2590&nbsp;BC) → 1110&nbsp;P″ to the axis → 3036&nbsp;P″ to the passage end → 346&nbsp;P″ to the Lower Chamber's north wall → 168&nbsp;P″ to the well-pit axis. Hover or tap any line, node or note.</div>
+      <div class="swipe">← swipe the diagram →</div>
+      <div class="scroll"><svg id="sec" class="wide" viewBox="0 0 1000 600" role="img" aria-label="Great Pyramid cross-section"></svg></div>
+    </div>
+    <div class="two">
+      <div class="card">
+        <h2>The casing at the entrance</h2>
+        <div class="hint">Upper-right inset of the plate: the entrance notch measured in the casing — 33&nbsp;P″ across, 52&nbsp;P″ down — each ×100.</div>
+        <svg id="cas" viewBox="0 0 560 400" role="img" aria-label="Casing inset"></svg>
+      </div>
+      <div class="card">
+        <h2>Inner Sanctuary of Stonehenge</h2>
+        <div class="hint">Five trilithons, each marked 414, enclosing 2070 — drawn inside the pyramid on the plate.</div>
+        <svg id="stn" viewBox="0 0 560 400" role="img" aria-label="Stonehenge trilithons"></svg>
+      </div>
+    </div>
+    <div class="card">
+      <h2>Year ruler</h2>
+      <div class="hint">The plate's chained measurements laid end to end, to scale — 3114&nbsp;BC to 2070&nbsp;AD.</div>
+      <div class="swipe">← swipe →</div>
+      <div class="scroll"><svg id="rul" class="wide" viewBox="0 0 1400 210" role="img" aria-label="Year ruler"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card">
+        <h2>Cycle mathematics</h2>
+        <div class="hint">Every sum on the plate, checked.</div>
+        <div class="mathgrid">
+          <div class="mrow"><span class="eq">2590 BC + 524 = 3114 BC</span><span class="cap">Entry to corner of monument → [781 AM] start of the Mayan Long-Count ✓</span></div>
+          <div class="mrow"><span class="eq">2590 BC − 1110 P″ = 1480 BC</span><span class="cap">[1305 AM] + 1110 = 2415 AM — "Axis 1480 BC [2415 AM]" ✓</span></div>
+          <div class="mrow off"><span class="eq">1480 BC + 3036 P″ → 1556 AD</span><span class="cap">2415 + 3036 = 5451 AM ✓</span><span class="aw">as written — without a year zero 1480 BC + 3036 falls in 1557 AD</span></div>
+          <div class="mrow"><span class="eq">1556 + 346 P″ = 1902 AD</span><span class="cap">North face of the Lower Chamber wall: start of Giza Course Calendar ✓</span></div>
+          <div class="mrow"><span class="eq">1902 + 168 P″ = 2070 AD</span><span class="cap">"168 P″ from 1902 AD is 2070 AD" ✓</span></div>
+          <div class="mrow"><span class="eq">5814 P″ − 3114 = 2700</span><span class="cap">"5814 P″ – 3114 BC of Maya Calendar is 2700" ✓</span></div>
+          <div class="mrow"><span class="eq">6000 − 2700 = 3300 = 33 P″ × 100</span><span class="cap">Horizontal distance of pyramid entry from roof to floor, times 100 ✓</span></div>
+          <div class="mrow"><span class="eq">52 P″ × 100 = 5200</span><span class="cap">Length of Mayan Calendar 5200 years ✓</span></div>
+          <div class="mrow"><span class="eq">414 × 5 = 2070</span><span class="cap">Five 414-marked trilithons around 2070 (implied by the drawing) ✓</span></div>
+          <div class="mrow"><span class="eq">4309 BC − 2239 BC = 2070</span><span class="cap">"2070 Annus Mundi … separating PreAdamic worlds destruction in 4309 BC and the Great Flood in 2239 BC" ✓</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <details class="tx">
+          <summary>Full transcription</summary>
+          <div class="tx">
+            <h3>Corners</h3>
+            <ul><li class="q">VIII</li><li class="q">Breshears '06</li></ul>
+            <h3>Upper area &amp; casing inset</h3>
+            <ul>
+              <li class="q">5814 P″ <span style="color:var(--muted)">(height of the small pyramid figure)</span></li>
+              <li class="q">5814 P″ – 3114 BC of Maya Calendar is 2700. 2700 Subtracted from 6000 Year Timeline [Annus Mundi] is 3300: Horizontal Distance of Pyramid Entry from Roof to Floor, Times 100</li>
+              <li class="q">33 P″ — ×100 = 3300</li>
+              <li class="q">52 P″ — ×100 = 5200 Length of Mayan Calendar 5200 Years</li>
+              <li class="q">To 1480 BC Axis <span style="color:var(--muted)">(arrow down the passage)</span></li>
+              <li class="q">3114 BC</li>
+              <li class="q">2590 BC [1305 AM] <span style="color:var(--muted)">(arrow onto the entrance)</span></li>
+              <li class="q">524 P″</li>
+            </ul>
+            <h3>Passages</h3>
+            <ul>
+              <li class="q">Axis 1480 BC [2415 AM]</li>
+              <li class="q">1110 P″</li>
+              <li class="q">3036 P″</li>
+              <li class="q">6 P″ Disparity Made by Structural Subsidence and Was Not an Original Alignment, Though the Well Pit is Wide Enough to be a Bull's Eye for Both Pre- and Post-Subsidence Alignments.</li>
+              <li class="q">Inner Sanctuary of Stonehenge · 414 · 414 · 414 · 414 · 414 · 2070</li>
+            </ul>
+            <h3>Below ground</h3>
+            <ul>
+              <li class="q">1556 AD [5451 AM]</li>
+              <li class="q">346 P″</li>
+              <li class="q">1902 AD</li>
+              <li class="q">2070 AD <span style="color:var(--muted)">(down the well-pit axis)</span></li>
+              <li class="q">168 P″</li>
+              <li class="q">168 P″ from 1902 AD is 2070 AD</li>
+              <li class="q">North Face of Lower Chamber Wall is 1902 AD Start of Giza Course Calendar and End of Stonehenge Chronolithic System.</li>
+              <li class="q">Pyramid Entry is 524 P″ to Corner of Monument, thus 2590 BC + 524 Becomes 3114 BC [781 AM] Start of the Mayan Long-Count</li>
+              <li class="q">2070 Annus Mundi Ancient Date and Number of Apocalypse Separating PreAdamic Worlds Destruction in 4309 BC and the Great Flood in 2239 BC.</li>
+              <li class="q">2070 Anno Domini is Year of the Resurrection Halfway Through Apocalypse.</li>
+            </ul>
+            <h3>Reading notes</h3>
+            <ul><li>This plate writes the axis as "1480 BC [2415 AM]"; chart VI (plate 27) writes the same axis as "1480 AM [2415 BC]". Both kept as written.</li><li>Chamber names follow the atlas convention (Upper / Middle / Lower Chamber).</li></ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;VIII (plate&nbsp;38). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function tx(parent,x,y,s,o){o=o||{};const t=el('text',Object.assign({x:x,y:y,fill:'#dfe6f5','font-size':12},o),parent);t.textContent=s;return t;}
+const tip=document.getElementById('tip');
+let pinned=null;
+function showTip(html,e){ tip.innerHTML=html; tip.style.opacity=1;
+  const w=Math.min(300,window.innerWidth-20);
+  let x=e.clientX+16, yy=e.clientY+14;
+  if(x+w>window.innerWidth) x=Math.max(8,e.clientX-w-10);
+  const h=tip.offsetHeight||140;
+  if(yy+h>window.innerHeight) yy=Math.max(8,e.clientY-h-10);
+  tip.style.left=x+'px'; tip.style.top=yy+'px'; }
+function hideTip(){ tip.style.opacity=0; if(pinned){pinned.classList.remove('on');pinned=null;} }
+function hov(g,html){
+  g.classList.add('hot');
+  g.addEventListener('mousemove',e=>{ if(!pinned) showTip(typeof html==='function'?html():html,e); });
+  g.addEventListener('mouseleave',()=>{ if(!pinned) tip.style.opacity=0; });
+  g.addEventListener('click',e=>{ e.stopPropagation(); if(pinned===g){hideTip();return;}
+    if(pinned) pinned.classList.remove('on'); pinned=g; g.classList.add('on'); showTip(typeof html==='function'?html():html,e); });
+}
+document.addEventListener('click',()=>hideTip());
+window.addEventListener('scroll',()=>{ if(pinned) hideTip(); },{passive:true});
+function T(col,h,yr,b){return `<div class="t-h"><span class="d" style="background:${col}"></span>${h}</div>`+(yr?`<div class="t-yr">${yr}</div>`:'')+(b?`<div class="t-b">${b}</div>`:'');}
+function chips(CAT){
+  const bar=document.getElementById('filters'); if(!bar) return;
+  const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{
+    const c=document.createElement('div'); c.className='chip'; c.dataset.k=k;
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=(e)=>{ e.stopPropagation(); if(active.has(k)){active.delete(k);c.classList.add('off');} else {active.add(k);c.classList.remove('off');} apply(); };
+    bar.appendChild(c);
+  });
+  function apply(){ document.querySelectorAll('[data-cat]').forEach(g=>{ g.style.display = active.has(g.getAttribute('data-cat'))?'':'none'; }); }
+}
+
+
+const CAT={ meas:{c:'#4fe3ff',label:'Measured P″ lengths'}, date:{c:'#e7c355',label:'Dated notes'}, stone:{c:'#9c8bf0',label:'Stonehenge & Maya'} };
+chips(CAT);
+const CY='#4fe3ff', GD='#e7c355', VI='#9c8bf0', OR='#f08a4b';
+function note(s,cat,x,y,w,lines,col,html){
+  const g=el('g',{'data-cat':cat},s);
+  el('rect',{class:'hl',x:x,y:y,width:w,height:lines.length*16+12,rx:8,fill:'#0e1526',stroke:(col||GD)+'55'},g);
+  lines.forEach((t,i)=>tx(g,x+10,y+18+i*16,t,{fill:'#cdd5e6','font-size':11.2}));
+  hov(g,html); return g;
+}
+function seg(s,cat,a,b,col,w,html){const g=el('g',{'data-cat':cat},s);
+  el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'transparent','stroke-width':22},g);
+  el('line',{class:'hl',x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,'stroke-width':w,'stroke-linecap':'round'},g);
+  hov(g,html);return g;}
+function node(s,cat,p,col,html){const g=el('g',{'data-cat':cat},s);
+  el('circle',{cx:p[0],cy:p[1],r:14,fill:'transparent'},g);
+  el('circle',{class:'hl',cx:p[0],cy:p[1],r:6,fill:col,stroke:'#0b0f1a','stroke-width':1.5},g);
+  el('circle',{cx:p[0],cy:p[1],r:11,fill:'none',stroke:col,opacity:.5},g);hov(g,html);return g;}
+const lab=(s,x,y,t,c,o)=>tx(s,x,y,t,Object.assign({fill:c,'font-size':12,'font-family':'JetBrains Mono','font-weight':500,class:'halo'},o||{}));
+
+(function(){
+  const s=document.getElementById('sec');
+  const baseY=390, A=[430,10];
+  const fx=y=>A[0]+(y-A[1])*470/(baseY-A[1]);
+  const lx=y=>A[0]-(y-A[1])*470/(baseY-A[1]);
+  el('rect',{x:0,y:baseY,width:1000,height:210,fill:'#0a1120'},s);
+  for(let y=baseY+22;y<600;y+=22) el('line',{x1:0,y1:y,x2:1000,y2:y,stroke:'#152036'},s);
+  el('polygon',{points:`${A} ${lx(baseY)},${baseY} ${fx(baseY)},${baseY}`,fill:'#0f1a2f',stroke:'#3a4a6e','stroke-width':1.5},s);
+  for(let y=20;y<baseY;y+=10) el('line',{x1:lx(y),y1:y,x2:fx(y),y2:y,stroke:'#1b2843'},s);
+  el('line',{x1:0,y1:baseY,x2:1000,y2:baseY,stroke:'#3a4a6e','stroke-width':1.5},s);
+  const WX=330, E=[fx(270),270], J=[672,312], P=[420,420], NW=[372,420];
+  const pas=(p,w)=>el('polyline',{points:p.map(q=>q.join(',')).join(' '),fill:'none',stroke:'#cfd8ea','stroke-width':w,'stroke-linejoin':'round'},s);
+  // upper chamber + relieving stack, gallery, middle chamber
+  for(let i=0;i<5;i++) el('rect',{x:282,y:118-i*14,width:70,height:9,rx:2,fill:'#9fb0d6',opacity:.55},s);
+  el('polygon',{points:'280,62 317,40 354,62',fill:'none',stroke:'#9fb0d6','stroke-width':3},s);
+  el('rect',{x:280,y:128,width:74,height:22,fill:'#cfd8ea'},s);
+  el('rect',{x:352,y:136,width:20,height:14,fill:'#cfd8ea'},s);
+  pas([[372,146],[540,232]],16); pas([[540,232],J],6);
+  el('polygon',{points:'300,222 316,208 332,222 332,236 300,236',fill:'#cfd8ea'},s);
+  pas([[332,231],[536,231]],5);
+  tx(s,276,146,'UPPER CH.',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end'});
+  tx(s,296,236,'MIDDLE CH.',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end'});
+  tx(s,470,184,'GRAND GALLERY',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono',transform:'rotate(27 470 184)'});
+  pas([E,J],7); pas([J,P],7);
+  // lower chamber
+  el('rect',{x:300,y:410,width:72,height:30,fill:'none',stroke:'#cfd8ea','stroke-width':2.2},s);
+  el('line',{x1:200,y1:425,x2:300,y2:425,stroke:'#8fa0c4','stroke-dasharray':'5 4','stroke-width':2},s);
+  tx(s,336,404,'LOWER CHAMBER',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  // well-pit axis
+  el('line',{x1:WX,y1:20,x2:WX,y2:590,stroke:VI,'stroke-width':1.3,'stroke-dasharray':'4 5'},s);
+  el('line',{x1:WX+10,y1:150,x2:WX+10,y2:400,stroke:'#56628f','stroke-dasharray':'2 5'},s);
+  // 524 to corner
+  const C=[fx(baseY),baseY];
+  const g524=el('g',{'data-cat':'meas'},s);
+  el('line',{x1:E[0],y1:E[1],x2:C[0]+40,y2:E[1],stroke:'transparent','stroke-width':20},g524);
+  el('line',{class:'hl',x1:E[0]+8,y1:E[1],x2:C[0]+40,y2:E[1],stroke:CY,'stroke-width':1.6,'stroke-dasharray':'5 4'},g524);
+  el('line',{x1:C[0]+40,y1:E[1],x2:C[0]+40,y2:baseY,stroke:CY,'stroke-width':1.2},g524);
+  el('path',{d:`M${C[0]+40} ${baseY} l-4 -8 h8 z`,fill:CY},g524);
+  lab(g524,E[0]+30,E[1]-8,'524 P″',CY);
+  lab(g524,C[0]+46,E[1]+14,'3114 BC',GD,{'font-size':11.5});
+  lab(g524,C[0]+46,E[1]+29,'[781 AM]',GD,{'font-size':11.5});
+  hov(g524,T(CY,'524 P″ — entry to corner of monument','2590 BC + 524 = 3114 BC [781 AM]','"Pyramid Entry is 524 P″ to Corner of Monument, thus 2590 BC + 524 Becomes 3114 BC [781 AM] Start of the Mayan Long-Count"'));
+  // passages
+  const g1=seg(s,'meas',E,J,CY,4,T(CY,'1110 P″','2590 BC [1305 AM] → 1480 BC [2415 AM]','From the entrance down to the axis.'));
+  lab(g1,722,286,'1110 P″',CY,{transform:'rotate(-23 722 286)','text-anchor':'middle'});
+  const g2=seg(s,'meas',J,P,CY,4,T(CY,'3036 P″','1480 BC [2415 AM] → 1556 AD [5451 AM]','Down the descending passage from the axis to its end.'));
+  lab(g2,560,350,'3036 P″',CY,{transform:'rotate(-23 560 350)','text-anchor':'middle','font-size':13});
+  const g3=seg(s,'meas',[P[0],440],[NW[0],440],OR,3,T(OR,'346 P″','1556 AD → 1902 AD','To the north face of the Lower Chamber wall — start of the Giza Course Calendar.'));
+  lab(g3,(P[0]+NW[0])/2,458,'346 P″',OR,{'text-anchor':'middle','font-size':11});
+  const g4=seg(s,'meas',[NW[0],478],[WX,478],VI,3,T(VI,'168 P″','1902 AD → 2070 AD','"168 P″ from 1902 AD is 2070 AD" — the well-pit vertical axis.'));
+  lab(g4,NW[0]+8,494,'168 P″',VI,{'font-size':11});
+  // nodes
+  node(s,'date',E,GD,T(GD,'Entrance','2590 BC [1305 AM]','The arrow on the plate marks the entrance date.'));
+  lab(s,E[0]+14,E[1]-40,'2590 BC',GD); lab(s,E[0]+14,E[1]-25,'[1305 AM]',GD,{'font-size':11});
+  node(s,'date',J,GD,T(GD,'Axis 1480 BC [2415 AM]','2590 BC − 1110 = 1480 BC','Written on this plate as "1480 BC [2415 AM]".'));
+  lab(s,J[0]-10,J[1]-60,'AXIS 1480 BC',GD,{'text-anchor':'middle'}); lab(s,J[0]-10,J[1]-45,'[2415 AM]',GD,{'text-anchor':'middle','font-size':11});
+  el('line',{x1:J[0]-10,y1:J[1]-40,x2:J[0]-10,y2:baseY,stroke:GD,'stroke-dasharray':'2 4',opacity:.6},s);
+  node(s,'date',P,GD,T(GD,'Passage end','1556 AD [5451 AM]','2415 AM + 3036 = 5451 AM.'));
+  lab(s,P[0]+12,P[1]-22,'1556 AD',GD,{'font-size':11}); lab(s,P[0]+12,P[1]-8,'[5451 AM]',GD,{'font-size':11});
+  node(s,'date',[NW[0],425],OR,T(OR,'North face of Lower Chamber wall','1902 AD','"…is 1902 AD Start of Giza Course Calendar and End of Stonehenge Chronolithic System."'));
+  const n5=node(s,'date',[WX,520],VI,T(VI,'Well-pit axis — 2070 AD','1902 + 168 = 2070 AD','"2070 Anno Domini is Year of the Resurrection Halfway Through Apocalypse."'));
+  lab(n5,WX-12,520,'2070 AD',VI,{transform:`rotate(-90 ${WX-12} 520)`,'text-anchor':'middle','font-size':13});
+  // notes
+  note(s,'date',600,420,390,['North face of Lower Chamber wall is 1902 AD start','of Giza Course Calendar and end of Stonehenge','Chronolithic system.'],OR,T(OR,'1902 AD','North face of Lower Chamber wall','Start of Giza Course Calendar and end of Stonehenge Chronolithic system.'));
+  note(s,'date',600,500,390,['Pyramid entry is 524 P″ to corner of monument, thus','2590 BC + 524 becomes 3114 BC [781 AM] start of','the Mayan Long-Count'],GD,T(GD,'3114 BC [781 AM]','2590 BC + 524','Start of the Mayan Long-Count.'));
+  note(s,'date',10,486,300,['2070 Annus Mundi ancient date and number','of Apocalypse separating PreAdamic worlds','destruction in 4309 BC and the Great Flood','in 2239 BC. — 2070 Anno Domini is year of','the Resurrection halfway through Apocalypse.'],VI,T(VI,'2070','4309 BC → 2239 BC = 2070','2070 AM separates the PreAdamic worlds’ destruction (4309 BC) and the Great Flood (2239 BC); 2070 AD is the year of the Resurrection, halfway through Apocalypse.'));
+  note(s,'date',10,300,300,['6 P″ disparity made by structural subsidence','and was not an original alignment, though the','well pit is wide enough to be a bull’s eye for','both pre- and post-subsidence alignments.'],VI,T(VI,'6 P″ disparity','well-pit axis','Made by structural subsidence, not an original alignment; the well pit is wide enough to be a bull’s eye for both alignments.'));
+  el('line',{x1:310,y1:340,x2:WX+4,y2:350,stroke:VI,opacity:.7},s);
+})();
+
+(function(){
+  const s=document.getElementById('cas');
+  el('rect',{x:0,y:0,width:560,height:400,fill:'#0b111e'},s);
+  // casing blocks
+  for(let y=20;y<400;y+=44){ el('line',{x1:0,y1:y,x2:560,y2:y,stroke:'#22304c'},s);
+    for(let x=((y/44)%2?40:100);x<560;x+=120) el('line',{x1:x,y1:y,x2:x,y2:y+44,stroke:'#22304c'},s);}
+  // face with notch: upper face, notch, lower face
+  const top=[[60,0],[250,170]], notch=[[250,170],[250,190],[300,190],[300,240]], low=[[300,240],[480,400]];
+  el('polygon',{points:'0,0 60,0 250,170 250,190 300,190 300,240 480,400 0,400',fill:'#13203a',opacity:.85},s);
+  el('polyline',{points:[...top,...notch.slice(1),...low.slice(1)].map(p=>p.join(',')).join(' '),fill:'none',stroke:'#cfd8ea','stroke-width':2.4},s);
+  // passage band
+  el('polygon',{points:'250,190 300,240 40,380 0,380 0,330',fill:'#0b0f1a',stroke:'#cfd8ea','stroke-width':1.5},s);
+  tx(s,130,316,'◄ TO 1480 BC AXIS',{fill:'#e7c355','font-size':12,'font-family':'JetBrains Mono',transform:'rotate(-28 130 316)',class:'halo'});
+  // 33 P" horizontal
+  const g1=el('g',{'data-cat':'stone'},s);
+  el('line',{x1:250,y1:120,x2:300,y2:120,stroke:'transparent','stroke-width':24},g1);
+  el('line',{class:'hl',x1:250,y1:120,x2:300,y2:120,stroke:VI,'stroke-width':2.4},g1);
+  el('line',{x1:250,y1:112,x2:250,y2:170,stroke:VI,'stroke-dasharray':'3 3'},g1); el('line',{x1:300,y1:112,x2:300,y2:190,stroke:VI,'stroke-dasharray':'3 3'},g1);
+  lab(g1,275,108,'33 P″',VI,{'text-anchor':'middle'});
+  el('line',{x1:304,y1:104,x2:360,y2:70,stroke:VI,opacity:.6},g1);
+  lab(g1,364,70,'×100 = 3300',VI,{'font-size':14});
+  hov(g1,T(VI,'33 P″ × 100 = 3300','6000 − 2700 = 3300','Horizontal distance of pyramid entry from roof to floor, times 100. 5814 P″ − 3114 BC = 2700; 6000 − 2700 = 3300.'));
+  // 52 P" vertical
+  const g2=el('g',{'data-cat':'stone'},s);
+  el('line',{x1:320,y1:150,x2:320,y2:240,stroke:'transparent','stroke-width':24},g2);
+  el('line',{class:'hl',x1:322,y1:150,x2:322,y2:240,stroke:OR,'stroke-width':2.4},g2);
+  lab(g2,330,205,'52 P″',OR);
+  el('line',{x1:376,y1:200,x2:396,y2:178,stroke:OR,opacity:.6},g2);
+  lab(g2,398,170,'×100 = 5200',OR,{'font-size':14});
+  tx(g2,398,190,'Length of Mayan',{fill:'#f6c89f','font-size':11.5});
+  tx(g2,398,205,'Calendar 5200 years',{fill:'#f6c89f','font-size':11.5});
+  hov(g2,T(OR,'52 P″ × 100 = 5200','Length of Mayan Calendar 5200 years',''));
+  // 5814 pyramid icon
+  const g3=el('g',{'data-cat':'stone'},s);
+  el('polygon',{class:'hl',points:'40,90 80,30 120,90',fill:'#1b2843',stroke:'#c9b98f','stroke-width':1.4},g3);
+  el('line',{x1:28,y1:30,x2:28,y2:90,stroke:'#c9b98f'},g3);
+  tx(g3,24,64,'5814 P″',{fill:'#c9b98f','font-size':10,'font-family':'JetBrains Mono','text-anchor':'middle',transform:'rotate(-90 22 60)'});
+  tx(g3,130,60,'5814 P″ − 3114 BC = 2700',{fill:'#e8dcb5','font-size':11,'font-family':'JetBrains Mono',class:'halo'});
+  hov(g3,T('#c9b98f','5814 P″ – 3114 BC of Maya Calendar is 2700','2700 subtracted from 6000 = 3300','"…2700 Subtracted from 6000 Year Timeline [Annus Mundi] is 3300: Horizontal Distance of Pyramid Entry from Roof to Floor, Times 100"'));
+})();
+
+(function(){
+  const s=document.getElementById('stn');
+  const g=el('g',{'data-cat':'stone'},s);
+  const tri=(x,y,rot,lx,ly)=>{const t=el('g',{transform:`rotate(${rot} ${x} ${y})`},g);
+    el('rect',{x:x-26,y:y-34,width:16,height:68,rx:2,fill:'#33415f',stroke:'#9fb0d6'},t);
+    el('rect',{x:x+10,y:y-34,width:16,height:68,rx:2,fill:'#33415f',stroke:'#9fb0d6'},t);
+    el('rect',{x:x-32,y:y-46,width:64,height:14,rx:2,fill:'#46557a',stroke:'#9fb0d6'},t);
+    tx(g,lx,ly,'414',{fill:VI,'font-size':15,'font-family':'JetBrains Mono','text-anchor':'middle',class:'halo'});};
+  const pos=[[280,110,0,280,52],[170,170,-62,108,150],[390,170,62,452,150],[195,285,-30,132,318],[365,285,30,428,318]];
+  pos.forEach(p=>tri(...p));
+  pos.forEach((a,i)=>pos.forEach((b,j)=>{ if(j>i) el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'#9c8bf055'},g);}));
+  tx(g,280,240,'2070',{fill:'#e7c355','font-size':30,'font-family':'Cormorant Garamond,serif','font-weight':700,'text-anchor':'middle',class:'halo'});
+  tx(g,280,384,'INNER SANCTUARY OF STONEHENGE',{fill:'#aeb7cd','font-size':11,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  hov(g,T(VI,'Inner Sanctuary of Stonehenge','414 × 5 = 2070','Five trilithons marked 414 around 2070 — the 2070 AD of the well-pit axis, and the 2070 AM "number of Apocalypse".'));
+})();
+
+(function(){
+  const s=document.getElementById('rul');
+  const R0=-3200,R1=2150,RL=40,RR=1370,Y=110;
+  const RX=y=>RL+(y-R0)/(R1-R0)*(RR-RL);
+  el('line',{x1:RL,y1:Y,x2:RR,y2:Y,stroke:'#33415f','stroke-width':2},s);
+  for(let y=-3000;y<=2000;y+=500){el('line',{x1:RX(y),y1:Y,x2:RX(y),y2:Y+6,stroke:'#33415f'},s);
+    tx(s,RX(y),Y+40,y<0?(-y)+' BC':(y===0?'':y+' AD'),{fill:'#56628f','font-size':10,'font-family':'JetBrains Mono','text-anchor':'middle'});}
+  el('line',{x1:RX(0),y1:20,x2:RX(0),y2:Y+46,stroke:'#56628f','stroke-dasharray':'4 5'},s);
+  const SG=[[-3114,-2590,'524',CY,'2590 BC + 524 = 3114 BC (counted backward to the corner)'],[-2590,-1480,'1110 P″',CY,'2590 BC → 1480 BC'],[-1480,1556,'3036 P″',CY,'1480 BC → 1556 AD'],[1556,1902,'346',OR,'1556 → 1902 AD'],[1902,2070,'168',VI,'1902 → 2070 AD']];
+  SG.forEach(([a,b,l,c,d],i)=>{const g=el('g',{'data-cat':'meas'},s);
+    el('rect',{x:RX(a),y:Y-24,width:RX(b)-RX(a),height:30,fill:'transparent'},g);
+    el('rect',{class:'hl',x:RX(a)+1,y:Y-14,width:RX(b)-RX(a)-2,height:12,rx:3,fill:c,opacity:.85},g);
+    tx(g,(RX(a)+RX(b))/2,Y-22,l,{fill:c,'font-size':11.5,'font-family':'JetBrains Mono','text-anchor':'middle',class:'halo'});
+    hov(g,T(c,l,d,''));});
+  [[-3114,'3114 BC [781 AM]',0],[-2590,'2590 BC [1305 AM]',1],[-1480,'1480 BC [2415 AM]',0],[1556,'1556 AD [5451 AM]',0],[1902,'1902 AD',1],[2070,'2070 AD',2]].forEach(([y,l,lv])=>{
+    const g=el('g',{'data-cat':'date'},s);
+    el('circle',{class:'hl',cx:RX(y),cy:Y,r:5,fill:GD,stroke:'#0b0f1a','stroke-width':1.5},g);
+    tx(g,RX(y),Y+64+lv*15,l,{fill:GD,'font-size':10.5,'font-family':'JetBrains Mono','text-anchor':'middle'});
+    el('line',{x1:RX(y),y1:Y+6,x2:RX(y),y2:Y+52+lv*15,stroke:GD,'stroke-dasharray':'2 3',opacity:.5},g);
+    hov(g,T(GD,l,'',''));});
+})();
+
+</script>
+</body>
+</html>
