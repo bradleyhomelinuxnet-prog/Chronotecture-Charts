@@ -12,6 +12,7 @@ A navigable study edition of Jason M. Breshears' *Chronotecture: The Lost Scienc
 | `pages/` | One page per plate, p001 to p119 |
 | `plates/` | The full-size plate images |
 | `thumbs/` | Thumbnails for the index |
+| `thumbs-redesign/` | Previews of the chart redesigns, shown in the index grid in place of the scans |
 | `redesign/` | The rebuilt interactives: the original nine (Chart I, II·b, II·c, I·e, VI·c, VI·d, the Great Step, the Constellation, Plate 119) plus one page per chart plate, `pNNN.html` |
 | `redesign/engine/`, `redesign/data/` | The shared chart engine: each `data/pNNN.js` describes one plate and `eNNN.html` draws it with `engine/chart.js`. Every plate (all 119) has one; plate pages show it as **Engine view**, alongside the hand-built redesign or the "Read text" view (spec: `engine/SPEC.md`) |
 | `text/` | Cleaned transcriptions of the text plates (`pNNN.txt`), bundled into `texts.js` for the plate viewer's "Read text" view and the atlas search |

@@ -13,3 +13,5 @@ Kept so the work can be redone, not needed to view the atlas. Run from this fold
 
 Order for the audit: `node dump.js && node rows.js && python3 check.py && python3 evalrows.py && python3 audit.py`.
 Paths are relative to this folder; outputs (`dump/`, `*.json`, screenshots) land in the repo root, so delete them after use (don't commit them).
+
+**Redesign thumbnails.** `thumbs-redesign/pNNN.jpg` are screenshots of each chart redesign (292×380), shown in the index grid for chart plates; `thumbs/` keeps the original scans. To refresh: from the repo root run `NODE_PATH=$(npm root -g) node tools/dev/thumbs.js`, then resize each `t-pNNN.png` to 292×380 JPEG in `thumbs-redesign/` and delete the PNGs.

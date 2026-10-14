@@ -123,7 +123,7 @@ var KW={13:"chart i pyramid inch calendar 3361 3036 1902 giza course",14:"chart 
     var kw=(KW[i]||'')+(ch==='1'?' chart plate':' text page');
     var pg=('00'+i).slice(-3);
     h+='<a class="cardp'+sc+'" data-pg="'+i+'" data-chart="'+ch+'" data-star="'+st+'" data-kw="'+kw+'" href="pages/p'+pg+'.html">'
-      +'<div class="thumbwrap"><img loading="lazy" src="thumbs/p'+pg+'.jpg" alt="Plate '+i+'"></div>'
+      +'<div class="thumbwrap"><img loading="lazy" src="'+(STARS[i]?'thumbs-redesign':'thumbs')+'/p'+pg+'.jpg" alt="Plate '+i+'"></div>'
       +'<div class="cap"><span class="pg">'+pg+' '+star+'</span><span class="dotc" style="background:'+col+'" title="'+lab+'"></span></div></a>';
   }
   g.innerHTML=h;
