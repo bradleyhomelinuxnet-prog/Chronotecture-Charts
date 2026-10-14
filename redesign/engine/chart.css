@@ -57,3 +57,8 @@ svg.tl .dim{opacity:.12}
 #tip .t-h{font-weight:600;margin-bottom:3px}
 #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
 #tip .t-b{color:var(--muted);margin-top:4px}
+.zoombar{display:flex;flex-wrap:wrap;align-items:center;gap:8px;margin:2px 0 10px}
+.zoombar #zoomlbl{font-size:12px;color:var(--c-proph);margin-right:6px}
+.zoombar .chip{padding:5px 11px;font-size:12px}
+.zoombar .zhint{font-size:11.5px;color:var(--muted)}
+svg.tl{cursor:crosshair;touch-action:pan-y}
