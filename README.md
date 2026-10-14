@@ -1,11 +1,14 @@
-# Chronotecture · The Prophecy Engine (private backup)
+# Chronotecture · The Prophecy Engine
 
-A navigable edition of Jason M. Breshears' *Chronotecture: The Lost Science of Prophetic Engineering* (2017): all 119 plates, plus rebuilt interactive charts in `redesign/`.
+A navigable study edition of Jason M. Breshears' *Chronotecture: The Lost Science of Prophetic Engineering* (2017). It has all 119 plates in a viewer you can pan, zoom and rotate, plus rebuilt interactive versions of the key charts.
 
-**Private on purpose.** The plates in `plates/` and `thumbs/` are scans of Jason Breshears' charts. This repository is a backup of the live site, not a publication. Do not make it public.
+**▶ Live:** [hollywood-rogue-ai-ventures.w3spaces.com/Chronotecture-Charts](https://hollywood-rogue-ai-ventures.w3spaces.com/Chronotecture-Charts/index.html)
 
-- Live site: https://hollywood-rogue-ai-ventures.w3spaces.com/Chronotecture-Charts/index.html
-- Run locally: open `index.html` in a browser, or serve this folder with any static server.
+## Use it
+
+Open `index.html` in any browser. There's nothing to install, and it works offline. You can also serve the folder from any static web server.
+
+## What's inside
 
 | Folder | What it is |
 |---|---|
@@ -13,19 +16,14 @@ A navigable edition of Jason M. Breshears' *Chronotecture: The Lost Science of P
 | `pages/` | One page per plate, p001 to p119 |
 | `plates/` | The full-size plate images |
 | `thumbs/` | Thumbnails for the index |
-| `redesign/` | The rebuilt interactives: the original nine (Chart I, II·b, II·c, I·e, VI·c, VI·d, the Great Step, the Constellation, Plate 119) plus one page per chart plate, `pNNN.html` |
-| `text/` | Cleaned transcriptions of the text plates (`pNNN.txt`), bundled into `texts.js` for the plate viewer's "Read text" view and the atlas search |
-| `tools/` | `wire.py` (wires the rebuilt pages into `viewer.js` and `index.html` from `plates.tsv`) and `build_texts.py` (builds `text/texts.js`) |
+| `redesign/` | Rebuilt interactives: Chart I, II·b, II·c, I·e, VI·c, VI·d, the Great Step and the Constellation |
 
-## Rebuilt chart pages
+## About the plates
 
-Each chart plate has a rebuilt page in `redesign/pNNN.html`, reached from its plate page with the **Original plate / Interactive redesign** switch. A page redraws the plate's timeline or section, keeps every date, span and measurement as written (with "as written" notes where the plate's arithmetic does not hold), and ends with a full transcription.
+The scans in `plates/` and `thumbs/` come from Jason M. Breshears' *Chronotecture* (2017) and remain his work. They're shared here for study within our research group, alongside the rebuilt charts. This project isn't affiliated with Breshears or [Archaix](https://archaix.com). If you hold the rights and want anything removed, please [open an issue](../../issues) and it will be taken down.
 
-Chambers are named **Upper**, **Middle** and **Lower Chamber** throughout, never by the older royal names.
+## Related
 
-After adding or changing a page:
-
-```
-python3 tools/wire.py         # viewer switches, atlas stars, search words, counts
-python3 tools/build_texts.py  # after editing text/pNNN.txt
-```
+- [natori-on-psyfr](https://github.com/bradleyhomelinuxnet-prog/natori-on-psyfr): the predictive chronology engine
+- [NatorionCipherPredictiveEngine](https://github.com/bradleyhomelinuxnet-prog/NatorionCipherPredictiveEngine): Ophis rebuilt for the browser
+- [All projects](https://bradleyhomelinuxnet-prog.github.io/)
