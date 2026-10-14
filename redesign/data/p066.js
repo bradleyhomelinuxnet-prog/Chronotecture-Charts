@@ -1,0 +1,31 @@
+// Plate 66 — text page, from text/p066.txt. Years as written (BC negative).
+window.PLATE = {
+  plate: 66, kind: 'figure', rotated: false,
+  transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p066.txt)',
+  title: 'The 1998 Triangle and 2815 BC', subtitle: '666 + 524 + 808 = 1998; 990 AM + 90 = 1080 AM', range: [-4400, 2150],
+  events: [
+    { year: -4309, label: 'PreAdamic World destroyed', am: -414, cat: 'impact' },
+    { year: -2905, label: 'Sethites begin the Great Pyramid', am: 990, cat: 'hist' },
+    { year: -2815, label: 'Writings set on the casing blocks', am: 1080, cat: 'hist' },
+    { year: -2707, label: 'NIBIRU returns', am: 1188, cat: 'anun' },
+    { year: -2239, label: 'Flood', am: 1656, cat: 'flood' },
+    { year: -2149, label: '90 years after the Flood', cat: 'flood' },
+    { year: -1825, label: 'Abraham translates the casing writings', am: 2070, cat: 'hist' },
+    { year: -745, label: 'Ten Tribes deported', am: 3150, cat: 'hist' },
+    { year: -583, label: 'Phoenix darkens the sun', am: 3312, cat: 'comet' },
+    { year: 1776, label: 'Unification in America', cat: 'hist' },
+    { year: 1782, label: 'Phoenix adopted as the Great Seal emblem', cat: 'hist' },
+    { year: 1902, label: 'Seal changed to the Eagle', cat: 'hist' },
+    { year: 1998, label: '1998 AD (666×3)', cat: 'proph' } ],
+  spans: [
+    { from: -2905, to: -2239, years: 666, label: '666 years prior to the Flood', cat: 'hist' },
+    { from: -2905, to: -2815, years: 90, label: '90 years to complete', cat: 'hist' },
+    { from: -2815, to: -1825, years: 990, label: '990 years (90×11)', cat: 'hist' },
+    { from: -4309, to: -2905, years: 1404, label: '1404 years after the PreAdamic ruin', cat: 'impact' },
+    { from: -2815, to: -2707, years: 108, label: '108 year countdown', cat: 'anun' },
+    { from: -2815, to: -2239, years: 576, label: '576 years (144×4)', cat: 'flood' },
+    { from: -2815, to: -745, years: 2070, label: '2070 years (414×5)', cat: 'hist' },
+    { from: -745, to: 1776, years: 2520, label: '2520 year (360×7) countdown', cat: 'hist' },
+    { from: 1782, to: 1902, years: 120, label: 'Phoenix Seal for 120 years', cat: 'hist' } ],
+  math: [ { eq: '666 + 524 + 808 = 1998', cap: 'The right triangle at the Entry' }, { eq: '90 × 11 = 990', cap: '990 AM' }, { eq: '90 × 12 = 1080', cap: '1080 AM' }, { eq: '108 × 11 = 1188', cap: '1188 AM' }, { eq: '144 × 9 = 1296', cap: 'Note: the text writes 1404 years as “(144)”; 1404 = 108 × 13' } ],
+};
