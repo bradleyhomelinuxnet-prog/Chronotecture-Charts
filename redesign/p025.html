@@ -1,0 +1,344 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart V·b — The 2905 BC Construction Anchor</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:96px;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:880px){.bottom,.two{grid-template-columns:1fr}}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -6px;padding:0 6px}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.12em;margin-bottom:4px}
+  @media(max-width:700px){ .scroll svg.wide{min-width:760px} .swipe{display:block} }
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .halo{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  .hot{cursor:pointer}
+  .hot:hover > .hl, .hot.on > .hl{filter:brightness(1.35)}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transform:translateY(4px);
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#c9906e;font-family:'JetBrains Mono',monospace;margin-top:3px}
+  .mrow.off{border-color:#5a3a2a88}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:22px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+
+  details.tx summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none;display:flex;align-items:center;gap:10px}
+  details.tx summary::-webkit-details-marker{display:none}
+  details.tx summary::before{content:'+';font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--c-proph);width:14px}
+  details.tx[open] summary::before{content:'\2212'}
+  .txgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:4px 26px;margin-top:10px}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:14px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:16px}
+  .tx li{font-size:13px;line-height:1.55;margin-bottom:5px;color:#d5dbea}
+  .tx .q{font-family:'JetBrains Mono',monospace;font-size:12px}
+  .unc{color:#f0a36b}
+  @media(max-width:600px){ .wrap{padding:22px 16px 60px} .card{padding:16px 14px 12px} }
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;V·b · Plate&nbsp;25</div>
+    <h1>Chronotecture
+      <span class="sub">From the Start of Construction, 2905&nbsp;BC [990&nbsp;AM], to 6000&nbsp;AM</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn chart&nbsp;V·b (<b>'07</b>), preserved verbatim; only the visual language is redesigned. Its structural key: <b>every span leaves 2905&nbsp;BC [990&nbsp;AM]</b>, the start of pyramid construction — five long bars land on modern events, while a 600-year chain and a 1080&nbsp;[108×10] chain step forward beneath them.</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2>Span-bars from the 2905&nbsp;BC anchor</h2>
+      <div class="hint">From 1&nbsp;AM (3895&nbsp;BC) to 6000&nbsp;AM (2106&nbsp;AD). Five span-bars leave the start of pyramid construction, 2905&nbsp;BC [990&nbsp;AM]; below them run the 600-year and 1080-year chains. Hover or tap any bar or marker. <span class="anchor-key"><i></i>ANCHOR 2905 BC [990 AM]</span></div>
+      <div class="swipe">← swipe the chart →</div>
+      <div class="scroll"><svg id="tl" class="wide" viewBox="0 0 1400 620" role="img" aria-label="Span-bar timeline anchored at 2905 BC"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card">
+        <h2>Cycle mathematics</h2>
+        <div class="hint">The arithmetic on the plate, checked. AM = BC/AD on the plate's own key: 3895&nbsp;BC is 1&nbsp;AM.</div>
+        <div class="mathgrid">
+          <div class="mrow"><span class="eq">3666 = 3000 + 666</span><span class="cap">2905 BC → 762 AD [4656 AM]: 990 + 3666 = 4656 ✓</span></div>
+          <div class="mrow"><span class="eq">4600 = 40 × 115</span><span class="cap">→ 1696 AD [5590 AM]: 990 + 4600 = 5590 ✓</span></div>
+          <div class="mrow off"><span class="eq">4662 = 666 × 7</span><span class="cap">→ 1759 AD [5653 AM]</span><span class="aw">as written — 990 + 4662 = 5652 (1758 AD)</span></div>
+          <div class="mrow off"><span class="eq">4860 = 108 × 45</span><span class="cap">→ 1976 AD [5870 AM]</span><span class="aw">as written — 990 + 4860 = 5850 (1956 AD); 1976 AD [5870 AM] fits 4880</span></div>
+          <div class="mrow"><span class="eq">4900 = 700 × 7</span><span class="cap">→ 1996 AD [5890 AM]: 990 + 4900 = 5890 ✓</span></div>
+          <div class="mrow"><span class="eq">4200 = 600 × 7</span><span class="cap">→ 1296 AD [5190 AM]: 990 + 4200 = 5190 ✓; then + 600 → 1896 AD</span></div>
+          <div class="mrow"><span class="eq">1080 = 108 × 10</span><span class="cap">2905 → 1825 BC → 745 BC (2070 AM, 3150 AM ✓); Great Pyramid finished 1080 AM = 2815 BC; ten 108° angles of the pentagram</span></div>
+          <div class="mrow"><span class="eq">792 = 72 × 11</span><span class="cap">503 AD → 1296 AD, "Nibiru's orbital period"</span><span class="aw">as written — 1296 − 503 = 793</span></div>
+          <div class="mrow"><span class="eq">1296 = 108 × 12 = 144 × 9</span><span class="cap">Lia Fail taken to England, 1296 AD ✓</span></div>
+          <div class="mrow"><span class="eq">1656 = 990 + 666</span><span class="cap">Preflood world 3895 → 2239 BC; construction began 666 years before the Flood; 90-yr construction 2905 → 2815 BC ✓</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <h2>The 3-D pentagram</h2>
+        <div class="hint">The plate's lower-left vignette: "Pyramid is 3-D pentagram of 5 points" — "Ten 108° angles [1080]".</div>
+        <svg id="pent" viewBox="0 0 520 300" role="img" aria-label="Pyramid and pentagram"></svg>
+      </div>
+    </div>
+    <div class="card">
+      <details class="tx">
+        <summary>Full transcription</summary>
+        <div class="txgrid tx">
+          <div>
+            <h3>Header &amp; axes</h3>
+            <ul>
+              <li class="q">V·b</li><li class="q">Breshears '07</li>
+              <li class="q">2905 BC [990 AM] <span style="color:var(--muted)">(arrow down onto the timeline)</span></li>
+              <li class="q">1656 Years — Preflood World <span style="color:var(--muted)">(double arrow to the Flood)</span></li>
+              <li class="q">Great Flood 2239 BC [1656 AM]</li>
+              <li class="q">World · 3895 BC is 1 AM · Edenic</li>
+              <li class="q">BC | AD</li>
+              <li class="q">2106 AD [6000 AM]</li>
+            </ul>
+            <h3>Span-bars from 2905 BC (▷)</h3>
+            <ul>
+              <li class="q">3666 Yrs [3000+666] To 762 AD [4656 AM] Baghdad New Seat of Muslim Empire</li>
+              <li class="q">4600 Yrs [40×115] To 1696 AD [5590 AM] Whiston Theorized Comets Cause of Flood &amp; O.T. Disasters</li>
+              <li class="q">4662 Yrs [666×7] To 1759 AD [5653 AM] Lewis Studied Giza; Alien Planet Passed Through System</li>
+              <li class="q">4860 Yrs [108×45] To 1976 AD [5870 AM] Viking Orbiter Took Photos of Architecture on Mars</li>
+              <li class="q">4900 Yrs [700×7] To 1996 AD [5890 AM] Comet Hyakutake Passed Directly Over Evil Star Al Gol [The Ghoul]</li>
+            </ul>
+          </div>
+          <div>
+            <h3>Chains</h3>
+            <ul>
+              <li class="q">600 · 600 · 600 · 600 · 600 · 600 · 600 · 600 <span style="color:var(--muted)">(eight cells; a tick-ruler row above them)</span></li>
+              <li class="q">4200 Yrs [600×7] To 1296 AD [5190 AM] Lia Fail (Jacob's Pillow) Taken to England</li>
+              <li class="q">1080 Yrs To 1825 BC · 1080 Yrs To 745 BC</li>
+              <li class="q">1080 Years [108×10] <span style="color:var(--muted)">(Edenic, from the 1 AM axis; heavy arrow to the next box)</span></li>
+              <li class="q">1080 Years [108×10] Jacob's Pillow Stone in Ireland where Jeremiah, Baruch and Tamar brought it to the Danaan [Great Pyramid Finished 1080 AM: 2815 BC]</li>
+              <li class="q">792 Years — Stone in Scotland [72×11] — 792 Years is Nibiru's Orbital Period</li>
+              <li class="q">503 AD · 1296 AD · 1296 AD → 1896 AD (arrow)</li>
+              <li class="q">1296 is 108×12 or 144×9</li>
+              <li class="q">1896 AD Quake &amp; Tsunami at Japan</li>
+            </ul>
+            <h3>Lower-left vignettes</h3>
+            <ul>
+              <li class="q">1080 Years [108×10]</li>
+              <li class="q">666 Yrs. — Beginning of Pyramid Construction 666 Years to Flood</li>
+              <li class="q">90 Yr. Construction</li>
+              <li class="q">Pyramid is 3-D Pentagram of 5 Points</li>
+              <li class="q">Ten 108° Angles [1080]</li>
+              <li class="q">2239 BC Great Flood</li>
+              <li class="q">1825 BC [2070 AM] Abraham in Egypt Translating Giza Texts</li>
+              <li class="q">745 BC [3150 AM] Tribes of Israel Deported by Assyria</li>
+            </ul>
+            <h3>Reading notes</h3>
+            <ul><li>The third 1080-year box ends at 503 AD; its start line is not labelled on the plate (drawn here at 577 BC by subtraction).</li></ul>
+          </div>
+        </div>
+      </details>
+    </div>
+  </div>
+
+  <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;V·b (plate&nbsp;25). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function tx(parent,x,y,s,o){o=o||{};const t=el('text',Object.assign({x:x,y:y,fill:'#dfe6f5','font-size':12},o),parent);t.textContent=s;return t;}
+const tip=document.getElementById('tip');
+let pinned=null;
+function showTip(html,e){ tip.innerHTML=html; tip.style.opacity=1;
+  const w=Math.min(300,window.innerWidth-20);
+  let x=e.clientX+16, yy=e.clientY+14;
+  if(x+w>window.innerWidth) x=Math.max(8,e.clientX-w-10);
+  const h=tip.offsetHeight||140;
+  if(yy+h>window.innerHeight) yy=Math.max(8,e.clientY-h-10);
+  tip.style.left=x+'px'; tip.style.top=yy+'px'; }
+function hideTip(){ tip.style.opacity=0; if(pinned){pinned.classList.remove('on');pinned=null;} }
+function hov(g,html){
+  g.classList.add('hot');
+  g.addEventListener('mousemove',e=>{ if(!pinned) showTip(typeof html==='function'?html():html,e); });
+  g.addEventListener('mouseleave',()=>{ if(!pinned) tip.style.opacity=0; });
+  g.addEventListener('click',e=>{ e.stopPropagation(); if(pinned===g){hideTip();return;}
+    if(pinned) pinned.classList.remove('on'); pinned=g; g.classList.add('on'); showTip(typeof html==='function'?html():html,e); });
+}
+document.addEventListener('click',()=>hideTip());
+window.addEventListener('scroll',()=>{ if(pinned) hideTip(); },{passive:true});
+function T(col,h,yr,b){return `<div class="t-h"><span class="d" style="background:${col}"></span>${h}</div>`+(yr?`<div class="t-yr">${yr}</div>`:'')+(b?`<div class="t-b">${b}</div>`:'');}
+function chips(CAT){
+  const bar=document.getElementById('filters'); if(!bar) return;
+  const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{
+    const c=document.createElement('div'); c.className='chip'; c.dataset.k=k;
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=(e)=>{ e.stopPropagation(); if(active.has(k)){active.delete(k);c.classList.add('off');} else {active.add(k);c.classList.remove('off');} apply(); };
+    bar.appendChild(c);
+  });
+  function apply(){ document.querySelectorAll('[data-cat]').forEach(g=>{ g.style.display = active.has(g.getAttribute('data-cat'))?'':'none'; }); }
+}
+
+
+const CAT={
+  span:{c:'#e7c355',label:'Span-bars from 2905 BC'},
+  six:{c:'#5cb3f2',label:'600-year chain'},
+  ten:{c:'#9c8bf0',label:'1080 [108×10] chain'},
+  pre:{c:'#37b6a6',label:'Preflood / construction'},
+  ev:{c:'#f08a4b',label:'Dated events'}
+};
+chips(CAT);
+const YMIN=-3895, YMAX=2106, PL=40, PR=1360;
+const X=y=>PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);
+(function(){
+  const s=document.getElementById('tl');
+  const TOP=40, RH=40, AXIS=TOP+12*RH+12;
+  el('rect',{x:PL,y:TOP-14,width:X(0)-PL,height:AXIS-TOP+14,fill:'#0e1626',opacity:.5},s);
+  for(let y=-3500;y<=2000;y+=500){const xx=X(y);
+    el('line',{x1:xx,y1:TOP-10,x2:xx,y2:AXIS,stroke:'#1c2740'},s);
+    tx(s,xx,AXIS+18,y<0?(-y)+' BC':(y===0?'':y+' AD'),{fill:'#5d6885','font-size':10,'text-anchor':'middle','font-family':'JetBrains Mono'});}
+  el('line',{x1:PL,y1:AXIS,x2:PR,y2:AXIS,stroke:'#3a486a','stroke-width':2},s);
+  const x0=X(0);
+  el('line',{x1:x0,y1:TOP-20,x2:x0,y2:AXIS+30,stroke:'#56628f','stroke-width':1.4,'stroke-dasharray':'4 5'},s);
+  tx(s,x0-8,TOP-24,'BC',{fill:'#7b86a4','font-size':12,'text-anchor':'end','font-family':'JetBrains Mono'});
+  tx(s,x0+8,TOP-24,'AD',{fill:'#7b86a4','font-size':12,'font-family':'JetBrains Mono'});
+  // 1 AM and 6000 AM frame lines
+  [[YMIN,'3895 BC IS 1 AM'],[YMAX,'2106 AD [6000 AM]']].forEach(([y,l],i)=>{
+    el('line',{x1:X(y),y1:TOP-20,x2:X(y),y2:AXIS,stroke:'#7b86a4','stroke-width':i?1.4:3},s);
+    tx(s,X(y)+(i?-6:6),TOP-24,l,{fill:'#aeb7cd','font-size':10.5,'font-family':'JetBrains Mono','text-anchor':i?'end':'start'});});
+  tx(s,PL+6,TOP+4*RH,'WORLD',{fill:'#56628f','font-size':10,'font-family':'JetBrains Mono','letter-spacing':'.2em'});
+  tx(s,PL+6,TOP+10.6*RH,'EDENIC',{fill:'#56628f','font-size':10,'font-family':'JetBrains Mono','letter-spacing':'.2em'});
+  // anchor
+  const xa=X(-2905);
+  el('line',{x1:xa,y1:TOP-12,x2:xa,y2:AXIS+44,stroke:'#ffcf5c','stroke-width':2,opacity:.9},s);
+  tx(s,xa-8,AXIS+58,'◇ 2905 BC [990 AM]',{fill:'#ffcf5c','font-size':11,'text-anchor':'end','font-family':'JetBrains Mono'});
+
+  const BARS=[
+    {r:0,a:-3895,b:-2239,cat:'pre',l:'PREFLOOD WORLD · 1656 YEARS',h:'1656 Years — Preflood World',y:'3895 BC [1 AM] → 2239 BC [1656 AM]',t:'From 1 AM to the Great Flood. 2905 BC [990 AM] marked by the arrow.'},
+    {r:1,a:-2905,b:762,cat:'span',l:'3666 YRS [3000+666] → 762 AD [4656 AM]',h:'3666 Yrs [3000+666]',y:'2905 BC → 762 AD [4656 AM]',t:'Baghdad New Seat of Muslim Empire'},
+    {r:2,a:-2905,b:1696,cat:'span',l:'4600 YRS [40×115] → 1696 AD [5590 AM]',h:'4600 Yrs [40×115]',y:'2905 BC → 1696 AD [5590 AM]',t:"Whiston Theorized Comets Cause of Flood & O.T. Disasters"},
+    {r:3,a:-2905,b:1759,cat:'span',l:'4662 YRS [666×7] → 1759 AD [5653 AM]',h:'4662 Yrs [666×7]',y:'2905 BC → 1759 AD [5653 AM]',t:"Lewis Studied Giza; Alien Planet Passed Through System. <i>As written: 990 + 4662 = 5652.</i>"},
+    {r:4,a:-2905,b:1976,cat:'span',l:'4860 YRS [108×45] → 1976 AD [5870 AM]',h:'4860 Yrs [108×45]',y:'2905 BC → 1976 AD [5870 AM]',t:"Viking Orbiter Took Photos of Architecture on Mars. <i>As written: 990 + 4860 = 5850.</i>"},
+    {r:5,a:-2905,b:1996,cat:'span',l:'4900 YRS [700×7] → 1996 AD [5890 AM]',h:'4900 Yrs [700×7]',y:'2905 BC → 1996 AD [5890 AM]',t:'Comet Hyakutake Passed Directly Over Evil Star Al Gol [The Ghoul]'},
+    {r:6,a:-2905,b:1296,cat:'six',l:'4200 YRS [600×7] → 1296 AD [5190 AM]',h:'4200 Yrs [600×7]',y:'2905 BC → 1296 AD [5190 AM]',t:"Lia Fail (Jacob's Pillow) Taken to England"},
+    {r:6,a:1296,b:1896,cat:'six',l:'600 →',h:'600 → 1896 AD',y:'1296 AD → 1896 AD',t:'The eighth 600 cell. 1896 AD: Quake & Tsunami at Japan.'},
+    {r:8,a:-2905,b:-1825,cat:'ten',l:'1080 YRS → 1825 BC',h:'1080 Yrs to 1825 BC',y:'2905 BC → 1825 BC [2070 AM]',t:'Abraham in Egypt translating Giza texts.'},
+    {r:8,a:-1825,b:-745,cat:'ten',l:'1080 YRS → 745 BC',h:'1080 Yrs to 745 BC',y:'1825 BC → 745 BC [3150 AM]',t:'Tribes of Israel deported by Assyria.'},
+    {r:8,a:-577,b:503,cat:'ten',l:'1080 [108×10] → 503 AD',h:'1080 Years [108×10]',y:'→ 503 AD (start line unlabelled)',t:"Jacob's Pillow Stone in Ireland where Jeremiah, Baruch and Tamar brought it to the Danaan [Great Pyramid Finished 1080 AM: 2815 BC]"},
+    {r:8,a:503,b:1296,cat:'ten',l:'792 YRS [72×11]',h:'792 Years',y:'503 AD → 1296 AD',t:"Stone in Scotland [72×11]. 792 Years is Nibiru's Orbital Period."},
+    {r:9,a:-3895,b:-2815,cat:'ten',l:'1080 YEARS [108×10]',h:'1080 Years [108×10] — Edenic',y:'3895 BC [1 AM] → 2815 BC [1080 AM]',t:'Great Pyramid finished 1080 AM: 2815 BC. A heavy arrow on the plate carries this 1080 forward to the 503 AD box.'},
+    {r:10,a:-2905,b:-2239,cat:'pre',l:'666 YRS → FLOOD',h:'666 Yrs.',y:'2905 BC → 2239 BC',t:'Beginning of Pyramid Construction 666 Years to Flood'},
+    {r:11,a:-2905,b:-2815,cat:'pre',l:'90 YR. CONSTRUCTION',h:'90 Yr. Construction',y:'2905 BC → 2815 BC',t:'From the start of construction to the finished Great Pyramid (1080 AM).'}
+  ];
+  // 600 cells row
+  const g6=el('g',{'data-cat':'six'},s);
+  for(let i=0;i<8;i++){const a=-2905+600*i,b=a+600, y=TOP+7*RH;
+    const c=el('g',{},g6);
+    el('rect',{class:'hl',x:X(a)+1,y:y,width:X(b)-X(a)-2,height:20,rx:3,fill:i<7?'#5cb3f233':'#5cb3f255',stroke:'#5cb3f2','stroke-width':1},c);
+    tx(c,(X(a)+X(b))/2,y+14,'600',{fill:'#bfe0fb','font-size':11,'font-family':'JetBrains Mono','text-anchor':'middle'});
+    hov(c,T('#5cb3f2','600 — cell '+(i+1)+' of 8',(a<0?(-a)+' BC':a+' AD')+' → '+(b<0?(-b)+' BC':b+' AD'),i<7?'Seven cells = 4200 [600×7] to 1296 AD.':'The eighth cell: 1296 → 1896 AD.'));}
+  BARS.forEach(B=>{
+    const y=TOP+B.r*RH+18, col=CAT[B.cat].c;
+    const g=el('g',{'data-cat':B.cat},s);
+    el('rect',{x:X(B.a),y:y-18,width:X(B.b)-X(B.a),height:30,fill:'transparent'},g);
+    el('line',{class:'hl',x1:X(B.a),y1:y,x2:X(B.b),y2:y,stroke:col,'stroke-width':8,'stroke-linecap':'round',opacity:.9},g);
+    if(B.a===-2905) el('path',{d:`M${X(B.a)} ${y-6} l9 6 l-9 6 z`,fill:'#ffcf5c'},g);
+    el('circle',{cx:X(B.b),cy:y,r:5,fill:col,stroke:'#0b0f1a','stroke-width':1.5},g);
+    const w=X(B.b)-X(B.a), lab=B.l;
+    const t=tx(g,X(B.a)+14,y-8,lab,{fill:'#dfe6f5','font-size':11.5,'font-family':'JetBrains Mono',class:'halo'});
+    if(B.r>=1&&B.r<=6&&B.cat!=='six'||(B.r===6&&B.a===-2905)){ const d=el('tspan',{fill:'#9aa4bd','font-family':'Space Grotesk,sans-serif','font-size':11},t); d.textContent='  ·  '+B.t.replace(/ ?<i>.*<\/i>/,''); }
+    hov(g,T(col,B.h,B.y,B.t));
+  });
+  // events
+  const EV=[
+    {y:-2239,l:'2239 BC',h:'Great Flood',yr:'2239 BC [1656 AM]',t:'End of the 1656-year preflood world; 666 years after construction began.'},
+    {y:-2815,l:'2815 BC',st:30,h:'Great Pyramid finished',yr:'1080 AM : 2815 BC',t:'After a 90-year construction.'},
+    {y:-1825,l:'1825 BC',h:'Abraham in Egypt',yr:'1825 BC [2070 AM]',t:'Abraham in Egypt Translating Giza Texts'},
+    {y:-745,l:'745 BC',h:'Israel deported',yr:'745 BC [3150 AM]',t:'Tribes of Israel Deported by Assyria'},
+    {y:503,l:'503 AD',h:'Stone to Scotland',yr:'503 AD',t:"End of the 1080 [108×10] Ireland period; start of 792 years 'Stone in Scotland [72×11]'."},
+    {y:1296,l:'1296 AD',h:"Lia Fail to England",yr:'1296 AD [5190 AM]',t:'1296 is 108×12 or 144×9.'},
+    {y:1896,l:'1896 AD',h:'Quake & Tsunami at Japan',yr:'1896 AD',t:'600 years after 1296 AD.'}
+  ];
+  EV.forEach((e,i)=>{
+    const g=el('g',{'data-cat':'ev'},s), xx=X(e.y), st=e.st!=null?e.st:(i%2)*16;
+    el('line',{x1:xx,y1:TOP+12*RH-20,x2:xx,y2:AXIS+24+st,stroke:'#f08a4b','stroke-width':1,'stroke-dasharray':'2 4',opacity:.7},g);
+    el('rect',{class:'hl',x:xx-5,y:AXIS-5,width:10,height:10,rx:2,fill:'#f08a4b',transform:`rotate(45 ${xx} ${AXIS})`},g);
+    tx(g,xx,AXIS+36+st,e.l,{fill:'#f6c89f','font-size':10.5,'font-family':'JetBrains Mono','text-anchor':'middle'});
+    el('rect',{x:xx-24,y:AXIS-10,width:48,height:52+st,fill:'transparent'},g);
+    hov(g,T('#f08a4b',e.h,e.yr,e.t));
+  });
+  // legend for ruler row
+  tx(s,X(-2905)-8,TOP+7*RH+14,'600-YEAR CELLS',{fill:'#56628f','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end'});
+  // stagger events label row extends to AXIS+68; viewBox 760 ok
+})();
+(function(){
+  const s=document.getElementById('pent');
+  // pyramid
+  const g1=el('g',{},s);
+  el('polygon',{points:'40,230 130,90 230,230',fill:'#1b2843',stroke:'#c9b98f','stroke-width':1.5},g1);
+  for(let y=100;y<230;y+=8){const t=(y-90)/140;el('line',{x1:130-90*t,y1:y,x2:130+100*t,y2:y,stroke:'#c9b98f44'},g1);}
+  tx(g1,135,262,'PYRAMID IS 3-D PENTAGRAM',{fill:'#dfe6f5','font-size':12,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  tx(g1,135,280,'OF 5 POINTS',{fill:'#dfe6f5','font-size':12,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  tx(g1,135,60,'90 YR. CONSTRUCTION',{fill:'#37b6a6','font-size':11.5,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  hov(g1,T('#37b6a6','Pyramid is 3-D Pentagram of 5 Points','90 Yr. Construction · 2905 → 2815 BC','Four base corners and the apex — five points.'));
+  // pentagram
+  const g2=el('g',{},s); const cx=390,cy=150,R=95, P=[];
+  for(let i=0;i<5;i++){const a=-Math.PI/2+i*2*Math.PI/5;P.push([cx+R*Math.cos(a),cy+R*Math.sin(a)]);}
+  const ord=[0,2,4,1,3,0];
+  el('polyline',{class:'hl',points:ord.map(i=>P[i].join(',')).join(' '),fill:'none',stroke:'#9c8bf0','stroke-width':2.2,'stroke-linejoin':'round'},g2);
+  // inner pentagon vertices (108° angles)
+  const r2=R*Math.cos(2*Math.PI/5)/Math.cos(Math.PI/5);
+  for(let i=0;i<5;i++){const a=Math.PI/2+i*2*Math.PI/5;el('circle',{cx:cx+r2*Math.cos(a),cy:cy+r2*Math.sin(a),r:3.5,fill:'#e7c355'},g2);}
+  P.forEach(p=>el('circle',{cx:p[0],cy:p[1],r:3.5,fill:'#9c8bf0'},g2));
+  tx(g2,cx,cy+5,'108°',{fill:'#e7c355','font-size':12,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  tx(g2,cx,280,'TEN 108° ANGLES [1080]',{fill:'#dfe6f5','font-size':12,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  hov(g2,T('#9c8bf0','Ten 108° Angles [1080]','10 × 108 = 1080','The 1080 [108×10] of the Edenic bar and of the Ireland box, and Great Pyramid finished 1080 AM.'));
+})();
+
+</script>
+</body>
+</html>

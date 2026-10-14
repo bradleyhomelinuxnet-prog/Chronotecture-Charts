@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart I·d — The Great Step Axis Year</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f; --anchor:#ffcf5c; --gold:#e7c355;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px;padding-right:90px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;color:var(--muted);text-transform:uppercase;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--gold);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  .split{display:grid;grid-template-columns:1.45fr .55fr;gap:22px}
+  @media(max-width:980px){.bottom,.split{grid-template-columns:1fr}}
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg .halo{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  svg .hot{cursor:pointer}
+  svg .hot:hover{filter:brightness(1.25)}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:640px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a95;font-style:italic;font-family:'JetBrains Mono',monospace}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.1em;margin:2px 0 6px}
+  @media(max-width:700px){.scroll svg{min-width:920px}.swipe{display:block}}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;padding:6px 0}
+  details.tx summary:hover{color:var(--ink)}
+  .txg{margin:10px 0 14px}
+  .txg h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:500;margin:0 0 6px}
+  .txg ul{margin:0;padding-left:18px;color:#cdd5e6;font-size:13px;line-height:1.6}
+  .txg li{margin:2px 0}
+  .txg .unc{color:#f08a4b}
+  .legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .legend li{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#0e1526;cursor:pointer;font-size:12.5px;line-height:1.45;color:#cdd5e6}
+  .legend li:hover,.legend li.on{border-color:var(--line2);background:#121b30}
+  .legend .n{flex:0 0 22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#0b0f1a}
+  .legend b{color:var(--ink);font-weight:600}
+  @media(max-width:600px){
+    .wrap{padding:22px 16px 60px}
+    header.masthead{padding-right:0;padding-top:30px}
+    .card{padding:14px 12px 12px}
+    .card h2{font-size:20px}
+  }
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;I·d · Plate&nbsp;16</div>
+    <h1>Chronotecture
+      <span class="sub">The Great Step Axis Year — the AD era measured into 1902</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn chart&nbsp;I·d (2007), with every date, span, formula and annotation preserved verbatim; only the visual language is new. Its structural key: <b>every bar runs into the Great Step axis year, 1902&nbsp;AD [5796&nbsp;AM]</b> — 1440, 1572, 144×13 years — while the 143- and 52-year blocks hang symmetrically on either side of it.</p>
+  </header>
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+
+    <div class="card">
+      <h2>The AD era measured into the Great Step axis, 1902&nbsp;AD</h2>
+      <div class="hint">Above the century band, span-bars run into the axis year; below it, the 143- and 52-year blocks centred on 1902. Hover or tap anything. <span class="anchor-key"><i></i>AXIS 1902 AD [5796 AM]</span></div>
+      <div class="swipe">← swipe to scroll the chart →</div>
+      <div class="scroll"><svg id="tl" viewBox="0 0 1400 800" role="img" aria-label="AD timeline converging on 1902 AD"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card">
+        <h2>Rings around 1902</h2>
+        <div class="hint">The plate's two small diagrams: a 286-year circle resting on two 143-year circles, and a chain of three 52-year circles.</div>
+        <svg id="rings" viewBox="0 0 700 360" role="img" aria-label="143 and 52 year circles around 1902 AD"></svg>
+      </div>
+      <div class="card">
+        <h2>Cycle mathematics</h2>
+        <div class="hint">Written on the plate, checked (AD-only spans, so no year-zero issue).</div>
+<div class="mathgrid">
+<div class="mrow"><span class="eq">1902 − 30 = 1872 = 144×13</span><span class="cap">30&nbsp;AD [3924&nbsp;AM] ministry → axis</span></div>
+<div class="mrow"><span class="eq">1902 − 330 = 1572</span><span class="cap">330&nbsp;AD Constantinople → axis; and 1572&nbsp;AD supernova</span></div>
+<div class="mrow"><span class="eq">1902 − 1572 = 330</span><span class="cap">the mirror: "330 yrs. to 1902 AD"</span></div>
+<div class="mrow"><span class="eq">1902 − 462 = 1440</span><span class="cap">Nibiru passes Earth 462&nbsp;AD → axis</span></div>
+<div class="mrow"><span class="eq">300 + 300</span><span class="cap">30 → 330&nbsp;AD and 1602 → 1902&nbsp;AD (dashed boxes)</span></div>
+<div class="mrow"><span class="eq">1902 + 144 = 2046</span><span class="cap">"144 yr" to the 2046&nbsp;AD impact</span></div>
+<div class="mrow"><span class="eq">143 + 143 = 286</span><span class="cap">1759&nbsp;AD [5653&nbsp;AM] → 1902 → 2045&nbsp;AD [5939&nbsp;AM]</span></div>
+<div class="mrow"><span class="eq">52 × 3</span><span class="cap">1850 → 1902 → 1954 → 2006&nbsp;AD; 5744&nbsp;AM written as 5000+744</span></div>
+<div class="mrow"><span class="eq">144 months = 12 yrs</span><span class="cap">1896&nbsp;AD Japan tsunami → 1908&nbsp;AD Tunguska</span></div>
+<div class="mrow"><span class="eq">2106 AD = 6000 AM</span><span class="cap">Annus Mundi six-thousand mark</span></div>
+</div><details class="tx"><summary>Full transcription — every annotation, verbatim</summary>
+<div class="txg"><h3>Frame</h3><ul>
+<li>Chart label: I.d</li>
+<li>Signature: Breshears '07</li>
+<li>"BC | AD" · arrow "Centuries"</li>
+<li>"Great Step Axis Year of 1902 AD [5796 AM]" (arrow down to the axis)</li>
+</ul></div>
+<div class="txg"><h3>Span-bars into 1902 AD</h3><ul>
+<li>"30 AD [3924 AM] Chief Cornerstone begins ministry; 12 disciples chosen in Israel [144x13]"</li>
+<li>"330 AD [4224 AM] Byzantine becomes Constantinople under Constantine [1572]"</li>
+<li>"462 AD [4356 AM] Anunnaki Planet Nibiru passes Earth 1440 years" (arrow into the axis)</li>
+<li>"1572 AD [5466 AM]" · "1602 AD [5496 AM]"</li>
+<li>"300 years" (dashed box, 30–330 AD) · "300 years" (dashed box, 1602–1902 AD)</li>
+<li>"Supernova in Cassiopeia predicted by Nostradamus 1572 AD which is 330 yrs. to 1902 AD; and 330 AD is 1572 years to 1902 AD." (arc from the 1572 bar to the 330 bar)</li>
+<li>"1602 AD John Greaves born, studied Great Pyramid; died 1652 AD; became Prof. of Astronomy at Oxford in 1646 AD"</li>
+<li>"144 yr" (box beyond the axis) · "2046 AD impact" · "2106 AD is 6000 Annus Mundi"</li>
+</ul></div>
+<div class="txg"><h3>Below the axis</h3><ul>
+<li>Boxes "143 | 143" and "52 | 52 | 52" centred on the axis; a short bar with arrow:</li>
+<li>"144 months [12 yrs] from 1896 AD Japan tsunami in 6th yr. of the seven comets to comet explosion over Tunguska, Siberia in 1908 AD."</li>
+<li>"1759 AD Frederick Lewis surveyed Giza; strange planet seen in inner solar system."</li>
+<li>"1759 AD [5653 AM] 143 yrs to 1902 AD" · "2045 AD [5939 AM] 143 yrs after 1902 AD"</li>
+<li>"2045 AD date of Pyramid's terminus indicated in linear chronometry of its base diagonals connecting its four cornerstones."</li>
+<li>"1850 AD Assyrian library at Nineveh discovered"</li>
+<li>"1954 AD Giant astroid passes Earth on way to 2046 AD impact."</li>
+<li>"2006 AD Undetected astroid in July passes very close to Earth"</li>
+</ul></div>
+<div class="txg"><h3>Ring diagrams</h3><ul>
+<li>"286 years" circle over two "143" circles; labels "1759 AD", "2045", "1902 AD"</li>
+<li>Three "52" circles; labels "1850 AD [5744 AM: 5000+744]", "1954 AD", "2006 AD", "1902 AD [5796 AM]"</li>
+</ul></div>
+<div class="txg"><h3>Reading notes</h3><ul><li class=unc>"Chronometry" is written with a letter that may read "Caronometry"; transcribed as "chronometry".</li></ul></div>
+</details>
+      </div>
+    </div>
+
+  </div>
+  <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;I·d (plate&nbsp;16). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function txt(parent,x,y,s,a){a=a||{};const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},a),parent);
+  const lines=Array.isArray(s)?s:[s];const lh=a.lh||(+(a['font-size']||12)*1.25);
+  if(lines.length===1){t.textContent=lines[0];}else{lines.forEach((ln,i)=>{const sp=el('tspan',{x,dy:i?lh:0},t);sp.textContent=ln;});}
+  if(a.lh)t.removeAttribute('lh');return t;}
+const tip=document.getElementById('tip');let pinned=null;
+function place(e){const w=tip.offsetWidth||290,h=tip.offsetHeight||120;let x=e.clientX+16,y=e.clientY+14;
+  if(x+w>innerWidth-8)x=Math.max(8,e.clientX-w-12);if(y+h>innerHeight-8)y=Math.max(8,e.clientY-h-12);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function showTip(html,e){tip.innerHTML=html;tip.style.opacity=1;place(e);}
+function hideTip(){tip.style.opacity=0;}
+function tipHTML(col,h,yr,b){return `<div class="t-h"><span class="d" style="background:${col}"></span>${h}</div>`+(yr?`<div class="t-yr">${yr}</div>`:'')+(b?`<div class="t-b">${b}</div>`:'');}
+function bind(node,html){node.classList.add('hot');
+  node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e);});
+  node.addEventListener('mouseleave',()=>{if(!pinned)hideTip();});
+  node.addEventListener('click',e=>{e.stopPropagation();if(pinned===node){pinned=null;hideTip();return;}pinned=node;showTip(html,e);});}
+document.addEventListener('click',()=>{if(pinned){pinned=null;hideTip();}});
+addEventListener('scroll',()=>{if(pinned){pinned=null;hideTip();}},{passive:true});
+function makeChips(CAT){const bar=document.getElementById('filters');if(!bar)return;const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(active.has(k)){active.delete(k);c.classList.add('off');}else{active.add(k);c.classList.remove('off');}
+      document.querySelectorAll('[data-cat]').forEach(g=>{g.style.display=active.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);});}
+function centuryBand(svg,X,y0,y1,from,to,step,x0,x1,lblStep,lblY){
+  el('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:'#0f1729',stroke:'#3a486a','stroke-width':1.2},svg);
+  for(let v=Math.ceil(from/step)*step;v<=to;v+=step){const xx=X(v);if(xx<x0||xx>x1)continue;el('line',{x1:xx,y1:y0,x2:xx,y2:y1,stroke:'#2a3654','stroke-width':1},svg);}
+  for(let v=Math.ceil(from/lblStep)*lblStep;v<=to;v+=lblStep){const xx=X(v);if(xx<x0+10||xx>x1-10)continue;
+    txt(svg,xx,lblY,v<0?Math.abs(v)+' BC':(v===0?'0':v+' AD'),{fill:'#5d6885','font-size':10.5,'text-anchor':'middle','font-family':'JetBrains Mono'});}
+}
+
+
+const CAT={
+  axis :{c:'#ffcf5c',label:'Great Step spans'},
+  cosmic:{c:'#f08a4b',label:'Nibiru, comets & astroids'},
+  hist :{c:'#9c8bf0',label:'History & Giza study'},
+  cycle:{c:'#5cb3f2',label:'143 / 52-year blocks'}
+};
+makeChips(CAT);
+const YMIN=-160,YMAX=2140,PL=60,PR=1340;
+const X=y=>PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);
+const svg=document.getElementById('tl');
+const A=X(1902),AXY=470,RH=34;
+// BC|AD
+el('rect',{x:PL,y:30,width:X(0)-PL,height:720,fill:'#0e1626',opacity:.55},svg);
+txt(svg,X(0)-8,60,'BC',{'text-anchor':'end',fill:'#7b86a4','font-size':18,'font-family':'Cormorant Garamond'});
+txt(svg,X(0)+8,60,'AD',{fill:'#7b86a4','font-size':18,'font-family':'Cormorant Garamond'});
+el('line',{x1:X(0),y1:30,x2:X(0),y2:750,stroke:'#56628f','stroke-width':1.2},svg);
+centuryBand(svg,X,AXY,AXY+16,-100,2100,100,PL,PR,200,AXY+32);
+// axis
+el('line',{x1:A,y1:62,x2:A,y2:760,stroke:'#ffcf5c','stroke-width':2.2},svg);
+txt(svg,A,32,'▼ GREAT STEP AXIS YEAR OF',{fill:'#ffcf5c','font-size':11.5,'text-anchor':'middle','font-family':'JetBrains Mono','letter-spacing':'.08em'});
+txt(svg,A,48,'1902 AD [5796 AM]',{fill:'#ffcf5c','font-size':11.5,'text-anchor':'middle','font-family':'JetBrains Mono'});
+// 2046 & 2106 verticals
+[[2046,'2046 AD IMPACT','cosmic','2046 AD impact','144 yr after the 1902 axis.'],[2106,'2106 AD IS 6000 ANNUS MUNDI','cosmic','2106 AD is 6000 Annus Mundi','']].forEach(v=>{
+  const g=el('g',{'data-cat':v[2]},svg);const x=X(v[0]);
+  el('line',{x1:x,y1:150,x2:x,y2:AXY,stroke:'#f08a4b','stroke-width':1.2,'stroke-dasharray':'4 4',opacity:.8},g);
+  txt(g,x+4,156,v[1],{fill:'#f5ab7c','font-size':10.5,'font-family':'JetBrains Mono',transform:`rotate(90 ${x+4} 156)`});
+  bind(g,tipHTML('#f08a4b',v[3],v[0]+' AD',v[4]));});
+
+function bar(from,row,cat,label,html,arrow){const y=AXY-12-(row+1)*RH,col=CAT[cat].c,a=X(from);const g=el('g',{'data-cat':cat},svg);
+  el('rect',{x:a,y,width:A-a,height:RH-8,rx:4,fill:col,'fill-opacity':.16,stroke:col,'stroke-opacity':.8,'stroke-width':1.2},g);
+  txt(g,a+8,y+17.5,label,{'font-size':12.2,fill:'#e9edf6'});
+  if(arrow)el('path',{d:`M${A-34} ${y+5} L${A-6} ${y+13} L${A-34} ${y+21} L${A-28} ${y+13} Z`,fill:col},g);
+  bind(g,html);return y;}
+bar(30,0,'axis','30 AD [3924 AM] Chief Cornerstone begins ministry; 12 disciples chosen in Israel [144×13]',tipHTML('#ffcf5c','30 AD [3924 AM] → 1902 AD','144×13','Chief Cornerstone begins ministry; 12 disciples chosen in Israel.'));
+bar(330,1,'hist','330 AD [4224 AM] Byzantine becomes Constantinople under Constantine [1572]',tipHTML('#9c8bf0','330 AD [4224 AM] → 1902 AD','[1572]','Byzantine becomes Constantinople under Constantine. 330 AD is 1572 years to 1902 AD.'));
+const y462=bar(462,2,'cosmic','462 AD [4356 AM] Anunnaki Planet Nibiru passes Earth 1440 years',tipHTML('#f08a4b','462 AD [4356 AM] → 1902 AD','1440 years','Anunnaki Planet Nibiru passes Earth.'),1);
+const y1572=bar(1572,3,'cosmic','1572 AD [5466 AM]',tipHTML('#f08a4b','1572 AD [5466 AM] → 1902 AD','330 yrs.','Supernova in Cassiopeia predicted by Nostradamus.'));
+const y1602=bar(1602,4,'hist','1602 AD [5496 AM]',tipHTML('#9c8bf0','1602 AD [5496 AM] → 1902 AD','300 years','John Greaves born, studied Great Pyramid; died 1652 AD; became Prof. of Astronomy at Oxford in 1646 AD.'));
+// 144 yr box
+(function(){const g=el('g',{'data-cat':'cosmic'},svg);el('rect',{x:A,y:y462,width:X(2046)-A,height:RH-8,fill:'none',stroke:'#f08a4b','stroke-dasharray':'3 3'},g);
+  txt(g,(A+X(2046))/2,y462+17,'144 yr',{'text-anchor':'middle','font-size':11,fill:'#f5ab7c','font-family':'JetBrains Mono'});
+  bind(g,tipHTML('#f08a4b','144 yr','1902 AD → 2046 AD','To the 2046 AD impact.'));})();
+// dashed 300-year boxes
+[[30,330,AXY-12-2*RH],[1602,1902,y1602-RH]].forEach(b=>{const g=el('g',{'data-cat':'axis'},svg);
+  el('rect',{x:X(b[0]),y:b[2],width:X(b[1])-X(b[0]),height:RH-10,fill:'none',stroke:'#ffcf5c','stroke-opacity':.7,'stroke-dasharray':'4 4'},g);
+  txt(g,X(b[0])+8,b[2]+16,'300 years',{'font-size':11.5,fill:'#e0c77c','font-family':'JetBrains Mono'});
+  bind(g,tipHTML('#ffcf5c','300 years',`${b[0]} AD → ${b[1]} AD`,''));});
+// supernova arc from 1572 bar start to 330 dashed box
+(function(){const g=el('g',{'data-cat':'cosmic'},svg);const a=X(1572),b=X(330);const y0=y1572-2,y1=AXY-12-2*RH;
+  el('path',{d:`M${a} ${y0} C ${a-60} ${40}, ${b+80} ${40}, ${b+4} ${y1-2}`,fill:'none',stroke:'#f08a4b','stroke-width':1.6},g);
+  el('path',{d:`M${b-2} ${y1-12} L${b+4} ${y1-1} L${b+11} ${y1-11}`,fill:'none',stroke:'#f08a4b','stroke-width':1.6},g);
+  txt(g,(a+b)/2,150,['Supernova in Cassiopeia predicted by Nostradamus','1572 AD which is 330 yrs. to 1902 AD; and 330 AD','is 1572 years to 1902 AD.'],{'text-anchor':'middle','font-size':12.5,fill:'#f5c7a8','class':'halo'});
+  bind(g,tipHTML('#f08a4b','Supernova in Cassiopeia','1572 AD ⇄ 330 AD','Predicted by Nostradamus. 1572 AD is 330 yrs. to 1902 AD; and 330 AD is 1572 years to 1902 AD.'));})();
+// Greaves note
+(function(){const g=el('g',{'data-cat':'hist'},svg);const x=X(1602);
+  el('line',{x1:x+4,y1:y1602-RH,x2:x-60,y2:118,stroke:'#9c8bf0','stroke-width':1,opacity:.7},g);
+  txt(g,x-64,70,['1602 AD John Greaves born,','studied Great Pyramid; died','1652 AD; became Prof. of','Astronomy at Oxford in 1646 AD'],{'text-anchor':'end','font-size':11.5,fill:'#cdd5e6','class':'halo'});
+  bind(g,tipHTML('#9c8bf0','John Greaves','1602 AD [5496 AM]','Born 1602 AD, studied Great Pyramid; died 1652 AD; became Prof. of Astronomy at Oxford in 1646 AD.'));})();
+
+// below axis: 143/52 boxes and 12-yr bar
+const BY=AXY+44;
+function blk(y1,y2,yy,h,lbl,cat,html){const g=el('g',{'data-cat':cat},svg);const col=CAT[cat].c;
+  el('rect',{x:X(y1),y:yy,width:X(y2)-X(y1),height:h,fill:col,'fill-opacity':.14,stroke:col,'stroke-width':1.2},g);
+  txt(g,(X(y1)+X(y2))/2,yy+h/2+4,lbl,{'text-anchor':'middle','font-size':11,fill:'#e9edf6','font-family':'JetBrains Mono'});bind(g,html);}
+blk(1759,1902,BY,22,'143','cycle',tipHTML('#5cb3f2','143 yrs','1759 AD [5653 AM] → 1902 AD','1759 AD Frederick Lewis surveyed Giza; strange planet seen in inner solar system.'));
+blk(1902,2045,BY,22,'143','cycle',tipHTML('#5cb3f2','143 yrs','1902 AD → 2045 AD [5939 AM]','2045 AD date of Pyramid\'s terminus indicated in linear chronometry of its base diagonals connecting its four cornerstones.'));
+blk(1850,1902,BY+26,20,'52','cycle',tipHTML('#5cb3f2','52','1850 AD [5744 AM] → 1902 AD','1850 AD Assyrian library at Nineveh discovered.'));
+blk(1902,1954,BY+26,20,'52','cycle',tipHTML('#5cb3f2','52','1902 AD → 1954 AD','1954 AD Giant astroid passes Earth on way to 2046 AD impact.'));
+blk(1954,2006,BY+26,20,'52','cycle',tipHTML('#5cb3f2','52','1954 AD → 2006 AD','2006 AD Undetected astroid in July passes very close to Earth.'));
+(function(){const g=el('g',{'data-cat':'cosmic'},svg);el('rect',{x:X(1896),y:BY+50,width:X(1908)-X(1896),height:26,fill:'#f08a4b'},g);
+  el('line',{x1:1086,y1:BY+226,x2:X(1896),y2:BY+70,stroke:'#f08a4b','stroke-width':1,opacity:.7},g);
+  txt(g,1080,BY+226,['144 months [12 yrs] from 1896 AD','Japan tsunami in 6th yr. of the seven','comets to comet explosion over','Tunguska, Siberia in 1908 AD.'],{'text-anchor':'end','font-size':11,fill:'#f5c7a8','class':'halo'});
+  bind(g,tipHTML('#f08a4b','144 months [12 yrs]','1896 AD → 1908 AD','From 1896 AD Japan tsunami in 6th yr. of the seven comets to comet explosion over Tunguska, Siberia in 1908 AD.'));})();
+// event notes with leaders
+function note(y,cat,lx,ly,lines,anchor,ty){const g=el('g',{'data-cat':cat},svg);const col=CAT[cat].c,x=X(y);
+  el('line',{x1:x,y1:ty,x2:lx+(anchor==='end'?4:-4),y2:ly-4,stroke:col,'stroke-width':1,'stroke-dasharray':'3 4',opacity:.7},g);
+  el('circle',{cx:x,cy:ty,r:3.5,fill:col},g);
+  txt(g,lx,ly,lines,{'font-size':11.5,fill:'#cdd5e6','text-anchor':anchor||'start','class':'halo'});
+  bind(g,tipHTML(col,lines[0],'',lines.slice(1).join(' ')));}
+note(1759,'hist',1080,BY+20,['1759 AD Frederick Lewis surveyed','Giza; strange planet seen in','inner solar system.'],'end',BY+11);
+note(2045,'cycle',1080,BY+76,['2045 AD date of Pyramid\'s terminus indicated','in linear chronometry of its base diagonals','connecting its four cornerstones.'],'end',BY+11);
+note(1850,'hist',1080,BY+140,['1850 AD Assyrian library at Nineveh discovered'],'end',BY+36);
+note(1954,'cosmic',1080,BY+164,['1954 AD Giant astroid passes Earth on way to 2046 AD impact.'],'end',BY+36);
+note(2006,'cosmic',1080,BY+188,['2006 AD Undetected astroid in July passes very close to Earth'],'end',BY+36);
+
+// rings card
+(function(){const s=document.getElementById('rings');const cx=200;
+  const big=el('g',{'data-cat':'cycle'},s);el('circle',{cx,cy:110,r:80,fill:'#5cb3f2','fill-opacity':.06,stroke:'#5cb3f2','stroke-width':2},big);
+  txt(big,cx,104,'286',{'text-anchor':'middle','font-size':26,fill:'#e9edf6','font-family':'Cormorant Garamond'});
+  txt(big,cx,124,'YEARS',{'text-anchor':'middle','font-size':11,fill:'#8b95ad','font-family':'JetBrains Mono'});
+  el('path',{d:`M${cx-70} 140 L${cx+70} 140 M${cx-62} 135 L${cx-70} 140 L${cx-62} 145 M${cx+62} 135 L${cx+70} 140 L${cx+62} 145`,stroke:'#5cb3f2',fill:'none','stroke-width':1.2,'stroke-dasharray':'3 3'},big);
+  bind(big,tipHTML('#5cb3f2','286 years','1759 AD → 2045 AD','Two 143-year circles either side of 1902.'));
+  [[-40,'1759 AD','1759 AD [5653 AM] 143 yrs to 1902 AD'],[40,'2045','2045 AD [5939 AM] 143 yrs after 1902 AD']].forEach(([dx,l,b])=>{
+    const g=el('g',{'data-cat':'cycle'},s);el('circle',{cx:cx+dx,cy:240,r:40,fill:'#5cb3f2','fill-opacity':.08,stroke:'#5cb3f2','stroke-width':1.8},g);
+    txt(g,cx+dx,245,'143',{'text-anchor':'middle','font-size':16,fill:'#e9edf6','font-family':'JetBrains Mono'});
+    el('line',{x1:cx+dx*2,y1:110,x2:cx+dx*2,y2:240,stroke:'#5cb3f2','stroke-dasharray':'3 4',opacity:.6},g);
+    txt(g,cx+dx*2+(dx<0?-8:8),190,l,{'text-anchor':dx<0?'end':'start','font-size':11,fill:'#9ccff5','font-family':'JetBrains Mono'});
+    bind(g,tipHTML('#5cb3f2','143',l,b));});
+  el('line',{x1:cx,y1:190,x2:cx,y2:330,stroke:'#ffcf5c','stroke-width':2},s);
+  txt(s,cx,348,'1902 AD',{'text-anchor':'middle','font-size':11,fill:'#ffcf5c','font-family':'JetBrains Mono'});
+  // 52 chain
+  const x0=450,r=34,cy=170;
+  const d=[['1850 AD [5744 AM: 5000+744]','1850 AD Assyrian library at Nineveh discovered'],['1954 AD','1954 AD Giant astroid passes Earth on way to 2046 AD impact.'],['2006 AD','2006 AD Undetected astroid in July passes very close to Earth']];
+  for(let i=0;i<3;i++){const g=el('g',{'data-cat':'cycle'},s);const c=x0+i*2*r;
+    el('circle',{cx:c,cy,r,fill:'#5cb3f2','fill-opacity':.08,stroke:'#5cb3f2','stroke-width':1.8},g);
+    txt(g,c,cy+5,'52',{'text-anchor':'middle','font-size':16,fill:'#e9edf6','font-family':'JetBrains Mono'});
+    bind(g,tipHTML('#5cb3f2','52 years',['1850 → 1902','1902 → 1954','1954 → 2006'][i]+' AD',d[i][1]));}
+  [[x0-r,'1850 AD [5744 AM: 5000+744]'],[x0+r,'1902 AD [5796 AM]'],[x0+3*r,'1954 AD'],[x0+5*r,'2006 AD']].forEach(([x,l],i)=>{
+    el('line',{x1:x,y1:cy,x2:x,y2:cy+[118,90,62,90][i],stroke:i===1?'#ffcf5c':'#5cb3f2','stroke-dasharray':i===1?'':'3 4','stroke-width':i===1?2:1,opacity:.8},s);
+    txt(s,x,cy+[130,102,74,102][i],l,{'text-anchor':i===0?'start':(i===3?'end':'middle'),'font-size':10.5,fill:i===1?'#ffcf5c':'#9ccff5','font-family':'JetBrains Mono'});});
+  el('path',{d:`M${x0+r} ${cy-r-60} L${x0+r} ${cy-r} `,stroke:'#ffcf5c','stroke-width':2},s);
+})();
+
+</script>
+</body>
+</html>

@@ -278,7 +278,7 @@ const CAT={
 (function(){
 const svg=document.getElementById('sec');
 hatchDefs(svg);
-const AX=398, BASE=583, APEX=-249, PRES=-197, k=0.595;
+const AX=398, BASE=583, APEX=-249, PRES=-197, k=0.6955;
 const fx=y=>(y-APEX)*k; // half width at y
 // pyramid body
 el('polygon',{points:`${AX},${APEX} ${AX+fx(BASE)},${BASE} 0,${BASE} 0,${APEX+AX/k}`,fill:'url(#hatch)',stroke:'none'},svg);

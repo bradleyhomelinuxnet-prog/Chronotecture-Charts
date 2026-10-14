@@ -300,14 +300,14 @@ function yl(y){return y<0?(-y)+' BC':y+' AD';}
   });
   // the three long notes, top-left with arrows (as on the plate)
   const NOTES=[
-    {i:3,l:['2070 is duration between ancient world-','killing impacts of 4309 and 2239 BC [1656 AM]'],x:150,y:76},
-    {i:4,l:['USA is empire of adoption fulfilling role of','Ephraim, 13th Tribe adopted by Jacob'],x:150,y:122},
-    {i:5,l:['United States ends','by comet impact'],x:44,y:180}
+    {i:3,l:['2070 is duration between ancient world-','killing impacts of 4309 and 2239 BC [1656 AM]'],x:200,y:80,ax:288,ay:98},
+    {i:4,l:['USA is empire of adoption','fulfilling role of Ephraim,','13th Tribe adopted by Jacob'],x:44,y:160,ax:150,ay:192},
+    {i:5,l:['United States ends','by comet impact'],x:44,y:240,ax:62,ay:258}
   ];
   NOTES.forEach(n=>{const b=BARS[n.i],col=CAT[b.cat].c;const g=el('g',{'data-cat':b.cat},s);
     n.l.forEach((ln,k)=>tx(g,n.x,n.y+k*14,ln,{fill:'#aeb7cd','font-size':11,'font-style':'italic'}));
-    const ty=90+n.i*42-14, txx=X(b.s)+ (n.i===5?6:0);
-    el('path',{d:`M${n.i===5?n.x+40:n.x+10} ${n.y+n.l.length*14-6} L${txx} ${ty}`,stroke:col,'stroke-width':1.3,fill:'none',opacity:.8},g);
+    const ty=90+n.i*42-14, txx=X(b.s);
+    el('path',{d:`M${n.ax} ${n.ay} L${txx} ${ty}`,stroke:col,'stroke-width':1.3,fill:'none',opacity:.8},g);
     el('circle',{cx:txx,cy:ty,r:2.5,fill:col},g);
     bind(g,T(col,'Note',yl(b.s)+' bar',b.note));});
 })();
@@ -320,10 +320,13 @@ function yl(y){return y<0?(-y)+' BC':y+' AD';}
   const AX=490, cx=X(1776), R=X(1776)-X(1446);
   // arc + lettering
   const defs=el('defs',{},s);
-  el('path',{id:'arcp',d:`M ${cx-R+6} ${AX} A ${R-6} ${R-6} 0 0 1 ${cx} ${AX-R+6}`},defs);
+  const R2=R+6,a1=150*Math.PI/180,a2=28*Math.PI/180;
+  el('path',{id:'arcL',d:`M ${cx-R2} ${AX} A ${R2} ${R2} 0 0 1 ${cx+R2*Math.cos(a1)} ${AX-R2*Math.sin(a1)}`},defs);
+  el('path',{id:'arcR',d:`M ${cx+R2*Math.cos(a2)} ${AX-R2*Math.sin(a2)} A ${R2} ${R2} 0 0 1 ${cx+R2} ${AX}`},defs);
   el('path',{d:`M ${cx-R} ${AX} A ${R} ${R} 0 0 1 ${cx+R} ${AX}`,fill:'#101a30',stroke:'#3a4a6e','stroke-width':1.4,'fill-opacity':.45},s);
-  const at=el('text',{fill:'#7f8bab','font-size':11.5,'letter-spacing':'.06em'},s);
-  const tp=el('textPath',{href:'#arcp',startOffset:'4%'},at);tp.textContent="First example of Gutenburg's printing was an Astronomical Calendar";
+  [['arcL',"First example of Gutenburg's printing"],['arcR','was an Astronomical Calendar']].forEach(([id,t])=>{
+    const at=el('text',{fill:'#8f9abb','font-size':10.5,'letter-spacing':'.04em','font-style':'italic'},s);
+    const tp=el('textPath',{href:'#'+id,startOffset:'2%'},at);tp.textContent=t;});
   // axis
   for(let v=1400;v<=2000;v+=100){const xx=X(v);el('line',{x1:xx,y1:AX,x2:xx,y2:AX+8,stroke:'#3a486a'},s);
     tx(s,xx+3,AX+21,v===1400?'1400 AD':(v===2000?'2000 AD':String(v)),{fill:'#5d6885','font-size':10.5,'font-family':'JetBrains Mono'});}
@@ -333,7 +336,7 @@ function yl(y){return y<0?(-y)+' BC':y+' AD';}
   el('path',{d:`M${cx-10} 48 L${cx+10} 48 L${cx} 66Z`,fill:AN},s);
   const ha=tx(s,cx,36,'1776 AD [5670 AM]',{fill:AN,'font-size':15,'text-anchor':'middle','font-weight':600});
   // 2106 border
-  el('line',{x1:X(2106),y1:250,x2:X(2106),y2:AX+20,stroke:'#e7c355','stroke-width':2.2},s);
+  el('line',{x1:X(2106),y1:AX-6,x2:X(2106),y2:AX+20,stroke:'#e7c355','stroke-width':2.2},s);
   tx(s,985,160,'2106 AD [6000 AM]',{fill:'#e7c355','font-size':11,'font-family':'JetBrains Mono','text-anchor':'middle',transform:'rotate(90 985 160)'});
 
   const P=[
@@ -380,7 +383,7 @@ function yl(y){return y<0?(-y)+' BC':y+' AD';}
   const pg=el('g',{'data-cat':'celestial'},s);const px=X(2046),py=96+6*22-2;
   el('line',{x1:px,y1:py+10,x2:px,y2:RY0+7*RS-10,stroke:'#5cb3f2','stroke-dasharray':'3 3',opacity:.75},pg);
   el('circle',{cx:px,cy:py-2,r:11,fill:'#1d2740',stroke:'#5cb3f2','stroke-width':1.4},pg);
-  el('line',{x1:px-14,y1:py-15,x2:px-48,y2:py-40,stroke:'#5cb3f2','stroke-width':2,opacity:.6,'stroke-linecap':'round'},pg);
+  el('line',{x1:px-13,y1:py+3,x2:px-46,y2:py+16,stroke:'#5cb3f2','stroke-width':2,opacity:.6,'stroke-linecap':'round'},pg);
   tx(pg,px+16,py+2,'2046 AD',{fill:'#d5dbe8','font-size':10.8,'font-family':'JetBrains Mono'});
   bind(pg,T('#5cb3f2','2046 AD','270 yrs after 1776','Dark planet with comet drawn at the end of the 269/270-year rows: “270 yrs to 2046 AD Astroid destroys America”.'));
   // baktun band
