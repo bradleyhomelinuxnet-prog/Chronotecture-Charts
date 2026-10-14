@@ -49,14 +49,16 @@
   // (a script, not fetch(), so it also works when the atlas is opened from disk).
   (function wireText(){
     var wrap=document.getElementById('stagewrap');
-    if(!wrap || wrap.querySelector('.seg') || !NUM) return;
+    if(!wrap || !NUM) return;
+    var chart=!!wrap.querySelector('.seg');
     var sc=document.createElement('script'); sc.src='../text/texts.js';
     sc.onload=function(){
       var t=window.CHRONO_TEXT && window.CHRONO_TEXT[NUM];
-      if(wrap.querySelector('.seg')) return;
       if(!t){ addEngine(wrap); return; }
-      addSeg(wrap,'Read text \u00b6');
-      var pane=document.createElement('div'); pane.className='frame textpane';
+      if(!chart && wrap.querySelector('.seg')) return;
+      if(chart){ var seg=wrap.querySelector('.seg'), eb=seg.querySelector('[data-view="engine"]'), tb=document.createElement('button'); tb.type='button'; tb.dataset.view='text'; tb.textContent='Read text \u00b6'; seg.insertBefore(tb,eb); }
+      else addSeg(wrap,'Read text \u00b6');
+      var pane=document.createElement('div'); pane.className='frame textpane'; if(chart){ pane.dataset.pane='text'; pane.style.display='none'; }
       var lines=t.split('\n'), head=lines.shift(), h2=lines.shift(), html='<div class="tp-in"><div class="tp-k">'+esc(head)+'</div>';
       if(h2) html+='<h2 class="serif">'+esc(h2)+'</h2>';
       var first=true;

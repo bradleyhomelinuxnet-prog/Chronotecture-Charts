@@ -1,0 +1,27 @@
+Plate 119 · Plate 119 · transcription of the drawn plate
+Plate 119 — The Recursive Palindrome · 138 − 19 = 119
+
+Header
+
+* 119 (corner box)
+
+Upper figure
+
+* 19 · the Metonic cycle
+* 19 years = 235 lunations — sun & moon realign
+
+Lower figure
+
+* 138 · recursive doubling (mirrored)
+* 138×1 · 138 · 138×1
+* 138×2 · 276 · 138×2
+* 138×4 · 552 · 138×4
+* 138×8 · 1104 · 138×8
+* 138×16 · 2208 · 138×16
+
+Frieze
+
+* 19 ↔ 91
+* 138 ↔ 831
+* 1·1·9 ↔ 9·1·1
+* 138 − 19 = 119
