@@ -2,7 +2,8 @@
 
 A navigable study edition of Jason M. Breshears' *Chronotecture: The Lost Science of Prophetic Engineering* (2017): all 119 plates, plus rebuilt interactive charts in `redesign/`.
 
-- Live site: https://hollywood-rogue-ai-ventures.w3spaces.com/Chronotecture-Charts/index.html
+- Live site: https://bradleyhomelinuxnet-prog.github.io/Chronotecture-Charts/ (GitHub Pages, updates on every push to `main`)
+- Mirror: https://hollywood-rogue-ai-ventures.w3spaces.com/Chronotecture-Charts/index.html (updated by hand)
 - Run locally: open `index.html` in a browser, or serve this folder with any static server.
 
 | Folder | What it is |
