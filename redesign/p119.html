@@ -107,7 +107,7 @@
         <div class="mrow"><span class="eq">138 × 1 = 138 · 138 × 2 = 276</span><span class="cap">The base and its first doubling (not on Breshears’ plates).</span></div>
         <div class="mrow"><span class="eq">138 × 4 = <span class="base138">552</span></span><span class="cap">The 552 of charts&nbsp;II·b, II·c and VI·c.</span></div>
         <div class="mrow"><span class="eq">138 × 8 = <span class="base138">1104</span> = 552 × 2</span><span class="cap">“1104 yrs [552×2]” on charts&nbsp;II·b and II·c.</span></div>
-        <div class="mrow"><span class="eq">138 × 16 = <span class="base138">2208</span></span><span class="cap">1688&nbsp;BC [2208&nbsp;AM] on charts&nbsp;II·b and II·c.</span><span class="aw">as written on those plates — 2208&nbsp;AM is 1687&nbsp;BC; 1688&nbsp;BC is 2207&nbsp;AM</span></div>
+        <div class="mrow"><span class="eq">138 × 16 = <span class="base138">2208</span></span><span class="cap">1688&nbsp;BCE [2208&nbsp;AM] on charts&nbsp;II·b and II·c.</span><span class="aw">as written on those plates — 2208&nbsp;AM is 1687&nbsp;BCE; 1688&nbsp;BCE is 2207&nbsp;AM</span></div>
         <div class="mrow"><span class="eq">19 years = 235 lunations</span><span class="cap">The Metonic cycle: sun and moon realign (19 × 365.2422 ≈ 235 × 29.5306 ≈ 6940 days).</span></div>
         <div class="mrow"><span class="eq">138 − 19 = 119 · 118 + 1 = 119</span><span class="cap">The plate’s number, one past Breshears’ last plate.</span></div>
         <div class="mrow"><span class="eq">19 ↔ 91 · 138 ↔ 831 · 1·1·9 ↔ 9·1·1</span><span class="cap">Reversals, read from either end: mirrors, not equalities.</span></div>
@@ -145,7 +145,7 @@ function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)ret
     bar.appendChild(c);}}
 function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
 window.addEventListener('load',focusScrollers);
-function yl(v){return v<0?(-v)+' BC':v+' AD';}
+function yl(v){return v<0?(-v)+' BCE':v+' CE';}
 // span bar: x1<x2 in px; offL draws an off-scale arrow at left end
 function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
   const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
@@ -170,7 +170,7 @@ svg.appendChild(el('line',{x1:CX,y1:40,x2:CX,y2:720,stroke:'#ffcf5c','stroke-wid
   tx(g,CX,cy-18,'19 years = 235 lunations — sun & moon realign',{fill:'#8b95ad','font-size':11.5,'text-anchor':'middle',class:'h'});
   bind(g,T('19 · the Metonic cycle','#5cb3f2','19 years = 235 lunations','Nineteen steps from end to end: sun and moon realign.'));svg.appendChild(g);})();
 // 138 doublings, mirrored
-const ROWS=[{v:138,m:'×1',n:'the base'},{v:276,m:'×2',n:'138 · 2'},{v:552,m:'×4',n:'the 552 of charts II·b, II·c and VI·c'},{v:1104,m:'×8',n:'552×2: “1104 yrs [552×2]” on charts II·b and II·c'},{v:2208,m:'×16',n:'1688 BC [2208 AM] on charts II·b and II·c'}];
+const ROWS=[{v:138,m:'×1',n:'the base'},{v:276,m:'×2',n:'138 · 2'},{v:552,m:'×4',n:'the 552 of charts II·b, II·c and VI·c'},{v:1104,m:'×8',n:'552×2: “1104 yrs [552×2]” on charts II·b and II·c'},{v:2208,m:'×16',n:'1688 BCE [2208 AM] on charts II·b and II·c'}];
 tx(svg,CX,310,'138 · recursive doubling (mirrored)',{fill:'#ffcf5c','font-size':14,'text-anchor':'middle',class:'mono'});
 ROWS.forEach((r,i)=>{const hw=r.v/2208*430,y=340+i*72,inA=r.v>=552,col=inA?'#ffcf5c':'#5c6a8f',g=el('g',{});
   g.appendChild(el('line',{x1:CX-hw,y1:y,x2:CX+hw,y2:y,stroke:col,'stroke-width':11,'stroke-linecap':'round',opacity:inA?.95:.6}));

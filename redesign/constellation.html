@@ -117,10 +117,10 @@
         <div class="mrow"><span class="eq">138 × 4 = 552 · × 8 = 1104 · × 16 = 2208</span><span class="cap">The doubling drawn on plate&nbsp;119; 552, 1104 and 2208 are written on II·b and II·c.</span></div>
         <div class="mrow"><span class="eq">414 × 4 = 1656 = 864 + 792</span><span class="cap">The Flood palindrome, II·b.</span></div>
         <div class="mrow"><span class="eq">1962 + 144 = 2106 · 1902 + 144 = 2046 · 144 × 3 = 432</span><span class="cap">II·b, I·e, VI·c.</span></div>
-        <div class="mrow"><span class="eq">1135 BC = 2670 AM (II·c) · 2760 AM (II·b)</span><span class="cap">The comet that darkens the sun.</span><span class="aw">as written — 3895 − 1135 = 2760; II·c’s 2670 transposes it</span></div>
-        <div class="mrow"><span class="eq">1688 BC [2208 AM] · 552 to 1135 BC or from 2239 BC</span><span class="cap">II·b and II·c.</span><span class="aw">as written — 2208&nbsp;AM is 1687&nbsp;BC, and 552 from either 1135 or 2239&nbsp;BC lands on 1687&nbsp;BC</span></div>
-        <div class="mrow"><span class="eq">622 − 552 = 70 AD · 622 AD = 4516 AM</span><span class="cap">VI·c and VI·d.</span></div>
-        <div class="mrow"><span class="eq">3361 + 2435 = 5796 = 1902 AD · 1902 + 204 = 2106</span><span class="cap">Chart&nbsp;I and I·e.</span></div>
+        <div class="mrow"><span class="eq">1135 BCE = 2670 AM (II·c) · 2760 AM (II·b)</span><span class="cap">The comet that darkens the sun.</span><span class="aw">as written — 3895 − 1135 = 2760; II·c’s 2670 transposes it</span></div>
+        <div class="mrow"><span class="eq">1688 BCE [2208 AM] · 552 to 1135 BCE or from 2239 BCE</span><span class="cap">II·b and II·c.</span><span class="aw">as written — 2208&nbsp;AM is 1687&nbsp;BCE, and 552 from either 1135 or 2239&nbsp;BCE lands on 1687&nbsp;BCE</span></div>
+        <div class="mrow"><span class="eq">622 − 552 = 70 CE · 622 CE = 4516 AM</span><span class="cap">VI·c and VI·d.</span></div>
+        <div class="mrow"><span class="eq">3361 + 2435 = 5796 = 1902 CE · 1902 + 204 = 2106</span><span class="cap">Chart&nbsp;I and I·e.</span></div>
         <div class="mrow"><span class="eq">1902 + 126 = 2028 · 2028 + 24 = 2052</span><span class="cap">The Great Step.</span></div>
       </div></div>
       <div class="card"><h2>Full transcription</h2><div class="hint">Every node’s figure, as written, and the plates that write it.</div><details class="tx"><summary>Show sources</summary><div class="cols" id="srcs"></div></details><div class="foot">An atlas cross-map built from J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), plates&nbsp;13–30, 44, 97–99 and 114, and the atlas’ own plate&nbsp;119. Figures transcribed unchanged; this is an interpretive map for study, not an endorsement of the underlying claims.</div></div>
@@ -151,7 +151,7 @@ function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)ret
     bar.appendChild(c);}}
 function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
 window.addEventListener('load',focusScrollers);
-function yl(v){return v<0?(-v)+' BC':v+' AD';}
+function yl(v){return v<0?(-v)+' BCE':v+' CE';}
 // span bar: x1<x2 in px; offL draws an off-scale arrow at left end
 function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
   const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
@@ -171,7 +171,7 @@ const CHARTS=[
   {id:'Ie',lbl:'I·e',full:'Chart I·e · The Giza Course Countdown (plate 17)',href:'ie.html',refs:['d1902','d2106','n144','d2046']},
   {id:'Id',lbl:'I·d',full:'Chart I·d · The Great Step Axis (plate 16)',href:'p016.html',refs:['d1902','d2106','d2046']},
   {id:'IIb',lbl:'II·b',full:'Chart II·b · The Palindrome of the Great Flood (plate 19)',href:'iib.html',refs:['n552','n1104','n2208','n1656','n144','flood','d1135','d1688','d583','d1902','d2106','d2046']},
-  {id:'IIc',lbl:'II·c',full:'Chart II·c · Spans from the Comet of 1135 BC (plate 20)',href:'iic.html',refs:['n552','n1104','n2208','flood','d1135','d1688','d583','d2106','enoch']},
+  {id:'IIc',lbl:'II·c',full:'Chart II·c · Spans from the Comet of 1135 BCE (plate 20)',href:'iic.html',refs:['n552','n1104','n2208','flood','d1135','d1688','d583','d2106','enoch']},
   {id:'VIc',lbl:'VI·c',full:'Chart VI·c · The Islamic Hijrah Calendar (plate 29)',href:'vic.html',refs:['d622','n552','n144','d2106','enoch','d1054']},
   {id:'VId',lbl:'VI·d',full:'Chart VI·d · The Hijrah Doublings (plate 30)',href:'vid.html',refs:['d622','d2106']},
   {id:'Xc',lbl:'X·c',full:'Chart X·c · Iron Empires (plate 44)',href:'p044.html',refs:['d1054','d2106','d2046']},
@@ -181,25 +181,25 @@ const CHARTS=[
 ];
 const NODES={
   n138:{lbl:'138',tag:'number',desc:'Doubled on plate 119: 138×4 = 552, ×8 = 1104, ×16 = 2208. Phoenix Chronometry I totals pyramid measures to multiples of 138 (e.g. 6348 = 138×46).'},
-  n552:{lbl:'552',tag:'span',desc:'II·b: 2239 BC → 1688 BC [2208 AM] (as written; the arithmetic gives 1687 BC). II·c: 1135 BC → 583 BC, and back to 1688 BC [2208]. VI·c: 70 AD → 622 AD.'},
-  n1104:{lbl:'1104',tag:'span',desc:'“1104 yrs [552×2]”. II·b: 2239 BC → 1135 BC [2760 AM]. II·c: 2239 BC ← 1135 BC → 31 BC.'},
-  n2208:{lbl:'2208 AM',tag:'marker',desc:'“1688 BC [2208 AM]” (II·b) and “1688 BC [2208]” (II·c). 2208 = 138×16; 2208 AM is 1687 BC by the plates’ own Anno Mundi count.'},
-  n1656:{lbl:'1656',tag:'span',desc:'II·b: 1656 years either side of the Flood, “414×4 or 864+792”. The Flood is 2239 BC [1656 AM].'},
-  n144:{lbl:'144',tag:'span',desc:'II·b: 1962 AD is 144 years to Armageddon 2106 AD; 1902 is 144 years to 2046 AD. I·e: 144 years to 2046 AD. VI·c: 432 [144×3].'},
+  n552:{lbl:'552',tag:'span',desc:'II·b: 2239 BCE → 1688 BCE [2208 AM] (as written; the arithmetic gives 1687 BCE). II·c: 1135 BCE → 583 BCE, and back to 1688 BCE [2208]. VI·c: 70 CE → 622 CE.'},
+  n1104:{lbl:'1104',tag:'span',desc:'“1104 yrs [552×2]”. II·b: 2239 BCE → 1135 BCE [2760 AM]. II·c: 2239 BCE ← 1135 BCE → 31 BCE.'},
+  n2208:{lbl:'2208 AM',tag:'marker',desc:'“1688 BC [2208 AM]” (II·b) and “1688 BC [2208]” (II·c). 2208 = 138×16; 2208 AM is 1687 BCE by the plates’ own Anno Mundi count.'},
+  n1656:{lbl:'1656',tag:'span',desc:'II·b: 1656 years either side of the Flood, “414×4 or 864+792”. The Flood is 2239 BCE [1656 AM].'},
+  n144:{lbl:'144',tag:'span',desc:'II·b: 1962 CE is 144 years to Armageddon 2106 CE; 1902 is 144 years to 2046 CE. I·e: 144 years to 2046 CE. VI·c: 432 [144×3].'},
   n19:{lbl:'19',tag:'cycle',desc:'Plate 119: the Metonic cycle, 19 years = 235 lunations; 138 − 19 = 119.'},
-  flood:{lbl:'Great Flood',tag:'date',desc:'2239 BC [1656 AM] (II·b, II·c): the centre of the II·b palindrome; “Deluge 2239 BC” on II·c.'},
-  d1135:{lbl:'1135 BC',tag:'date',desc:'Comet darkens the sun. II·c: 1135 BC [2670 AM]; II·b: 1135 BC [2760 AM]. 3895 − 1135 = 2760.'},
-  d1688:{lbl:'1688 BC',tag:'date',desc:'Comet darkens the sun [2208 AM] (II·b, II·c).'},
-  d583:{lbl:'583 BC',tag:'date',desc:'Sun darkened during the Medo-Lydian war. II·b: 583 BC [3312 AM]; II·c: [Herodotus].'},
-  d622:{lbl:'622 AD',tag:'date',desc:'622 AD [4516 AM] Islamic Hijrah Calendar (VI·c, VI·d).'},
-  d1054:{lbl:'1054 AD',tag:'date',desc:'VI·c: 1054 AD supernova in Taurus and division of Roman Church. X·c: the axis of the Iron Empires chart.'},
-  d1460:{lbl:'1460 BC',tag:'date',desc:'Chart I: 1460 BC [2435 Annus Mundi], the passage junction; Enoch: 365×4 = 1460.'},
-  d1902:{lbl:'1902 AD',tag:'date',desc:'Chart I: 5796 AM, 1902 AD start of Giza Course Countdown Calendar. I·e: 1902 AD [5796 AM] Stonehenge chronolithic system ends. II·b: Stonehenge chronology to 1902 AD. The Great Step: its face.'},
-  d2028:{lbl:'2028 AD',tag:'date',desc:'The Great Step: 2028 AD (5922 AM), the final limestone year (126 P″ = 42×3).'},
-  d2046:{lbl:'2046 AD',tag:'date',desc:'I·e: 2046 AD [5940 AM] astroid impact. II·b: 1902 is 144 years to 2046 AD impact.'},
-  d2052:{lbl:'2052 AD',tag:'date',desc:'The Great Step: 2028 AD is exactly 24 years before the Seven Kings are released in 2052 AD.'},
-  d2106:{lbl:'2106 AD',tag:'date',desc:'6000 AM, Armageddon and the return of the Chief Cornerstone (I·e, II·b, II·c, VI·c, VI·d).'},
-  enoch:{lbl:'Enoch',tag:'figure',desc:'Chart I: Enoch ascended in 365th year, 365×4 = 1460. II·c: 2066 AD when Enoch & Elijah return as Two Witnesses. VI·c: 2066 AD appearance of Enoch and Elijah.'},
+  flood:{lbl:'Great Flood',tag:'date',desc:'2239 BCE [1656 AM] (II·b, II·c): the centre of the II·b palindrome; “Deluge 2239 BC” on II·c.'},
+  d1135:{lbl:'1135 BCE',tag:'date',desc:'Comet darkens the sun. II·c: 1135 BCE [2670 AM]; II·b: 1135 BCE [2760 AM]. 3895 − 1135 = 2760.'},
+  d1688:{lbl:'1688 BCE',tag:'date',desc:'Comet darkens the sun [2208 AM] (II·b, II·c).'},
+  d583:{lbl:'583 BCE',tag:'date',desc:'Sun darkened during the Medo-Lydian war. II·b: 583 BCE [3312 AM]; II·c: [Herodotus].'},
+  d622:{lbl:'622 CE',tag:'date',desc:'622 CE [4516 AM] Islamic Hijrah Calendar (VI·c, VI·d).'},
+  d1054:{lbl:'1054 CE',tag:'date',desc:'VI·c: 1054 CE supernova in Taurus and division of Roman Church. X·c: the axis of the Iron Empires chart.'},
+  d1460:{lbl:'1460 BCE',tag:'date',desc:'Chart I: 1460 BCE [2435 Annus Mundi], the passage junction; Enoch: 365×4 = 1460.'},
+  d1902:{lbl:'1902 CE',tag:'date',desc:'Chart I: 5796 AM, 1902 CE start of Giza Course Countdown Calendar. I·e: 1902 CE [5796 AM] Stonehenge chronolithic system ends. II·b: Stonehenge chronology to 1902 CE. The Great Step: its face.'},
+  d2028:{lbl:'2028 CE',tag:'date',desc:'The Great Step: 2028 CE (5922 AM), the final limestone year (126 P″ = 42×3).'},
+  d2046:{lbl:'2046 CE',tag:'date',desc:'I·e: 2046 CE [5940 AM] astroid impact. II·b: 1902 is 144 years to 2046 CE impact.'},
+  d2052:{lbl:'2052 CE',tag:'date',desc:'The Great Step: 2028 CE is exactly 24 years before the Seven Kings are released in 2052 CE.'},
+  d2106:{lbl:'2106 CE',tag:'date',desc:'6000 AM, Armageddon and the return of the Chief Cornerstone (I·e, II·b, II·c, VI·c, VI·d).'},
+  enoch:{lbl:'Enoch',tag:'figure',desc:'Chart I: Enoch ascended in 365th year, 365×4 = 1460. II·c: 2066 CE when Enoch & Elijah return as Two Witnesses. VI·c: 2066 CE appearance of Enoch and Elijah.'},
   p3036:{lbl:'3036 P″',tag:'measure',desc:'Chart I: 3036 P″ to passage end joint, down the Descendant Passage.'},
   p3361:{lbl:'3361 P″',tag:'measure',desc:'Chart I: 3361 P″ to face of Great Step, up the Ascendant Passage.'}
 };
