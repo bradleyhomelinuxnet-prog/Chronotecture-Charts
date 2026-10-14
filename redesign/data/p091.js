@@ -1,0 +1,46 @@
+// Plate 91 · Chart XXXV — transcribed from plates/p091.png. Years as written on the plate (BC negative).
+window.PLATE = {
+  plate: 91,
+  chart: 'XXXV',
+  kind: 'figure',
+  title: 'The Last Days and the Stone Kingdom',
+  subtitle: 'Giza course countdown 1902–2106 AD [6000 AM], 204 years; 670 + 330 = 1000-year millennium',
+  signed: "Breshears '06",
+  rotated: true,
+  range: [-4800, 2500],
+  transcribed: 'Transcribed 13 Oct 2026 from the scan; start of the 670 years and end of the 330 Stone Kingdom years are not printed',
+  anchors: [
+    { year: -2239, label: 'The Flood', note: 'Comet impact caused Flood 2239 BC' },
+    { year: 1902, label: '1902 AD', note: 'Giza course countdown begins' },
+    { year: 2106, label: '6000 AM', note: 'Wellpit Axis, 6000 Annus Mundi' },
+  ],
+  events: [
+    { year: -4639, label: 'Anunnaki rebellion begins', cat: 'anun' },
+    { year: -4309, label: 'Comet impact', cat: 'impact', note: 'End of 330 yrs of Anunnaki rebellion' },
+    { year: -2239, label: 'Comet impact caused Flood', cat: 'flood', note: 'Seven kings ruled 670 yrs before' },
+    { year: 1902, label: 'Giza course countdown begins', cat: 'hist' },
+    { year: 2014, label: 'Anunnaki presence in solar system made known', cat: 'anun' },
+    { year: 2022, label: 'End of United States 1902–2022 [120]', cat: 'hist' },
+    { year: 2028, label: 'Anunnaki appear on Earth', cat: 'anun', note: 'Anunnaki among men is "...iron mixed with miry [hybrid] clay [humans]."' },
+    { year: 2052, label: 'Anunnaki seven kings released', cat: 'anun' },
+    { year: 2106, label: 'Anunnaki defeated at Armageddon', am: 6000, cat: 'proph', note: 'Chief Cornerstone descends in Year One of the 330 years of the Stone Kingdom' },
+  ],
+  spans: [
+    { from: -4639, to: -4309, years: 330, label: '330 yrs of Anunnaki rebellion', cat: 'anun' },
+    { from: -2909, to: -2239, years: 670, label: 'Seven kings ruled 670 yrs before the Flood', cat: 'anun', note: 'Start year not printed; 2239 BC − 670' },
+    { from: 1902, to: 2106, years: 204, label: 'Giza course countdown · 204 years', cat: 'proph', note: '204 P" / courses of bricks to apex; 204 levels to top' },
+    { from: 1902, to: 2022, years: 120, label: 'United States 1902–2022 [120]', cat: 'hist', note: 'Height \ decline of Iron Empire' },
+    { from: 2052, to: 2106, years: 54, label: '54 yrs of seven kings of Anunnaki', cat: 'anun' },
+    { from: 2106, to: 2436, years: 330, label: '330 years of the Stone Kingdom', cat: 'proph', note: 'End year not printed; 2106 + 330' },
+  ],
+  math: [
+    { eq: '670 + 330 = 1000', cap: 'Adding 670 yrs stolen by Anunnaki to 330 Stone Kingdom is 1000-year millennium' },
+    { eq: '2022 - 1902 = 120', cap: 'United States 1902–2022' },
+    { eq: '2106 - 1902 = 204', cap: 'Giza course countdown' },
+  ],
+  notes: [
+    'Seven kings ruled 670 yrs before comet impact caused Flood 2239 BC. Adding 670 yrs stolen by Anunnaki to 330 Stone Kingdom is 1000-year millennium.',
+    'Bands along the Great Step and granite: Height \ decline of Iron Empire; The Last Days; 7 seals and 7 trumpets; 7 plagues; 70 years of Apocalypse.',
+    'A pyramid figure at the Wellpit Axis marks 6000 Annus Mundi; 204 levels to top. The Central Axis is marked at the foot of the Great Step.',
+  ],
+};
