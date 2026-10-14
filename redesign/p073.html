@@ -1,0 +1,259 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XXIII — The Rejected Cornerstone</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XXIII · Plate&nbsp;73</div>
+    <h1>Chronotecture
+      <span class="sub">The Rejected Cornerstone — 5448, 5814 and the 6000&nbsp;AM Countdown</span>
+    </h1>
+    <p class="prov">A rebuild of Jason&nbsp;M.&nbsp;Breshears’ hand-drawn chart&nbsp;XXIII, with every date, measurement and annotation preserved verbatim; only the visual language is new. Its structural key: <b>the pyramid’s 5448&nbsp;P″ height plus a 366&nbsp;P″ cornerstone gives 5814, 186 short of 6000</b>, while the passages count down from 6000&nbsp;AM at the entry to −366&nbsp;AM.</p>
+  </header>
+
+  <div class="grid">
+    <div class="bottom">
+      <div class="card">
+        <h2>The pillar and its missing cornerstone</h2>
+        <div class="hint">Heights drawn to scale in pyramid-inches: 5448&nbsp;P″ without the cornerstone, 5814&nbsp;P″ with it, 186 short of 6000. Hover or tap a dimension.</div>
+        <svg id="elev" viewBox="0 0 760 520" role="img" aria-label="Pyramid elevation with cornerstone"></svg>
+      </div>
+      <div class="card">
+        <h2>Isaiah 19:19–20</h2>
+        <div class="hint" style="font-size:14px;color:#d3dbec;line-height:1.65">“In that day there shall be an <u>Altar</u> to the Lord in the midst of the land of Egypt, and a <u>Pillar</u> at the border [Giza] thereof to the Lord. And it shall be for a <u>Sign</u>, and for a <u>Witness</u> unto the Lord of Hosts in the land of Egypt.” [Altar of Adam\aka-Pillar of <b>Enoch</b>]</div>
+        <div class="hint">Gematrical value of Isaiah 19:19–20 is <b style="color:var(--anchor)">5448</b> — the height of the Great Pyramid in P″.</div>
+        <div class="hint" style="font-size:13px;color:#cfd7ea;line-height:1.6;margin-top:10px">“Ezra wrote of 204 books concerning the Judgement and Resurrection. The Great Pyramid is this library, its 204 books being the courses of masonry completed when the Chief Cornerstone descends upon a <u>Pillar</u> of Righteous Humanity.”</div>
+      </div>
+    </div>
+    <div class="card">
+      <h2>The passage countdown — 6000&nbsp;AM to −366&nbsp;AM</h2>
+      <div class="hint">From the entry at 6000&nbsp;AM [2106&nbsp;AD], each measured segment is subtracted in turn: 808 up the face, 1110 down the passage, 3036 down the descending passage, 302 down, and 1110 across to −366 Annus Mundi. Hover or tap any node or segment.</div>
+      <div class="swipe">⟷ swipe to pan</div>
+      <div class="scroller" data-focus=".55"><svg id="pass" class="mid" viewBox="0 0 1000 600" role="img" aria-label="Passage countdown schematic"></svg></div>
+    </div>
+    <div class="card">
+      <h2>Year ruler — the countdown on one line</h2>
+      <div class="hint">The same nodes on an Annus Mundi scale (Year One = 3895&nbsp;BC on these charts).</div>
+      <div class="swipe">⟷ swipe to pan</div>
+      <div class="scroller"><svg id="ruler" class="mid" viewBox="0 0 1000 190" role="img" aria-label="Annus Mundi ruler"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked. Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid"><div class="mrow"><span class="eq">5448 + 366 = 5814</span><span class="cap">“5448 P″ + 366 is 5814 P″, thus Chief Cornerstone is 366 P″ high.” Enoch wrote 366 “books”.</span></div><div class="mrow"><span class="eq">6000 − 5814 = 186 · 186 × 4 = 744 = 600 + 144</span><span class="cap">186 short of 6000 on each of 4 faces.</span></div><div class="mrow"><span class="eq">366 + 186 = <span class="base138">552</span> · 6000 − 5448 = <span class="base138">552</span></span><span class="cap">Both routes give 552.</span></div><div class="mrow"><span class="eq">366 ÷ 7 = 52.2</span><span class="cap">As written (more exactly 52.29).</span></div><div class="mrow"><span class="eq"><span class="base138">552</span> × 3 = <span class="base138">1656</span> [Flood]</span><span class="cap">…and 1656 + 1656 = 583&nbsp;BC [<span class="base138">3312</span>&nbsp;AM] sun darkening.</span></div><div class="mrow"><span class="eq">51 × 4 = 204</span><span class="cap">51° × 4 faces is 204 courses; 51° reflected in 51 century of Annus Mundi calendar.</span></div><div class="mrow"><span class="eq">6000 − 808 = 5192 AM</span><span class="cap">1298&nbsp;AD is 24th visitation of Seven Comets.</span></div><div class="mrow"><span class="eq">744 × 7 = 5208 AM</span><span class="cap">16 years of comets end in 1314&nbsp;AD, or 5208&nbsp;AM.</span></div><div class="mrow"><span class="eq">5192 − 1110 = 4082 AM</span><span class="cap">188&nbsp;AD: Gematria for CHRIST.</span></div><div class="mrow"><span class="eq">4082 − 3036 = 1046 AM [3432 BC]</span><span class="cap">End of the 3036 descending passage.</span><span class="aw">as written — 1046 AM would be 2849 BC on a 3895 BC epoch</span></div><div class="mrow"><span class="eq">1046 − 302 = 744 AM [3151 BC]</span><span class="cap">3895 − 744 = 3151 ✓</span></div><div class="mrow"><span class="eq">3151 BC − 1110 = 4261 BC</span><span class="cap">“or 366 years before Year 1 AM” — −366 Annus Mundi. (Written as a subtraction; numerically 3151 + 1110.)</span></div></div><div style="font-size:12.5px;color:var(--muted);line-height:1.6">Every countdown step subtracts the measured length from the AM value above it; 744 − 1110 = −366 closes the chain on the same 366 as the cornerstone.</div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised), grouped by region.</div><details class="tx"><summary>Show transcription</summary><div class="cols"><div><h3>Upper left (elevation)</h3><ul><li>XXIII</li><li>366 variance</li><li>By adding stone the builders rejected the pyramid is 5814 P″</li><li>Height of the Great Pyramid is 5448 P″</li><li>Isaiah 19:19-20</li><li>51°×4 faces is 204 courses</li><li>5448 P″ (dimension)</li><li>Gematrical value of Isaiah 19:19-20 is 5448</li></ul></div><div><h3>Quotation</h3><ul><li>“In that day there shall be an <u>Altar</u> to the Lord in the midst of the land of Egypt, and a <u>Pillar</u> at the border [Giza] thereof to the Lord. And it shall be for a <u>Sign</u>, and for a <u>Witness</u> unto the Lord of Hosts in the land of Egypt.” [Altar of Adam\aka-Pillar of <b>Enoch</b>]</li></ul></div><div><h3>Upper right</h3><ul><li>51° reflected in 51 century of Annus Mundi calendar</li><li>Once Chief Cornerstone descends in 6000 AM total height of monument at 5814 P″ will be 186 short of 6000: 186×4 faces of pyramid is <u>744</u>, 600+144. 366+186 = <u>552</u>.</li><li>Enoch wrote 366 “books”. 5448 P″ + 366 is 5814 P″, thus Chief Cornerstone is 366 P″ high. 6000 − 5448 = <u>552</u> and 366÷7 = 52.2. 552×3 = 1656 [Flood] and 1656+1656 = 583 BC [3312 AM] <u>Sun Darkening</u></li><li>6000 − 808 = 5192 AM 1298 AD is 24th visitation of Seven Comets; 16 years of comets end in 1314 AD, or 5208 AM [744×7]</li><li>Breshears ’06</li></ul></div><div><h3>Passages</h3><ul><li>5192 − 1110 = 4082 AM 188 AD: Gematria for <u>CHRIST</u></li><li>808 · 1110 · 3036 (segment labels)</li><li>6000 AM [2106 AD] Return of Chief Cornerstone for Armegeddon to become <u>Head of the Corner</u> the builders rejected</li><li>4082 − 3036 = 1046 AM [3432 BC]</li><li>1046 − 302 = <u>744</u> Annus Mundi [3151 BC]</li><li>302 · 744 · 1110 · −366 (lower dimension labels)</li><li>3151 BC − 1110 = 4261 BC or <u>366</u> years before Year 1 AM</li><li>−366 Annus Mundi</li></ul></div><div><h3>Lower right</h3><ul><li>Ezra wrote of 204 books concerning the Judgement and Resurrection. The Great Pyramid is this library, its 204 books being the courses of masonry completed when the Chief Cornerstone descends upon a <u>Pillar</u> of Righteous Humanity.</li></ul></div></div><h3>Uncertain readings</h3><ul><li><span class="unc">[?]</span> “[3432 BC]” after 1046 AM — digits are clear but inconsistent with the AM epoch used elsewhere on the plate.</li><li><span class="unc">[?]</span> “Armegeddon” spelled as on the plate.</li></ul></details><div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XXIII (plate&nbsp;73). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div></div>
+    </div>
+  </div>
+
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+function yl(v){return v<0?(-v)+' BC':v+' AD';}
+// span bar: x1<x2 in px; offL draws an off-scale arrow at left end
+function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL){g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR){g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  g.appendChild(el('rect',{x:x1-6,y:o.y-24,width:x2-x1+12,height:44,fill:'transparent'}));
+  if(o.lab){const t=tx(g,o.lx,o.y-9,o.lab,{'text-anchor':o.la||'start','font-size':12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});}
+  if(o.lab2){tx(g,o.lx,o.y+17,o.lab2,{'text-anchor':o.la||'start','font-size':11,class:'h',fill:'#8b95ad'});}
+  bind(g,o.tip);p.appendChild(g);return g;}
+
+const C={g:'#ffcf5c',c:'#5cb3f2',o:'#f08a4b',v:'#9c8bf0',t:'#37b6a6',s:'#c9b98f',m:'#8b95ad',p:'#e58fb6'};
+function L(p,x,y,s,o){return tx(p,x,y,s,Object.assign({class:'h','font-size':12.5},o||{}));}
+function arrowHead(p,x,y,ang,col){const s=8;p.appendChild(el('path',{d:`M${x} ${y} L${x-s*Math.cos(ang-0.4)} ${y-s*Math.sin(ang-0.4)} L${x-s*Math.cos(ang+0.4)} ${y-s*Math.sin(ang+0.4)} Z`,fill:col}));}
+function dim(p,a,b,col){p.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,'stroke-width':1.6}));
+  const ang=Math.atan2(b[1]-a[1],b[0]-a[0]);arrowHead(p,b[0],b[1],ang,col);arrowHead(p,a[0],a[1],ang+Math.PI,col);}
+/* elevation */
+(function(){const s=document.getElementById('elev');const base=470,k=0.068,cx=380,hw=230;
+  const yA=base-5448*k, yC=base-5814*k, y6=base-6000*k;
+  const g=el('g',{});g.appendChild(el('polygon',{points:`${cx-hw},${base} ${cx},${yA} ${cx+hw},${base}`,fill:'#141d33',stroke:C.s,'stroke-width':1.5}));
+  for(let i=1;i<14;i++){const yy=base-i*(base-yA)/14,w=hw*(1-i/14);g.appendChild(el('line',{x1:cx-w,y1:yy,x2:cx+w,y2:yy,stroke:'#26324f'}));}
+  g.appendChild(el('rect',{x:cx-80,y:base-120,width:160,height:28,rx:4,fill:'#0b0f1a',stroke:C.s}));
+  tx(g,cx,base-101,'Isaiah 19:19-20',{fill:'#dfe6f5','font-size':13,'text-anchor':'middle'});s.appendChild(g);
+  bind(g,T('The Great Pyramid · 5448 P″','#c9b98f','Gematrical value of Isaiah 19:19-20 is 5448','51°×4 faces is 204 courses — Ezra’s 204 books.'));
+  // capstone
+  const cw=hw*(366/5814);const cs=el('g',{});
+  cs.appendChild(el('polygon',{points:`${cx-cw*1.05},${yA} ${cx},${yC} ${cx+cw*1.05},${yA}`,fill:'#ffcf5c33',stroke:C.g,'stroke-width':1.6,'stroke-dasharray':'3 3'}));s.appendChild(cs);
+  bind(cs,T('Chief Cornerstone · 366 P″','#ffcf5c','5448 + 366 = 5814','By adding stone the builders rejected the pyramid is 5814 P″. Enoch wrote 366 “books”.'));
+  // 6000 line
+  s.appendChild(el('line',{x1:cx-hw,y1:y6,x2:cx+hw+140,y2:y6,stroke:C.g,'stroke-dasharray':'6 4','stroke-width':1.2}));
+  L(s,cx-hw,y6-8,'6000',{fill:C.g,class:'mono h','font-size':12});
+  // dims left: 5448
+  const d1=el('g',{});dim(d1,[cx-hw-30,base],[cx-hw-30,yA],C.c);L(d1,cx-hw-40,(base+yA)/2,'5448 P″',{fill:C.c,'text-anchor':'end',class:'mono h'});
+  L(d1,cx-hw-40,(base+yA)/2+16,'height of the',{fill:C.m,'text-anchor':'end','font-size':11});L(d1,cx-hw-40,(base+yA)/2+30,'Great Pyramid',{fill:C.m,'text-anchor':'end','font-size':11});
+  d1.appendChild(el('rect',{x:20,y:yA,width:cx-hw,height:base-yA,fill:'transparent'}));s.appendChild(d1);
+  bind(d1,T('Height of the Great Pyramid','#5cb3f2','5448 P″','Equal to the gematrical value of Isaiah 19:19-20.'));
+  // right dims: 5814, 366, 186
+  const xr=cx+hw+40;const d2=el('g',{});dim(d2,[xr,base],[xr,yC],C.g);L(d2,xr+10,(base+yC)/2,'5814 P″',{fill:C.g,class:'mono h'});
+  L(d2,xr+10,(base+yC)/2+16,'with the stone the',{fill:C.m,'font-size':11});L(d2,xr+10,(base+yC)/2+30,'builders rejected',{fill:C.m,'font-size':11});
+  d2.appendChild(el('rect',{x:xr-10,y:yC,width:150,height:base-yC,fill:'transparent'}));s.appendChild(d2);
+  bind(d2,T('5814 P″','#ffcf5c','5448 + 366','By adding stone the builders rejected the pyramid is 5814 P″.'));
+  s.appendChild(el('line',{x1:cx+cw,y1:yA,x2:xr,y2:yA,stroke:'#3a486a','stroke-dasharray':'2 3'}));
+  s.appendChild(el('line',{x1:cx,y1:yC,x2:xr,y2:yC,stroke:'#3a486a','stroke-dasharray':'2 3'}));
+  const d3=el('g',{});L(d3,xr-10,yA+14,'366 variance',{fill:C.o,class:'mono h','font-size':11.5,'text-anchor':'end'});
+  L(d3,xr-10,y6-6,'186 short of 6000',{fill:C.t,class:'mono h','font-size':11.5,'text-anchor':'end'});s.appendChild(d3);
+  bind(d3,T('366 variance · 186 short','#f08a4b','366 + 186 = 552','Once Chief Cornerstone descends in 6000 AM total height of monument at 5814 P″ will be 186 short of 6000: 186×4 faces of pyramid is 744, 600+144.'));
+  // face label
+  L(s,cx+hw*0.55,base-(base-yA)*0.45,'51°',{fill:C.s,'font-size':14,class:'mono h'});
+  L(s,cx-hw+10,base+30,'51°×4 faces is 204 courses',{fill:C.m,'font-size':12});
+})();
+/* passage countdown */
+const NODES=[
+ {am:6000,lab:'6000 AM [2106 AD]',sub:'Return of Chief Cornerstone',col:C.g,body:'Return of Chief Cornerstone for Armegeddon to become Head of the Corner the builders rejected.'},
+ {am:5192,lab:'6000 − 808 = 5192 AM',sub:'1298 AD · 24th visitation of Seven Comets',col:C.c,body:'1298 AD is 24th visitation of Seven Comets; 16 years of comets end in 1314 AD, or 5208 AM [744×7].'},
+ {am:4082,lab:'5192 − 1110 = 4082 AM',sub:'188 AD: Gematria for CHRIST',col:C.v,body:'188 AD: Gematria for CHRIST.'},
+ {am:1046,lab:'4082 − 3036 = 1046 AM',sub:'[3432 BC]',col:C.o,body:'4082 − 3036 = 1046 AM [3432 BC] (BC figure as written).'},
+ {am:744,lab:'1046 − 302 = 744 AM',sub:'[3151 BC]',col:C.t,body:'1046 − 302 = 744 Annus Mundi [3151 BC].'},
+ {am:-366,lab:'−366 Annus Mundi',sub:'4261 BC',col:C.p,body:'3151 BC − 1110 = 4261 BC or 366 years before Year 1 AM.'}
+];
+(function(){const s=document.getElementById('pass');
+  // ground & masonry
+  const cpid='pp';const cp=el('clipPath',{id:cpid});cp.appendChild(el('polygon',{points:'20,40 560,40 820,300 20,300'}));s.appendChild(cp);
+  const hg=el('g',{'clip-path':`url(#${cpid})`});hg.appendChild(el('rect',{x:20,y:40,width:800,height:260,fill:'#141d33'}));
+  for(let y=44;y<300;y+=7)hg.appendChild(el('line',{x1:20,y1:y,x2:820,y2:y,stroke:'#22304d'}));s.appendChild(hg);
+  s.appendChild(el('line',{x1:560,y1:40,x2:820,y2:300,stroke:'#3a486a','stroke-width':1.5}));
+  s.appendChild(el('rect',{x:20,y:300,width:960,height:290,fill:'#080c16'}));
+  L(s,200,80,'51° reflected in 51 century of Annus Mundi calendar',{fill:C.s,'font-size':12});
+  const E=[810,290],P=[680,160],Q=[470,265],R=[250,430],S=[250,476];
+  const segs=[[E,P,'808',C.c,'6000 − 808 = 5192'],[P,Q,'1110',C.v,'5192 − 1110 = 4082'],[Q,R,'3036',C.o,'4082 − 3036 = 1046'],[R,S,'302',C.t,'1046 − 302 = 744']];
+  segs.forEach(([a,b,l,c,eq],i)=>{const g=el('g',{});g.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'#d8dfee','stroke-width':i===0?3:10,opacity:i===0?1:.85}));
+    g.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:'transparent','stroke-width':22}));
+    const mx=(a[0]+b[0])/2,my=(a[1]+b[1])/2;const nx=i===3?16:(i===0?16:-14),ny=i===3?4:(i===0?-6:-12);
+    L(g,mx+nx,my+ny,l,{fill:c,class:'mono h','font-size':13,'font-weight':500,'text-anchor':i===0||i===3?'start':'end'});s.appendChild(g);
+    bind(g,T(l+(i===0?'':' P″'),c,eq,''));});
+  // 744 and -366 vertical lines, horizontal 1110
+  const x744=250,xm=90;
+  s.appendChild(el('line',{x1:x744,y1:300,x2:x744,y2:580,stroke:'#7b86a4','stroke-dasharray':'4 4'}));
+  s.appendChild(el('line',{x1:xm,y1:430,x2:xm,y2:580,stroke:'#7b86a4','stroke-dasharray':'4 4'}));
+  L(s,x744+8,575,'744',{fill:C.t,class:'mono h','font-size':12});L(s,xm+8,575,'−366',{fill:C.p,class:'mono h','font-size':12});
+  const gh=el('g',{});dim(gh,[xm+4,520],[x744-4,520],C.p);L(gh,(xm+x744)/2,512,'1110',{fill:C.p,'text-anchor':'middle',class:'mono h','font-size':13});
+  gh.appendChild(el('rect',{x:xm,y:500,width:x744-xm,height:30,fill:'transparent'}));s.appendChild(gh);
+  bind(gh,T('1110','#e58fb6','744 − 1110 = −366','3151 BC − 1110 = 4261 BC or 366 years before Year 1 AM.'));
+  // nodes
+  const pos=[E,P,Q,R,S,[xm,520]];
+  const lp=[[16,-6,'start'],[14,-22,'start'],[-14,-34,'end'],[16,-24,'start'],[18,22,'start'],[-6,-110,'start']];
+  NODES.forEach((n,i)=>{const p=pos[i];const g=el('g',{});g.appendChild(el('circle',{cx:p[0],cy:p[1],r:7,fill:n.col,stroke:'#0b0f1a','stroke-width':1.5}));
+    const [dx,dy,an]=lp[i];L(g,p[0]+dx,p[1]+dy,n.lab,{fill:n.col,'font-weight':600,'text-anchor':an});L(g,p[0]+dx,p[1]+dy+15,n.sub,{fill:C.m,'font-size':11.5,'text-anchor':an});
+    s.appendChild(g);bind(g,T(n.lab,n.col,n.sub,n.body));});
+  tx(s,40,30,'XXIII',{fill:C.s,'font-size':24,'font-family':'Cormorant Garamond','font-weight':700});
+})();
+/* ruler */
+(function(){const s=document.getElementById('ruler');const X=v=>50+(v+366)/6366*900;
+  s.appendChild(el('line',{x1:X(-366),y1:90,x2:X(6000),y2:90,stroke:'#3a486a','stroke-width':3}));
+  s.appendChild(el('line',{x1:X(0),y1:70,x2:X(0),y2:110,stroke:'#37b6a6','stroke-dasharray':'3 3'}));tx(s,X(0)+4,128,'1 AM',{fill:'#37b6a6','font-size':10.5,class:'mono'});
+  const st=[[6000,5192,'808'],[5192,4082,'1110'],[4082,1046,'3036'],[1046,744,'302'],[744,-366,'1110']];
+  st.forEach(([a,b,l],i)=>{const g=el('g',{});g.appendChild(el('path',{d:`M${X(a)} 84 Q${(X(a)+X(b))/2} ${i%2?40:30} ${X(b)} 84`,fill:'none',stroke:'#8b95ad','stroke-width':1.2}));
+    tx(g,(X(a)+X(b))/2,i%2?52:42,'−'+l,{fill:'#dfe6f5','font-size':12,'text-anchor':'middle',class:'mono'});s.appendChild(g);bind(g,T('−'+l,'#8b95ad',`${a} → ${b} AM`,''));});
+  NODES.forEach((n,i)=>{const x=X(n.am);const g=el('g',{});g.appendChild(el('circle',{cx:x,cy:90,r:6,fill:n.col}));
+    const up=i%2;tx(g,x+(i===3?14:i===4?-14:0),150,String(n.am),{fill:n.col,'font-size':12,'text-anchor':i===3?'start':i===4?'end':'middle',class:'mono'});
+    tx(g,x+(i===3?14:i===4?-14:0),166,n.sub.length<22?n.sub:'',{fill:'#8b95ad','font-size':10.5,'text-anchor':i===3?'start':i===4?'end':'middle'});s.appendChild(g);bind(g,T(n.lab,n.col,n.sub,n.body));});
+})();
+
+</script>
+</body>
+</html>

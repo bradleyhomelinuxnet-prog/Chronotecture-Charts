@@ -113,7 +113,7 @@
   <div class="grid">
     <div class="card">
       <h2>North–south section: vertical distances</h2>
-      <div class="hint">North is to the right (entrance on the north face). Hover or tap any dimension for its reading; arrows are drawn where the plate draws them. The gold verticals are measured down from the apex; blue verticals rise from the base line; teal ones fall below it to the subterranean chamber.</div>
+      <div class="hint">North is to the right (entrance on the north face). Hover or tap any dimension for its reading; arrows are drawn where the plate draws them. The gold verticals are measured down from the apex; blue verticals rise from the base line; teal ones fall below it to the Lower Chamber.</div>
       <svg id="sec" viewBox="0 -275 1000 1050" style="max-width:1020px;margin:0 auto" role="img" aria-label="Section of the Great Pyramid with vertical dimension lines"></svg>
     </div>
     <div class="card">
@@ -127,10 +127,10 @@
         <div class="hint">The sums written on the plate, checked. Below them, the apex/present-height pairs, which the plate states but does not subtract.</div>
         <div class="mathgrid">
           <div class="mrow"><span class="eq">4140 − 3036 = <span class="base138">1104</span></span><span class="cap">Written beside the descending passage: “4140 MEAN”. 1104 = 552×2.</span><span class="ok">✓ arithmetic holds</span></div>
-          <div class="mrow"><span class="eq">1162 + 908 = 2070</span><span class="cap">Written beneath the subterranean passage; 2070 is also marked on the descending passage.</span><span class="ok">✓ arithmetic holds</span></div>
+          <div class="mrow"><span class="eq">1162 + 908 = 2070</span><span class="cap">Written beneath the Lower Chamber passage; 2070 is also marked on the descending passage.</span><span class="ok">✓ arithmetic holds</span></div>
           <div class="mrow"><span class="eq">2060 + 666 + 34 = 2760</span><span class="cap">Written on the vertical through the step, below the base (2760 underlined).</span><span class="ok">✓ arithmetic holds</span></div>
-          <div class="mrow"><span class="eq">1000 + 414 = 1414</span><span class="cap">Beside the subterranean chamber (“552 WIDTH”).</span><span class="ok">✓</span></div>
-          <div class="mrow"><span class="eq">68 = [34 + 34]</span><span class="cap">The thickened floor segment of the Queen's Chamber passage.</span><span class="ok">✓</span></div>
+          <div class="mrow"><span class="eq">1000 + 414 = 1414</span><span class="cap">Beside the Lower Chamber (“552 WIDTH”).</span><span class="ok">✓</span></div>
+          <div class="mrow"><span class="eq">68 = [34 + 34]</span><span class="cap">The thickened floor segment of the Middle Chamber passage.</span><span class="ok">✓</span></div>
           <div class="mrow"><span class="eq">34″ × 10 = 340 P″</span><span class="cap">“Great Step is 34″ high and X10 is the height of the Gallery ceiling over Step at 340 P″.”</span><span class="ok">✓</span></div>
         </div>
         <div class="hint" style="margin-top:4px">Apex pairs (each pair reduces to the same base height; not written as subtractions on the plate):</div>
@@ -162,7 +162,7 @@
               <li class="q">340</li><li class="q">666 (slanting, Gallery)</li><li class="q">339</li></ul></div>
             <div><h3>Heights above base</h3><ul>
               <li class="q">1700</li><li class="q">1656</li><li class="q">666</li><li class="q">990 · 990</li>
-              <li class="q">144 (in Queen's Chamber)</li><li class="q">68 [34+34]</li><li class="q">846 TO FLOOR LINE</li>
+              <li class="q">144 (in Middle Chamber)</li><li class="q">68 [34+34]</li><li class="q">846 TO FLOOR LINE</li>
               <li class="q">914</li><li class="q">861/860 FLOOR JOINT</li><li class="q">1200</li>
               <li class="q">176</li><li class="q">666 (entrance)</li><li class="q">52</li></ul></div>
             <div><h3>Below base</h3><ul>
@@ -171,7 +171,7 @@
               <li class="q">552 WIDTH</li><li class="q">1414 / 1000 + 414</li><li class="q">1162+908 = 2070</li></ul></div>
             <div><h3>Uncertain readings</h3><ul>
               <li class="unc">“52” at the entrance — clear figure, but what it measures is not marked.</li>
-              <li class="unc">“144” inside the Queen's Chamber — reading clear; reference unmarked.</li>
+              <li class="unc">“144” inside the Middle Chamber — reading clear; reference unmarked.</li>
               <li class="unc">“1162/63” — read as 1162/63 (an alternate 1163), not 1162 ÷ 63.</li></ul></div>
           </div>
         </details>
@@ -254,14 +254,14 @@ function sumBars(svgId,rows,maxV){
   rows.forEach((r,i)=>{
     const y=top+i*rowH;const mx=maxV||r.total;
     const g=el('g',{class:'m sumrow','data-cat':r.cat||'sum',style:'color:'+((CAT[r.cat||'sum']||{}).c||'#e7c355')},svg);
-    let x=L;const sc=(R-L-150)/mx;
+    let x=L,xm=L;const sc=(R-L-150)/mx;
     r.parts.forEach((p,j)=>{const w=Math.abs(p[0])*sc;const neg=p[0]<0;
       el('rect',{x:neg?x-w:x,y:y+16,width:Math.max(w,2),height:16,rx:3,fill:neg?'none':pal[j%pal.length],stroke:neg?'#f08a4b':'#0b0f1a','stroke-width':neg?1.4:1,'stroke-dasharray':neg?'3 3':'',opacity:.9},g);
       if(w>34) tx(g,neg?x-w/2:x+w/2,y+24.5,String(p[1]||Math.abs(p[0])),{size:11,col:'#0b0f1a',weight:600}).setAttribute('class','mono');
-      x+=neg?-w:w;});
+      x+=neg?-w:w;xm=Math.max(xm,x);});
     const tl=r.totalLabel||String(r.total);
     tx(g,L,y+6,r.title||'',{anchor:'start',size:11.5,col:'#8b95ad',mono:false,weight:400});
-    tx(g,x+10,y+24.5,'= '+tl,{anchor:'start',size:13,col:r.b138?'#ffcf5c':'#e9edf6',weight:600});
+    tx(g,xm+10,y+24.5,'= '+tl,{anchor:'start',size:13,col:r.b138?'#ffcf5c':'#e9edf6',weight:600});
     bind(g,`<div class="t-h">${r.eq}</div>`+(r.note?`<div class="t-b">${r.note}</div>`:''));
   });
 }
@@ -272,7 +272,7 @@ function sumBars(svgId,rows,maxV){
 const CAT={
   apex:{c:'#e7c355',label:'Down from apex / present height'},
   base:{c:'#5cb3f2',label:'Height above base'},
-  below:{c:'#37b6a6',label:'Below base / subterranean'},
+  below:{c:'#37b6a6',label:'Below base / Lower Chamber'},
   note:{c:'#9c8bf0',label:'Notes & formulae'}
 };
 (function(){
@@ -300,27 +300,27 @@ const pass=(pts,w)=>{el('polyline',{points:pts,fill:'none',stroke:'#0b0f1a','str
   el('polyline',{points:pts,fill:'none',stroke:'#0f1626','stroke-width':w-3,'stroke-linejoin':'round'},svg);};
 pass('912,490 442,716',13);           // descending
 pass('790,545 600,457',12);           // ascending
-pass('442,716 400,716',11);           // to subterranean
+pass('442,716 400,716',11);           // to Lower Chamber
 pass('355,718 262,718',8);            // dead-end
 // gallery
 el('polygon',{points:'400,298 604,436 604,458 400,352',fill:'#0f1626',stroke:'#c9d2e6','stroke-width':1.6},svg);
 // QC passage
 el('polygon',{points:'430,452 600,452 600,463 430,463',fill:'#0f1626',stroke:'#c9d2e6','stroke-width':1.4},svg);
 el('line',{x1:487,y1:463,x2:600,y2:463,stroke:'#e9edf6','stroke-width':3.2},svg);
-// Queen's chamber
+// Middle Chamber
 el('polygon',{points:'378,463 378,428 405,412 432,428 432,463',fill:'#0f1626',stroke:'#c9d2e6','stroke-width':1.8},svg);
-// King's chamber + relieving chambers
+// Upper Chamber + relieving chambers
 el('rect',{x:318,y:290,width:52,height:62,fill:'#0f1626',stroke:'#c9d2e6','stroke-width':1.8},svg);
 for(let i=0;i<5;i++) el('rect',{x:318,y:250-i*10+0,width:52,height:8,fill:'#1b2540',stroke:'#c9d2e6','stroke-width':1},svg).setAttribute('y',282-i*10);
 el('polygon',{points:'310,234 344,214 378,234 370,238 344,224 318,238',fill:'#1b2540',stroke:'#c9d2e6','stroke-width':1.4},svg);
 el('rect',{x:372,y:330,width:18,height:22,fill:'#0f1626',stroke:'#c9d2e6','stroke-width':1.3},svg); // antechamber
 el('line',{x1:318,y1:352,x2:402,y2:352,stroke:'#e9edf6','stroke-width':4},svg); // step / floor
-// subterranean
+// Lower Chamber
 el('polygon',{points:'355,706 400,706 400,726 390,726 390,756 374,756 374,726 355,726',fill:'#0f1626',stroke:'#c9d2e6','stroke-width':1.6},svg);
 // structure captions (muted)
 const cap=(x,y,s,a)=>tx(svg,x,y,s,{size:10,col:'#6f7a96',mono:false,anchor:a||'middle',weight:400});
-cap(344,206,"King's Chamber");cap(405,404,"Queen's Ch.");cap(650,388,'Grand Gallery','start');
-cap(240,740,'Subterranean','middle');cap(925,520,'Entrance','start');
+cap(344,206,"Upper Chamber");cap(405,404,"Middle Ch.");cap(650,388,'Grand Gallery','start');
+cap(240,740,'Lower Chamber','middle');cap(925,520,'Entrance','start');
 
 // ============ APEX dims ============
 function apexDim(x,yEnd,l1,l2,desc,idx,side){
@@ -344,10 +344,10 @@ function vdim(cat,x,y1,y2,label,desc,quote,o){o=o||{};
 vdim('base',322,BASE,352,'1700','Base → Great Step (top)','1700',{arrows:'both',dx:-9});
 vdim('base',341,BASE,360,'1656','Base → foot of the Great Step','1656',{arrows:'both',dx:-9,ly:470});
 vdim('base',356,352,440,'666','Great Step level ↓ to the 990 line','666',{arrows:'none',dash:'4 4',dx:9,ly:392});
-vdim('base',364,440,BASE,'990','Base → the 990 line (Queen\'s Chamber level)','990',{arrows:'none',dash:'4 4',dx:9,ly:505,ix:'990 (a)'});
+vdim('base',364,440,BASE,'990','Base → the 990 line (Middle Chamber level)','990',{arrows:'none',dash:'4 4',dx:9,ly:505,ix:'990 (a)'});
 vdim('base',386,440,BASE,'990','Second 990 vertical, written twice on the plate','990',{arrows:'none',dash:'4 4',dx:9,ly:540,ix:'990 (b)'});
 vdim('base',432,298,352,'340','Gallery ceiling over the Step: 34″ × 10','340',{arrows:'none',dash:'4 4',dx:10,ly:322});
-vdim('base',520,BASE,463,'846 TO FLOOR LINE','Base → floor line of the Queen\'s Chamber passage','846 TO FLOOR LINE',{dx:-10,ly:525,ix:'846'});
+vdim('base',520,BASE,463,'846 TO FLOOR LINE','Base → floor line of the Middle Chamber passage','846 TO FLOOR LINE',{dx:-10,ly:525,ix:'846'});
 vdim('base',546,BASE,458,'914','Base → roof line (= 5814 − 4900 = 5448 − 4534)','914',{dx:10,ly:525});
 vdim('base',592,400,455,'339','North end of Gallery: floor joint → top','339',{arrows:'none',dash:'4 4',dx:-9,ly:420});
 vdim('base',604,463,BASE,'861/860 FLOOR JOINT','Base → floor joint at the Gallery foot','861/860 FLOOR JOINT',{arrows:'none',dash:'4 4',dx:-10,ly:526,ix:'861/860'});
@@ -357,18 +357,18 @@ vdim('base',793,545,BASE,'176','Base → junction of ascending &amp; descending 
 vdim('base',920,494,BASE,'666','Base → passage entrance','666',{arrows:'none',dash:'4 4',dx:-10,ly:545,ix:'666 (entrance)'});
 {const g=M(svg,'base','52','Figure written at the entrance (top of the descending passage)','52');
   el('circle',{cx:914,cy:488,r:4,fill:'#5cb3f2'},g); tx(g,912,470,'52',{size:12});}
-{const g=M(svg,'base','666','Slanting figure, Queen\'s Chamber to Great Step','666',{ix:'666 (gallery)'});
+{const g=M(svg,'base','666','Slanting figure, Middle Chamber to Great Step','666',{ix:'666 (gallery)'});
   el('polyline',{points:'402,352 448,384 414,440',fill:'none',stroke:'#5cb3f2','stroke-width':1.2},g);
   el('line',{x1:402,y1:352,x2:448,y2:384,class:'hit'},g);
   tx(g,460,386,'666',{rot:-62,size:12});}
-{const g=M(svg,'base','144','Written inside the Queen\'s Chamber','144');
+{const g=M(svg,'base','144','Written inside the Middle Chamber','144');
   tx(g,410,446,'144',{rot:-90,size:11});}
-{const g=M(svg,'base','68 [34+34]','Thickened floor segment of the Queen\'s Chamber passage','68[34+34]');
+{const g=M(svg,'base','68 [34+34]','Thickened floor segment of the Middle Chamber passage','68[34+34]');
   el('line',{x1:494,y1:466,x2:478,y2:492,stroke:'#5cb3f2','stroke-width':1.2},g);
   tx(g,474,530,'68[34+34]',{rot:-90,size:11.5});}
 
 // ============ BELOW dims ============
-vdim('below',378,BASE,706,'1070','Base → roof of the subterranean chamber','1070',{arrows:'none',dash:'4 4',dx:-9,ly:640});
+vdim('below',378,BASE,706,'1070','Base → roof of the Lower Chamber','1070',{arrows:'none',dash:'4 4',dx:-9,ly:640});
 vdim('below',404,BASE,706,'2060+666+34','Vertical through the Step axis; 2760 underlined above','2760 / 2060+666+34',{arrows:'none',dash:'4 4',dx:10,ly:650,size:11,ix:'2760'});
 {const g=svg.lastChild; tx(g,428,640,'2760',{rot:-90,size:12,col:'#7fe0d2'});}
 vdim('below',452,BASE,716,'1162/63','Base → bottom of the descending passage','1162/63',{arrows:'none',dash:'4 4',dx:10,ly:640});
@@ -384,12 +384,12 @@ vdim('below',452,BASE,716,'1162/63','Base → bottom of the descending passage',
   el('line',{x1:905,y1:510,x2:452,y2:728,class:'hit'},g);
   tx(g,660,650,'4140 MEAN',{rot:ang,size:14});
   tx(g,655,676,'4140−3036 = 1104',{rot:ang,size:12.5,col:'#ffcf5c'});}
-{const g=M(svg,'below','552 WIDTH','Subterranean chamber','552 WIDTH');
+{const g=M(svg,'below','552 WIDTH','Lower Chamber','552 WIDTH');
   el('line',{x1:312,y1:636,x2:372,y2:704,stroke:'#37b6a6','stroke-width':1.2},g);
   tx(g,300,606,'552',{size:13,col:'#ffcf5c'});tx(g,300,622,'WIDTH',{size:11});}
-{const g=M(svg,'below','1414','Beside the subterranean chamber','1414 / 1000 + 414');
+{const g=M(svg,'below','1414','Beside the Lower Chamber','1414 / 1000 + 414');
   tx(g,290,664,'1414',{size:12});tx(g,290,682,'1000 + 414',{size:12});}
-{const g=M(svg,'below','1162+908 = 2070','Sum written beneath the subterranean passage','1162+908 = 2070');
+{const g=M(svg,'below','1162+908 = 2070','Sum written beneath the Lower Chamber passage','1162+908 = 2070');
   tx(g,520,748,'1162+908 = 2070',{size:12});}
 
 // ============ NOTE ============

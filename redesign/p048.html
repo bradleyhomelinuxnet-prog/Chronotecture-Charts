@@ -1,0 +1,228 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XIV·c — Mirror Spans around 1930 AD — Pluto and Ras Shamra to 6000 AM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+
+  .row{transition:opacity .15s}
+  .row:hover rect:not([fill=transparent]){filter:brightness(1.25)}
+  .callouts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px 18px;margin-top:10px}
+  .callouts div{font-size:12px;color:var(--muted);line-height:1.45;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .callouts b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;display:block;font-size:11.5px;margin-bottom:2px}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XIV·c · Plate&nbsp;48</div>
+    <h1>Chronotecture
+      <span class="sub">Mirror Spans around 1930 AD — Pluto and Ras Shamra to 6000&nbsp;AM</span>
+    </h1>
+    <p class="prov">A rebuild of Jason&nbsp;M.&nbsp;Breshears’ hand-drawn chart&nbsp;XIV·c, with every date, span and annotation preserved verbatim; only the visual language is new. Its structural key: <b>every span is mirrored around one axis year, 1930&nbsp;AD [5824&nbsp;AM]</b> — 24, 114, 140 and 160 years back to an event, the same distance forward to a prophetic landing.</p>
+  </header>
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2>Mirrored spans around 1930 AD</h2>
+      <div class="hint">Each bar is drawn as two equal halves meeting at the 1930 AD axis. Left ends are events (1770–1906), right ends are prophetic landings (2044–2090). Hover or tap a bar or riser for the full annotation. <span class="anchor-key"><i></i>AXIS 1930 AD · 5824 AM</span></div>
+      <div class="swipe">⟷ swipe to pan the chart</div>
+      <div class="scroller" data-focus=".5"><svg id="tl" class="wide" viewBox="0 0 1400 860" role="img" aria-label="Mirrored spans around 1930 AD"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked. Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid"><div class="mrow"><span class="eq">1816 + 114 = 1930 = 2044 − 114</span><span class="cap">Tambora to the centre, and the centre to the “First Trumpet” year. [5710 AM → 5824 AM → 5938 AM]</span></div><div class="mrow"><span class="eq">1790 + 140 = 1930 = 2070 − 140</span><span class="cap">140 = 70×2. [5684 AM → 5824 AM] “Resurrection” year 2070.</span></div><div class="mrow"><span class="eq">1770 + 160 = 1930 = 2090 − 160</span><span class="cap">160 = 40×4. [5664 AM → 5984 AM]; 2090 closes the Seven Plagues.</span></div><div class="mrow"><span class="eq">1906 + 24 = 1930 = 1954 − 24</span><span class="cap">The small “24 | 24” cap under the arrow. [5800 AM · 5848 AM]</span></div><div class="mrow"><span class="eq">2070 = 207×10 = <span class="base138">414</span>×5</span><span class="cap">Written on the second right-hand riser. 414 = 3×138.</span></div><div class="mrow"><span class="eq">820 + 1110 = 1930</span><span class="cap">1110 years from the Muslim discovery of the Great Pyramid’s interior (820 AD) to the centre.</span></div><div class="mrow"><span class="eq">5824 AM = 1930 AD · 6000 AM = 2106 AD</span><span class="cap">Anno Mundi and AD correspond with a constant offset of 3894 on every bracket of this plate; 2106 − 1930 = 176 years remain to 6000 AM.</span></div></div><div style="font-size:12.5px;color:var(--muted);line-height:1.6">All four mirrored spans and the 1110-year bar close exactly on 1930; the plate’s dashed arcs below the ruler (114, 140, 160 years) are drawn here as faint ellipses of the same radii.</div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised), grouped by region.</div><details class="tx"><summary>Show transcription</summary><div class="cols"><div><h3>Header</h3><ul><li>XIV·c (the “b” is struck out and “c” written beside it)</li><li>Breshears ’07</li><li>1930 AD [5824 AM] Pluto and Ugaritic Ras Shamra Records Discovered, Meteoric Impact Kills People in remote Region of Brazil</li><li>2106 AD [6000 AM] (vertical line)</li></ul></div><div><h3>Centre callouts</h3><ul><li>1906 AD [5800 AM] On 108th day a major quake initiated ruin of San Francisco in the Great Fire.</li><li>1954 AD [5848 AM] Astroid on 2046 AD impact journey passed ecliptic and typhoon killed 1600 in Japan</li><li>24 | 24</li></ul></div><div><h3>Mirrored bars (top to bottom)</h3><ul><li>1816 AD [5710 AM] is 114 years | 114 years to 2044 AD [5938 AM]</li><li>1790 AD is [5684 AM] 140 [70×2] years | 140 years to 2070 AD Resurrection</li><li>1770 AD [5664 AM] was 160 [40×4] years | 160 years to 2090 AD [5984 AM]</li><li>1110 years to 820 AD Muslim Discovery of Great Pyramid’s Interior</li></ul></div><div><h3>Left risers</h3><ul><li>Astroid on its way to impact in 2046 AD passes over ecliptic.</li><li>Aztec Stone of the Fifth Sun discovered; Aztec Apocalypse shows comets and pyramid with eye</li><li>Mt. Tambora exploded resulting with 80,000 dead [poison gas, quake, tsunami and famine]; heard 1000 miles away</li></ul></div><div><h3>Right risers</h3><ul><li>First Trumpet is Meteoric Rain</li><li>2070 [207×10] is 414×5</li><li>End of Seven Plagues [Meteoric Rain]</li></ul></div><div><h3>Scale</h3><ul><li>1600 · 1700 · 1800 · 1900 · 2000</li></ul></div></div><h3>Uncertain readings</h3><ul><li><span class="unc">[?]</span> The corner box reads XIV with the “b” struck out and “c” written instead, so this is chart XIV·c (plate 47 is XIV·b).</li><li><span class="unc">[?]</span> Dashed-riser labels carry no dates on the plate; they are placed over the bar starts (1770, 1790, 1816) and ends (2044, 2070, 2090) they sit on.</li><li><span class="unc">[?]</span> “Mt. Tambora exploded” stands over the 1816 bar as written (the eruption is usually dated 1815).</li></ul></details><div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XIV·c (plate&nbsp;48). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div></div>
+    </div>
+  </div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+
+function bar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL)g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR)g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  return g;}
+// mirrored pair of bars about centre xc
+function mirror(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const a=bar(p,{x1:o.x1,x2:o.xc,y:o.y,col:o.col,offL:o.offL,offR:false});
+  const b=bar(p,{x1:o.xc,x2:o.x2,y:o.y,col:o.col,offL:false,offR:o.offR});
+  while(a.firstChild)g.appendChild(a.firstChild);while(b.firstChild)g.appendChild(b.firstChild);
+  g.appendChild(el('rect',{x:o.xc-5,y:o.y-8,width:10,height:16,fill:'#0b0f1a',stroke:o.col,'stroke-width':1.2,rx:2}));
+  g.appendChild(el('path',{d:`M${o.xc-1} ${o.y-4} L${o.xc-4} ${o.y} L${o.xc-1} ${o.y+4}Z M${o.xc+1} ${o.y-4} L${o.xc+4} ${o.y} L${o.xc+1} ${o.y+4}Z`,fill:o.col}));
+  g.appendChild(el('rect',{x:o.x1-6,y:o.y-24,width:o.x2-o.x1+12,height:40,fill:'transparent'}));
+  if(o.lL)tx(g,o.xc-10,o.y-9,o.lL,{'text-anchor':'end','font-size':o.fs||12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});
+  if(o.lR)tx(g,o.xc+10,o.y-9,o.lR,{'text-anchor':'start','font-size':o.fs||12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});
+  if(o.dL)tx(g,o.x1-(o.offL?24:12),o.y+4,o.dL,{'text-anchor':'end','font-size':10.5,class:'h',fill:'#8b95ad'});
+  if(o.dR)tx(g,o.x2+(o.offR?24:12),o.y+4,o.dR,{'text-anchor':'start','font-size':10.5,class:'h',fill:'#8b95ad'});
+  bind(g,o.tip);p.appendChild(g);return g;}
+function vtext(p,x,y,lines,o){o=o||{};const n=lines.length;const x0=o.right?x+6:x-6-13*(n-1);
+  const t=el('text',{transform:`rotate(-90 ${x0} ${y})`,x:x0,y:y,fill:o.fill||'#c9d2e6','font-size':o.fs||11.5,class:'h'});
+  lines.forEach((l,i)=>{const s=el('tspan',{x:x0,dy:i?13:0},l);t.appendChild(s);});p.appendChild(t);return t;}
+function lines(p,x,y,arr,o){o=o||{};const t=el('text',{x,y,fill:o.fill||'#dfe6f5','font-size':o.fs||14,'text-anchor':o.a||'start',class:'h','font-weight':o.w||500});
+  arr.forEach((l,i)=>t.appendChild(el('tspan',{x,dy:i?(o.lh||18):0},l)));p.appendChild(t);return t;}
+function arrowDown(p,x,y,col){p.appendChild(el('path',{d:`M${x-22} ${y} L${x+22} ${y} L${x+4} ${y+38} L${x+3} ${y+52} L${x-3} ${y+52} L${x-4} ${y+38}Z`,fill:col||'#0f1626',stroke:col||'#aeb7cd'}));}
+
+const CAT={quake:{c:'#f08a4b',label:'Earthquake / disaster'},comet:{c:'#5cb3f2',label:'Asteroid / comet / meteor'},disc:{c:'#9c8bf0',label:'Discoveries'},prop:{c:'#e7c355',label:'Mirror spans · prophecy'}};
+const Y0=1740,Y1=2120,PL=60,PR=1340;const X=y=>PL+(y-Y0)/(Y1-Y0)*(PR-PL);
+const svg=document.getElementById('tl'),AX=X(1930);
+for(let y=1750;y<=2110;y+=10){const x=X(y);svg.appendChild(el('line',{x1:x,y1:200,x2:x,y2:566,stroke:y%50?'#121a2c':'#19233a'}));}
+// arcs below
+const ARC=[[114,'#3a5a86'],[140,'#4a6fa5'],[160,'#5c86c4']];
+ARC.forEach(([r,c])=>{const rx=r*(PR-PL)/(Y1-Y0),ry=rx*.3;svg.appendChild(el('path',{d:`M${AX-rx} 640 A${rx} ${ry} 0 0 0 ${AX+rx} 640`,fill:'none',stroke:c,'stroke-width':1.3,'stroke-dasharray':'2 3'}));
+  tx(svg,AX+rx-6,640+ry-6,r+' yrs',{'text-anchor':'end',fill:c,'font-size':10.5,class:'mono'});});
+// ruler
+const RY=566;svg.appendChild(el('rect',{x:PL,y:RY-8,width:PR-PL,height:16,fill:'#121a2c',stroke:'#3a486a'}));
+[1800,1900,2000].forEach(y=>{const x=X(y);svg.appendChild(el('line',{x1:x,y1:RY-8,x2:x,y2:RY+8,stroke:'#6c7a9c'}));tx(svg,x+5,RY+4,y+'',{fill:'#aeb7cd','font-size':10.5,class:'mono'});});
+[1750,1850,1950,2050,2100].forEach(y=>tx(svg,X(y)+3,RY+4,String(y),{fill:'#4b5674','font-size':9.5,class:'mono'}));
+// 6000 AM
+const x6=X(2106);svg.appendChild(el('line',{x1:x6,y1:20,x2:x6,y2:850,stroke:'#e7c355','stroke-width':2}));
+{const t=tx(svg,x6-8,60,'2106 AD [6000 AM]',{fill:'#e7c355','font-size':11,class:'mono'});t.setAttribute('transform',`rotate(-90 ${x6-8} 60)`);t.setAttribute('text-anchor','end');t.setAttribute('x',x6-8);}
+// centre axis + arrow
+svg.appendChild(el('line',{x1:AX,y1:170,x2:AX,y2:850,stroke:'#ffcf5c','stroke-width':1.6}));
+{const g=el('g',{});arrowDown(g,AX,112,'#ffcf5c');
+ lines(g,AX,34,['1930 AD [5824 AM] Pluto and Ugaritic Ras Shamra Records Discovered,','Meteoric Impact Kills People in remote Region of Brazil'],{a:'middle',fs:14.5,fill:'#ffcf5c'});
+ svg.appendChild(g);bind(g,T('1930 AD [5824 AM]','#ffcf5c','Centre of every mirrored span','Pluto and Ugaritic Ras Shamra Records Discovered, Meteoric Impact Kills People in remote Region of Brazil'));}
+// 1906 / 1954 callouts + cap
+const x06=X(1906),x54=X(1954);
+{const g=el('g',{class:'row','data-cat':'quake'});
+ lines(g,x06-6,206,['1906 AD [5800 AM]','On 108th day a','major quake','initiated ruin','of San Francisco','in the Great Fire.'],{a:'end',fs:11.5,lh:14,fill:'#f4b78e',w:400});
+ g.appendChild(el('line',{x1:x06,y1:286,x2:x06,y2:338,stroke:'#f08a4b','stroke-dasharray':'3 3'}));svg.appendChild(g);
+ bind(g,T('1906 AD [5800 AM]','#f08a4b','24 yrs before 1930','On 108th day a major quake initiated ruin of San Francisco in the Great Fire.'));}
+{const g=el('g',{class:'row','data-cat':'comet'});
+ lines(g,x54+6,206,['1954 AD [5848 AM]','Astroid on 2046 AD','impact journey passed','ecliptic and typhoon','killed 1600 in Japan'],{a:'start',fs:11.5,lh:14,fill:'#9fd0f7',w:400});
+ g.appendChild(el('line',{x1:x54,y1:286,x2:x54,y2:338,stroke:'#5cb3f2','stroke-dasharray':'3 3'}));svg.appendChild(g);
+ bind(g,T('1954 AD [5848 AM]','#5cb3f2','24 yrs after 1930','Astroid on 2046 AD impact journey passed ecliptic and typhoon killed 1600 in Japan.'));}
+svg.appendChild(el('path',{d:`M${x06} 340 A${(x54-x06)/2} 34 0 0 1 ${x54} 340`,fill:'none',stroke:'#ffcf5c','stroke-width':1.6}));
+mirror(svg,{x1:x06,xc:AX,x2:x54,y:352,col:'#e7c355',cat:'prop',lL:'24',lR:'24',fs:12,tip:T('24 | 24','#e7c355','1906 AD → 1930 AD → 1954 AD','24 years either side of 1930 AD.')});
+const ROWS=[
+ {y:414,a:1816,b:2044,cat:'quake',lL:'1816 AD [5710 AM] is 114 years',lR:'114 years to 2044 AD [5938 AM]',sp:114,
+  tipL:'Mt. Tambora exploded resulting with 80,000 dead [poison gas, quake, tsunami and famine]; heard 1000 miles away.',tipR:'First Trumpet is Meteoric Rain.'},
+ {y:466,a:1790,b:2070,cat:'disc',lL:'1790 AD is [5684 AM] 140 [70×2] years',lR:'140 years to 2070 AD Resurrection',sp:140,
+  tipL:'Aztec Stone of the Fifth Sun discovered; Aztec Apocalypse shows comets and pyramid with eye.',tipR:'2070 [207×10] is 414×5.'},
+ {y:518,a:1770,b:2090,cat:'comet',lL:'1770 AD [5664 AM] was 160 [40×4] years',lR:'160 years to 2090 AD [5984 AM]',sp:160,
+  tipL:'Astroid on its way to impact in 2046 AD passes over ecliptic.',tipR:'End of Seven Plagues [Meteoric Rain].'}];
+ROWS.forEach(r=>{const col=CAT[r.cat].c;
+ mirror(svg,{x1:X(r.a),xc:AX,x2:X(r.b),y:r.y,col,cat:r.cat,lL:r.lL,lR:r.lR,tip:T(r.sp+' years either side of 1930 AD',col,`${r.a} AD → 1930 AD → ${r.b} AD`,'<b>Left:</b> '+r.tipL+'<br><b>Right:</b> '+r.tipR)});
+ // dashed risers
+ const gl=el('g',{class:'row','data-cat':r.cat});
+ gl.appendChild(el('line',{x1:X(r.a),y1:r.y-6,x2:X(r.a),y2:r.y<500?(r.y==414?236:236):236,stroke:col,'stroke-dasharray':'3 4',opacity:.7}));
+ gl.appendChild(el('line',{x1:X(r.b),y1:r.y-6,x2:X(r.b),y2:236,stroke:col,'stroke-dasharray':'3 4',opacity:.7}));svg.appendChild(gl);});
+// riser texts
+const VT=[[1770,'comet',['Astroid on its way to impact','in 2046 AD passes over ecliptic.']],
+ [1790,'disc',['Aztec Stone of the Fifth Sun discovered;','Aztec Apocalypse shows comets and','pyramid with eye']],
+ [1816,'quake',['Mt. Tambora exploded resulting with','80,000 dead [poison gas, quake, tsunami','and famine]; heard 1000 miles away']]];
+VT.forEach(([y,c,l])=>{const g=el('g',{class:'row','data-cat':c});vtext(g,X(y),398,l,{fill:CAT[c].c==='#9c8bf0'?'#c3b9f7':'#c9d2e6'});svg.appendChild(g);bind(g,T(l.join(' '),CAT[c].c,y+' AD'));});
+const VR=[[2044,['First Trumpet is','Meteoric Rain']],[2070,['2070 [207×10] is 414×5']],[2090,['End of Seven Plagues','[Meteoric Rain]']]];
+VR.forEach(([y,l])=>{const g=el('g',{class:'row','data-cat':'prop'});vtext(g,X(y),398,l,{fill:'#ecd58a'});svg.appendChild(g);bind(g,T(l.join(' '),'#e7c355',y+' AD'));});
+// 1110-year bar
+{const g=bar(svg,{x1:PL+18,x2:AX,y:612,col:'#9c8bf0',offL:true});g.setAttribute('class','row');g.setAttribute('data-cat','disc');
+ g.appendChild(el('rect',{x:PL,y:588,width:AX-PL,height:44,fill:'transparent'}));
+ tx(g,AX-10,603,'1110 YEARS TO 820 AD MUSLIM DISCOVERY OF GREAT PYRAMID’S INTERIOR',{'text-anchor':'end','font-size':12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});
+ svg.appendChild(g);bind(g,T('1110 years to 820 AD','#9c8bf0','820 AD → 1930 AD (starts off the scale)','Muslim discovery of the Great Pyramid’s interior.'));}
+chips(CAT,'.row');
+
+</script>
+</body>
+</html>

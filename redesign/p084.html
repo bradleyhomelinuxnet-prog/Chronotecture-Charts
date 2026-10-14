@@ -143,9 +143,9 @@
 <h3>Upper left</h3><ul><li class="q">52 P″ Limestone Ceiling Block divided into four 13 Year Periods. This is confirmed by Centerpoint Alignment of Vertical Lines perfectly equidistant from first 13-Year Period [1975]</li></ul>
 <h3>Middle left</h3><ul><li class="q">Distance of 60.96 P″ directly terminates at 1962 AD when 7200 yrs of Anunnaki Ner system complete, but .96 indirectly infers November 1963 — Assassination of a King of the World [Kennedy]</li></ul>
 <h3>Ceiling block</h3><ul><li class="q">60.96 P″ (arrow from 1902 AD line to block)</li><li class="q">60.96 P″ (inside block, to 2022)</li><li class="q">2022</li><li class="q">52 P″</li><li class="q">13 × 4</li><li class="q">1975</li><li class="q">1988</li><li class="q">2001</li><li class="q">2014</li></ul>
-<h3>Verticals</h3><ul><li class="q">1902 AD</li><li class="q">1945</li><li class="q">2005</li><li class="q">60 Years</li><li class="q">60 P″ Variance</li><li class="q">North Wall of Subterranean Chamber</li><li class="q">North Wall of Queen's Chamber</li></ul>
+<h3>Verticals</h3><ul><li class="q">1902 AD</li><li class="q">1945</li><li class="q">2005</li><li class="q">60 Years</li><li class="q">60 P″ Variance</li><li class="q">North Wall of Lower Chamber</li><li class="q">North Wall of Middle Chamber</li></ul>
 <h3>Frame</h3><ul><li class="q">XXVIII (chart label)</li><li class="q">Breshears '06</li></ul>
-<h3>Uncertain readings</h3><ul><li class="unc">This plate labels 2005 the “North Wall of Queen's Chamber”, where plates XXV, XXVII and XXIX say south wall — kept as written.</li><li class="unc">“Perfectcy” / “Perfectly” — lettering cramped; read as “Perfectly”.</li></ul>
+<h3>Uncertain readings</h3><ul><li class="unc">This plate labels 2005 the “North Wall of Middle Chamber”, where plates XXV, XXVII and XXIX say south wall — kept as written.</li><li class="unc">“Perfectcy” / “Perfectly” — lettering cramped; read as “Perfectly”.</li></ul>
         </div>
       </details>
       <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XXVIII (plate&nbsp;84). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
@@ -156,7 +156,7 @@
 <div id="tip"></div>
 
 <script>
-/* ---- shared King's Chamber / Antechamber / Grand Gallery section engine (plates 80–85) ----
+/* ---- shared Upper Chamber / Antechamber / Grand Gallery section engine (plates 80–85) ----
    Horizontal coordinate p = pyramid inches (P″) south of the face of the Great Step.
    Vertical coordinate h = P″ above the top of the Great Step (floor level). */
 const NS='http://www.w3.org/2000/svg';
@@ -248,14 +248,14 @@ function Section(svg,o){
   const leaf=el('g',{class:'part','data-key':'leaf'},gS);
   R(134,150,50,104,{fill:'url(#gran)',stroke:'#8fa4d6','stroke-width':1.3,rx:2},leaf);
   R(132.6,134,72,84,{fill:'#8fa4d6'},leaf);
-  // granite between antechamber and King's Chamber
+  // granite between antechamber and Upper Chamber
   const g2=el('g',{class:'part','data-key':'granite2'},gS);
   R(228,279,44,170,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
   R(279,330,44,170,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
   R(300,330,170,262,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
   const ps2=el('g',{class:'part','data-key':'passage2'},gS);
   R(228,330,0,44,{fill:'#080d19',stroke:'#4a5a84','stroke-width':1.2},ps2);
-  // King's Chamber
+  // Upper Chamber
   const kc=el('g',{class:'part','data-key':'kc'},gS);
   R(330,534,0,230,{fill:'#080d19',stroke:'#4a5a84','stroke-width':1.3},kc);
   const kw=el('g',{class:'part','data-key':'kcwalls'},gS);
@@ -272,7 +272,7 @@ function Section(svg,o){
     gallery:['Grand Gallery','',''],passage1:['Passage to the Antechamber','60.96 → 112 P″',''],
     block:['Limestone ceiling block','',''],ante:['Antechamber','',''],anteroof:['Antechamber granite roof blocks','',''],
     leaf:['Granite leaf','',''],granite2:['Granite masonry','',''],passage2:['Second passage','228 → 330 P″',''],
-    kc:["King's Chamber",'',''],kcwalls:["King's Chamber granite walls & roof",'',''],
+    kc:["Upper Chamber",'',''],kcwalls:["Upper Chamber granite walls & roof",'',''],
     step:['Great Step','limestone · 0 → 126 P″',''],floor:['Granite floor','',''] },o.parts||{});
   gS.querySelectorAll('.part').forEach(g=>{const k=g.getAttribute('data-key');const t=PT[k];if(t)bind(g,T(t[0],t[1],t[2],'#c9b98f'));});
   // labels for parts
@@ -393,11 +393,11 @@ const S=Section(document.getElementById('sec'),{pmin:-90,pmax:250,hup:205,sy:1.5
         {p1:B,p2:B+52,h:84,label:'52 P″ · 13×4',fs:11.5,tip:D('52 P″ (13 × 4)','1962 → 2014','')},
         {p1:B+60.96,p2:B,h:64,heads:'end',label:'60.96 P″',fs:11,lx:B+38,tip:D('60.96 P″','block north face ↔ 2022','Second 60.96 P″ arrow, ending at a dashed line lettered 2022.')},
         {p1:43,p2:103,h:24,cat:'year',label:'60 YEARS',fs:11.5,lx:88,tip:Yt('60 Years','1945 → 2005','Centre point 1975, aligned with the first 13-year period.')},
-        {p1:43,p2:103,row:0,label:'60 P″ VARIANCE',tip:D('60 P″ Variance','1945 ↔ 2005','Between the North Wall of the Subterranean Chamber and the North Wall of the Queen\'s Chamber verticals.')}],
+        {p1:43,p2:103,row:0,label:'60 P″ VARIANCE',tip:D('60 P″ Variance','1945 ↔ 2005','Between the North Wall of the Lower Chamber and the North Wall of the Middle Chamber verticals.')}],
   verts:[
    {p:0,glyph:'axis',top:'1902 AD',label:'1902 AD',tip:V('1902 AD','face of the Great Step','')},
-   {p:43,glyph:'sc',top:'1945',ly:30,dx:28,label:'North Wall of\nSubterranean Chamber',tip:V('North Wall of Subterranean Chamber','1945','')},
-   {p:103,glyph:'qc',top:'2005',label:"North Wall of\nQueen's Chamber",tip:V("North Wall of Queen's Chamber",'2005','(as written on this plate)')},
+   {p:43,glyph:'sc',top:'1945',ly:30,dx:28,label:'North Wall of\nLower Chamber',tip:V('North Wall of Lower Chamber','1945','')},
+   {p:103,glyph:'qc',top:'2005',label:"North Wall of\nMiddle Chamber",tip:V("North Wall of Middle Chamber",'2005','(as written on this plate)')},
    {p:B+60.96,from:64,to:'floor',top:'',col:'#e7c355',cat:'year',op:.9,tip:Yt('2022','end of the second 60.96 P″','')}],
   rmarks:[{p:0,label:'1902'},{p:43,label:'1945',lv:1,a:'end',dx:-2},{p:B,label:'1962',a:'start',dx:2},{p:B+13,label:'1975',lv:1},{p:B+26,label:'1988'},{p:B+39,label:'2001',lv:1,a:'end',dx:-2},{p:103,label:'2005',lv:2},{p:B+52,label:'2014'},{p:B+60.96,label:'2022',lv:1,a:'start',dx:2}],
   marks:marks});

@@ -131,11 +131,11 @@
         <h2>Cycle mathematics</h2>
         <div class="hint">Every operation written on the plate, checked.</div>
         <div class="mathgrid">
-          <div class="mrow"><span class="eq">5814 + 534 = 6348 (138×46)</span><span class="cap">Apex height plus the 534 under the King's Chamber.</span><span class="ok">✓ sum ✓ 138×46 = 6348</span></div>
+          <div class="mrow"><span class="eq">5814 + 534 = 6348 (138×46)</span><span class="cap">Apex height plus the 534 under the Upper Chamber.</span><span class="ok">✓ sum ✓ 138×46 = 6348</span></div>
           <div class="mrow"><span class="eq">5814 − 846 = 4968 (138×36)</span><span class="cap">Apex height less the 846 floor line.</span><span class="ok">✓ difference ✓ 138×36 = 4968</span></div>
           <div class="mrow"><span class="eq">1836 + 1200 = 3036 (138×22)</span><span class="cap">Gallery slope plus the 1200 height.</span><span class="ok">✓ sum ✓ 138×22 = 3036</span></div>
-          <div class="mrow"><span class="eq">534 + 846 = 1380</span><span class="cap">Written under the Queen's Chamber passage.</span><span class="ok">✓ (= 138×10, not annotated)</span></div>
-          <div class="mrow"><span class="eq">1656 + 34 + 1070 = 2760</span><span class="cap">Step foot, step height and subterranean depth.</span><span class="ok">✓</span></div>
+          <div class="mrow"><span class="eq">534 + 846 = 1380</span><span class="cap">Written under the Middle Chamber passage.</span><span class="ok">✓ (= 138×10, not annotated)</span></div>
+          <div class="mrow"><span class="eq">1656 + 34 + 1070 = 2760</span><span class="cap">Step foot, step height and Lower Chamber depth.</span><span class="ok">✓</span></div>
           <div class="mrow"><span class="eq">2760 + <span class="base138">552</span> = 3312</span><span class="cap">Continued in the same column.</span><span class="ok">✓</span></div>
           <div class="mrow"><span class="eq">1656 + 1070 + 1414 = 4140</span><span class="cap">Matches “144th course of blocks is 4140 inches”.</span><span class="ok">✓</span></div>
           <div class="mrow"><span class="eq">1518 + 1110 + 176 + 666 + 808 = 4278</span><span class="cap">Right-hand column, beside the entrance.</span><span class="ok">✓</span></div>
@@ -156,7 +156,7 @@
               <li class="q">5814 + 534 = [6348] (138×46)</li><li class="q">5814 − 846 = [4968] (138×36)</li></ul></div>
             <div><h3>Lower left columns</h3><ul><li class="q">[1656] 34 1070 = [2760]; [552] = [3312]</li>
               <li class="q">[1656] 1070 1414 = [4140]</li></ul></div>
-            <div><h3>On the section</h3><ul><li class="q">534 (under King's Chamber)</li><li class="q">34 (Great Step)</li>
+            <div><h3>On the section</h3><ul><li class="q">534 (under Upper Chamber)</li><li class="q">34 (Great Step)</li>
               <li class="q">[1656] (vertical)</li><li class="q">1836 (Gallery, dashed)</li><li class="q">846 · 1200</li>
               <li class="q">534 846 = [1380]</li><li class="q">1836 + 1200 = [3036] (138×22)</li>
               <li class="q">[4554] IS [1518]×3</li><li class="q">1110 · 176 · 666 · 808</li>
@@ -247,14 +247,14 @@ function sumBars(svgId,rows,maxV){
   rows.forEach((r,i)=>{
     const y=top+i*rowH;const mx=maxV||r.total;
     const g=el('g',{class:'m sumrow','data-cat':r.cat||'sum',style:'color:'+((CAT[r.cat||'sum']||{}).c||'#e7c355')},svg);
-    let x=L;const sc=(R-L-150)/mx;
+    let x=L,xm=L;const sc=(R-L-150)/mx;
     r.parts.forEach((p,j)=>{const w=Math.abs(p[0])*sc;const neg=p[0]<0;
       el('rect',{x:neg?x-w:x,y:y+16,width:Math.max(w,2),height:16,rx:3,fill:neg?'none':pal[j%pal.length],stroke:neg?'#f08a4b':'#0b0f1a','stroke-width':neg?1.4:1,'stroke-dasharray':neg?'3 3':'',opacity:.9},g);
       if(w>34) tx(g,neg?x-w/2:x+w/2,y+24.5,String(p[1]||Math.abs(p[0])),{size:11,col:'#0b0f1a',weight:600}).setAttribute('class','mono');
-      x+=neg?-w:w;});
+      x+=neg?-w:w;xm=Math.max(xm,x);});
     const tl=r.totalLabel||String(r.total);
     tx(g,L,y+6,r.title||'',{anchor:'start',size:11.5,col:'#8b95ad',mono:false,weight:400});
-    tx(g,x+10,y+24.5,'= '+tl,{anchor:'start',size:13,col:r.b138?'#ffcf5c':'#e9edf6',weight:600});
+    tx(g,xm+10,y+24.5,'= '+tl,{anchor:'start',size:13,col:r.b138?'#ffcf5c':'#e9edf6',weight:600});
     bind(g,`<div class="t-h">${r.eq}</div>`+(r.note?`<div class="t-b">${r.note}</div>`:''));
   });
 }
@@ -297,8 +297,8 @@ el('polygon',{points:'360,695 395,695 395,715 386,715 386,745 370,745 370,715 36
  tx(g,AX+hw+14,y,'144TH COURSE OF BLOCKS IS',{anchor:'start',size:12.5,mono:false,col:'#cfc6ff'});
  box(g,AX+hw+188,y-10,46,20,'#e7c355');tx(g,AX+hw+211,y,'4140',{size:13,col:'#ffcf5c'});
  tx(g,AX+hw+242,y,'INCHES',{anchor:'start',size:12.5,mono:false,col:'#cfc6ff'});}
-tx(svg,20,-160,'PHOENIX',{anchor:'start',size:26,mono:false,col:'#e7c355',weight:600}).setAttribute('font-family','Cormorant Garamond');
-tx(svg,20,-130,'CHRONOMETRY I.',{anchor:'start',size:26,mono:false,col:'#e7c355',weight:600}).setAttribute('font-family','Cormorant Garamond');
+tx(svg,20,-160,'PHOENIX',{anchor:'start',size:26,mono:false,col:'#e7c355',weight:600}).style.fontFamily='Cormorant Garamond,serif';
+tx(svg,20,-130,'CHRONOMETRY I.',{anchor:'start',size:26,mono:false,col:'#e7c355',weight:600}).style.fontFamily='Cormorant Garamond,serif';
 
 function vd(x,y1,y2,label,desc,o){o=o||{};const g=M(svg,'dim',label,desc,o.q||label,{ix:o.ix});
   dl(g,x,y1,x,y2,{arrows:o.arrows||'none',dash:o.dash||'4 4'});
@@ -307,10 +307,10 @@ function vd(x,y1,y2,label,desc,o){o=o||{};const g=M(svg,'dim',label,desc,o.q||la
 vd(348,357,BASE,'1656','Great Step foot → base (boxed)',{dx:-14,boxed:true,dx2:14});
 vd(578,462,BASE,'846','Floor line → base',{dx:-10,ly:510});
 vd(605,455,BASE,'1200','Gallery north end → base',{dx:10,ly:510});
-vd(368,BASE,695,'1070','Base → subterranean chamber',{dx:-10,ly:640});
+vd(368,BASE,695,'1070','Base → Lower Chamber',{dx:-10,ly:640});
 vd(897,482,BASE,'666','Entrance → base',{dx:-10,ly:530});
 vd(800,540,BASE,'176','Junction → base',{dx:10,ly:560});
-{const g=M(svg,'dim','534','Under the King\'s Chamber','534');dl(g,308,366,392,366,{arrows:'none',ticks:true});tx(g,340,378,'534',{size:12});}
+{const g=M(svg,'dim','534','Under the Upper Chamber','534');dl(g,308,366,392,366,{arrows:'none',ticks:true});tx(g,340,378,'534',{size:12});}
 {const g=M(svg,'dim','34','The Great Step','34');tx(g,410,350,'34',{size:12});el('line',{x1:392,y1:356,x2:402,y2:352,stroke:'#5cb3f2'},g);}
 {const g=M(svg,'dim','1836','Grand Gallery slope (dashed)','1836');dl(g,388,289,604,395,{arrows:'none',dash:'6 4',ticks:true});tx(g,505,325,'1836',{rot:26,size:12.5});}
 {const g=M(svg,'dim','1110','Junction → entrance','1110');dl(g,786,528,890,476,{arrows:'none'});tx(g,830,490,'1110',{rot:-26,size:12.5});}
@@ -318,9 +318,9 @@ vd(800,540,BASE,'176','Junction → base',{dx:10,ly:560});
 {const g=M(svg,'dim','3036','Descending passage, dashed parallel (boxed)','[3036]');dl(g,442,688,902,462,{arrows:'none',dash:'7 5'});
   el('line',{x1:442,y1:688,x2:442,y2:745,stroke:'#5cb3f2','stroke-dasharray':'4 4'},g);
   box(g,592,608,50,20,'#5cb3f2');tx(g,617,618,'3036',{size:12.5});}
-{const g=M(svg,'dim','552 WIDTH','Subterranean chamber (552 boxed)','[552] WIDTH');box(g,288,650,40,19,'#e7c355');tx(g,308,660,'552',{size:12.5,col:'#ffcf5c'});
+{const g=M(svg,'dim','552 WIDTH','Lower Chamber (552 boxed)','[552] WIDTH');box(g,288,650,40,19,'#e7c355');tx(g,308,660,'552',{size:12.5,col:'#ffcf5c'});
   tx(g,308,678,'WIDTH',{size:10});el('line',{x1:328,y1:665,x2:368,y2:694,stroke:'#5cb3f2'},g);}
-{const g=M(svg,'dim','1414','Subterranean region, bottom horizontal','1414');dl(g,275,745,442,745,{arrows:'none',dash:'4 4',ticks:true});tx(g,330,758,'1414',{size:12});}
+{const g=M(svg,'dim','1414','Lower Chamber region, bottom horizontal','1414');dl(g,275,745,442,745,{arrows:'none',dash:'4 4',ticks:true});tx(g,330,758,'1414',{size:12});}
 {const g=M(svg,'dim','4554 is 1518×3','Outer horizontal from the axis (both boxed)','[4554] IS [1518]×3');
   el('polyline',{points:`${AX},212 962,210 962,395`,fill:'none',stroke:'#5cb3f2','stroke-dasharray':'7 5','stroke-width':1.4,class:'dl'},g);
   el('line',{x1:AX,y1:212,x2:962,y2:210,class:'hit'},g); ahead(g,962,395,Math.PI/2,'#5cb3f2');
@@ -338,7 +338,7 @@ function stack(x,y,rows,desc,eqTxt,ix){const g=M(svg,'sum',ix,desc,eqTxt,{ix});
     let [main,note]=r.split('|');const bx=main.includes('[');const s=main.replace(/[\[\]]/g,'');
     const gold=/^(\+ |− )?(552|138)$/.test(s.trim());
     tx(g,x,yy,s,{anchor:'end',size:13,col:gold?'#ffcf5c':(bx?'#fff2c4':'#e8dcae')});
-    if(bx) box(g,x-s.length*7.9-5,yy-10,s.length*7.9+9,20,'#e7c355');
+    if(bx){const L=(main.match(/\[(.*)\]/)||['',''])[1].length;box(g,x-L*7.9-5,yy-10,L*7.9+9,20,'#e7c355');}
     if(note) tx(g,x+10,yy,note,{anchor:'start',size:11.5,col:'#c9b77a'});
     yy+=19;});
   return g;}

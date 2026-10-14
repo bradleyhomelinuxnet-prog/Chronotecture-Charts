@@ -1,0 +1,322 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart VI·b — The 1480 AM Mirror</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:96px;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:880px){.bottom,.two{grid-template-columns:1fr}}
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -6px;padding:0 6px}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.12em;margin-bottom:4px}
+  @media(max-width:700px){ .scroll svg.wide{min-width:760px} .swipe{display:block} }
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .halo{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  .hot{cursor:pointer}
+  .hot:hover > .hl, .hot.on > .hl{filter:brightness(1.35)}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transform:translateY(4px);
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#c9906e;font-family:'JetBrains Mono',monospace;margin-top:3px}
+  .mrow.off{border-color:#5a3a2a88}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:22px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+
+  details.tx summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none;display:flex;align-items:center;gap:10px}
+  details.tx summary::-webkit-details-marker{display:none}
+  details.tx summary::before{content:'+';font-family:'JetBrains Mono',monospace;font-size:16px;color:var(--c-proph);width:14px}
+  details.tx[open] summary::before{content:'\2212'}
+  .txgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:4px 26px;margin-top:10px}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:14px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:16px}
+  .tx li{font-size:13px;line-height:1.55;margin-bottom:5px;color:#d5dbea}
+  .tx .q{font-family:'JetBrains Mono',monospace;font-size:12px}
+  .unc{color:#f0a36b}
+  @media(max-width:600px){ .wrap{padding:22px 16px 60px} .card{padding:16px 14px 12px} }
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;VI·b · Plate&nbsp;28</div>
+    <h1>Chronotecture
+      <span class="sub">The 1480&nbsp;AM [2415&nbsp;BC] Axis — Mirrored Spans from 5239&nbsp;BC to 6000&nbsp;AM</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn chart&nbsp;VI·b (<b>'07</b>), preserved verbatim; only the visual language is redesigned. Its structural key: <b>1480&nbsp;AM [2415&nbsp;BC] is the hinge</b> — paired spans of 2824, 516 and 400/4000 years reach equally behind and ahead of it, while five forward bars run from it to landmark dates up to 2000&nbsp;AD.</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2>The 1480&nbsp;AM axis — mirrored and forward spans</h2>
+      <div class="hint">5239&nbsp;BC to 2106&nbsp;AD [6000&nbsp;AM]. Above the tick-ruler: paired spans (◁▷) reaching equally behind and ahead of 1480&nbsp;AM [2415&nbsp;BC], joined by arcs. Below it: forward bars from the axis (▷). Hover or tap any bar or marker. <span class="anchor-key"><i></i>AXIS 1480 AM [2415 BC]</span></div>
+      <div class="swipe">← swipe the chart →</div>
+      <div class="scroll"><svg id="tl" class="wide" viewBox="0 0 1400 690" role="img" aria-label="Mirror timeline on 1480 AM"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card">
+        <h2>Cycle mathematics</h2>
+        <div class="hint">The sums on the plate, checked on its own key (3895&nbsp;BC = 1&nbsp;AM; 1480&nbsp;AM = 2415&nbsp;BC).</div>
+        <div class="mathgrid">
+          <div class="mrow"><span class="eq">2824 ◁▷ 2824</span><span class="cap">5239 BC [−1344 AM] → 1480 AM → 410 AD [4304 Annus Mundi] ✓ (1480 + 2824 = 4304)</span></div>
+          <div class="mrow"><span class="eq">400 ◁ · ▷ 4000 = 400 × 10</span><span class="cap">2815 BC [1080 AM] ← 400 · → 1586 AD [5480 AM] ✓</span></div>
+          <div class="mrow"><span class="eq">5480 = 40 × 137</span><span class="cap">"40×137 Yrs. AM" ✓</span></div>
+          <div class="mrow off"><span class="eq">516 ◁▷ 516</span><span class="cap">→ 1899 BC [1996 AM] ✓ (1480 + 516); the left bar is drawn to 3031 BC [864 AM]</span><span class="aw">as written — 3031 BC → 2415 BC is 616 years</span></div>
+          <div class="mrow"><span class="eq">4414 = 4000 + 414</span><span class="cap">→ 5/5/2000 AD [5894 AM] ✓</span></div>
+          <div class="mrow"><span class="eq">4400 = 4000 + 400</span><span class="cap">→ 1986 AD [5880 AM] ✓</span></div>
+          <div class="mrow"><span class="eq">4300</span><span class="cap">→ 1886 AD ✓</span></div>
+          <div class="mrow off"><span class="eq">3666 = 3000 + 666</span><span class="cap">→ 1252 AD [5246 AM] [1000+252: 36×6]</span><span class="aw">as written — 1480 + 3666 = 5146; 36 × 6 = 216</span></div>
+          <div class="mrow off"><span class="eq">888 = 880 + 8</span><span class="cap">→ 1532 BC [2363 AM]</span><span class="aw">as written — 2415 − 1532 = 883; 1480 + 888 = 2368</span></div>
+          <div class="mrow"><span class="eq">864 · 1080 · 1996 · 2363 AM</span><span class="cap">3031 BC, 2815 BC, 1899 BC, 1532 BC — each AM/BC pair sums to 3895 ✓</span></div>
+        </div>
+      </div>
+      <div class="card">
+        <details class="tx">
+          <summary>Full transcription</summary>
+          <div class="tx">
+            <h3>Frame</h3>
+            <ul>
+              <li class="q">VI·b</li><li class="q">Breshears '07</li>
+              <li class="q">5239 BC Beginning Anunnaki Chronology <span style="color:var(--muted)">(left edge)</span></li>
+              <li class="q">Man's 6000 Year Exile Begins in the Year 3895 BC [1 AM]</li>
+              <li class="q">PreAdamic and Edenic Worlds · AnteDiluvian World</li>
+              <li class="q">1480 AM [2415 BC] <span style="color:var(--muted)">(top, arrow onto the axis; repeated at bottom)</span></li>
+              <li class="q">BC | AD</li>
+              <li class="q">Armageddon Completes the 6000 Years of Man's Exile 2106 AD [6000 AM]</li>
+              <li class="q">Stone → Kingdom</li>
+            </ul>
+            <h3>Paired spans (upper)</h3>
+            <ul>
+              <li class="q">400 ◁ ▷ 4000 Yrs [400×10] To 1586 AD [5480 AM]: 40×137 Yrs. AM</li>
+              <li class="q">516 Yrs. ◁ ▷ 516 Yrs.</li>
+              <li class="q">5239 BC [−1344 AM] Yrs To 1480 AM → 2824 ◁ ▷ 2824 Yrs. To 410 AD [4304 Annus Mundi]</li>
+              <li class="q">864 Foundation of Time Number → 3031 BC [864 AM]</li>
+              <li class="q">2815 BC [1080 AM]</li>
+              <li class="q">Great Flood</li>
+              <li class="q">1899 BC [1996 AM] Tower of Babel Destroyed</li>
+              <li class="q">410 AD Rome Falls to Alaric the Goth</li>
+              <li class="q">1586 AD Huge Astroid Passes Ecliptic on Journey to Impact North America in 2046 AD</li>
+            </ul>
+            <h3>Forward bars (lower, ▷ from the axis)</h3>
+            <ul>
+              <li class="q">4414 Yrs [4000+414] To 5 Planet Alignment 5/5/2000 AD [5894 AM]</li>
+              <li class="q">4400 Yrs [4000+400] To 1986 AD [5880 AM] Halley's Comet/Challenger Deaths</li>
+              <li class="q">4300 To 1886 AD Enoch Text Discovered; Statue of Liberty Erected</li>
+              <li class="q">3666 [3000+666] Rome Authorizes Torture of Accused Heretics</li>
+              <li class="q">1252 AD [5246 AM] [1000+252: 36×6]</li>
+              <li class="q">888 Yrs. [880+8]</li>
+              <li class="q">1532 BC [2363 AM] Hyksos Reign over Egypt Ends as Lower and Upper Egypt Unify into an Empire.</li>
+              <li class="q">2815 BC [1080 AM] Giza Complete · 1480 AM [2415 BC] · 2239 BC Great Deluge</li>
+            </ul>
+          </div>
+        </details>
+      </div>
+    </div>
+  </div>
+
+  <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;VI·b (plate&nbsp;28). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function tx(parent,x,y,s,o){o=o||{};const t=el('text',Object.assign({x:x,y:y,fill:'#dfe6f5','font-size':12},o),parent);t.textContent=s;return t;}
+const tip=document.getElementById('tip');
+let pinned=null;
+function showTip(html,e){ tip.innerHTML=html; tip.style.opacity=1;
+  const w=Math.min(300,window.innerWidth-20);
+  let x=e.clientX+16, yy=e.clientY+14;
+  if(x+w>window.innerWidth) x=Math.max(8,e.clientX-w-10);
+  const h=tip.offsetHeight||140;
+  if(yy+h>window.innerHeight) yy=Math.max(8,e.clientY-h-10);
+  tip.style.left=x+'px'; tip.style.top=yy+'px'; }
+function hideTip(){ tip.style.opacity=0; if(pinned){pinned.classList.remove('on');pinned=null;} }
+function hov(g,html){
+  g.classList.add('hot');
+  g.addEventListener('mousemove',e=>{ if(!pinned) showTip(typeof html==='function'?html():html,e); });
+  g.addEventListener('mouseleave',()=>{ if(!pinned) tip.style.opacity=0; });
+  g.addEventListener('click',e=>{ e.stopPropagation(); if(pinned===g){hideTip();return;}
+    if(pinned) pinned.classList.remove('on'); pinned=g; g.classList.add('on'); showTip(typeof html==='function'?html():html,e); });
+}
+document.addEventListener('click',()=>hideTip());
+window.addEventListener('scroll',()=>{ if(pinned) hideTip(); },{passive:true});
+function T(col,h,yr,b){return `<div class="t-h"><span class="d" style="background:${col}"></span>${h}</div>`+(yr?`<div class="t-yr">${yr}</div>`:'')+(b?`<div class="t-b">${b}</div>`:'');}
+function chips(CAT){
+  const bar=document.getElementById('filters'); if(!bar) return;
+  const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{
+    const c=document.createElement('div'); c.className='chip'; c.dataset.k=k;
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=(e)=>{ e.stopPropagation(); if(active.has(k)){active.delete(k);c.classList.add('off');} else {active.add(k);c.classList.remove('off');} apply(); };
+    bar.appendChild(c);
+  });
+  function apply(){ document.querySelectorAll('[data-cat]').forEach(g=>{ g.style.display = active.has(g.getAttribute('data-cat'))?'':'none'; }); }
+}
+
+
+const CAT={
+  mirror:{c:'#e7c355',label:'Paired spans on 1480 AM'},
+  fwd:{c:'#5cb3f2',label:'Forward bars from the axis'},
+  ev:{c:'#f08a4b',label:'Dated events'},
+  era:{c:'#37b6a6',label:'Worlds & frame'}
+};
+chips(CAT);
+const YMIN=-5239, YMAX=2106, PL=60, PR=1340;
+const X=y=>PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);
+const fy=y=>y<0?(-y)+' BC':y+' AD';
+(function(){
+  const s=document.getElementById('tl');
+  const TOP=20, RUL=388, AX=X(-2415), AXIS=600;
+  el('rect',{x:PL,y:TOP,width:X(0)-PL,height:AXIS-TOP,fill:'#0e1626',opacity:.5},s);
+  for(let y=-5000;y<=2000;y+=500){const xx=X(y);
+    el('line',{x1:xx,y1:TOP,x2:xx,y2:AXIS,stroke:'#1a2540'},s);
+    tx(s,xx,AXIS+16,y<0?(-y)+' BC':(y===0?'':y+' AD'),{fill:'#5d6885','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'middle'});}
+  el('line',{x1:PL,y1:AXIS,x2:PR,y2:AXIS,stroke:'#3a486a','stroke-width':2},s);
+  el('line',{x1:X(0),y1:TOP,x2:X(0),y2:AXIS+24,stroke:'#56628f','stroke-width':1.4,'stroke-dasharray':'4 5'},s);
+  tx(s,X(0)-6,TOP+12,'BC',{fill:'#7b86a4','font-size':11,'font-family':'JetBrains Mono','text-anchor':'end'});
+  tx(s,X(0)+6,TOP+12,'AD',{fill:'#7b86a4','font-size':11,'font-family':'JetBrains Mono'});
+  // frame lines
+  const fr=el('g',{'data-cat':'era'},s);
+  el('line',{x1:X(-5239),y1:TOP,x2:X(-5239),y2:AXIS,stroke:'#cfd8ea','stroke-width':4},fr);
+  el('line',{x1:X(-3895),y1:TOP,x2:X(-3895),y2:AXIS,stroke:'#7b86a4','stroke-width':1.4},fr);
+  el('line',{x1:X(2106),y1:TOP,x2:X(2106),y2:AXIS,stroke:'#7b86a4','stroke-width':2},fr);
+  [['5239 BC BEGINNING',X(-5239)+16],['ANUNNAKI CHRONOLOGY',X(-5239)+29],["MAN'S 6000 YEAR EXILE",X(-3895)-19],['BEGINS 3895 BC [1 AM]',X(-3895)-6]].forEach(([t,x])=>
+    tx(fr,x,AXIS-10,t,{fill:'#aeb7cd','font-size':10,'font-family':'JetBrains Mono',transform:`rotate(-90 ${x} ${AXIS-10})`}));
+  tx(fr,X(2106)+14,AXIS-10,"ARMAGEDDON COMPLETES THE 6000 YEARS OF MAN'S EXILE 2106 AD [6000 AM]",{fill:'#f6c89f','font-size':10,'font-family':'JetBrains Mono',transform:`rotate(-90 ${X(2106)+14} ${AXIS-10})`});
+  tx(fr,X(-4567),RUL+60,'PREADAMIC AND',{fill:'#37b6a6','font-size':12,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  tx(fr,X(-4567),RUL+76,'EDENIC WORLDS',{fill:'#37b6a6','font-size':12,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  tx(fr,X(-3155),RUL+60,'ANTEDILUVIAN',{fill:'#37b6a6','font-size':12,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  tx(fr,X(-3155),RUL+76,'WORLD',{fill:'#37b6a6','font-size':12,'font-family':'JetBrains Mono','text-anchor':'middle'});
+  tx(fr,X(2106)-6,RUL-6,'STONE',{fill:'#cfd8ea','font-size':10.5,'font-family':'JetBrains Mono','text-anchor':'end'});
+  el('path',{d:`M${X(2106)-46} ${RUL+8} h32 v-5 l12 8 l-12 8 v-5 h-32 z`,fill:'#cfd8ea'},fr);
+  tx(fr,X(2106)-6,RUL+34,'KINGDOM',{fill:'#cfd8ea','font-size':10.5,'font-family':'JetBrains Mono','text-anchor':'end'});
+  hov(fr,T('#37b6a6',"Man's 6000-year exile",'3895 BC [1 AM] → 2106 AD [6000 AM]','Before it: 5239 BC, beginning of the Anunnaki chronology, and the PreAdamic and Edenic worlds. Armageddon completes the 6000 years; Stone → Kingdom.'));
+  // tick ruler
+  for(let x=PL;x<X(2106)-50;x+=9) el('line',{x1:x,y1:RUL,x2:x,y2:RUL+16,stroke:'#33415f'},s);
+  el('rect',{x:PL,y:RUL,width:X(2106)-PL-50,height:16,fill:'none',stroke:'#33415f'},s);
+  // axis
+  el('line',{x1:AX,y1:TOP,x2:AX,y2:AXIS+44,stroke:'#ffcf5c','stroke-width':2.2},s);
+  tx(s,AX,AXIS+58,'◇ 1480 AM [2415 BC]',{fill:'#ffcf5c','font-size':11.5,'font-family':'JetBrains Mono','text-anchor':'middle'});
+
+  el('line',{x1:X(-2239),y1:96,x2:X(-2239),y2:AXIS,stroke:'#37b6a6','stroke-width':2.4,opacity:.7},s);
+  tx(s,X(-2239)+6,106,'GREAT FLOOD',{fill:'#37b6a6','font-size':10,'font-family':'JetBrains Mono',class:'halo'});
+  function arc(g,a,b,base,h,col,dash){const x1=X(a),x2=X(b),rx=(x2-x1)/2;
+    el('path',{class:'hl',d:`M${x1} ${base} A ${rx} ${h} 0 0 1 ${x2} ${base}`,fill:'none',stroke:col,'stroke-width':1.6,opacity:.85,...(dash?{'stroke-dasharray':dash}:{})},g);}
+  const PAIRS=[
+    {y:306,a:-2815,b:1586,L:'400',R:'4000 YRS [400×10] TO 1586 AD [5480 AM]: 40×137 YRS. AM',arc:[-2415,1586,190,'6 5'],h:'400 ◁ ▷ 4000 [400×10]',d:'2815 BC [1080 AM] ← 1480 AM → 1586 AD [5480 AM]',t:'4000 Yrs [400×10] to 1586 AD [5480 AM]: 40×137 Yrs. AM. The left 400 reaches 2815 BC [1080 AM], Giza complete.'},
+    {y:332,a:-3031,b:-1899,L:'516 YRS.',R:'516 YRS.',arc:[-3031,-1899,92,''],h:'516 ◁ ▷ 516',d:'3031 BC [864 AM] ← 1480 AM → 1899 BC [1996 AM]',t:'1899 BC: Tower of Babel destroyed. 3031 BC [864 AM]: "864 Foundation of Time Number". <i>As written: 3031 → 2415 BC is 616 years.</i>'},
+    {y:358,a:-5239,b:410,L:'5239 BC [−1344 AM] YRS TO 1480 AM → 2824',R:'2824 YRS. TO 410 AD [4304 ANNUS MUNDI]',arc:[-5239,410,320,''],h:'2824 ◁ ▷ 2824',d:'5239 BC [−1344 AM] ← 1480 AM → 410 AD [4304 AM]',t:'410 AD Rome Falls to Alaric the Goth. 5239 BC: Beginning Anunnaki Chronology.'}
+  ];
+  PAIRS.forEach(P=>{
+    const g=el('g',{'data-cat':'mirror'},s);
+    arc(g,P.arc[0],P.arc[1],P.y-10,P.arc[2],'#e7c355',P.arc[3]);
+    [[P.a,-2415,P.L,'end'],[-2415,P.b,P.R,'start']].forEach(([a,b,l,anc],k)=>{
+      el('rect',{class:'hl',x:X(a)+(k?3:0),y:P.y-9,width:X(b)-X(a)-3,height:18,rx:3,fill:'#e7c35530',stroke:'#e7c355'},g);
+      el('path',{d:k?`M${AX+5} ${P.y-5} l8 5 l-8 5 z`:`M${AX-5} ${P.y-5} l-8 5 l8 5 z`,fill:'#ffcf5c'},g);
+      tx(g,k?AX+18:AX-18,P.y+4,l,{fill:'#f6e7b8','font-size':10.5,'font-family':'JetBrains Mono','text-anchor':anc});
+    });
+    hov(g,T('#e7c355',P.h,P.d,P.t));
+  });
+  const FW=[
+    {b:2000,l:'4414 YRS [4000+414] TO 5 PLANET ALIGNMENT 5/5/2000 AD [5894 AM]',h:'4414 Yrs [4000+414]',d:'2415 BC → 5/5/2000 AD [5894 AM]',t:'To 5 Planet Alignment.'},
+    {b:1986,l:"4400 YRS [4000+400] TO 1986 AD [5880 AM] HALLEY'S COMET/CHALLENGER DEATHS",h:'4400 Yrs [4000+400]',d:'2415 BC → 1986 AD [5880 AM]',t:"Halley's Comet / Challenger Deaths."},
+    {b:1886,l:'4300 TO 1886 AD ENOCH TEXT DISCOVERED; STATUE OF LIBERTY ERECTED',h:'4300',d:'2415 BC → 1886 AD',t:'Enoch Text Discovered; Statue of Liberty Erected.'},
+    {b:1252,l:'3666 [3000+666] ROME AUTHORIZES TORTURE OF ACCUSED HERETICS',h:'3666 [3000+666]',d:'2415 BC → 1252 AD [5246 AM]',t:'Rome Authorizes Torture of Accused Heretics. 1252 AD [5246 AM] [1000+252: 36×6]. <i>As written: 1480 + 3666 = 5146.</i>'},
+    {b:-1532,l:'888 YRS. [880+8]',h:'888 Yrs. [880+8]',d:'2415 BC → 1532 BC [2363 AM]',t:'Hyksos Reign over Egypt Ends as Lower and Upper Egypt Unify into an Empire. <i>As written: 2415 − 1532 = 883.</i>'}
+  ];
+  FW.forEach((F,i)=>{
+    const y=430+i*28, g=el('g',{'data-cat':'fwd'},s);
+    el('rect',{class:'hl',x:AX+2,y:y-10,width:X(F.b)-AX-2,height:20,rx:3,fill:'#5cb3f230',stroke:'#5cb3f2'},g);
+    el('path',{d:`M${AX+5} ${y-5} l8 5 l-8 5 z`,fill:'#9fd2f7'},g);
+    tx(g,AX+18,y+4,F.l,{fill:'#d6ecfc','font-size':10.5,'font-family':'JetBrains Mono'});
+    hov(g,T('#5cb3f2',F.h,F.d,F.t));
+  });
+  const EV=[
+    {y:-3031,lv:0,l:'3031 BC',h:'864 Foundation of Time Number',d:'3031 BC [864 AM]'},
+    {y:-2815,lv:1,l:'2815 BC',h:'Giza Complete',d:'2815 BC [1080 AM]'},
+    {y:-2239,lv:1,l:'2239 BC',h:'Great Flood · Great Deluge',d:'2239 BC'},
+    {y:-1899,lv:0,l:'1899 BC',h:'Tower of Babel Destroyed',d:'1899 BC [1996 AM]'},
+    {y:-1532,lv:1,l:'1532 BC',h:'Hyksos reign over Egypt ends',d:'1532 BC [2363 AM]',t:'Lower and Upper Egypt unify into an empire.'},
+    {y:410,lv:0,l:'410 AD',h:'Rome Falls to Alaric the Goth',d:'410 AD [4304 AM]'},
+    {y:1252,lv:1,l:'1252 AD',h:'Rome authorizes torture of accused heretics',d:'1252 AD [5246 AM] [1000+252: 36×6]'},
+    {y:1586,lv:0,l:'1586 AD',h:'Huge Astroid',d:'1586 AD [5480 AM]',t:'Passes ecliptic on journey to impact North America in 2046 AD.'},
+    {y:1886,lv:1,l:'1886',h:'Enoch text discovered; Statue of Liberty erected',d:'1886 AD'},
+    {y:1986,lv:2,l:'1986',h:"Halley's Comet / Challenger deaths",d:'1986 AD [5880 AM]'},
+    {y:2000,lv:0,l:'2000',h:'5 Planet Alignment',d:'5/5/2000 AD [5894 AM]'}
+  ];
+  EV.forEach(e=>{
+    const g=el('g',{'data-cat':'ev'},s), xx=X(e.y), ly=AXIS+30+e.lv*14;
+    el('line',{x1:xx,y1:AXIS-6,x2:xx,y2:ly-10,stroke:'#f08a4b','stroke-width':1,'stroke-dasharray':'2 3',opacity:.7},g);
+    el('rect',{class:'hl',x:xx-5,y:AXIS-5,width:10,height:10,rx:2,fill:'#f08a4b',transform:`rotate(45 ${xx} ${AXIS})`},g);
+    tx(g,xx,ly,e.l,{fill:'#f6c89f','font-size':10,'font-family':'JetBrains Mono','text-anchor':'middle'});
+    el('rect',{x:xx-22,y:AXIS-10,width:44,height:ly-AXIS+14,fill:'transparent'},g);
+    hov(g,T('#f08a4b',e.h,e.d,e.t||''));
+  });
+  // Tower of Babel and Giza icons
+  const ic=(x,y,c)=>el('polygon',{points:`${x-14},${y} ${x},${y-26} ${x+14},${y}`,fill:c,opacity:.8},s);
+  ic(X(-2815),AXIS-60,'#c9b98f'); ic(X(-1899),190,'#c9b98f');
+  tx(s,X(-1899)+18,182,'TOWER OF BABEL',{fill:'#c9b98f','font-size':9.5,'font-family':'JetBrains Mono',class:'halo'});
+  tx(s,X(-2815),AXIS-48,'GIZA COMPLETE',{fill:'#c9b98f','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'middle',class:'halo'});
+  tx(s,X(-3031)-6,250,'864 FOUNDATION OF TIME NUMBER →',{fill:'#f6c89f','font-size':10,'font-family':'JetBrains Mono','text-anchor':'end',class:'halo'});
+  el('line',{x1:X(-3031),y1:256,x2:X(-3031),y2:AXIS,stroke:'#f08a4b','stroke-dasharray':'2 4',opacity:.5},s);
+  tx(s,X(1586)+6,80,'1586 AD HUGE ASTROID PASSES ECLIPTIC',{fill:'#f6c89f','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end',class:'halo'});
+  tx(s,X(1586)+6,93,'ON JOURNEY TO IMPACT NORTH AMERICA IN 2046 AD',{fill:'#f6c89f','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end',class:'halo'});
+  tx(s,X(410)+8,170,'410 AD ROME FALLS TO ALARIC THE GOTH',{fill:'#f6c89f','font-size':9.5,'font-family':'JetBrains Mono',class:'halo'});
+  tx(s,AX,TOP+12,'1480 AM [2415 BC] ▼',{fill:'#ffcf5c','font-size':11.5,'font-family':'JetBrains Mono','text-anchor':'middle',class:'halo'});
+})();
+
+</script>
+</body>
+</html>

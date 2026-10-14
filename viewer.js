@@ -15,17 +15,43 @@
   function saveRot(){ try{ if(rot===(UPRIGHT[PAGE]||0)) localStorage.removeItem(ROT_KEY); else localStorage.setItem(ROT_KEY,String(rot)); }catch(e){} }
 
   // Interactive redesigns for plates whose page has no switch of its own.
-  var REDESIGNS={'p013.html':['chart-i.html','Chart I'],'p016.html':['id.html','Chart I·d'],'p017.html':['ie.html','Chart I·e'],'p029.html':['vic.html','Chart VI·c'],'p030.html':['vid.html','Chart VI·d']};
+  // Generated list: tools/wire.py rewrites the REDESIGNS line from the redesign/ folder.
+  var REDESIGNS={"p013.html":["chart-i.html","Chart I"],"p014.html":["p014.html","Chart I·b"],"p015.html":["p015.html","Chart I·c"],"p016.html":["p016.html","Chart I·d"],"p017.html":["ie.html","Chart I·e"],"p018.html":["p018.html","Chart II"],"p021.html":["p021.html","Chart III"],"p022.html":["p022.html","Chart III·b"],"p023.html":["p023.html","Chart IV"],"p024.html":["p024.html","Chart V"],"p025.html":["p025.html","Chart V"],"p026.html":["p026.html","Chart V"],"p027.html":["p027.html","Chart VI"],"p028.html":["p028.html","Chart VI"],"p029.html":["vic.html","Chart VI·c"],"p030.html":["vid.html","Chart VI·d"],"p038.html":["p038.html","Chart VIII"],"p039.html":["p039.html","Chart VIII·b"],"p040.html":["p040.html","Chart IX"],"p041.html":["p041.html","Chart IX·b / IX·c"],"p042.html":["p042.html","Chart X, XI, XII"],"p043.html":["p043.html","Chart X·b"],"p044.html":["p044.html","Chart X·c"],"p045.html":["p045.html","Chart XI·b"],"p046.html":["p046.html","Chart XIII–XVI"],"p047.html":["p047.html","Chart XIV·b"],"p048.html":["p048.html","Chart XIV·c"],"p053.html":["p053.html","Chart XVII"],"p054.html":["p054.html","Chart XVII"],"p055.html":["p055.html","Chart XVII"],"p059.html":["p059.html","Chart XVIII"],"p060.html":["p060.html","Chart XIX"],"p061.html":["p061.html","Chart XIX·c"],"p062.html":["p062.html","Chart XIX·d"],"p063.html":["p063.html","Chart XX / XXI"],"p064.html":["p064.html","Chart XX·b"],"p069.html":["p069.html","Chart XXII"],"p070.html":["p070.html","Chart XXI·b"],"p071.html":["p071.html","Chart XXII·c"],"p073.html":["p073.html","Chart XXIII"],"p074.html":["p074.html","Chart XXIII·b"],"p080.html":["p080.html","Chart XXIV"],"p081.html":["p081.html","Chart XXV"],"p082.html":["p082.html","Chart XXVI"],"p083.html":["p083.html","Chart XXVII"],"p084.html":["p084.html","Chart XXVIII"],"p085.html":["p085.html","Chart XXIX"],"p086.html":["p086.html","Chart XXX"],"p087.html":["p087.html","Chart XXXI"],"p088.html":["p088.html","Chart XXXII"],"p089.html":["p089.html","Chart XXXIII"],"p090.html":["p090.html","Chart XXXIV"],"p091.html":["p091.html","Chart XXXV"],"p110.html":["p110.html","Foundation of Time"],"p111.html":["p111.html","Vertical Distances"],"p112.html":["p112.html","Sloping & Horizontal Distances"],"p113.html":["p113.html","Lower Chamber Level"],"p114.html":["p114.html","Phoenix Chronometry I"],"p115.html":["p115.html","Phoenix Chronometry II"],"p116.html":["p116.html","Phoenix Chronometry III"],"p117.html":["p117.html","Phoenix Chronometry IV"],"p118.html":["p118.html","Rejected Cornerstone"]};
+  var NUM=parseInt((PAGE.match(/p(\d+)\.html/)||[])[1],10);
+  function addSeg(wrap,second){
+    var seg=document.createElement('div'); seg.className='seg';
+    seg.innerHTML='<button type="button" class="on" data-view="plate">Original plate</button><button type="button" data-view="redesign">'+second+'</button>';
+    wrap.insertBefore(seg, wrap.firstChild);
+  }
   (function wireRedesign(){
     var r=REDESIGNS[PAGE], wrap=document.getElementById('stagewrap');
     if(!r || !wrap || wrap.querySelector('.seg')) return;
-    var seg=document.createElement('div'); seg.className='seg';
-    seg.innerHTML='<button type="button" class="on" data-view="plate">Original plate</button><button type="button" data-view="redesign">Interactive redesign \u2726</button>';
-    wrap.insertBefore(seg, wrap.firstChild);
+    addSeg(wrap,'Interactive redesign \u2726');
     var f=document.createElement('iframe'); f.className='frame'; f.title='redesign'; f.loading='lazy'; f.src='../redesign/'+r[0];
     wrap.appendChild(f);
     var pn=document.querySelector('.tb-center .pnum');
     if(pn && !pn.querySelector('.serif')){ var s=document.createElement('span'); s.className='serif'; s.style.cssText='color:#ffcf5c;font-size:17px'; s.textContent=r[1]; pn.appendChild(document.createTextNode('\u00a0\u00b7\u00a0')); pn.appendChild(s); }
+  })();
+
+  // Text plates: a "Read text" view of the cleaned transcription in text/texts.js
+  // (a script, not fetch(), so it also works when the atlas is opened from disk).
+  (function wireText(){
+    var wrap=document.getElementById('stagewrap');
+    if(!wrap || wrap.querySelector('.seg') || !NUM) return;
+    var sc=document.createElement('script'); sc.src='../text/texts.js';
+    sc.onload=function(){
+      var t=window.CHRONO_TEXT && window.CHRONO_TEXT[NUM];
+      if(!t || wrap.querySelector('.seg')) return;
+      addSeg(wrap,'Read text \u00b6');
+      var pane=document.createElement('div'); pane.className='frame textpane';
+      var lines=t.split('\n'), head=lines.shift(), h2=lines.shift(), html='<div class="tp-in"><div class="tp-k">'+esc(head)+'</div>';
+      if(h2) html+='<h2 class="serif">'+esc(h2)+'</h2>';
+      lines.join('\n').split(/\n\s*\n/).forEach(function(par){ par=par.trim(); if(par) html+='<p>'+esc(par).replace(/\n/g,'<br>')+'</p>'; });
+      pane.innerHTML=html+'</div>'; wrap.appendChild(pane);
+      bindSegs();
+    };
+    document.head.appendChild(sc);
+    function esc(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   })();
 
   // Layout fixes: the redesign switch sits on the plate, not under the top bar; on phones
@@ -35,6 +61,9 @@
     // .seg is placed against #stagewrap; without this it was placed against the page and
     // hid under the sticky top bar, so the "Interactive redesign" switch could not be reached.
     st.textContent='.stagewrap{position:relative}'+
+      '.textpane{overflow:auto;-webkit-overflow-scrolling:touch}.textpane .tp-in{max-width:760px;margin:0 auto;padding:84px 30px 70px;color:#dfe6f5;font-size:17px;line-height:1.75}'+
+      '.textpane .tp-k{font-family:\'JetBrains Mono\',monospace;font-size:11px;letter-spacing:.3em;color:#7f8db0;text-transform:uppercase}'+
+      '.textpane h2{font-size:30px;color:#ffcf5c;margin:.3em 0 .8em;line-height:1.15}.textpane p{margin:0 0 1.05em}'+
       '@media(max-width:640px){'+
       '.topbar{gap:8px!important;padding-left:12px!important;padding-right:12px!important}'+
       '.topbar .brand{font-size:17px!important}.topbar .brand small{display:none!important}'+
@@ -43,6 +72,7 @@
       '.hintbar{display:none!important}'+
       '.orient{left:12px!important;transform:none!important;max-width:calc(100% - 84px)!important;border-radius:16px!important;padding:6px 8px!important}'+
       '.orient span{display:none}'+
+      '.textpane .tp-in{padding:70px 18px 50px!important;font-size:15.5px!important}'+
       '.seg{top:10px!important;max-width:calc(100% - 20px)}.seg button{padding:7px 11px!important;font-size:11.5px!important}'+
       '}';
     document.head.appendChild(st);
@@ -125,12 +155,15 @@
   pill('Flip 180','Turn upside down',function(){rotate(2);});
   stage.appendChild(bar);
 
-  var segs=document.querySelectorAll('.seg button');
-  var wrap=document.getElementById('stagewrap');
-  for(var j=0;j<segs.length;j++){ segs[j].onclick=(function(btn){return function(){
-    for(var k=0;k<segs.length;k++)segs[k].classList.remove('on');
-    btn.classList.add('on');
-    if(btn.dataset.view==='redesign')wrap.classList.add('redesign');
-    else { wrap.classList.remove('redesign'); setTimeout(fit,30); }
-  };})(segs[j]); }
+  function bindSegs(){
+    var segs=document.querySelectorAll('.seg button');
+    var wrap=document.getElementById('stagewrap');
+    for(var j=0;j<segs.length;j++){ segs[j].onclick=(function(btn){return function(){
+      for(var k=0;k<segs.length;k++)segs[k].classList.remove('on');
+      btn.classList.add('on');
+      if(btn.dataset.view==='redesign')wrap.classList.add('redesign');
+      else { wrap.classList.remove('redesign'); setTimeout(fit,30); }
+    };})(segs[j]); }
+  }
+  bindSegs();
 })();

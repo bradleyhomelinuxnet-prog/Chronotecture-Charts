@@ -149,8 +149,8 @@
               <li class="q"><s>4532</s> 4554 (PLATE XXX) 1518×3</li><li class="q">4008</li><li class="q">3014</li><li class="q">1624</li>
               <li class="q">1390</li><li class="q">[1518] (boxed)</li><li class="q">1386-89</li><li class="q">994</li></ul></div>
             <div><h3>Chambers</h3><ul>
-              <li class="q">204 (King's Chamber)</li><li class="q">204 (at the Great Step)</li><li class="q">←534→</li>
-              <li class="q">204 (Queen's Chamber)</li><li class="q">1270</li><li class="q">357</li>
+              <li class="q">204 (Upper Chamber)</li><li class="q">204 (at the Great Step)</li><li class="q">←534→</li>
+              <li class="q">204 (Middle Chamber)</li><li class="q">1270</li><li class="q">357</li>
               <li class="q">1627</li><li class="q">1831</li><li class="q">2160</li></ul></div>
             <div><h3>Sloping</h3><ul>
               <li class="q">3360 [3000+360]; ONE INCH VARIANCE [3361]</li><li class="q">1836</li><li class="q">1815</li>
@@ -242,14 +242,14 @@ function sumBars(svgId,rows,maxV){
   rows.forEach((r,i)=>{
     const y=top+i*rowH;const mx=maxV||r.total;
     const g=el('g',{class:'m sumrow','data-cat':r.cat||'sum',style:'color:'+((CAT[r.cat||'sum']||{}).c||'#e7c355')},svg);
-    let x=L;const sc=(R-L-150)/mx;
+    let x=L,xm=L;const sc=(R-L-150)/mx;
     r.parts.forEach((p,j)=>{const w=Math.abs(p[0])*sc;const neg=p[0]<0;
       el('rect',{x:neg?x-w:x,y:y+16,width:Math.max(w,2),height:16,rx:3,fill:neg?'none':pal[j%pal.length],stroke:neg?'#f08a4b':'#0b0f1a','stroke-width':neg?1.4:1,'stroke-dasharray':neg?'3 3':'',opacity:.9},g);
       if(w>34) tx(g,neg?x-w/2:x+w/2,y+24.5,String(p[1]||Math.abs(p[0])),{size:11,col:'#0b0f1a',weight:600}).setAttribute('class','mono');
-      x+=neg?-w:w;});
+      x+=neg?-w:w;xm=Math.max(xm,x);});
     const tl=r.totalLabel||String(r.total);
     tx(g,L,y+6,r.title||'',{anchor:'start',size:11.5,col:'#8b95ad',mono:false,weight:400});
-    tx(g,x+10,y+24.5,'= '+tl,{anchor:'start',size:13,col:r.b138?'#ffcf5c':'#e9edf6',weight:600});
+    tx(g,xm+10,y+24.5,'= '+tl,{anchor:'start',size:13,col:r.b138?'#ffcf5c':'#e9edf6',weight:600});
     bind(g,`<div class="t-h">${r.eq}</div>`+(r.note?`<div class="t-b">${r.note}</div>`:''));
   });
 }
@@ -287,7 +287,7 @@ el('rect',{x:374,y:330,width:18,height:22,fill:'#0f1626',stroke:'#c9d2e6','strok
 el('line',{x1:320,y1:352,x2:400,y2:352,stroke:'#e9edf6','stroke-width':4},svg);
 el('polygon',{points:'365,702 405,702 405,724 394,724 394,754 376,754 376,724 365,724',fill:'#0f1626',stroke:'#c9d2e6','stroke-width':1.6},svg);
 const cap=(x,y,s,a)=>tx(svg,x,y,s,{size:10,col:'#6f7a96',mono:false,anchor:a||'middle',weight:400});
-cap(347,206,"King's Chamber");cap(404,406,"Queen's Ch.");cap(285,735,'Subterranean');cap(930,455,'Entrance','start');
+cap(347,206,"Upper Chamber");cap(404,406,"Middle Ch.");cap(285,735,'Lower Chamber');cap(930,455,'Entrance','start');
 
 // horizontal dims: y, x1, x2, label, leader-end-y (vertical leader at x2), cat
 function H(cat,y,x1,x2,label,desc,o){o=o||{};
@@ -309,17 +309,17 @@ H('horiz',333,607,790,'1390','Gallery foot → passage junction',{lx:690});
 H('horiz',397,612,790,'1386-89','Gallery foot → junction (along the ascending passage line)',{lx:720});
 H('horiz',420,790,914,'994','Junction → entrance vertical',{lx:850});
 // chamber / lower-left horizontals
-H('room',477,440,602,'1270','Queen\'s Chamber passage, chamber → Gallery foot',{lx:520});
-{const g=M(svg,'room','357','Small offset box below the Queen\'s Chamber','357');
+H('room',477,440,602,'1270','Middle Chamber passage, chamber → Gallery foot',{lx:520});
+{const g=M(svg,'room','357','Small offset box below the Middle Chamber','357');
   el('rect',{x:405,y:466,width:38,height:42,fill:'none',stroke:'#9c8bf0','stroke-width':1.2,'stroke-dasharray':'4 3',class:'dl'},g);
   tx(g,424,492,'357',{size:12});}
 H('room',516,405,607,'1627','To the Gallery-foot vertical',{lx:500,lead:462});
 H('room',538,380,607,'1831','To the Gallery-foot vertical',{lx:500});
 H('room',562,392,607,'2160','To the Gallery-foot vertical',{lx:560});
-{const g=M(svg,'room','204','King\'s Chamber','204',{ix:'204 (King\'s Ch.)'}); tx(g,346,342,'204',{size:11.5});}
+{const g=M(svg,'room','204','Upper Chamber','204',{ix:'204 (Upper Ch.)'}); tx(g,346,342,'204',{size:11.5});}
 {const g=M(svg,'room','204','At the Great Step, south end of Gallery','204',{ix:'204 (Step)'}); tx(g,412,364,'204',{size:11.5});}
-{const g=M(svg,'room','204','Queen\'s Chamber','204',{ix:'204 (Queen\'s Ch.)'}); tx(g,404,450,'204',{size:11.5});}
-{const g=M(svg,'room','534','Under the King\'s Chamber, measured to the axis','←534→',{ix:'←534→'});
+{const g=M(svg,'room','204','Middle Chamber','204',{ix:'204 (Middle Ch.)'}); tx(g,404,450,'204',{size:11.5});}
+{const g=M(svg,'room','534','Under the Upper Chamber, measured to the axis','←534→',{ix:'←534→'});
   dl(g,334,380,AX,380,{arrows:'both'}); el('line',{x1:334,y1:352,x2:334,y2:388,stroke:'#9c8bf0','stroke-dasharray':'3 3'},g); tx(g,362,394,'534',{size:12});}
 // below base
 H('low',598,455,607,'1325','Foot of descending passage → Gallery-foot vertical',{lead0:712,lead:BASE});

@@ -150,7 +150,7 @@
         <summary>Full transcription</summary>
         <div class="trg">
 <h3>Grand Gallery</h3><ul><li class="q">Seven Iron Empire Countdowns all ending from 1940–1962 AD</li><li class="q">1836 P″ (arrow pointing north down the gallery)</li><li class="q">1940 AD</li><li class="q">1962</li></ul>
-<h3>King's Chamber (Key Dates)</h3><ul><li class="q">KEY DATES</li><li class="q">104 AD + 1836 P″ To 1940 AD</li><li class="q">108 AD + 1836 P″ To 1944 AD</li><li class="q">116 AD + 1836 P″ To 1952 AD</li><li class="q">120 AD + 1836 P″ To 1956 AD</li><li class="q">126 AD + 1836 P″ To 1962 AD</li></ul>
+<h3>Upper Chamber (Key Dates)</h3><ul><li class="q">KEY DATES</li><li class="q">104 AD + 1836 P″ To 1940 AD</li><li class="q">108 AD + 1836 P″ To 1944 AD</li><li class="q">116 AD + 1836 P″ To 1952 AD</li><li class="q">120 AD + 1836 P″ To 1956 AD</li><li class="q">126 AD + 1836 P″ To 1962 AD</li></ul>
 <h3>Floor</h3><ul><li class="q">GREAT STEP LIMESTONE</li><li class="q">GRANITE</li><li class="q">126 P″</li></ul>
 <h3>Lower passage</h3><ul><li class="q">1940 / −1836 / 104 AD [52+52]</li><li class="q">1962 / −1836 / 126 AD</li><li class="q">1836 P″ (along the sloping passage)</li><li class="q">1940–1962 AD</li><li class="q">22 Years on Sacred Year System [360 Days] is 7920 Days [792×10]</li></ul>
 <h3>Frame</h3><ul><li class="q">XXVI (chart label)</li><li class="q">Breshears '06</li></ul>
@@ -165,7 +165,7 @@
 <div id="tip"></div>
 
 <script>
-/* ---- shared King's Chamber / Antechamber / Grand Gallery section engine (plates 80–85) ----
+/* ---- shared Upper Chamber / Antechamber / Grand Gallery section engine (plates 80–85) ----
    Horizontal coordinate p = pyramid inches (P″) south of the face of the Great Step.
    Vertical coordinate h = P″ above the top of the Great Step (floor level). */
 const NS='http://www.w3.org/2000/svg';
@@ -257,14 +257,14 @@ function Section(svg,o){
   const leaf=el('g',{class:'part','data-key':'leaf'},gS);
   R(134,150,50,104,{fill:'url(#gran)',stroke:'#8fa4d6','stroke-width':1.3,rx:2},leaf);
   R(132.6,134,72,84,{fill:'#8fa4d6'},leaf);
-  // granite between antechamber and King's Chamber
+  // granite between antechamber and Upper Chamber
   const g2=el('g',{class:'part','data-key':'granite2'},gS);
   R(228,279,44,170,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
   R(279,330,44,170,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
   R(300,330,170,262,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
   const ps2=el('g',{class:'part','data-key':'passage2'},gS);
   R(228,330,0,44,{fill:'#080d19',stroke:'#4a5a84','stroke-width':1.2},ps2);
-  // King's Chamber
+  // Upper Chamber
   const kc=el('g',{class:'part','data-key':'kc'},gS);
   R(330,534,0,230,{fill:'#080d19',stroke:'#4a5a84','stroke-width':1.3},kc);
   const kw=el('g',{class:'part','data-key':'kcwalls'},gS);
@@ -281,7 +281,7 @@ function Section(svg,o){
     gallery:['Grand Gallery','',''],passage1:['Passage to the Antechamber','60.96 → 112 P″',''],
     block:['Limestone ceiling block','',''],ante:['Antechamber','',''],anteroof:['Antechamber granite roof blocks','',''],
     leaf:['Granite leaf','',''],granite2:['Granite masonry','',''],passage2:['Second passage','228 → 330 P″',''],
-    kc:["King's Chamber",'',''],kcwalls:["King's Chamber granite walls & roof",'',''],
+    kc:["Upper Chamber",'',''],kcwalls:["Upper Chamber granite walls & roof",'',''],
     step:['Great Step','limestone · 0 → 126 P″',''],floor:['Granite floor','',''] },o.parts||{});
   gS.querySelectorAll('.part').forEach(g=>{const k=g.getAttribute('data-key');const t=PT[k];if(t)bind(g,T(t[0],t[1],t[2],'#c9b98f'));});
   // labels for parts

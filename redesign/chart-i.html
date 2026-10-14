@@ -84,7 +84,7 @@ const svg=document.getElementById('art');
 const apex=[500,66], bL=[120,470], bR=[880,470], baseY=470;
 const E=[742,322];   // pyramid entry (north face)
 const J=[560,420];   // passage junction
-const S=[250,592];   // subterranean end (descending)
+const S=[250,592];   // lower chamber end (descending)
 const G=[380,336];   // face of the Great Step (ascending end)
 
 // pyramid body (hatched)
@@ -138,7 +138,7 @@ function node(p,col,label,ly,anchor,data){
 svg.appendChild(el('path',{d:`M${G[0]-14} ${G[1]+6} h10 v-8 h10`,fill:'none',stroke:'#ffd15c',['stroke-width']:2.4,['stroke-linejoin']:'round'}));
 node(G,'#ffd15c','◆ Great Step',-16,'middle',`<div class="h">Face of the Great Step</div><div class="y">5796 AM = 1902 AD</div><div class="b">Where the ascending count lands — the start of the countdown calendar. Its limestone block runs 126 P″ = 42×3 years to 2028 AD (plate 99).</div>`);
 node(E,'#ffd15c','Entry',22,'start',`<div class="h">Pyramid Entry · North face</div><div class="b">Mouth of the descending passage.</div>`);
-node(S,'#4fe3ff','End-joint',20,'middle',`<div class="h">Descending end-joint</div><div class="y">3036 P″ from entry</div><div class="b">Subterranean terminus.</div>`);
+node(S,'#4fe3ff','End-joint',20,'middle',`<div class="h">Descending end-joint</div><div class="y">3036 P″ from entry</div><div class="b">Lower Chamber terminus.</div>`);
 node(J,'#b98cff','Junction · 2435 AM',34,'middle',`<div class="h">Passage junction</div><div class="y">2435 AM = 1460 BC</div><div class="b">Enoch's 365×4 = 1460. The conjunct axis rises from here.</div>`);
 
 // measure labels along passages

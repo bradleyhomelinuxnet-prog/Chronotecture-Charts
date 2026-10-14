@@ -1,0 +1,317 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XIX·b — From the Pyramid’s Completion</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  @media(max-width:600px){.wrap{padding:22px 16px 60px}}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.7}
+  @media(max-width:600px){.kicker{letter-spacing:.22em;font-size:10px}}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  @media(max-width:600px){.card{padding:14px 12px 12px}}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card h2 .lab{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;color:var(--anchor);margin-right:8px;vertical-align:middle}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:880px){.bottom,.two{grid-template-columns:1fr}}
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .halo{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  [data-cat]{transition:opacity .15s}
+  .hot{cursor:pointer}
+  .hot:hover{filter:brightness(1.25)}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  #tip .t-q{color:#cfd6e6;margin-top:5px;font-style:italic;border-left:2px solid var(--line2);padding-left:7px}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:640px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow.bad{border-color:#5a3a2a}
+  .asw{display:block;font-size:11px;color:#a08670;font-family:'JetBrains Mono',monospace;margin-top:3px}
+  .base138{color:var(--anchor);font-weight:600}
+  .struck{text-decoration:line-through;text-decoration-color:#f08a4b99}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .txg{margin:12px 0 4px}
+  .txg h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--anchor);text-transform:uppercase;margin:14px 0 6px;font-weight:500}
+  .txg ul{margin:0;padding-left:18px;color:#cdd4e4;font-size:13px;line-height:1.6}
+  .txg li{margin:2px 0}
+  .txg .u{color:var(--muted);font-size:11.5px}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XIX·b · Plate&nbsp;60</div>
+    <h1>Chronotecture
+      <span class="sub">From the Pyramid’s completion — span-bars out of 2815 BC [1080 AM]</span>
+    </h1>
+    <p class="prov">A rebuild of Breshears' hand-drawn chart <b>XIX·b</b>, every date, span, formula and annotation preserved verbatim; only the visual language is redesigned. Its structural key: <b>every bar starts at 2815&nbsp;BC [1080&nbsp;AM], “Great Pyramid complete”</b> and runs to a dated landing — the Flood, 583&nbsp;BC, the Temple, 745&nbsp;BC, 1825&nbsp;BC, 1986 and 2046&nbsp;AD — while two 1656-year (414×4) arcs frame the antediluvian and ancient worlds.</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2><span class="lab">XIX·b</span>Span-bars from the 2815&nbsp;BC anchor</h2>
+      <div class="hint">Upper stack: bars running forward from the anchor across the BC|AD divide. Lower stack: the foundation (2905&nbsp;BC) and the shorter spans. Arcs: the two 1656-year worlds. Hover or tap anything. <span class="anchor-key"><i></i>ANCHOR 2815 BC [1080 AM]</span></div>
+      <svg id="tl" viewBox="0 0 1000 650" role="img" aria-label="Span bars from 2815 BC"></svg>
+    </div>
+<div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked. Rows marked “as written” do not compute as stated and are left unchanged.</div><div class="mathgrid">
+<div class="mrow"><span class="eq">576 = 144 × 4</span><span class="cap">2815&nbsp;BC → 2239&nbsp;BC: “Pyramid finished 144×4 yrs. to Flood.”</span></div>
+<div class="mrow"><span class="eq">2232 = 186 × 12 = 744 × 3</span><span class="cap">2815&nbsp;BC → 583&nbsp;BC [3312&nbsp;AM].</span></div>
+<div class="mrow"><span class="eq">2300</span><span class="cap">2815&nbsp;BC → 515&nbsp;BC [3380&nbsp;AM], rebuilding the Temple in Jerusalem.</span></div>
+<div class="mrow"><span class="eq">4800 = 600 × 8 = 40 × 120</span><span class="cap">2815&nbsp;BC → 1986&nbsp;AD [5880&nbsp;AM] (no year zero).</span></div>
+<div class="mrow"><span class="eq">4860 = 108 × 45</span><span class="cap">2815&nbsp;BC → 2046&nbsp;AD (no year zero); 2046 is 186 × 11.</span></div>
+<div class="mrow"><span class="eq">1656 = 414 × 4 (twice)</span><span class="cap">Antediluvian world (3895&nbsp;BC → 2239&nbsp;BC) and ancient world (2239&nbsp;BC → 583&nbsp;BC).</span></div>
+<div class="mrow"><span class="eq">990 AM = 90 × 11 · 1080 AM = 108 × 10</span><span class="cap">Foundation laid 2905&nbsp;BC; 90 yrs to completion at 2815&nbsp;BC.</span></div>
+<div class="mrow"><span class="eq">2070 = 414 × 5</span><span class="cap">2815&nbsp;BC → 745&nbsp;BC [3150&nbsp;AM]; 1825&nbsp;BC is also 2070&nbsp;AM.</span></div>
+<div class="mrow"><span class="eq">990 · 1080</span><span class="cap">2815 → 1825&nbsp;BC = 990; 2905 → 1825&nbsp;BC = 1080 (“exactly 1080 years from Giza foundation laid”).</span></div>
+<div class="mrow"><span class="eq">5940 = 108 × 55</span><span class="cap">2046&nbsp;AD is 5940 Annus Mundi.</span></div>
+<div class="mrow"><span class="eq">1986 + 120 = 2106</span><span class="cap">“1986 AD is 120 yrs. to Armageddon” — 2106&nbsp;AD [6000&nbsp;AM].</span></div>
+<div class="mrow"><span class="eq">1080 + 108</span><span class="cap">“108 yrs. after pyramid finished 1080 AM Nibiru passes through inner system” (the landing year is not written).</span></div>
+</div>
+<div style="font-size:12.5px;color:var(--muted);line-height:1.6">Every span on the plate computes as written. The plate's factors are <b>144</b>, <b>186</b>, <b>414</b>, <b>108</b> and <b>600</b>; no base-138 figures appear.</div>
+</div><div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised; brackets, spelling and punctuation as drawn). <b>[?]</b> marks an uncertain reading.</div>
+<details class="tx"><summary>Show transcription</summary><div class="txg">
+<h3>Header & anchor</h3><ul>
+<li>Great Pyramid complete 2815 BC [1080 AM] (arrow down to the bar origin)</li>
+<li>BC | AD (two places)</li>
+<li>Border: 2106 AD [6000 AM]</li>
+</ul>
+<h3>Arcs</h3><ul>
+<li>1656 yrs. of Antediluvian World 414×4</li>
+<li>1656 yrs. of Ancient World to 583 BC 414×4</li>
+<li>Great Flood 2239 BC [1656 AM]</li>
+</ul>
+<h3>Upper bars (▷ from 2815 BC)</h3><ul>
+<li>▷ 576 [144×4]</li>
+<li>▷ 2232 yrs [186×12 or 744×3] To 583 BC [3312 AM]</li>
+<li>▷ 2300 yrs. To rebuilding Temple in Jerusalem</li>
+<li>▷ 4800 yrs. [600×8 or 40×120] To 1986 AD [5880 AM] 5-mile wide astroid Adonis 186,000 mi from Earth</li>
+<li>▷ 4860 yrs [108×45] To Nibiru and astroid impact of North America in 2046 AD [2046 is 186×11]</li>
+</ul>
+<h3>Upper notes</h3><ul>
+<li>Pyramid finished 144×4 yrs. to Flood (arrow to the 576 bar)</li>
+<li>583 BC sun darkens during Medo-Lydian battle</li>
+<li>515 BC [3380 AM]</li>
+<li>1986 AD is 120 yrs. to Armageddon; 120 yrs warning given to Noah of coming destruction; space shuttle <u>Challenger</u> 7 astronauts exploded on ascent</li>
+<li>2046 AD (planet with comet)</li>
+</ul>
+<h3>Lower bars</h3><ul>
+<li>◁ (2905 BC → 2815 BC, unlabelled)</li>
+<li>▷ 2070 yrs [414×5] To 745 BC [3150 AM]</li>
+<li>▷ 990 To 1825 BC</li>
+<li>▷ (short bar, unlabelled — the 108-year span of the note)</li>
+</ul>
+<h3>Lower notes</h3><ul>
+<li>Foundation of Great Pyramid laid 2905 BC or 990 Annus Mundi [90×11]. 90 yrs to Pyramid complete at 2815 BC, or 1080 AM [108×10]</li>
+<li>108 yrs. after pyramid finished 1080 AM <u>Nibiru</u> passes through inner system (broken planet and dark planet drawn)</li>
+<li>1825 BC is 2070 AM [414×5] exactly <u>1080</u> years from Giza foundation laid; 1825 BC Abraham in Egypt translating Giza texts off Great Pyramids casing blocks. [Word of God dispersed among the nations]</li>
+<li>Ten Tribes of Israel dispersed in Assyrian deportation programs of Tiglath-Pileser</li>
+<li>2046 AD is 5940 Annus Mundi [5940 is 108×55]</li>
+<li>Signature: Breshears '07</li>
+</ul>
+<h3>Reading notes</h3><ul><li class="u">“Astroid” is the plate's spelling. The two short lower bars carry no text of their own; their meaning is taken from the arrows and notes attached to them.</li></ul>
+</div></details>
+<div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XIX·b (plate&nbsp;60). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+</div>
+  </div>
+</div>
+
+<div id="tip"></div>
+<script>
+
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x:x,y:y},a||{}),p);t.textContent=s;return t;}
+const tip=document.getElementById('tip');
+let tipOn=false;
+function showTip(h,cx,cy){tip.innerHTML=h;tip.style.opacity=1;tipOn=true;
+  const w=Math.min(300,window.innerWidth-20);let x=cx+16,y=cy+14;
+  if(x+w>window.innerWidth-6)x=Math.max(6,cx-w-10);
+  const th=tip.offsetHeight||140; if(y+th>window.innerHeight-6)y=Math.max(6,cy-th-12);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;tipOn=false;}
+function T(col,h,yr,b,q){return `<div class="t-h"><span class="d" style="background:${col}"></span>${h}</div>`+(yr?`<div class="t-yr">${yr}</div>`:'')+(b?`<div class="t-b">${b}</div>`:'')+(q?`<div class="t-q">“${q}”</div>`:'');}
+function bind(g,h){g.classList.add('hot');
+  g.addEventListener('mousemove',e=>showTip(h,e.clientX,e.clientY));
+  g.addEventListener('mouseleave',hideTip);
+  g.addEventListener('click',e=>{e.stopPropagation();showTip(h,e.clientX,e.clientY);});
+  return g;}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',()=>{if(tipOn)hideTip();},{passive:true});
+function chips(CAT){const bar=document.getElementById('filters');if(!bar)return;const act=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(act.has(k)){act.delete(k);c.classList.add('off');}else{act.add(k);c.classList.remove('off');}
+      document.querySelectorAll('[data-cat]').forEach(g=>{g.style.opacity=act.has(g.getAttribute('data-cat'))?'':'0.08';g.style.pointerEvents=act.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);});}
+/* span bar: rect from x1..x2 centred on y, label inside */
+function sbar(p,x1,x2,y,h,col,label,opt){opt=opt||{};const a=Math.min(x1,x2),b=Math.max(x1,x2);
+  el('rect',{x:a,y:y-h/2,width:Math.max(b-a,1.5),height:h,rx:3,fill:col,'fill-opacity':opt.fo||0.16,stroke:col,'stroke-width':1.3},p);
+  if(label){const anc=opt.anchor||'start';const lx=anc==='start'?a+7:(anc==='end'?b-7:(a+b)/2);
+    tx(p,opt.lx!==undefined?opt.lx:lx,y+4,label,{fill:opt.tc||'#e6ebf5','font-size':opt.fs||11.5,'text-anchor':opt.lanc||anc,'font-weight':500});}
+}
+function tri(p,x,y,dir,col){/* small plate-style ◁ ▷ arrowhead at x */const s=5;
+  el('path',{d:dir>0?`M${x} ${y-s} L${x+s*1.3} ${y} L${x} ${y+s}Z`:`M${x} ${y-s} L${x-s*1.3} ${y} L${x} ${y+s}Z`,fill:col},p);}
+
+
+const CAT={
+  pyramid:{c:'#37b6a6',label:'Pyramid'},
+  flood:{c:'#5b8def',label:'Flood / world-ages'},
+  celestial:{c:'#5cb3f2',label:'Comet / Nibiru / astroid'},
+  hist:{c:'#9c8bf0',label:'Israel / history'}
+};
+CAT.celestial.c='#f08a4b';
+const AN='#ffcf5c';
+function yl(y){return y<0?(-y)+' BC':y+' AD';}
+(function(){
+  const s=document.getElementById('tl');
+  const Y0=-4000,Y1=2150,PL=40,PR=960;
+  const X=y=>PL+(y-Y0)/(Y1-Y0)*(PR-PL);
+  const AXY=350, xa=X(-2815), x0=X(0);
+  const defs=el('defs',{},s);const m=el('marker',{id:'ah',viewBox:'0 0 10 10',refX:5,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);el('path',{d:'M0 0 L10 5 L0 10z',fill:'#aeb7cd'},m);
+  // grid + axis
+  el('rect',{x:PL,y:60,width:x0-PL,height:AXY+130-60,fill:'#0e1626',opacity:.45},s);
+  for(let v=-4000;v<=2000;v+=500){const xx=X(v);el('line',{x1:xx,y1:60,x2:xx,y2:AXY,stroke:'#1c2740'},s);
+    tx(s,xx,AXY+16,v===0?'':yl(v),{fill:'#5d6885','font-size':9.5,'text-anchor':'middle','font-family':'JetBrains Mono'});}
+  el('line',{x1:PL,y1:AXY,x2:PR,y2:AXY,stroke:'#3a486a','stroke-width':2},s);
+  el('line',{x1:x0,y1:60,x2:x0,y2:AXY+140,stroke:'#56628f','stroke-width':1.3,'stroke-dasharray':'4 5'},s);
+  tx(s,x0-7,74,'BC',{fill:'#7b86a4','font-size':11,'text-anchor':'end','font-family':'JetBrains Mono'});
+  tx(s,x0+7,74,'AD',{fill:'#7b86a4','font-size':11,'font-family':'JetBrains Mono'});
+  const xe=X(2106);el('line',{x1:xe,y1:60,x2:xe,y2:AXY+140,stroke:'#e7c355','stroke-width':2.4},s);
+  tx(s,xe+12,140,'2106 AD [6000 AM]',{fill:'#e7c355','font-size':10.5,'font-family':'JetBrains Mono','text-anchor':'middle',transform:`rotate(90 ${xe+12} 140)`});
+  // anchor
+  el('line',{x1:xa,y1:40,x2:xa,y2:AXY+124,stroke:AN,'stroke-width':2},s);
+  el('path',{d:`M${xa-9} 34 L${xa+9} 34 L${xa} 50Z`,fill:AN},s);
+  const hg=el('g',{'data-cat':'pyramid'},s);
+  tx(hg,xa+14,22,'Great Pyramid complete 2815 BC [1080 AM]',{fill:AN,'font-size':13.5,'font-weight':600});
+  el('polygon',{points:`${xa-70},44 ${xa-30},44 ${xa-50},22`,fill:'#37b6a6','fill-opacity':.3,stroke:'#37b6a6'},hg);
+  bind(hg,T(AN,'Great Pyramid complete','2815 BC [1080 AM]','The shared origin of every bar on XIX·b.'));
+  // arcs
+  const AB=190;
+  function arc(a,b,lbl,sub,from){const xa1=X(a),xb=X(b),cx=(xa1+xb)/2,r=(xb-xa1)/2;const g=el('g',{'data-cat':'flood'},s);
+    const id='arc'+a;el('path',{id:id,d:`M ${xa1+16} ${AB} A ${r-16} ${r-16} 0 0 1 ${xb-16} ${AB}`,fill:'none'},defs);
+    el('path',{d:`M ${xa1} ${AB} A ${r} ${r} 0 0 1 ${xb} ${AB}`,fill:'#5b8def','fill-opacity':.05,stroke:'#5b8def','stroke-width':1.8},g);
+    const t=el('text',{fill:'#a9c2f5','font-size':11.5,'text-anchor':'middle'},g);const tp=el('textPath',{href:'#'+id,startOffset:'50%',dy:-4},t);tp.textContent=lbl;
+    tx(g,cx,AB-r+44,sub,{fill:'#a9c2f5','font-size':11,'text-anchor':'middle','font-family':'JetBrains Mono'});
+    bind(g,T('#5b8def',lbl,from,'1656 = 414×4'));}
+  arc(-3895,-2239,'1656 yrs. of Antediluvian World','414×4','3895 BC → 2239 BC');
+  arc(-2239,-583,'1656 yrs. of Ancient World to 583 BC','414×4','2239 BC → 583 BC');
+  const fg=el('g',{'data-cat':'flood'},s);const xf=X(-2239);
+  tx(fg,xf+4,AB-6,'Great Flood 2239 BC [1656 AM]',{fill:'#e6ebf5','font-size':11,transform:`rotate(-90 ${xf+4} ${AB-6})`,class:'halo'});
+  bind(fg,T('#5b8def','Great Flood','2239 BC [1656 AM]','576 [144×4] years after the Pyramid\'s completion.'));
+  // upper bars
+  const UP=[
+    {e:-2239,t:'576 [144×4]',cat:'flood',sp:'576 [144×4]',land:'2239 BC [1656 AM] — Great Flood',q:'Pyramid finished 144×4 yrs. to Flood'},
+    {e:-583,t:'2232 yrs [186×12 or 744×3] To 583 BC [3312 AM]',cat:'celestial',sp:'2232 yrs',land:'583 BC [3312 AM]',q:'583 BC sun darkens during Medo-Lydian battle'},
+    {e:-515,t:'2300 yrs. To rebuilding Temple in Jerusalem',cat:'hist',sp:'2300 yrs.',land:'515 BC [3380 AM]'},
+    {e:1986,t:'4800 yrs. [600×8 or 40×120] To 1986 AD [5880 AM] 5-mile wide astroid Adonis 186,000 mi from Earth',cat:'celestial',sp:'4800 yrs.',land:'1986 AD [5880 AM]',q:'1986 AD is 120 yrs. to Armageddon; 120 yrs warning given to Noah of coming destruction; space shuttle Challenger 7 astronauts exploded on ascent'},
+    {e:2046,t:'4860 yrs [108×45] To Nibiru and astroid impact of North America in 2046 AD [2046 is 186×11]',cat:'celestial',sp:'4860 yrs [108×45]',land:'2046 AD — 5940 AM [108×55]'}
+  ];
+  UP.forEach((b,i)=>{const y=AB+14+i*28,col=CAT[b.cat].c,g=el('g',{'data-cat':b.cat},s);
+    sbar(g,xa,X(b.e),y,22,col,b.t,{fs:10.8,lx:xa+16});tri(g,xa+3,y,1,col);
+    bind(g,T(col,b.sp,'2815 BC → '+b.land,'▷ '+b.t,b.q));});
+  const t515=el('g',{'data-cat':'hist'},s);tx(t515,X(-515)+8,AB+14+2*28+4,'515 BC [3380 AM]',{fill:'#c9bff5','font-size':10.5,'font-family':'JetBrains Mono'});
+  bind(t515,T('#9c8bf0','515 BC [3380 AM]','rebuilding Temple in Jerusalem','2300 yrs. from 2815 BC.'));
+  // upper notes
+  const n1=el('g',{'data-cat':'flood'},s);
+  tx(n1,X(-2180),AB-40,'Pyramid finished',{fill:'#aeb7cd','font-size':11,'font-style':'italic'});
+  tx(n1,X(-2180),AB-26,'144×4 yrs. to Flood',{fill:'#aeb7cd','font-size':11,'font-style':'italic'});
+  el('line',{x1:X(-2190),y1:AB-22,x2:X(-2239)+6,y2:AB+6,stroke:'#aeb7cd','marker-end':'url(#ah)'},n1);
+  bind(n1,T('#5b8def','Note','2815 BC → 2239 BC','Pyramid finished 144×4 yrs. to Flood'));
+  const n2=el('g',{'data-cat':'celestial'},s);const x583=X(-583);
+  ['583 BC sun darkens','during Medo-Lydian','battle'].forEach((l,k)=>tx(n2,x583+14,92+k*14,l,{fill:'#aeb7cd','font-size':11,'font-style':'italic'}));
+  el('line',{x1:x583+10,y1:118,x2:x583,y2:AB-2,stroke:'#f08a4b','stroke-dasharray':'3 3'},n2);
+  bind(n2,T('#f08a4b','583 BC','end of the 2232-yr bar and of the Ancient World arc','583 BC sun darkens during Medo-Lydian battle'));
+  const n3=el('g',{'data-cat':'celestial'},s);const x86=X(1986);
+  ['1986 AD is 120 yrs. to Armageddon; 120','yrs warning given to Noah of coming','destruction; space shuttle Challenger','7 astronauts exploded on ascent'].forEach((l,k)=>tx(n3,x86-12,96+k*14,l,{fill:'#aeb7cd','font-size':11,'font-style':'italic','text-anchor':'end'}));
+  el('line',{x1:x86-6,y1:150,x2:x86,y2:AB+14+3*28-12,stroke:'#f08a4b','stroke-dasharray':'3 3'},n3);
+  bind(n3,T('#f08a4b','1986 AD','4800 yrs. from 2815 BC','1986 AD is 120 yrs. to Armageddon; 120 yrs warning given to Noah of coming destruction; space shuttle Challenger 7 astronauts exploded on ascent'));
+  const pl=el('g',{'data-cat':'celestial'},s);const x46=X(2046);
+  el('circle',{cx:x46-14,cy:78,r:13,fill:'#1d2740',stroke:'#f08a4b','stroke-width':1.4},pl);
+  el('line',{x1:x46-28,y1:70,x2:x46-62,y2:52,stroke:'#f08a4b','stroke-width':2,opacity:.6},pl);
+  tx(pl,x46-36,48,'2046 AD',{fill:'#f6b98f','font-size':10.5,'font-family':'JetBrains Mono','text-anchor':'end'});
+  el('line',{x1:x46-14,y1:92,x2:x46-2,y2:AB+14+4*28-12,stroke:'#f08a4b','stroke-dasharray':'3 3'},pl);
+  bind(pl,T('#f08a4b','2046 AD','Nibiru and astroid impact of North America','2046 AD is 5940 Annus Mundi [5940 is 108×55]; 2046 is 186×11.'));
+  // lower bars
+  const LY=AXY+34;
+  const LO=[
+    {a:-2905,e:-2815,t:'',cat:'pyramid',h:T('#37b6a6','◁ 2905 BC → 2815 BC','Foundation laid → Pyramid complete','Foundation of Great Pyramid laid 2905 BC or 990 Annus Mundi [90×11]. 90 yrs to Pyramid complete at 2815 BC, or 1080 AM [108×10]')},
+    {a:-2815,e:-745,t:'2070 yrs [414×5] To 745 BC [3150 AM]',cat:'hist',h:T('#9c8bf0','2070 yrs [414×5]','2815 BC → 745 BC [3150 AM]','Ten Tribes of Israel dispersed in Assyrian deportation programs of Tiglath-Pileser')},
+    {a:-2815,e:-1825,t:'990 To 1825 BC',cat:'hist',h:T('#9c8bf0','990','2815 BC → 1825 BC','1825 BC is 2070 AM [414×5] exactly 1080 years from Giza foundation laid; 1825 BC Abraham in Egypt translating Giza texts off Great Pyramids casing blocks. [Word of God dispersed among the nations]')},
+    {a:-2815,e:-2707,t:'',cat:'celestial',h:T('#f08a4b','108 yrs.','after pyramid finished 1080 AM','108 yrs. after pyramid finished 1080 AM Nibiru passes through inner system (the landing year is not written on the plate).')}
+  ];
+  LO.forEach((b,i)=>{const y=LY+i*28,col=CAT[b.cat].c,g=el('g',{'data-cat':b.cat},s);
+    sbar(g,X(b.a),X(b.e),y,22,col,b.t,{fs:10.8,lx:X(b.a)+16});
+    if(i===0)tri(g,X(b.e)-3,y,-1,col);else tri(g,X(b.a)+3,y,1,col);
+    bind(g,b.h);});
+  tx(s,X(-2905)-6,LY+4,'2905 BC',{fill:'#8fd6cb','font-size':10.5,'text-anchor':'end','font-family':'JetBrains Mono'});
+  tx(s,X(-2707)+8,LY+3*28+4,'108 yrs. → Nibiru',{fill:'#f6b98f','font-size':10.5,'font-family':'JetBrains Mono'});
+  // lower notes
+  function note(x,y,lines,cat,col,h,w){const g=el('g',{'data-cat':cat},s);lines.forEach((l,k)=>tx(g,x,y+k*14.5,l,{fill:'#aeb7cd','font-size':11,'font-style':'italic'}));bind(g,h);return g;}
+  note(40,510,['Foundation of Great Pyramid laid','2905 BC or 990 Annus Mundi [90×11].','90 yrs to Pyramid complete at','2815 BC, or 1080 AM [108×10]'],'pyramid','#37b6a6',LO[0].h);
+  el('line',{x1:X(-2905)+2,y1:LY+12,x2:120,y2:496,stroke:'#37b6a6','stroke-dasharray':'3 3'},s);
+  note(40,590,['108 yrs. after pyramid finished','1080 AM Nibiru passes through','inner system'],'celestial','#f08a4b',LO[3].h);
+  el('line',{x1:X(-2707),y1:LY+3*28+12,x2:220,y2:578,stroke:'#f08a4b','stroke-dasharray':'3 3'},s);
+  el('circle',{cx:262,cy:612,r:12,fill:'#1d2740',stroke:'#f08a4b'},s);
+  [[240,590,5],[232,598,3],[226,604,2]].forEach(([x,y,r])=>el('circle',{cx:x,cy:y,r:r,fill:'#f08a4b',opacity:.6},s));
+  note(300,510,['1825 BC is 2070 AM [414×5] exactly 1080','years from Giza foundation laid; 1825 BC','Abraham in Egypt translating Giza texts','off Great Pyramids casing blocks. [Word','of God dispersed among the nations]'],'hist','#9c8bf0',LO[2].h);
+  el('line',{x1:X(-1825),y1:LY+2*28+12,x2:X(-1825),y2:496,stroke:'#9c8bf0','stroke-dasharray':'3 3'},s);
+  note(560,510,['Ten Tribes of Israel dispersed','in Assyrian deportation','programs of Tiglath-Pileser'],'hist','#9c8bf0',LO[1].h);
+  el('line',{x1:X(-745),y1:LY+28+12,x2:X(-745)+40,y2:496,stroke:'#9c8bf0','stroke-dasharray':'3 3'},s);
+  note(790,510,['2046 AD is 5940 Annus','Mundi [5940 is 108×55]'],'celestial','#f08a4b',T('#f08a4b','2046 AD','5940 Annus Mundi','5940 is 108×55'));
+})();
+chips(CAT);
+
+</script>
+</body>
+</html>

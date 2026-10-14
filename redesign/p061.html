@@ -1,0 +1,251 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XIX·c — Anunnaki Chronology — from King David’s Birth (1039 BC) to 1962 AD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+
+  .row{transition:opacity .15s}
+  .row:hover rect:not([fill=transparent]){filter:brightness(1.25)}
+  .callouts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px 18px;margin-top:10px}
+  .callouts div{font-size:12px;color:var(--muted);line-height:1.45;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .callouts b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;display:block;font-size:11.5px;margin-bottom:2px}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XIX·c · Plate&nbsp;61</div>
+    <h1>Chronotecture
+      <span class="sub">Anunnaki Chronology — from King David’s Birth (1039 BC) to 1962 AD</span>
+    </h1>
+    <p class="prov">A rebuild of Jason&nbsp;M.&nbsp;Breshears’ hand-drawn chart&nbsp;XIX·c, with every date, span and annotation preserved verbatim; only the visual language is new. Its structural key: <b>mirrored spans around the birth of King David, 1039&nbsp;BC [2856&nbsp;AM]</b> — 318, 326, 368, 649 and 3000 years back to 4039&nbsp;BC and forward to 1962&nbsp;AD [5856&nbsp;AM] — with a lower register of spans leading back to the Great Pyramid, Japheth and Shem.</p>
+  </header>
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2>King David’s birth as the axis of 3000 years</h2>
+      <div class="hint">Upper register: nested mirrored spans around 1039 BC on one true BC–AD scale. Lower register: the spans from 2815, 2339 and 2337 BC to King David. Hover or tap any bar or text for its full annotation. <span class="anchor-key"><i></i>AXIS 1039 BC · 2856 AM</span></div>
+      <div class="swipe">⟷ swipe to pan the chart</div>
+      <div class="scroller" data-focus=".5"><svg id="tl" class="wide" viewBox="0 0 1400 810" role="img" aria-label="King David’s birth as the axis of 3000 years"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked. Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid"><div class="mrow"><span class="eq">4039 − 3895 = 144</span><span class="cap">Anunnaki renovate Eden 144 years before the Annus Mundi system of 3895 BC.</span></div><div class="mrow"><span class="eq">4039 − 1039 = 3000 = 600×5</span><span class="cap">Earth restored; the left half of the 3000-year bar.</span></div><div class="mrow"><span class="eq">1039 + 1962 = 3001 → “3000”</span><span class="cap">Counting with no year zero, 1039 BC to 1962 AD is 3000 years; 1962 AD = 5856 AM, 1039 BC = 2856 AM.</span></div><div class="mrow"><span class="eq">649 · 368 · 326 · 318</span><span class="cap">1688→1039 = 649 = 1039→390; 1407→1039 = 368 = 1039→671; 1365→1039 = 326 = 1039→713; 1357→1039 = 318 = 1039→721.</span></div><div class="mrow"><span class="eq">1344 + 1656 = 3000</span><span class="cap">Pre-Adamic World and Eden plus Preflood World span the 3000 years 4039 BC to 1039 BC (columns as labelled).</span></div><div class="mrow"><span class="eq">3895 − 1656 = 2239</span><span class="cap">Great Flood date from the start of Annus Mundi.</span></div><div class="mrow"><span class="eq">2815 − 1039 = 1776</span><span class="cap">Completion of the Great Pyramid to King David; 1776 AD echoed in the founding of the United States.</span></div><div class="mrow"><span class="eq">2339 − 1039 = 1300 = 52×52?</span><span class="cap">Japheth born 2339 BC.</span><span class="aw">as written — 52×52 = 2704; 1300 = 52×25</span></div><div class="mrow"><span class="eq">1296 = 108×12 = 144×9</span><span class="cap">Shem born 2337 BC; 2337 − 1039 = 1298.</span><span class="aw">as written — the bar is labelled 1296</span></div><div class="mrow"><span class="eq">7200 · 1962 + 144 = 2106</span><span class="cap">The 7200-year chronology ends 1962 AD; a 144-year countdown reaches 6000 AM [2106 AD]. 5239 BC + 7200 − 1 = 1962 AD.</span></div></div><div style="font-size:12.5px;color:var(--muted);line-height:1.6">The nested pairs are exact on both sides of 1039 BC. The two lower bars marked as written do not match their own arithmetic.</div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised), grouped by region.</div><details class="tx"><summary>Show transcription</summary><div class="cols"><div><h3>Header</h3><ul><li>XIX.c</li><li>Breshears ’07</li><li>1039 BC [2856 AM] King David Born [Fulfilled King of World Archetype]</li><li>BC | AD</li><li>2106 AD [6000 AM] Chief Cornerstone returns to sit on throne of David, ending Kingship of the Builders [Anunnaki].</li><li>End of 7200 Year Chronology of the Builders at 1962 AD begins 144 Year Countdown to Descent of Chief Cornerstone They Rejected at Armageddon in 6000 AM [2106 AD]</li><li>1962 AD [5856 AM]</li></ul></div><div><h3>World ages (left columns)</h3><ul><li>Preadamic World and Eden [1344 yrs]</li><li>Preflood World [1656 yrs]</li><li>Great Flood 2239 BC</li><li>4039 BC Anunnaki are the Builders who renovated Eden [Earth] 144 yrs. prior to Annus Mundi system of 3895 BC.</li></ul></div><div><h3>Mirrored bars, upper register</h3><ul><li>318 | 318 (1357 BC Israel free of Babylon | 721 BC Assyria deports Israel)</li><li>326 | 326 (1365 BC Babylon invades Israel | 713 BC Assyrian army vaporized)</li><li>368 | 368 (1407 BC Israeli conquest of Canaan and sun stand still | 671 BC Assyria invades Syria and Egypt)</li><li>649 yrs. | 649 yrs (1688 BC Sun darkens as Israel’s sons at war in Canaan | 390 BC Gauls [Japhetic-Semitic] invade Italy and sack Rome)</li><li>4039 BC Earth Restored 3000 yrs [600×5] to 1039 BC | 3000 yrs to Anunnaki Chronology End 1962 AD</li></ul></div><div><h3>Lower register</h3><ul><li>2815 BC is 1776 yrs to 1039 BC</li><li>1300 yrs [52×52]</li><li>1296 yrs. [108×12\144×9]</li><li>2339 BC Japheth born</li><li>2337 BC Shem born</li><li>Indo-Aryan’s Semitic descendants of Japheth and Shem founded United States in 1776 Anno Domini.</li><li>1776 years to King David from completion of Great Pyramid</li><li>Within first year after Anunnaki Chronology over, in 1963 AD Pyramid Empire United States [13th Tribe of Davidic Kingdom] Assassination of Pres. Kennedy fulfilled King of World Slain by Treachery Archtype.</li></ul></div></div><h3>Uncertain readings</h3><ul><li><span class="unc">[?]</span> “1300 YRS [52×52]” — second factor read as 52; 1300 would be 52×25.</li><li><span class="unc">[?]</span> The lower dashed line “2337 BC Shem born” carries a 1296-year bar; 2337 BC to 1039 BC is 1298.</li><li><span class="unc">[?]</span> Left column spans (1344 and 1656 yrs) are drawn from 5239 BC to 3895 BC to 2239 BC, inferred from 4039 BC − 144 = 3895 BC and the Flood date; the plate gives no start year.</li></ul></details><div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XIX·c (plate&nbsp;61). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div></div>
+    </div>
+  </div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+
+function bar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL)g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR)g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  return g;}
+// mirrored pair of bars about centre xc
+function mirror(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const a=bar(p,{x1:o.x1,x2:o.xc,y:o.y,col:o.col,offL:o.offL,offR:false});
+  const b=bar(p,{x1:o.xc,x2:o.x2,y:o.y,col:o.col,offL:false,offR:o.offR});
+  while(a.firstChild)g.appendChild(a.firstChild);while(b.firstChild)g.appendChild(b.firstChild);
+  g.appendChild(el('rect',{x:o.xc-5,y:o.y-8,width:10,height:16,fill:'#0b0f1a',stroke:o.col,'stroke-width':1.2,rx:2}));
+  g.appendChild(el('path',{d:`M${o.xc-1} ${o.y-4} L${o.xc-4} ${o.y} L${o.xc-1} ${o.y+4}Z M${o.xc+1} ${o.y-4} L${o.xc+4} ${o.y} L${o.xc+1} ${o.y+4}Z`,fill:o.col}));
+  g.appendChild(el('rect',{x:o.x1-6,y:o.y-24,width:o.x2-o.x1+12,height:40,fill:'transparent'}));
+  if(o.lL)tx(g,o.xc-10,o.y-9,o.lL,{'text-anchor':'end','font-size':o.fs||12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});
+  if(o.lR)tx(g,o.xc+10,o.y-9,o.lR,{'text-anchor':'start','font-size':o.fs||12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});
+  if(o.dL)tx(g,o.x1-(o.offL?24:12),o.y+4,o.dL,{'text-anchor':'end','font-size':10.5,class:'h',fill:'#8b95ad'});
+  if(o.dR)tx(g,o.x2+(o.offR?24:12),o.y+4,o.dR,{'text-anchor':'start','font-size':10.5,class:'h',fill:'#8b95ad'});
+  bind(g,o.tip);p.appendChild(g);return g;}
+function vtext(p,x,y,lines,o){o=o||{};const n=lines.length;const x0=o.right?x+6:x-6-13*(n-1);
+  const t=el('text',{transform:`rotate(-90 ${x0} ${y})`,x:x0,y:y,fill:o.fill||'#c9d2e6','font-size':o.fs||11.5,class:'h'});
+  lines.forEach((l,i)=>{const s=el('tspan',{x:x0,dy:i?13:0},l);t.appendChild(s);});p.appendChild(t);return t;}
+function lines(p,x,y,arr,o){o=o||{};const t=el('text',{x,y,fill:o.fill||'#dfe6f5','font-size':o.fs||14,'text-anchor':o.a||'start',class:'h','font-weight':o.w||500});
+  arr.forEach((l,i)=>t.appendChild(el('tspan',{x,dy:i?(o.lh||18):0},l)));p.appendChild(t);return t;}
+function arrowDown(p,x,y,col){p.appendChild(el('path',{d:`M${x-22} ${y} L${x+22} ${y} L${x+4} ${y+38} L${x+3} ${y+52} L${x-3} ${y+52} L${x-4} ${y+38}Z`,fill:col||'#0f1626',stroke:col||'#aeb7cd'}));}
+
+const CAT={isr:{c:'#9c8bf0',label:'Israel & the nations'},chron:{c:'#e7c355',label:'Anunnaki chronology'},gen:{c:'#37b6a6',label:'Genealogy & founding'},age:{c:'#5cb3f2',label:'World ages · Flood'}};
+const T0=-5239,T1=2130,PL=40,PR=1360;const X=t=>PL+(t-T0)/(T1-T0)*(PR-PL);
+const svg=document.getElementById('tl'),AX=X(-1039);
+// world-age band
+function band(x1,x2,y,h,col,title,sub,tip){const g=el('g',{class:'row','data-cat':'age'});
+ g.appendChild(el('rect',{x:x1,y,width:x2-x1,height:h,fill:col,opacity:.18,stroke:col}));
+ tx(g,(x1+x2)/2,y+19,title,{'text-anchor':'middle','font-size':12.5,'font-weight':600,fill:'#e6ecf8'});
+ tx(g,(x1+x2)/2,y+36,sub,{'text-anchor':'middle','font-size':11.5,fill:'#aeb7cd'});svg.appendChild(g);bind(g,tip);}
+band(X(-5239),X(-3895),30,50,'#5cb3f2','Pre-Adamic World and Eden','[1344 yrs]',T('Pre-Adamic World and Eden','#5cb3f2','[1344 yrs] · ends 3895 BC','Anunnaki renovated Eden [Earth] 144 yrs prior to the Annus Mundi system of 3895 BC (4039 BC).'));
+band(X(-3895),X(-2239),30,50,'#5cb3f2','Preflood World','[1656 yrs]',T('Preflood World','#5cb3f2','[1656 yrs] · 3895 BC → 2239 BC','Ends at the Great Flood, 2239 BC.'));
+{const g=el('g',{class:'row','data-cat':'age'});const x=X(-2239);g.appendChild(el('line',{x1:x,y1:80,x2:x,y2:520,stroke:'#5cb3f2','stroke-dasharray':'3 4',opacity:.7}));
+ const t=tx(g,x-6,330,'GREAT FLOOD 2239 BC',{fill:'#9fd0f7','font-size':11.5,class:'mono'});t.setAttribute('transform',`rotate(-90 ${x-6} 330)`);svg.appendChild(g);bind(g,T('Great Flood 2239 BC','#5cb3f2','3895 BC − 1656 = 2239 BC'));}
+// BC | AD
+const X0=X(0);svg.appendChild(el('line',{x1:X0,y1:30,x2:X0,y2:760,stroke:'#33415f'}));
+tx(svg,X0-8,498,'BC',{'text-anchor':'end','font-size':13,fill:'#8b95ad',class:'mono'});tx(svg,X0+8,498,'AD',{fill:'#8b95ad','font-size':13,class:'mono'});
+// King David head
+{const g=el('g',{class:'row','data-cat':'isr'});lines(g,AX,112,['1039 BC [2856 AM]'],{a:'middle',fs:20,fill:'#ffcf5c'});
+ lines(g,AX,138,['KING DAVID BORN'],{a:'middle',fs:22,fill:'#e6ecf8',w:600});lines(g,AX,160,['[Fulfilled King of World Archetype]'],{a:'middle',fs:12.5,fill:'#aeb7cd',w:400});
+ arrowDown(g,AX,172,'#ffcf5c');svg.appendChild(g);bind(g,T('1039 BC [2856 AM] King David born','#ffcf5c','Centre of the upper register','Fulfilled King of World Archetype.'));}
+svg.appendChild(el('line',{x1:AX,y1:224,x2:AX,y2:760,stroke:'#ffcf5c','stroke-width':1.6}));
+// pairs
+const P=[
+ {y:262,n:318,a:-1357,b:-721,tL:'1357 BC Israel free of Babylon',tR:'721 BC Assyria deports Israel',dL:'1357 BC Israel free of Babylon',dR:'721 BC Assyria deports Israel'},
+ {y:308,n:326,a:-1365,b:-713,tL:'1365 BC Babylon invades Israel',tR:'713 BC Assyrian army vaporized',dL:'1365 BC Babylon invades Israel',dR:'713 BC Assyrian army vaporized'},
+ {y:354,n:368,a:-1407,b:-671,tL:'1407 BC Israeli conquest of Canaan and sun stand still.',tR:'671 BC Assyria invades Syria and Egypt',dL:'1407 BC Israeli conquest of Canaan; sun stand still',dR:'671 BC Assyria invades Syria and Egypt'},
+ {y:400,n:649,a:-1688,b:-390,tL:'1688 BC Sun darkens as Israel’s sons at war in Canaan',tR:'390 BC Gauls [Japhetic-Semitic] invade Italy and sack Rome',dL:'1688 BC Sun darkens as Israel’s sons at war in Canaan',dR:'390 BC Gauls [Japhetic-Semitic] invade Italy and sack Rome'}];
+P.forEach(r=>{const col=CAT.isr.c;
+ mirror(svg,{x1:X(r.a),xc:AX,x2:X(r.b),y:r.y,col,cat:'isr',lL:r.n+(r.n===649?' YRS.':''),lR:r.n+(r.n===649?' YRS':''),fs:11.5,dL:r.dL,dR:r.dR,
+  tip:T(r.n+' years either side of 1039 BC',col,`${-r.a} BC → 1039 BC → ${-r.b} BC`,'<b>Left:</b> '+r.tL+'<br><b>Right:</b> '+r.tR)});});
+// 3000 bar
+{const y=462,col=CAT.chron.c;
+ mirror(svg,{x1:X(-4039),xc:AX,x2:X(1962),y,col,cat:'chron',lL:'4039 BC EARTH RESTORED 3000 YRS [600×5] TO 1039 BC',lR:'3000 YRS TO ANUNNAKI CHRONOLOGY END 1962 AD',fs:11.5,
+  tip:T('3000 years either side of 1039 BC',col,'4039 BC → 1039 BC → 1962 AD','Earth restored 3000 yrs [600×5] to 1039 BC; 3000 yrs to Anunnaki Chronology end 1962 AD.')});
+ // 1962 AD line
+ const g=el('g',{class:'row','data-cat':'chron'});const x=X(1962);g.appendChild(el('line',{x1:x,y1:100,x2:x,y2:462,stroke:'#e7c355','stroke-dasharray':'3 4'}));
+ const t=tx(g,x-6,452,'1962 AD [5856 AM]',{fill:'#ecd58a','font-size':11.5,class:'mono'});t.setAttribute('transform',`rotate(-90 ${x-6} 452)`);svg.appendChild(g);bind(g,T('1962 AD [5856 AM]','#e7c355','End of the 7200-year chronology'));
+ // 4039 callout
+ const c=el('g',{class:'row','data-cat':'chron'});c.appendChild(el('rect',{x:46,y:236,width:196,height:152,fill:'none',stroke:'#e7c355','stroke-dasharray':'3 4',rx:6,opacity:.7}));
+ lines(c,56,256,['4039 BC','Anunnaki are the','BUILDERS who','renovated Eden','[Earth] 144 yrs.','prior to Annus','Mundi system of','3895 BC.'],{fs:11.5,lh:16,fill:'#ecd58a',w:400});svg.appendChild(c);
+ bind(c,T('4039 BC · Anunnaki','#e7c355','144 yrs before 3895 BC','Anunnaki are the Builders who renovated Eden [Earth] 144 yrs. prior to Annus Mundi system of 3895 BC.'));
+ // right text blocks
+ const r=el('g',{class:'row','data-cat':'chron'});
+ lines(r,X(1962)-14,100,['End of 7200 year Chronology of the Builders at 1962 AD begins 144 year Countdown to Descent of Chief Cornerstone they Rejected at Armageddon in 6000 AM [2106 AD]'].join('').match(/.{1,36}(\s|$)/g),{a:'end',fs:12,lh:16,fill:'#e0dcc0',w:400});svg.appendChild(r);
+ bind(r,T('1962 AD → 2106 AD','#e7c355','144 years','End of 7200 year Chronology of the Builders at 1962 AD begins 144 year Countdown to Descent of Chief Cornerstone they Rejected at Armageddon in 6000 AM [2106 AD].'));}
+{const g=el('g',{class:'row','data-cat':'chron'});const x=X(2106);
+ g.appendChild(el('rect',{x:X(1962),y:214,width:x-X(1962),height:8,rx:4,fill:'#e7c355',opacity:.9}));
+ tx(g,(X(1962)+x)/2,208,'144 yrs',{'text-anchor':'middle','font-size':11,class:'mono',fill:'#e7c355'});
+ lines(g,X(1962)-14,262,['2106 AD [6000 AM] Chief Cornerstone returns to','sit on throne of David, ending Kingship of the','Builders [Anunnaki].'].map(s=>s),{a:'end',fs:12,lh:16,fill:'#ffcf5c',w:500});
+ svg.appendChild(g);bind(g,T('2106 AD [6000 AM]','#ffcf5c','Chief Cornerstone returns','Chief Cornerstone returns to sit on throne of David, ending kingship of the Builders [Anunnaki].'));
+ svg.appendChild(el('line',{x1:x,y1:20,x2:x,y2:760,stroke:'#e7c355','stroke-width':2}));}
+// ruler
+const RY=520;svg.appendChild(el('rect',{x:PL,y:RY-8,width:PR-PL,height:16,fill:'#121a2c',stroke:'#3a486a'}));
+for(let t=-5000;t<=2000;t+=500){if(t===0)continue;const x=X(t);svg.appendChild(el('line',{x1:x,y1:RY-8,x2:x,y2:RY+8,stroke:'#6c7a9c'}));tx(svg,x+3,RY+4,Math.abs(t)+(t<0?' BC':' AD'),{fill:'#7f8bab','font-size':9,class:'mono'});}
+// lower register
+const LY=[580,626,672];
+function lowRow(y,a,txt,tip,col){const g=bar(svg,{x1:X(a),x2:AX,y,col});g.setAttribute('class','row');g.setAttribute('data-cat','gen');
+ g.appendChild(el('rect',{x:X(a)-6,y:y-24,width:AX-X(a)+12,height:36,fill:'transparent'}));
+ tx(g,AX-10,y-9,txt,{'text-anchor':'end','font-size':11.5,'font-weight':600,class:'h',fill:'#e6ecf8'});svg.appendChild(g);bind(g,tip);}
+const GC=CAT.gen.c;
+lowRow(LY[0],-2815,'2815 BC IS 1776 YRS TO 1039 BC',T('2815 BC → 1039 BC',GC,'1776 yrs','1776 years to King David from completion of Great Pyramid.'),GC);
+lowRow(LY[1],-2339,'1300 YRS [52×52]',T('2339 BC → 1039 BC',GC,'1300 yrs [52×52]','Japheth born 2339 BC. As written: 52×52 = 2704; 1300 = 52×25.'),GC);
+lowRow(LY[2],-2337,'1296 YRS. [108×12\\144×9]',T('2337 BC → 1039 BC',GC,'1296 yrs. [108×12\\144×9]','Shem born 2337 BC. 108×12 = 144×9 = 1296; 2337 − 1039 = 1298.'),GC);
+{const g=el('g',{class:'row','data-cat':'gen'});
+ [-2339,-2337].forEach((a,i)=>{const x=X(a);g.appendChild(el('line',{x1:x,y1:LY[1+i],x2:x,y2:760,stroke:GC,'stroke-dasharray':'3 4'}));
+  const xx=i?x+14:x-5;const t=tx(g,xx,752,i?'2337 BC SHEM BORN':'2339 BC JAPHETH BORN',{fill:'#8fd8cc','font-size':11,class:'mono'});t.setAttribute('transform',`rotate(-90 ${xx} 752)`);});
+ g.appendChild(el('line',{x1:X(-2815),y1:LY[0]+4,x2:X(-2815),y2:690,stroke:GC,'stroke-dasharray':'3 4'}));
+ g.appendChild(el('path',{d:'M0 0 L0 0',fill:'none'}));
+ g.appendChild(el('path',{d:`M${AX-14} 712 L${AX-70} 712 L${AX-70} 704 L${AX-96} 716 L${AX-70} 728 L${AX-70} 720 L${AX-14} 720Z`,fill:GC,opacity:.85}));
+ lines(g,AX-10,752,[],{});
+ svg.appendChild(g);}
+{const g=el('g',{class:'row','data-cat':'gen'});
+ lines(g,X(-2337)+40,750,['INDO-ARYAN’S','SEMITIC DESCENDANTS','OF JAPHETH AND SHEM','FOUNDED UNITED STATES','IN 1776 ANNO DOMINI.'],{fs:11.5,lh:14,fill:'#9fe0d4',w:500});svg.appendChild(g);
+ bind(g,T('1776 AD','#37b6a6','Founding of the United States','Indo-Aryan’s Semitic descendants of Japheth and Shem founded United States in 1776 Anno Domini.'));}
+{const g=el('g',{class:'row','data-cat':'gen'});const px=X(-2815)-10;
+ g.appendChild(el('path',{d:`M${px-46} 734 L${px} 690 L${px+46} 734Z`,fill:'#2b3a52',stroke:'#aeb7cd'}));
+ lines(g,px-70,754,['1776 YEARS TO KING DAVID','FROM COMPLETION OF','GREAT PYRAMID'],{fs:11,lh:14,fill:'#9fe0d4',w:500,a:'start'});
+ svg.appendChild(g);bind(g,T('1776 years to King David','#37b6a6','2815 BC → 1039 BC','1776 years to King David from completion of Great Pyramid.'));}
+{const g=el('g',{class:'row','data-cat':'chron'});
+ lines(g,X(0)+14,574,['Within first year after Anunnaki Chronology over,','in 1963 AD Pyramid Empire United States [13th','Tribe of Davidic Kingdom] Assassination of Pres.','Kennedy fulfilled King of World Slain by Treachery','Archtype.'],{fs:11.5,lh:15,fill:'#e0dcc0',w:400});
+ svg.appendChild(g);bind(g,T('1963 AD','#e7c355','Within the first year after 1962 AD','Within first year after Anunnaki Chronology over, in 1963 AD Pyramid Empire United States [13th Tribe of Davidic Kingdom] Assassination of Pres. Kennedy fulfilled King of World Slain by Treachery Archtype.'));}
+chips(CAT,'.row');
+
+</script>
+</body>
+</html>

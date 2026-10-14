@@ -110,7 +110,7 @@
 
   <div class="grid">
     <div class="card">
-      <h2>Grand Gallery · Antechamber · King's Chamber</h2>
+      <h2>Grand Gallery · Antechamber · Upper Chamber</h2>
       <div class="hint">Schematic section, south to the right. Horizontal distances are drawn to scale in pyramid inches (P&Prime;) from the face of the Great Step; heights are compressed. Hover or tap any stone, dimension, vertical or numbered marker. Year scale: 1&nbsp;P&Prime; = 1 year from 1902&nbsp;AD.</div>
       <div class="scroller"><svg id="sec" class="wide" role="img" aria-label="Section schematic"></svg></div>
       <div class="swipe">&larr; swipe to pan the drawing &rarr;</div>
@@ -135,7 +135,7 @@
 <div class="mrow"><span class="eq">1902 + 144 = 2046 AD [204.6]</span><span class="cap">Asteroid impact zone “144 years from 1902 AD start of Giza Calendar”.</span></div>
 <div class="mrow"><span class="eq">1902 + 60.9 → 1962–1963</span><span class="cap">Kennedy assassination “60.9 Years after Giza Countdown begun 1902 AD”; the drawn distance is 60.96&nbsp;P&Prime;.</span><span class="aw">as written: 1902 + 60.96 = 1962.96, lettered “1962–1963”.</span></div>
 <div class="mrow"><span class="eq">51° × 4 faces = 204</span><span class="cap">“204 Levels (203+Apex)”: 203 + 1 = 204.</span></div>
-<div class="mrow"><span class="eq">204 P&Prime; + 204 P&Prime;</span><span class="cap">Two 204&nbsp;P&Prime; spans along the granite floor to the south wall of the King's Chamber.</span></div>
+<div class="mrow"><span class="eq">204 P&Prime; + 204 P&Prime;</span><span class="cap">Two 204&nbsp;P&Prime; spans along the granite floor to the south wall of the Upper Chamber.</span></div>
         </div>
 
       </div>
@@ -146,7 +146,7 @@
         <summary>Full transcription</summary>
         <div class="trg">
 <h3>Grand Gallery (lettered along the gallery courses)</h3><ul><li class="q">GRAND GALLERY</li><li class="q">Anunnaki Ner Chronology of 7200 Years ends at 1963 AD with November 22 Assassination of President Kennedy 60.9 Years after Giza Countdown begun 1902 AD. Kennedy fulfilled King of the World Slain by Treachery Archtype and assassination marked Astroid Impact Zone of 2046 AD [204.6] in Texas 144 years from 1902 AD start of Giza Calendar (USA Destroyed).</li><li class="q">1962–1963</li><li class="q">1902</li><li class="q">60.96 P″</li></ul>
-<h3>Chambers and floor</h3><ul><li class="q">ANTE CHAMBER</li><li class="q">KING'S CHAMBER</li><li class="q">GREAT STEP</li><li class="q">204 P″ (Great Step south end → tick)</li><li class="q">204 P″ (tick → south wall of King's Chamber)</li></ul>
+<h3>Chambers and floor</h3><ul><li class="q">ANTE CHAMBER</li><li class="q">UPPER CHAMBER</li><li class="q">GREAT STEP</li><li class="q">204 P″ (Great Step south end → tick)</li><li class="q">204 P″ (tick → south wall of Upper Chamber)</li></ul>
 <h3>Countdown arrow and verticals</h3><ul><li class="q">1902 AD</li><li class="q">204 YEARS</li><li class="q">2106 AD 6000 ANNUS MUNDI</li><li class="q">Vertical Line to Well Pit [Armageddon and Return of the Chief Cornerstone]</li><li class="q">CENTRAL AXIS</li><li class="q">NORTH ↔ SOUTH</li></ul>
 <h3>Lower left</h3><ul><li class="q">Stonehenge Chronolithic System of 6210 yrs [414×15] ends; Giza Course Countdown begins (1902–2106 AD is 204 yrs to 6000 Annus Mundi)</li></ul>
 <h3>Pyramid inset</h3><ul><li class="q">204 Levels (203+Apex)</li><li class="q">51°</li><li class="q">51°×4 Faces = 204</li></ul>
@@ -163,7 +163,7 @@
 <div id="tip"></div>
 
 <script>
-/* ---- shared King's Chamber / Antechamber / Grand Gallery section engine (plates 80–85) ----
+/* ---- shared Upper Chamber / Antechamber / Grand Gallery section engine (plates 80–85) ----
    Horizontal coordinate p = pyramid inches (P″) south of the face of the Great Step.
    Vertical coordinate h = P″ above the top of the Great Step (floor level). */
 const NS='http://www.w3.org/2000/svg';
@@ -255,14 +255,14 @@ function Section(svg,o){
   const leaf=el('g',{class:'part','data-key':'leaf'},gS);
   R(134,150,50,104,{fill:'url(#gran)',stroke:'#8fa4d6','stroke-width':1.3,rx:2},leaf);
   R(132.6,134,72,84,{fill:'#8fa4d6'},leaf);
-  // granite between antechamber and King's Chamber
+  // granite between antechamber and Upper Chamber
   const g2=el('g',{class:'part','data-key':'granite2'},gS);
   R(228,279,44,170,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
   R(279,330,44,170,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
   R(300,330,170,262,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
   const ps2=el('g',{class:'part','data-key':'passage2'},gS);
   R(228,330,0,44,{fill:'#080d19',stroke:'#4a5a84','stroke-width':1.2},ps2);
-  // King's Chamber
+  // Upper Chamber
   const kc=el('g',{class:'part','data-key':'kc'},gS);
   R(330,534,0,230,{fill:'#080d19',stroke:'#4a5a84','stroke-width':1.3},kc);
   const kw=el('g',{class:'part','data-key':'kcwalls'},gS);
@@ -279,7 +279,7 @@ function Section(svg,o){
     gallery:['Grand Gallery','',''],passage1:['Passage to the Antechamber','60.96 → 112 P″',''],
     block:['Limestone ceiling block','',''],ante:['Antechamber','',''],anteroof:['Antechamber granite roof blocks','',''],
     leaf:['Granite leaf','',''],granite2:['Granite masonry','',''],passage2:['Second passage','228 → 330 P″',''],
-    kc:["King's Chamber",'',''],kcwalls:["King's Chamber granite walls & roof",'',''],
+    kc:["Upper Chamber",'',''],kcwalls:["Upper Chamber granite walls & roof",'',''],
     step:['Great Step','limestone · 0 → 126 P″',''],floor:['Granite floor','',''] },o.parts||{});
   gS.querySelectorAll('.part').forEach(g=>{const k=g.getAttribute('data-key');const t=PT[k];if(t)bind(g,T(t[0],t[1],t[2],'#c9b98f'));});
   // labels for parts
@@ -395,13 +395,13 @@ const marks=[
 ];
 const Y=(h,a,b)=>T(h,a,b,CAT.year.c), D=(h,a,b)=>T(h,a,b,CAT.dim.c), V=(h,a,b)=>T(h,a,b,CAT.vert.c);
 Section(document.getElementById('sec'),{pmin:-100,pmax:566,hup:272,sy:1.45,rows:2,lh:96,
-  plabels:[{p:-48,h:205,t:'GRAND GALLERY'},{p:170,h:126,t:'ANTE CHAMBER',fs:12},{p:432,h:200,t:"KING'S CHAMBER"},{p:63,h:-24,t:'GREAT STEP',fs:12,c:'#f1e6c4'}],
+  plabels:[{p:-48,h:205,t:'GRAND GALLERY'},{p:170,h:126,t:'ANTE CHAMBER',fs:12},{p:432,h:200,t:"UPPER CHAMBER"},{p:63,h:-24,t:'GREAT STEP',fs:12,c:'#f1e6c4'}],
   parts:{step:['Great Step','face = 1902 AD','The Giza Course Countdown begins at its north face.'],
-         kc:["King's Chamber",'',''],ante:['Ante Chamber','','']},
+         kc:["Upper Chamber",'',''],ante:['Ante Chamber','','']},
   dims:[
    {p1:0,p2:60.96,h:16,label:'60.96 P″',tip:D('60.96 P″','1902 → 1962–1963','Face of the Great Step to the wall where the passage begins; the plate ties it to the Kennedy assassination, “60.9 Years after Giza Countdown begun 1902 AD”.')},
    {p1:126,p2:330,row:0,label:'204 P″',tip:D('204 P″','Great Step south end → tick','First of two 204 P″ spans drawn along the granite floor.')},
-   {p1:330,p2:534,row:0,label:'204 P″',tip:D('204 P″','tick → south wall of King\'s Chamber','Second 204 P″ span.')},
+   {p1:330,p2:534,row:0,label:'204 P″',tip:D('204 P″','tick → south wall of Upper Chamber','Second 204 P″ span.')},
    {p1:0,p2:204,row:1,cat:'year',label:'204 YEARS · 1902 → 2106 AD',w:3,tip:Y('204 Years','1902 AD → 2106 AD [6000 Annus Mundi]','Giza Course Countdown from the face of the Great Step to the vertical line to the Well Pit.')}],
   verts:[
    {p:0,glyph:'axis',top:'1902 AD',label:'Central Axis\nNorth ↔ South',tip:V('Central Axis','1902 AD','Face of the Great Step; start of the Giza Course Countdown.')},

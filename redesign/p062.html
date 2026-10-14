@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XIX·d — Mirror Countdowns around 1998 AD — 108 Years to 6000 AM</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+
+  .row{transition:opacity .15s}
+  .row:hover rect:not([fill=transparent]){filter:brightness(1.25)}
+  .callouts{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:8px 18px;margin-top:10px}
+  .callouts div{font-size:12px;color:var(--muted);line-height:1.45;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .callouts b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;display:block;font-size:11.5px;margin-bottom:2px}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XIX·d · Plate&nbsp;62</div>
+    <h1>Chronotecture
+      <span class="sub">Mirror Countdowns around 1998 AD — 108 Years to 6000&nbsp;AM</span>
+    </h1>
+    <p class="prov">A rebuild of Jason&nbsp;M.&nbsp;Breshears’ hand-drawn chart&nbsp;XIX·d, with every date, span and annotation preserved verbatim; only the visual language is new. Its structural key: <b>a staircase of mirrored spans around 1998&nbsp;AD [666×3 · 5892&nbsp;AM]</b>, each event before 1998 reappearing as a prophetic landing the same number of years after, ending at 2106&nbsp;AD [6000&nbsp;AM].</p>
+  </header>
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2>Mirrored countdowns around 1998 AD</h2>
+      <div class="hint">Each pair of bars meets at 1998 AD: left end is a dated event, right end its mirrored landing. Two long bars below the ruler run off the scale. Hover or tap for the matching annotations. <span class="anchor-key"><i></i>AXIS 1998 AD · 5892 AM</span></div>
+      <div class="swipe">⟷ swipe to pan the chart</div>
+      <div class="scroller" data-focus=".5"><svg id="tl" class="wide" viewBox="0 0 1400 880" role="img" aria-label="Mirrored countdowns around 1998 AD"></svg></div>
+      <div class="callouts"><div><b>2016 AD</b>Iraq\USA vs Iran War</div><div><b>2022 AD</b>Islamic forces destroy USA Mideast military</div><div><b>2034 AD</b>Seven Comets begin 72 yrs. to 6000 AM [2106 AD]</div><div><b>2036 AD · First Seal</b>Antichrist elected ruler fated to die by assassination and Return to mimic resurrection</div><div><b>2046 AD</b>Mass migration of 13th Tribe [USA and UK] to Israel; war in Asia. Mohenjo-Daro had been destroyed by Seven Comets.</div></div>
+    </div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked. Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid"><div class="mrow"><span class="eq">1998 = 666 × 3</span><span class="cap">Axis year; 1998 + 3894 = 5892 AM. 6000 − 5892 = 108 years.</span></div><div class="mrow"><span class="eq">1998 + 108 = 2106 = 6000 AM</span><span class="cap">The long bottom bar [54×2]; its half, 54 yrs, lands on 2052 AD.</span></div><div class="mrow"><span class="eq">1998 − 1980 = 18 → 2016</span><span class="cap">Iraq–Iran War mirrors to the Iraq\USA vs Iran War.</span></div><div class="mrow"><span class="eq">1998 − 1976 = 22, written “24”</span><span class="cap">“1976 is 24 | 24 to 2022”. 1998 + 24 = 2022 holds on the right.</span><span class="aw">as written — the left half is 22 years from 1976 to 1998</span></div><div class="mrow"><span class="eq">36 · 38 · 48 · 76 · 80 · 92</span><span class="cap">1962→2034, 1960→2036, 1950→2046, 1922→2074, 1918→2078, 1906→2090; each is exact on both sides of 1998.</span></div><div class="mrow"><span class="eq">1962 + 72 = 2034 · 1962 + 144 = 2106</span><span class="cap">“72 yrs to 2034 AD, 144 yrs to 6000 AM Armageddon” after the 7200-year Anunnaki chronology.</span></div><div class="mrow"><span class="eq">1998 − 1478 = 520 = 52×10</span><span class="cap">Aztec Stone of the Fifth Sun.</span></div><div class="mrow"><span class="eq">1998 − 1759 = 239 · 1759 − 1520 = 239</span><span class="cap">239 × 2 = 478; Calendar Stone 1478 AD = 1000 + 478.</span></div></div><div style="font-size:12.5px;color:var(--muted);line-height:1.6">Seven of the eight staircase spans are exact on both sides of 1998; the 1976 bar is written as 24 although 1976 to 1998 is 22.</div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised), grouped by region.</div><details class="tx"><summary>Show transcription</summary><div class="cols"><div><h3>Header</h3><ul><li>XIX.d</li><li>Breshears ’07</li><li>1998 AD is 666 × 3 Anno Domini [5892 AM] 108 years to 6000 AM</li><li>6000 Annus Mundi [2106 AD] (vertical line)</li></ul></div><div><h3>Left callouts</h3><ul><li>1960 AD Quakes in Chile and Morocco kill 17,400; Kennedy elected president USA, fated to die by assassination</li><li>1950 AD Law of the Return in Israel calls Jews back to Land; Korean War begins</li><li>1922 AD Curse of Tutankhamen ends lives of many linked to Discovery; City of Mohenjo-Daro found</li><li>1962 AD is end of Anunnaki Chronology of 7200 years, 72 yrs to 2034 AD, 144 yrs to 6000 AM Armageddon</li><li>200 yr USA celebration of independence in 1976 AD</li><li>1980 AD Iraq-Iran War</li><li>1995 AD Oklahoma City Bombing Terrorist Attack</li><li>2001 AD World Trade Center Terrorist Attack</li></ul></div><div><h3>Right callouts</h3><ul><li>2016 AD Iraq\USA vs Iran War</li><li>2022 AD Islamic forces destroy USA Mideast military</li><li>2034 AD Seven Comets begin 72 yrs. to 6000 AM [2106 AD]</li><li>2036 AD First Seal Antichrist elected ruler fated to die by assassination and Return to mimic resurrection</li><li>2046 AD Mass migration of 13th Tribe [USA and UK] to Israel; war in Asia.</li><li>Mohenjo-Daro had been destroyed by Seven Comets. (2046 AD, beside the dark planet)</li></ul></div><div><h3>Mirrored bars (top to bottom)</h3><ul><li>3 yrs. | 3 yrs.</li><li>1980 is 18 | 18 to 2016</li><li>1976 is 24 | 24 to 2022</li><li>1962 is 36 yrs. | 36 yrs. to 2034 AD</li><li>1960 is 38 yrs to 1998 | 38 yrs to 2036 AD</li><li>1950 AD is 48 yrs to 1998 | 48 yrs to 2046 AD</li><li>1922 AD Tutankhamen found 76 years | 76 yrs to Seven Comets Begin 2074 AD</li><li>1918 AD Global Influenza Epidemic 80 yrs. | 80 yrs. to 3rd Comet\Plague in 2078 AD</li><li>1906 AD Great Fire San Francisco\Quake 92 years | 92 yrs to 7th Comet\Plague in 2090 AD</li></ul></div><div><h3>Long bars (below ruler)</h3><ul><li>1478 AD Aztecs Finish Stone of Fifth Sun 520 yrs [52×10] to 1998 AD</li><li>1759 AD Norden Lewis studied Great Pyramid 239 yrs before 1998 AD</li><li>54 yrs [half 108] 2052 AD</li><li>108 yrs [54×2] to 2106 AD [6000 AM] Armageddon</li></ul></div><div><h3>Foot notes</h3><ul><li>1759 AD was itself 239 yrs after 1520 AD when Hernan Cortez explored ancient Aztec Pyramid City of Teotihuacan.</li><li>Note that 239×2 is 478 and Aztecs finished Calendar Stone in 1478 AD [1000 + 478]</li><li>Scale: 1900 · 1910 … 1990 · 2000 · 2010 … 2090</li></ul></div></div><h3>Uncertain readings</h3><ul><li><span class="unc">[?]</span> The “1976 is 24” label is clear; the arithmetic does not hold (see Cycle mathematics).</li><li><span class="unc">[?]</span> The dark planet at 2046 AD is read as the orb beside “Mohenjo-Daro had been destroyed by Seven Comets”; its caption “2046 AD” is under it.</li></ul></details><div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XIX·d (plate&nbsp;62). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div></div>
+    </div>
+  </div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+
+function bar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL)g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR)g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  return g;}
+// mirrored pair of bars about centre xc
+function mirror(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const a=bar(p,{x1:o.x1,x2:o.xc,y:o.y,col:o.col,offL:o.offL,offR:false});
+  const b=bar(p,{x1:o.xc,x2:o.x2,y:o.y,col:o.col,offL:false,offR:o.offR});
+  while(a.firstChild)g.appendChild(a.firstChild);while(b.firstChild)g.appendChild(b.firstChild);
+  g.appendChild(el('rect',{x:o.xc-5,y:o.y-8,width:10,height:16,fill:'#0b0f1a',stroke:o.col,'stroke-width':1.2,rx:2}));
+  g.appendChild(el('path',{d:`M${o.xc-1} ${o.y-4} L${o.xc-4} ${o.y} L${o.xc-1} ${o.y+4}Z M${o.xc+1} ${o.y-4} L${o.xc+4} ${o.y} L${o.xc+1} ${o.y+4}Z`,fill:o.col}));
+  g.appendChild(el('rect',{x:o.x1-6,y:o.y-24,width:o.x2-o.x1+12,height:40,fill:'transparent'}));
+  if(o.lL)tx(g,o.xc-10,o.y-9,o.lL,{'text-anchor':'end','font-size':o.fs||12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});
+  if(o.lR)tx(g,o.xc+10,o.y-9,o.lR,{'text-anchor':'start','font-size':o.fs||12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});
+  if(o.dL)tx(g,o.x1-(o.offL?24:12),o.y+4,o.dL,{'text-anchor':'end','font-size':10.5,class:'h',fill:'#8b95ad'});
+  if(o.dR)tx(g,o.x2+(o.offR?24:12),o.y+4,o.dR,{'text-anchor':'start','font-size':10.5,class:'h',fill:'#8b95ad'});
+  bind(g,o.tip);p.appendChild(g);return g;}
+function vtext(p,x,y,lines,o){o=o||{};const n=lines.length;const x0=o.right?x+6:x-6-13*(n-1);
+  const t=el('text',{transform:`rotate(-90 ${x0} ${y})`,x:x0,y:y,fill:o.fill||'#c9d2e6','font-size':o.fs||11.5,class:'h'});
+  lines.forEach((l,i)=>{const s=el('tspan',{x:x0,dy:i?13:0},l);t.appendChild(s);});p.appendChild(t);return t;}
+function lines(p,x,y,arr,o){o=o||{};const t=el('text',{x,y,fill:o.fill||'#dfe6f5','font-size':o.fs||14,'text-anchor':o.a||'start',class:'h','font-weight':o.w||500});
+  arr.forEach((l,i)=>t.appendChild(el('tspan',{x,dy:i?(o.lh||18):0},l)));p.appendChild(t);return t;}
+function arrowDown(p,x,y,col){p.appendChild(el('path',{d:`M${x-22} ${y} L${x+22} ${y} L${x+4} ${y+38} L${x+3} ${y+52} L${x-3} ${y+52} L${x-4} ${y+38}Z`,fill:col||'#0f1626',stroke:col||'#aeb7cd'}));}
+
+const CAT={war:{c:'#e58fb6',label:'Wars & terror'},quake:{c:'#f08a4b',label:'Quakes & plague'},arch:{c:'#9c8bf0',label:'Archaeology'},chron:{c:'#e7c355',label:'Anunnaki chronology · prophecy'},usa:{c:'#5cb3f2',label:'USA'}};
+const Y0=1896,Y1=2110,PL=300,PR=1340;const X=y=>PL+(y-Y0)/(Y1-Y0)*(PR-PL);
+const svg=document.getElementById('tl'),AX=X(1998);
+for(let y=1900;y<=2100;y+=10){const x=X(y);svg.appendChild(el('line',{x1:x,y1:196,x2:x,y2:690,stroke:y%50?'#121a2c':'#19233a'}));}
+const RY=690;svg.appendChild(el('rect',{x:PL-20,y:RY-9,width:PR-PL+20,height:18,fill:'#121a2c',stroke:'#3a486a'}));
+for(let y=1900;y<=2090;y+=10){const x=X(y);svg.appendChild(el('line',{x1:x,y1:RY-9,x2:x,y2:RY+9,stroke:'#4b5674'}));tx(svg,x+3,RY+4,String(y),{fill:y%100?'#6f7a96':'#c4cde2','font-size':9.5,class:'mono'});}
+const x6=X(2106);svg.appendChild(el('line',{x1:x6,y1:20,x2:x6,y2:880,stroke:'#e7c355','stroke-width':2}));
+{const t=tx(svg,x6-8,330,'6000 ANNUS MUNDI [2106 AD]',{fill:'#e7c355','font-size':11,class:'mono','text-anchor':'middle'});t.setAttribute('transform',`rotate(-90 ${x6-8} 330)`);}
+svg.appendChild(el('line',{x1:AX,y1:160,x2:AX,y2:880,stroke:'#ffcf5c','stroke-width':1.6}));
+{const g=el('g',{});arrowDown(g,AX,96,'#ffcf5c');
+ lines(g,AX,30,['1998 AD is 666 × 3 Anno Domini','[5892 AM] 108 years to 6000 AM'],{a:'middle',fs:19,fill:'#ffcf5c',lh:24});
+ svg.appendChild(g);bind(g,T('1998 AD is 666 × 3 Anno Domini','#ffcf5c','5892 AM · 108 years to 6000 AM','The axis of the plate: every countdown mirrors around 1998 AD.'));}
+// 3-year pair with events
+{const y=262,col=CAT.war.c;
+ mirror(svg,{x1:X(1995),xc:AX,x2:X(2001),y,col,cat:'war',lL:'3 YRS.',lR:'3 YRS.',fs:11.5,tip:T('3 yrs. | 3 yrs.',col,'1995 AD → 1998 AD → 2001 AD','1995 AD Oklahoma City Bombing Terrorist Attack · 2001 AD World Trade Center Terrorist Attack')});
+ const g=el('g',{class:'row','data-cat':'war'});
+ lines(g,X(1995)-8,196,['1995 AD','Oklahoma City Bombing','Terrorist Attack'],{a:'end',fs:11.5,lh:14,fill:'#f2b3cf',w:400});
+ lines(g,X(2001)+8,196,['2001 AD','World Trade Center','Terrorist Attack'],{a:'start',fs:11.5,lh:14,fill:'#f2b3cf',w:400});
+ g.appendChild(el('line',{x1:X(1995),y1:230,x2:X(1995),y2:y-8,stroke:col,'stroke-dasharray':'3 3'}));
+ g.appendChild(el('line',{x1:X(2001),y1:230,x2:X(2001),y2:y-8,stroke:col,'stroke-dasharray':'3 3'}));svg.appendChild(g);
+ bind(g,T('1995 AD · 2001 AD',col,'3 yrs. either side of 1998','Oklahoma City Bombing Terrorist Attack (1995) · World Trade Center Terrorist Attack (2001).'));}
+const R=[
+ {a:1980,b:2016,n:18,cat:'war',lL:'1980 is 18',lR:'18 to 2016',dL:'Iraq–Iran War',tL:'1980 AD Iraq-Iran War',tR:'2016 AD Iraq\\USA vs Iran War'},
+ {a:1976,b:2022,n:24,cat:'usa',lL:'1976 is 24',lR:'24 to 2022',dL:'200 yr USA celebration of independence',tL:'200 yr USA celebration of independence in 1976 AD',tR:'2022 AD Islamic forces destroy USA Mideast military'},
+ {a:1962,b:2034,n:36,cat:'chron',lL:'1962 is 36 yrs.',lR:'36 yrs. to 2034 AD',dL:'End of Anunnaki chronology of 7200 yrs; 72 yrs to 2034 AD, 144 yrs to 6000 AM',tL:'1962 AD is end of Anunnaki Chronology of 7200 years, 72 yrs to 2034 AD, 144 yrs to 6000 AM Armageddon',tR:'2034 AD Seven Comets begin 72 yrs. to 6000 AM [2106 AD]'},
+ {a:1960,b:2036,n:38,cat:'quake',lL:'1960 is 38 yrs to 1998',lR:'38 yrs to 2036 AD',dL:'Quakes in Chile and Morocco kill 17,400; Kennedy elected',tL:'1960 AD Quakes in Chile and Morocco kill 17,400; Kennedy elected president USA, fated to die by assassination',tR:'2036 AD First Seal: Antichrist elected ruler fated to die by assassination and Return to mimic resurrection'},
+ {a:1950,b:2046,n:48,cat:'war',lL:'1950 AD is 48 yrs to 1998',lR:'48 yrs to 2046 AD',dL:'Law of the Return in Israel; Korean War begins',tL:'1950 AD Law of the Return in Israel calls Jews back to Land; Korean War begins',tR:'2046 AD Mass migration of 13th Tribe [USA and UK] to Israel; war in Asia. (Mohenjo-Daro had been destroyed by Seven Comets.)'},
+ {a:1922,b:2074,n:76,cat:'arch',lL:'1922 AD Tutankhamen found 76 years',lR:'76 yrs to Seven Comets Begin 2074 AD',dL:'Curse of Tutankhamen; Mohenjo-Daro found',tL:'1922 AD Curse of Tutankhamen ends lives of many linked to discovery; City of Mohenjo-Daro found',tR:'Seven Comets begin 2074 AD'},
+ {a:1918,b:2078,n:80,cat:'quake',lL:'1918 AD Global Influenza Epidemic 80 yrs.',lR:'80 yrs. to 3rd Comet\\Plague in 2078 AD',tL:'1918 AD Global Influenza Epidemic',tR:'3rd Comet\\Plague in 2078 AD'},
+ {a:1906,b:2090,n:92,cat:'quake',lL:'1906 AD Great Fire San Francisco\\Quake 92 years',lR:'92 yrs to 7th Comet\\Plague in 2090 AD',tL:'1906 AD Great Fire San Francisco\\Quake',tR:'7th Comet\\Plague in 2090 AD'}];
+R.forEach((r,i)=>{const y=314+i*46,col=CAT[r.cat].c;
+ mirror(svg,{x1:X(r.a),xc:AX,x2:X(r.b),y,col,cat:r.cat,lL:r.lL,lR:r.lR,dL:r.dL,fs:12,tip:T(r.n+' yrs either side of 1998 AD',col,`${r.a} AD → 1998 AD → ${r.b} AD`,'<b>Left:</b> '+r.tL+'<br><b>Right:</b> '+r.tR)});});
+// long bars
+function longRow(y,txt,cat,tip,col){const g=bar(svg,{x1:PL-44,x2:AX,y,col,offL:true});g.setAttribute('class','row');g.setAttribute('data-cat',cat);
+ g.appendChild(el('rect',{x:PL-60,y:y-24,width:AX-PL+60,height:40,fill:'transparent'}));
+ tx(g,AX-10,y-9,txt,{'text-anchor':'end','font-size':12,'font-weight':600,class:'h',fill:'#e6ecf8'});svg.appendChild(g);bind(g,tip);}
+longRow(752,'1478 AD Aztecs Finish Stone of Fifth Sun 520 yrs [52×10] to 1998 AD','arch',T('1478 AD → 1998 AD','#9c8bf0','520 yrs [52×10]','Aztecs finish Stone of Fifth Sun. Starts off the scale. Note that 239×2 is 478 and Aztecs finished Calendar Stone in 1478 AD [1000 + 478].'),'#9c8bf0');
+longRow(798,'1759 AD Norden Lewis studied Great Pyramid 239 yrs before 1998 AD','arch',T('1759 AD → 1998 AD','#9c8bf0','239 yrs','Norden Lewis studied Great Pyramid. 1759 AD was itself 239 yrs after 1520 AD when Hernan Cortez explored ancient Aztec Pyramid City of Teotihuacan.'),'#9c8bf0');
+function rightRow(y,x2,txt,tip){const g=bar(svg,{x1:AX,x2,y,col:'#e7c355'});g.setAttribute('class','row');g.setAttribute('data-cat','chron');
+ g.appendChild(el('rect',{x:AX,y:y-24,width:x2-AX+10,height:40,fill:'transparent'}));
+ tx(g,AX+10,y-9,txt,{'font-size':12,'font-weight':600,class:'h',fill:'#e6ecf8'});svg.appendChild(g);bind(g,tip);}
+rightRow(752,X(2052),'54 yrs [half 108] 2052 AD',T('1998 AD → 2052 AD','#e7c355','54 yrs [half 108]','Half of the 108 years to 6000 AM.'));
+rightRow(798,X(2106),'108 yrs [54×2] to 2106 AD [6000 AM] Armageddon',T('1998 AD → 2106 AD','#e7c355','108 yrs [54×2]','To 6000 AM, Armageddon.'));
+lines(svg,40,850,['1759 AD was itself 239 yrs after 1520 AD when Hernan Cortez explored','ancient Aztec Pyramid City of Teotihuacan.'],{fs:11.5,lh:14,fill:'#8b95ad',w:400});
+lines(svg,520,850,['Note that 239×2 is 478 and Aztecs finished Calendar','Stone in 1478 AD [1000 + 478]'],{fs:11.5,lh:14,fill:'#8b95ad',w:400});
+chips(CAT,'.row');
+
+</script>
+</body>
+</html>

@@ -3,7 +3,7 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Chronotecture · Chart IX — The 2045 AD Subterranean Calendar</title>
+<title>Chronotecture · Chart IX — The 2045 AD Lower Chamber Calendar</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
@@ -95,7 +95,7 @@
   <header class="masthead">
     <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;IX · Plate&nbsp;40</div>
     <h1>Chronotecture
-      <span class="sub">2045&nbsp;AD, Chief Calendrical Theme of the Great Pyramid: the Subterranean Level</span>
+      <span class="sub">2045&nbsp;AD, Chief Calendrical Theme of the Great Pyramid: the Lower Chamber Level</span>
     </h1>
     <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn chart&nbsp;IX (<b>2006</b>). Every date, span, measurement and annotation is preserved verbatim; only the visual language is redesigned. Its structural key: <b>the descending passage (4146&nbsp;P″) lands on a floor joint at 1699&nbsp;AD, and each horizontal pyramid-inch south of it adds one year</b>: 302 to the central axis (2001&nbsp;AD), 44 to the chamber's north wall (2045&nbsp;AD), 162 to the well-pit axis (2207&nbsp;AD).</p>
   </header>
@@ -104,9 +104,9 @@
 
   <div class="grid">
     <div class="card">
-      <h2><span class="pn">IX</span>Section and subterranean year-chain</h2>
-      <div class="hint">North face on the right, as drawn on the plate. The lower strip expands the subterranean level (not to scale): 1&nbsp;P″ = 1&nbsp;year, counted southward from the floor joint. Hover or tap any line, node or note.</div>
-      <svg id="sec" viewBox="0 -20 1000 840" role="img" aria-label="Great Pyramid section with subterranean year chain"></svg>
+      <h2><span class="pn">IX</span>Section and Lower Chamber year-chain</h2>
+      <div class="hint">North face on the right, as drawn on the plate. The lower strip expands the Lower Chamber level (not to scale): 1&nbsp;P″ = 1&nbsp;year, counted southward from the floor joint. Hover or tap any line, node or note.</div>
+      <svg id="sec" viewBox="0 -20 1000 840" role="img" aria-label="Great Pyramid section with Lower Chamber year chain"></svg>
     </div>
 
     <div class="bottom">
@@ -161,7 +161,7 @@
               <li>Entrance to Floor Joint 4146 P", or 10 Cursed Earth Periods +6 [414x10]</li>
               <li>4146 P" to Pyramid Entry.</li>
             </ul>
-            <h3>Subterranean level</h3>
+            <h3>Lower Chamber level</h3>
             <ul>
               <li>Floor Joint is 1699 AD [5593 AM]</li>
               <li>302 P"</li>
@@ -246,16 +246,16 @@ function section(svg,o){
   const pas=(pts,w)=>{const d='M'+pts.map(p=>p.join(' ')).join(' L');
     el('path',{d,fill:'none',stroke:'#5f7299','stroke-width':(w||7)*o.s,'stroke-linejoin':'round','stroke-linecap':'round',opacity:.45},g);
     el('path',{d,fill:'none',stroke:'#e3e9f6','stroke-width':1.8,'stroke-linejoin':'round','stroke-linecap':'round'},g);};
-  // descending passage + subterranean
+  // descending passage + Lower Chamber
   pas([R.E,R.F,P(470,400)]);
   if(o.chambers){
     pas([R.C,R.Gs]);                         // ascending
     pas([R.Gs,R.GS],11);                     // grand gallery
-    pas([R.Gs,P(512,278)],5);                // queen's passage
-    el('path',{d:`M${P(493,279)} L${P(493,268)} L${P(502,262)} L${P(511,268)} L${P(511,279)} Z`,fill:'#e3e9f6',opacity:.85},g); // queen's chamber
-    el('path',{d:`M${P(512,231)} L${P(502,231)} L${P(502,226)} L${P(490,226)} L${P(490,231)} L${P(486,231)} L${P(486,213)} L${P(442,213)} L${P(442,232)} L${P(512,232)} Z`,fill:'#e3e9f6',opacity:.85},g); // antechamber + king's chamber
+    pas([R.Gs,P(512,278)],5);                // Middle Chamber passage
+    el('path',{d:`M${P(493,279)} L${P(493,268)} L${P(502,262)} L${P(511,268)} L${P(511,279)} Z`,fill:'#e3e9f6',opacity:.85},g); // Middle Chamber
+    el('path',{d:`M${P(512,231)} L${P(502,231)} L${P(502,226)} L${P(490,226)} L${P(490,231)} L${P(486,231)} L${P(486,213)} L${P(442,213)} L${P(442,232)} L${P(512,232)} Z`,fill:'#e3e9f6',opacity:.85},g); // antechamber + Upper Chamber
   }
-  // subterranean chamber, pit, dead-end
+  // Lower Chamber, pit, dead-end
   el('rect',{x:P(395,386)[0],y:P(395,386)[1],width:75*o.s,height:18*o.s,fill:'#e3e9f6',opacity:.85},g);
   el('rect',{x:P(426,404)[0],y:P(426,404)[1],width:9*o.s,height:36*o.s,fill:'#e3e9f6',opacity:.7},g);
   pas([P(395,400),R.T],4);
@@ -321,7 +321,7 @@ const C=k=>CAT[k].c;
    dim(g,R.E,R.F,'4146 P″',C('measure'),20,{fs:15});}
 
   // --- 204 P" between both axis
-  {const g=hot(lay('measure'),T(C('measure'),'204 P″ between both axis','central N–S axis ↔ well-pit axis','The two dashed axes: the pyramid\'s central north-south axis and the axis that drops through the subterranean well pit.'));
+  {const g=hot(lay('measure'),T(C('measure'),'204 P″ between both axis','central N–S axis ↔ well-pit axis','The two dashed axes: the pyramid\'s central north-south axis and the axis that drops through the Lower Chamber well pit.'));
    el('line',{x1:430,y1:250,x2:430,y2:478,stroke:C('measure'),'stroke-width':1,'stroke-dasharray':'2 4',opacity:.8},g);
    dim(g,[430,312],[500,312],'',C('measure'),0);
    tx(g,402,300,'204 P″ between both axis',{fill:C('measure'),'font-size':12.5,'font-family':'JetBrains Mono','text-anchor':'end',class:'halo'});}
@@ -347,7 +347,7 @@ const C=k=>CAT[k].c;
   ];
   // strip frame
   el('rect',{x:20,y:Y-120,width:960,height:250,rx:14,fill:'#0c1322',stroke:'#24304a'},svg);
-  tx(svg,36,Y-96,'SUBTERRANEAN LEVEL · 1 P″ = 1 YEAR · NOT TO SCALE',{fill:'#6b7699','font-size':11,'font-family':'JetBrains Mono','letter-spacing':'.12em'});
+  tx(svg,36,Y-96,'LOWER CHAMBER LEVEL · 1 P″ = 1 YEAR · NOT TO SCALE',{fill:'#6b7699','font-size':11,'font-family':'JetBrains Mono','letter-spacing':'.12em'});
   tx(svg,964,Y-96,'NORTH →',{fill:'#6b7699','font-size':11,'font-family':'JetBrains Mono','text-anchor':'end','letter-spacing':'.12em'});
   el('line',{x1:60,y1:Y,x2:940,y2:Y,stroke:'#3a486a','stroke-width':2},svg);
   const SEG=[[0,1,'302 P″','302 P″ · floor joint → central axis','1699 + 302 = 2001 AD'],[1,2,'44 P″','44 P″ · central axis → north wall','2001 + 44 = 2045 AD'],[2,3,'162 P″','162 P″ · Great Step → well-pit axis','2045 + 162 → 2207 AD'],[3,4,'906–907 P″','906–907 P″ · well-pit axis → uneven terminus','"Uneven terminus of 906-907 P" from axis at 2207 AD"']];
