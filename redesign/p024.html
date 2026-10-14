@@ -243,7 +243,7 @@ chips(CAT);
   tx(s,327,212,'KING’S CH.',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end'});
   tx(s,456,276,'GRAND GALLERY',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono',transform:'rotate(26 456 276)'});
   tx(s,345,350,'QUEEN’S CH.',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end'});
-  tx(s,316,590,'PIT',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'end'});
+  tx(s,376,596,'PIT',{fill:'#7b86a4','font-size':9.5,'font-family':'JetBrains Mono','text-anchor':'start'});
 
   // ---- interactive measured path ----
   function seg(cat,pts,col,w,html,dash){
@@ -254,7 +254,7 @@ chips(CAT);
   }
   // 1110 along descending passage
   const g1=seg('meas',[E,J],CY,5,T(CY,'1110 P″ — descending passage','1656 AM [2239 BC] → 2766 AM [1129 BC]','From the entrance down to the axis conjunct. "Flood 1656 AM + 1110 P″ is 2766 AM [1129 BC]."'));
-  tx(g1,708,350,'1110 P″',{fill:CY,'font-size':13,'font-family':'JetBrains Mono','font-weight':500,class:'halo',transform:'rotate(-26 708 350)'});
+  tx(g1,690,384,'1110 P″',{fill:CY,'font-size':13,'font-family':'JetBrains Mono','font-weight':500,class:'halo',transform:'rotate(-26 690 384)'});
   // 3014 horizontal
   const g2=seg('meas',[J,[AX,384]],CY,5,T(CY,'3014 Horizontal P″ Axis — to axis','2766 AM [1129 BC] → 5780 AM [1886 AD]','"2766 Annus Mundi + 3014 P″ is 5780 AM [1886 AD]"'));
   el('path',{d:`M${AX+2} 384 l12 -7 v14 z`,fill:CY},g2);
@@ -344,8 +344,8 @@ chips(CAT);
   hov(dg,T('#e7c355','2239 BC Deluge','1656 AM','Dashed link from the inset entrance up to the entrance of the main cross-section.'));
   // sethites note
   const ng=el('g',{'data-cat':'date'},s);
-  el('rect',{x:470,y:120,width:236,height:112,rx:9,fill:'#0e1526',stroke:'#3a2f1e'},ng);
-  ['Sethites began pyramid construct-','ion 990 AM [2905 BC]. 990 AM +','666 P″ is 1656 AM GREAT FLOOD','[2239 BC]'].forEach((t,i)=>tx(ng,482,144+i*20,t,{fill:'#c9d1e4','font-size':11.5}));
+  el('rect',{x:150,y:300,width:236,height:112,rx:9,fill:'#0e1526',stroke:'#3a2f1e'},ng);
+  ['Sethites began pyramid construct-','ion 990 AM [2905 BC]. 990 AM +','666 P″ is 1656 AM GREAT FLOOD','[2239 BC]'].forEach((t,i)=>tx(ng,162,324+i*20,t,{fill:'#c9d1e4','font-size':11.5}));
   hov(ng,T('#e7c355','Start of construction','990 AM [2905 BC]','990 AM + 666 P″ is 1656 AM Great Flood [2239 BC].'));
 })();
 

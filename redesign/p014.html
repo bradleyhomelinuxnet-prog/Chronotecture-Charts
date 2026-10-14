@@ -67,6 +67,9 @@
   .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
   .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
 
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.1em;margin:2px 0 6px}
+  @media(max-width:700px){.scroll svg{min-width:920px}.swipe{display:block}}
   details.tx{margin-top:4px}
   details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;padding:6px 0}
   details.tx summary:hover{color:var(--ink)}
@@ -104,7 +107,7 @@
     <div class="card">
       <h2>Span-bars from the Passage Conjunct Axis, 1460&nbsp;BC</h2>
       <div class="hint">Upper field: five bars leave the axis and land on dated events. Lower field: the 365-year (Enoch) counts and the 3894-year span from Enoch's birth. Hover or tap any bar or marker. <span class="anchor-key"><i></i>AXIS 1460 BC [2435 AM]</span></div>
-      <svg id="tl" viewBox="0 0 1400 760" role="img" aria-label="Span-bar timeline anchored to 1460 BC"></svg>
+      <div class="swipe">← swipe to scroll the chart →</div><div class="scroll"><svg id="tl" viewBox="0 0 1400 760" role="img" aria-label="Span-bar timeline anchored to 1460 BC"></svg></div>
     </div>
     <div class="card">
       <h2>Cycle mathematics</h2>

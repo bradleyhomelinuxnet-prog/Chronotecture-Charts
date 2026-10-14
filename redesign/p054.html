@@ -1,0 +1,402 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XVII·b–c — The 1776 Mirror</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  @media(max-width:600px){.wrap{padding:22px 16px 60px}}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.7}
+  @media(max-width:600px){.kicker{letter-spacing:.22em;font-size:10px}}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  @media(max-width:600px){.card{padding:14px 12px 12px}}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card h2 .lab{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;color:var(--anchor);margin-right:8px;vertical-align:middle}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:880px){.bottom,.two{grid-template-columns:1fr}}
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .halo{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  [data-cat]{transition:opacity .15s}
+  .hot{cursor:pointer}
+  .hot:hover{filter:brightness(1.25)}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  #tip .t-q{color:#cfd6e6;margin-top:5px;font-style:italic;border-left:2px solid var(--line2);padding-left:7px}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:640px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow.bad{border-color:#5a3a2a}
+  .asw{display:block;font-size:11px;color:#a08670;font-family:'JetBrains Mono',monospace;margin-top:3px}
+  .base138{color:var(--anchor);font-weight:600}
+  .struck{text-decoration:line-through;text-decoration-color:#f08a4b99}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.14em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .txg{margin:12px 0 4px}
+  .txg h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--anchor);text-transform:uppercase;margin:14px 0 6px;font-weight:500}
+  .txg ul{margin:0;padding-left:18px;color:#cdd4e4;font-size:13px;line-height:1.6}
+  .txg li{margin:2px 0}
+  .txg .u{color:var(--muted);font-size:11.5px}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XVII·b–c · Plate&nbsp;54</div>
+    <h1>Chronotecture
+      <span class="sub">The 1776 Mirror — spans converging on the birth of the United States</span>
+    </h1>
+    <p class="prov">A rebuild of Breshears' hand-drawn plate holding charts <b>XVII·b</b> and <b>XVII·c</b>, every date, span and annotation preserved verbatim; only the visual language is redesigned. Its structural key: <b>1776&nbsp;AD [5670&nbsp;AM] is the anchor</b> — in XVII·b every span-bar lands on it from the past, and in XVII·c each span is mirrored, the same number of years before and after 1776, out to 2106&nbsp;AD [6000&nbsp;AM].</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2><span class="lab">XVII·b</span>Span-bars landing on 1776&nbsp;AD</h2>
+      <div class="hint">Every bar runs from a dated event to the anchor; the 330-year bracket carries 1776 on to 2106&nbsp;AD [6000&nbsp;AM]. Hover or tap any bar or note. <span class="anchor-key"><i></i>ANCHOR 1776 AD [5670 AM]</span></div>
+      <svg id="b" viewBox="0 0 1000 372" role="img" aria-label="Span bars ending at 1776 AD"></svg>
+    </div>
+    <div class="card">
+      <h2><span class="lab">XVII·c</span>The mirrored spans of 1776</h2>
+      <div class="hint">Each row is one span drawn twice: X years <i>before</i> 1776 (left) and the same X years <i>after</i> (right). The arc is the plate's half-circle, lettered “First example of Gutenburg's printing was an astronomical calendar”. Below: the Mayan baktun band.</div>
+      <svg id="c" viewBox="0 0 1000 560" role="img" aria-label="Mirrored spans around 1776 AD"></svg>
+    </div>
+<div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked. Rows marked “as written” do not compute as stated and are left unchanged.</div><div class="mathgrid">
+<div class="mrow"><span class="eq">1776 = 444 × 4</span><span class="cap">XVII·b, beneath “United States born out of 13 Colonies”.</span></div>
+<div class="mrow"><span class="eq">5670 [5000 + 670]</span><span class="cap">1776&nbsp;AD = 5670&nbsp;AM (AD + 3894).</span></div>
+<div class="mrow"><span class="eq">1776 − 1362 = 414</span><span class="cap">1362&nbsp;AD bar, marked “414”.</span></div>
+<div class="mrow"><span class="eq">1776 − 1256 = 520</span><span class="cap">1256&nbsp;AD bar, “520 yrs.”</span></div>
+<div class="mrow"><span class="eq">1656 = 414 × 4</span><span class="cap">120&nbsp;AD → 1776: Rome annexes Britain.</span></div>
+<div class="mrow"><span class="eq">2070 = 414 × 5</span><span class="cap">295&nbsp;BC → 1776 (no year zero). Also 4309 − 2239 = 2070.</span></div>
+<div class="mrow"><span class="eq">2520 = 360 × 7</span><span class="cap">745&nbsp;BC → 1776 (no year zero).</span></div>
+<div class="mrow bad"><span class="eq">3000 [600 × 5]</span><span class="cap">1135&nbsp;BC comet → 1776 “3000 years before United States born”.</span><span class="asw">as written — 1135 BC → 1776 AD is 2910 years</span></div>
+<div class="mrow"><span class="eq">330 = 33 × 10</span><span class="cap">1776 → 2106&nbsp;AD [6000&nbsp;AM].</span></div>
+<div class="mrow"><span class="eq">43 · 75 · 101 · 110 · 120 · 222 · 269 · 270 · 330</span><span class="cap">XVII·c: each span is laid off both before and after 1776 — all nine pairs check (e.g. 1656 ← 120 → 1896).</span></div>
+<div class="mrow"><span class="eq">1998 = 666 × 3 → 5892 AM</span><span class="cap">222 years after 1776. 6000 − 5892 = 108 years to 6000&nbsp;AM.</span></div>
+<div class="mrow bad"><span class="eq">222 + 222 = 444 “a third of 1776”</span><span class="cap">XVII·c note.</span><span class="asw">as written — 444 is a quarter of 1776 (444 × 4)</span></div>
+<div class="mrow"><span class="eq">5400 AM = ½ of 10,800</span><span class="cap">1506&nbsp;AD, Columbus died.</span></div>
+<div class="mrow"><span class="eq">394.3 yrs = 144,000 days</span><span class="cap">13th Baktun 1652&nbsp;AD [5546&nbsp;AM] → 2046&nbsp;AD (144,000 ÷ 365.25 ≈ 394.3).</span></div>
+</div>
+<div style="font-size:12.5px;color:var(--muted);line-height:1.6">The plate works almost entirely in <b>414</b>, <b>444</b>, <b>600</b> and <b>666</b> multiples. No base-138 figures (138, 276, 552, 1104…) appear on it.</div>
+</div><div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised; brackets, spelling and punctuation as drawn). <b>[?]</b> marks an uncertain reading.</div>
+<details class="tx"><summary>Show transcription</summary><div class="txg">
+<h3>XVII·b — anchor & header</h3><ul>
+<li>1776 AD [5670 AM] (arrow down onto the bar ends)</li>
+<li>United States born out of 13 Colonies</li>
+<li>1776 is 444×4</li>
+<li>5670 [5000+<u>670</u>]</li>
+<li>330 years [33×10] (double arrow from 1776 to the border)</li>
+<li>Border: 2106 AD [6000 AM]</li>
+<li>BC | AD (axis divider, two places)</li>
+</ul>
+<h3>XVII·b — span-bars (top to bottom)</h3><ul>
+<li>1362 AD 414 ◁</li>
+<li>1256 AD 520 yrs. ◁</li>
+<li>120 AD Rome annexs Britain 1656 yrs [414×4] To USA ◁</li>
+<li>295 BC is 3600 Annus Mundi, exactly 2070 [414×5] To USA ◁</li>
+<li>745 BC [3150 AM] Assyria deports 10 Tribes of Israel 2520 yrs [360×7] To USA ◁</li>
+<li>1135 BC [2670 AM] Comet darkens sun 3000 [600×5] years before United States born ◁</li>
+</ul>
+<h3>XVII·b — notes with arrows</h3><ul>
+<li>6600 yr of Anunnaki chronology → 1362 AD bar</li>
+<li>Oera Linde text about flood impact → 1256 AD bar</li>
+<li>2070 is duration between ancient world-killing impacts of 4309 and 2239 BC [1656 AM] → 295 BC bar</li>
+<li>USA is empire of adoption fulfilling role of Ephraim, 13th Tribe adopted by Jacob → 745 BC bar</li>
+<li>United States ends by comet impact → 1135 BC bar</li>
+</ul>
+<h3>XVII·c — centre</h3><ul>
+<li>1776 AD [5670 AM] (arrow down the mirror axis)</li>
+<li>Arc lettering: First example of Gutenburg's printing was an Astronomical Calendar</li>
+<li>Last of the 13 Colonies founded [Georgia] 1733 AD</li>
+<li>Obelisk of On given to Britain in 1819 AD confirms its 13th tribe identity</li>
+</ul>
+<h3>XVII·c — mirrored bars (left ◁|▷ right)</h3><ul>
+<li>43 ◁|▷ 43</li>
+<li>1701 AD is 75 ◁|▷ 75 to 1851 AD</li>
+<li>1675 AD is 101 yrs ◁|▷ 101 yrs to 1877 AD</li>
+<li>1666 AD is 110 yrs ◁|▷ 110 yrs to 1886 AD</li>
+<li>1656 AD is 120 yrs ◁|▷ 120 yrs to 1896 AD</li>
+<li>1554 AD [5448 AM] Comet seen 222 yr ◁|▷ 222 yrs to 1998 AD [666×3]: 5892 AM</li>
+<li>1507 AD America falsely linked-Amerigo 269 yrs ◁|▷ 269 yrs to 2045 AD End of Pyramid Astro-Chrono.</li>
+<li>1506 AD [5400 AM is ½ of 10,800] 270 yrs Columbus died ◁|▷ 270 yrs to 2046 AD Astroid destroys America</li>
+<li>1446 AD [144.6 decans AD symbolic of New Beginning to come ◁|▷ 330 yrs to 2106 AD [6000 AM is New Millennial Period</li>
+</ul>
+<h3>XVII·c — vertical labels on dashed leaders</h3><ul>
+<li>Masonic Constitution about Great Pyramid (→ 1701)</li>
+<li>Greenwich Astronomical Observatory founded (→ 1675)</li>
+<li>1666 AD Great Fire of London (→ 1666)</li>
+<li>1656 AD parallels 1656 AM Flood; Ussher died, author false chronology (→ 1656)</li>
+<li>Present hgt of pyramid is 5448 P" without cornerstone parallels 5448 AM (pyramid sketch; → 1554)</li>
+<li>Britains First World Fair (→ 1851)</li>
+<li>Appearance of Mars's [?] moons seen (→ 1877)</li>
+<li>Secrets of Enoch found; Statue of Liberty (→ 1886)</li>
+<li>Tsunami and flooding kill 30,000 in Japan (→ 1896)</li>
+<li>1998 AD is 108 yrs to 6000 AM; 222+222 is 444 yrs [a <u>third</u> of 1776] (→ 1998)</li>
+<li>2046 AD (dark planet with comet, → 2045/2046 bar ends)</li>
+</ul>
+<h3>XVII·c — axis & baktun band</h3><ul>
+<li>Axis: 1400 AD · 1500 · 1600 · 1700 · 1800 · 1900 · 2000 AD</li>
+<li>12th Baktun</li>
+<li>13th Baktun is 394.3 yrs [144,000 days] to end of America 2046 AD</li>
+<li>1652 AD [5546 AM] (baktun boundary)</li>
+<li>◀ Mayan Long-Count begins 3113 BC</li>
+<li>Border: 2106 AD [6000 AM]</li>
+<li>Signature: Breshears '07</li>
+</ul>
+<h3>Reading notes</h3><ul><li class="u">“Annexs” and “Astroid” are Breshears' spellings. The two square brackets opened in the 1446/2106 bar are never closed on the plate. “a THIRD of 1776” is clearly lettered (and underlined) although 444 is a quarter of 1776. The possessive after “Mars” is hard to read.</li></ul>
+</div></details>
+<div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XVII·b–c (plate&nbsp;54). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+</div>
+  </div>
+</div>
+
+<div id="tip"></div>
+<script>
+
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function tx(p,x,y,s,a){const t=el('text',Object.assign({x:x,y:y},a||{}),p);t.textContent=s;return t;}
+const tip=document.getElementById('tip');
+let tipOn=false;
+function showTip(h,cx,cy){tip.innerHTML=h;tip.style.opacity=1;tipOn=true;
+  const w=Math.min(300,window.innerWidth-20);let x=cx+16,y=cy+14;
+  if(x+w>window.innerWidth-6)x=Math.max(6,cx-w-10);
+  const th=tip.offsetHeight||140; if(y+th>window.innerHeight-6)y=Math.max(6,cy-th-12);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;tipOn=false;}
+function T(col,h,yr,b,q){return `<div class="t-h"><span class="d" style="background:${col}"></span>${h}</div>`+(yr?`<div class="t-yr">${yr}</div>`:'')+(b?`<div class="t-b">${b}</div>`:'')+(q?`<div class="t-q">“${q}”</div>`:'');}
+function bind(g,h){g.classList.add('hot');
+  g.addEventListener('mousemove',e=>showTip(h,e.clientX,e.clientY));
+  g.addEventListener('mouseleave',hideTip);
+  g.addEventListener('click',e=>{e.stopPropagation();showTip(h,e.clientX,e.clientY);});
+  return g;}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',()=>{if(tipOn)hideTip();},{passive:true});
+function chips(CAT){const bar=document.getElementById('filters');if(!bar)return;const act=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(act.has(k)){act.delete(k);c.classList.add('off');}else{act.add(k);c.classList.remove('off');}
+      document.querySelectorAll('[data-cat]').forEach(g=>{g.style.opacity=act.has(g.getAttribute('data-cat'))?'':'0.08';g.style.pointerEvents=act.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);});}
+/* span bar: rect from x1..x2 centred on y, label inside */
+function sbar(p,x1,x2,y,h,col,label,opt){opt=opt||{};const a=Math.min(x1,x2),b=Math.max(x1,x2);
+  el('rect',{x:a,y:y-h/2,width:Math.max(b-a,1.5),height:h,rx:3,fill:col,'fill-opacity':opt.fo||0.16,stroke:col,'stroke-width':1.3},p);
+  if(label){const anc=opt.anchor||'start';const lx=anc==='start'?a+7:(anc==='end'?b-7:(a+b)/2);
+    tx(p,opt.lx!==undefined?opt.lx:lx,y+4,label,{fill:opt.tc||'#e6ebf5','font-size':opt.fs||11.5,'text-anchor':opt.lanc||anc,'font-weight':500});}
+}
+function tri(p,x,y,dir,col){/* small plate-style ◁ ▷ arrowhead at x */const s=5;
+  el('path',{d:dir>0?`M${x} ${y-s} L${x+s*1.3} ${y} L${x} ${y+s}Z`:`M${x} ${y-s} L${x-s*1.3} ${y} L${x} ${y+s}Z`,fill:col},p);}
+
+
+const CAT={
+  nation:{c:'#9c8bf0',label:'Nation / empire'},
+  celestial:{c:'#5cb3f2',label:'Comet / celestial'},
+  chrono:{c:'#e7c355',label:'Chronology / calendar'},
+  disaster:{c:'#f08a4b',label:'Fire / flood / quake'},
+  pyramid:{c:'#37b6a6',label:'Pyramid'}
+};
+const AN='#ffcf5c';
+function yl(y){return y<0?(-y)+' BC':y+' AD';}
+
+/* ---------- XVII·b ---------- */
+(function(){
+  const s=document.getElementById('b');
+  const Y0=-1200,Y1=2150,PL=40,PR=960;
+  const X=y=>PL+(y-Y0)/(Y1-Y0)*(PR-PL);
+  const AX=322, xa=X(1776), xe=X(2106), x0=X(0);
+  el('rect',{x:PL,y:58,width:x0-PL,height:AX-58,fill:'#0e1626',opacity:.5},s);
+  for(let v=-1000;v<=2000;v+=500){const xx=X(v);el('line',{x1:xx,y1:60,x2:xx,y2:AX,stroke:'#1c2740'},s);
+    tx(s,xx,AX+18,v===0?'':yl(v),{fill:'#5d6885','font-size':10.5,'text-anchor':'middle','font-family':'JetBrains Mono'});}
+  el('line',{x1:PL,y1:AX,x2:PR,y2:AX,stroke:'#3a486a','stroke-width':2},s);
+  el('line',{x1:x0,y1:58,x2:x0,y2:AX+30,stroke:'#56628f','stroke-width':1.3,'stroke-dasharray':'4 5'},s);
+  tx(s,x0-7,AX+34,'BC',{fill:'#7b86a4','font-size':11,'text-anchor':'end','font-family':'JetBrains Mono'});
+  tx(s,x0+7,AX+34,'AD',{fill:'#7b86a4','font-size':11,'font-family':'JetBrains Mono'});
+  // anchor
+  el('line',{x1:xa,y1:58,x2:xa,y2:AX+40,stroke:AN,'stroke-width':2},s);
+  el('path',{d:`M${xa-9} 50 L${xa+9} 50 L${xa} 66Z`,fill:AN},s);
+  const hg=el('g',{},s);
+  tx(hg,xa-16,24,'1776 AD [5670 AM] · United States born out of 13 Colonies',{fill:AN,'font-size':13.5,'text-anchor':'end','font-weight':600});
+  tx(hg,xa-16,42,'1776 is 444×4 · 5670 [5000+670]',{fill:'#c9cfdd','font-size':11.5,'text-anchor':'end','font-family':'JetBrains Mono'});
+  bind(hg,T(AN,'1776 AD [5670 AM]','United States born out of 13 Colonies','1776 is 444×4; 5670 [5000+670]. Every bar on XVII·b ends here.'));
+  // 330 bracket to 2106
+  const g3=el('g',{'data-cat':'chrono'},s);
+  el('line',{x1:xe,y1:58,x2:xe,y2:AX+40,stroke:'#e7c355','stroke-width':2.5},g3);
+  el('line',{x1:xa+4,y1:150,x2:xe-4,y2:150,stroke:'#e7c355','stroke-width':1.4,'marker-start':'url(#ah)','marker-end':'url(#ah)'},g3);
+  tx(g3,(xa+xe)/2,140,'330',{fill:'#e7c355','font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono'});
+  tx(g3,(xa+xe)/2,170,'years',{fill:'#c9cfdd','font-size':10.5,'text-anchor':'middle'});
+  tx(g3,(xa+xe)/2,184,'[33×10]',{fill:'#c9cfdd','font-size':10.5,'text-anchor':'middle','font-family':'JetBrains Mono'});
+  const bt=tx(g3,xe+12,200,'2106 AD [6000 AM]',{fill:'#e7c355','font-size':11,'font-family':'JetBrains Mono',transform:`rotate(-90 ${xe+12} 200)`,'text-anchor':'middle'});
+  bind(g3,T('#e7c355','330 years [33×10]','1776 AD → 2106 AD [6000 AM]','The plate\'s right-hand border is 2106 AD [6000 AM].'));
+  const defs=el('defs',{},s);const m=el('marker',{id:'ah',viewBox:'0 0 10 10',refX:5,refY:5,markerWidth:6,markerHeight:6,orient:'auto-start-reverse'},defs);
+  el('path',{d:'M0 0 L10 5 L0 10z',fill:'#e7c355'},m);
+
+  const BARS=[
+    {s:1362,t:'1362 AD 414',cat:'chrono',span:'414 yrs',note:'6600 yr of Anunnaki chronology',nl:'6600 yr of Anunnaki chronology'},
+    {s:1256,t:'1256 AD 520 yrs.',cat:'chrono',span:'520 yrs',note:'Oera Linde text about flood impact',nl:'Oera Linde text about flood impact'},
+    {s:120,t:'120 AD Rome annexs Britain 1656 yrs [414×4] To USA',cat:'nation',span:'1656 yrs [414×4]'},
+    {s:-295,t:'295 BC is 3600 Annus Mundi, exactly 2070 [414×5] To USA',cat:'chrono',span:'2070 [414×5]',note:'2070 is duration between ancient world-killing impacts of 4309 and 2239 BC [1656 AM]'},
+    {s:-745,t:'745 BC [3150 AM] Assyria deports 10 Tribes of Israel 2520 yrs [360×7] To USA',cat:'nation',span:'2520 yrs [360×7]',note:'USA is empire of adoption fulfilling role of Ephraim, 13th Tribe adopted by Jacob'},
+    {s:-1135,t:'1135 BC [2670 AM] Comet darkens sun 3000 [600×5] years before United States born',cat:'celestial',span:'3000 [600×5]',note:'United States ends by comet impact'}
+  ];
+  BARS.forEach((b,i)=>{
+    const y=90+i*42, col=CAT[b.cat].c, xs=X(b.s);
+    const g=el('g',{'data-cat':b.cat},s);
+    sbar(g,xs,xa,y,25,col,b.t,{fs:11.5});
+    tri(g,xa-1,y,-1,col);
+    el('circle',{cx:xs,cy:y,r:4,fill:col},g);
+    bind(g,T(col,b.span,yl(b.s)+' → 1776 AD',b.t+' ◁',b.note));
+    if(b.nl){const ng=el('g',{'data-cat':b.cat},s);
+      tx(ng,xs-14,y+4,b.nl,{fill:'#aeb7cd','font-size':11,'text-anchor':'end','font-style':'italic'});
+      el('path',{d:`M${xs-11} ${y} l7 0 m-3 -3 l3 3 l-3 3`,stroke:'#aeb7cd',fill:'none','stroke-width':1.3},ng);
+      bind(ng,T(col,'Note',yl(b.s),b.note));}
+  });
+  // the three long notes, top-left with arrows (as on the plate)
+  const NOTES=[
+    {i:3,l:['2070 is duration between ancient world-','killing impacts of 4309 and 2239 BC [1656 AM]'],x:150,y:76},
+    {i:4,l:['USA is empire of adoption fulfilling role of','Ephraim, 13th Tribe adopted by Jacob'],x:150,y:122},
+    {i:5,l:['United States ends','by comet impact'],x:44,y:180}
+  ];
+  NOTES.forEach(n=>{const b=BARS[n.i],col=CAT[b.cat].c;const g=el('g',{'data-cat':b.cat},s);
+    n.l.forEach((ln,k)=>tx(g,n.x,n.y+k*14,ln,{fill:'#aeb7cd','font-size':11,'font-style':'italic'}));
+    const ty=90+n.i*42-14, txx=X(b.s)+ (n.i===5?6:0);
+    el('path',{d:`M${n.i===5?n.x+40:n.x+10} ${n.y+n.l.length*14-6} L${txx} ${ty}`,stroke:col,'stroke-width':1.3,fill:'none',opacity:.8},g);
+    el('circle',{cx:txx,cy:ty,r:2.5,fill:col},g);
+    bind(g,T(col,'Note',yl(b.s)+' bar',b.note));});
+})();
+
+/* ---------- XVII·c ---------- */
+(function(){
+  const s=document.getElementById('c');
+  const Y0=1390,Y1=2110,PL=30,PR=940;
+  const X=y=>PL+(y-Y0)/(Y1-Y0)*(PR-PL);
+  const AX=490, cx=X(1776), R=X(1776)-X(1446);
+  // arc + lettering
+  const defs=el('defs',{},s);
+  el('path',{id:'arcp',d:`M ${cx-R+6} ${AX} A ${R-6} ${R-6} 0 0 1 ${cx} ${AX-R+6}`},defs);
+  el('path',{d:`M ${cx-R} ${AX} A ${R} ${R} 0 0 1 ${cx+R} ${AX}`,fill:'#101a30',stroke:'#3a4a6e','stroke-width':1.4,'fill-opacity':.45},s);
+  const at=el('text',{fill:'#7f8bab','font-size':11.5,'letter-spacing':'.06em'},s);
+  const tp=el('textPath',{href:'#arcp',startOffset:'4%'},at);tp.textContent="First example of Gutenburg's printing was an Astronomical Calendar";
+  // axis
+  for(let v=1400;v<=2000;v+=100){const xx=X(v);el('line',{x1:xx,y1:AX,x2:xx,y2:AX+8,stroke:'#3a486a'},s);
+    tx(s,xx+3,AX+21,v===1400?'1400 AD':(v===2000?'2000 AD':String(v)),{fill:'#5d6885','font-size':10.5,'font-family':'JetBrains Mono'});}
+  el('line',{x1:PL,y1:AX,x2:X(2106),y2:AX,stroke:'#3a486a','stroke-width':2},s);
+  // mirror axis + anchor
+  el('line',{x1:cx,y1:60,x2:cx,y2:AX,stroke:AN,'stroke-width':1.6,opacity:.9},s);
+  el('path',{d:`M${cx-10} 48 L${cx+10} 48 L${cx} 66Z`,fill:AN},s);
+  const ha=tx(s,cx,36,'1776 AD [5670 AM]',{fill:AN,'font-size':15,'text-anchor':'middle','font-weight':600});
+  // 2106 border
+  el('line',{x1:X(2106),y1:250,x2:X(2106),y2:AX+20,stroke:'#e7c355','stroke-width':2.2},s);
+  tx(s,985,160,'2106 AD [6000 AM]',{fill:'#e7c355','font-size':11,'font-family':'JetBrains Mono','text-anchor':'middle',transform:'rotate(90 985 160)'});
+
+  const P=[
+    {n:43,  a:1733,b:1819,L:'43',R:'43',cat:'nation'},
+    {n:75,  a:1701,b:1851,L:'1701 AD is 75',R:'75 to 1851 AD',cat:'pyramid'},
+    {n:101, a:1675,b:1877,L:'1675 AD is 101 yrs',R:'101 yrs to 1877 AD',cat:'celestial'},
+    {n:110, a:1666,b:1886,L:'1666 AD is 110 yrs',R:'110 yrs to 1886 AD',cat:'disaster'},
+    {n:120, a:1656,b:1896,L:'1656 AD is 120 yrs',R:'120 yrs to 1896 AD',cat:'disaster'},
+    {n:222, a:1554,b:1998,L:'1554 AD [5448 AM] Comet seen 222 yr',R:'222 yrs to 1998 AD [666×3]: 5892 AM',cat:'celestial'},
+    {n:269, a:1507,b:2045,L:'1507 AD America falsely linked-Amerigo 269 yrs',R:'269 yrs to 2045 AD End of Pyramid Astro-Chrono.',cat:'nation'},
+    {n:270, a:1506,b:2046,L:'1506 AD [5400 AM is ½ of 10,800] 270 yrs Columbus died',R:'270 yrs to 2046 AD Astroid destroys America',cat:'celestial'},
+    {n:330, a:1446,b:2106,L:'1446 AD [144.6 decans AD symbolic of New Beginning to come',R:'330 yrs to 2106 AD [6000 AM is New Millennial Period',cat:'chrono'}
+  ];
+  const RY0=252,RS=26;
+  P.forEach((p,i)=>{const y=RY0+i*RS,col=CAT[p.cat].c;const g=el('g',{'data-cat':p.cat},s);
+    const short=p.n<60;
+    sbar(g,X(p.a),cx,y,20,col,p.L,{fs:10.5,anchor:short?'middle':'start'});
+    sbar(g,cx,X(p.b),y,20,col,p.R,{fs:10.5,anchor:short?'middle':'start'});
+    tri(g,cx-2,y,-1,col);tri(g,cx+2,y,1,col);
+    bind(g,T(col,`${p.n} years either side of 1776`,`${p.a} AD ← 1776 → ${p.b} AD`,`${p.L} ◁|▷ ${p.R}`));
+  });
+  // event lanes (leaders to bar ends)
+  const LN=[
+    {lane:0,y:1733,side:-1,t:'Last of the 13 Colonies founded [Georgia] 1733 AD',full:'Last of the 13 Colonies founded [Georgia] 1733 AD',cat:'nation',row:0},
+    {lane:0,y:1819,side:1,t:'Obelisk of On given to Britain in 1819 AD …',full:'Obelisk of On given to Britain in 1819 AD confirms its 13th tribe identity',cat:'nation',row:0},
+    {lane:1,y:1701,side:-1,t:'Masonic Constitution about Great Pyramid',cat:'pyramid',row:1},
+    {lane:1,y:1851,side:1,t:"Britains First World Fair",cat:'nation',row:1},
+    {lane:2,y:1675,side:-1,t:'Greenwich Astronomical Observatory founded',cat:'celestial',row:2},
+    {lane:2,y:1877,side:1,t:"Appearance of Mars's moons seen",cat:'celestial',row:2},
+    {lane:3,y:1666,side:-1,t:'1666 AD Great Fire of London',cat:'disaster',row:3},
+    {lane:3,y:1886,side:1,t:'Secrets of Enoch found; Statue of Liberty',cat:'chrono',row:3},
+    {lane:4,y:1656,side:-1,t:'1656 AD parallels 1656 AM Flood; Ussher died …',full:'1656 AD parallels 1656 AM Flood; Ussher died, author false chronology',cat:'disaster',row:4},
+    {lane:4,y:1896,side:1,t:'Tsunami and flooding kill 30,000 in Japan',cat:'disaster',row:4},
+    {lane:5,y:1554,side:-1,t:'▲ Present hgt of pyramid is 5448 P″ …',full:'Present hgt of pyramid is 5448 P" without cornerstone parallels 5448 AM',cat:'pyramid',row:5},
+    {lane:5,y:1998,side:1,t:'1998 AD is 108 yrs to 6000 AM …',full:'1998 AD is 108 yrs to 6000 AM; 222+222 is 444 yrs [a third of 1776]',cat:'chrono',row:5}
+  ];
+  LN.forEach(e=>{const col=CAT[e.cat].c,x=X(e.y),ly=96+e.lane*22,by=RY0+e.row*RS-10;const g=el('g',{'data-cat':e.cat},s);
+    el('line',{x1:x,y1:ly+4,x2:x,y2:by,stroke:col,'stroke-width':1,'stroke-dasharray':'3 3',opacity:.75},g);
+    el('circle',{cx:x,cy:ly+4,r:2.4,fill:col},g);
+    tx(g,x+(e.side<0?-6:6),ly,e.t,{fill:'#d5dbe8','font-size':10.8,'text-anchor':e.side<0?'end':'start',class:'halo'});
+    bind(g,T(col,e.y+' AD',(e.side<0?`${1776-e.y} yrs before 1776`:`${e.y-1776} yrs after 1776`),'',e.full||e.t));
+  });
+  // 2046 planet + comet
+  const pg=el('g',{'data-cat':'celestial'},s);const px=X(2046),py=96+6*22-2;
+  el('line',{x1:px,y1:py+10,x2:px,y2:RY0+7*RS-10,stroke:'#5cb3f2','stroke-dasharray':'3 3',opacity:.75},pg);
+  el('circle',{cx:px,cy:py-2,r:11,fill:'#1d2740',stroke:'#5cb3f2','stroke-width':1.4},pg);
+  el('line',{x1:px-14,y1:py-15,x2:px-48,y2:py-40,stroke:'#5cb3f2','stroke-width':2,opacity:.6,'stroke-linecap':'round'},pg);
+  tx(pg,px+16,py+2,'2046 AD',{fill:'#d5dbe8','font-size':10.8,'font-family':'JetBrains Mono'});
+  bind(pg,T('#5cb3f2','2046 AD','270 yrs after 1776','Dark planet with comet drawn at the end of the 269/270-year rows: “270 yrs to 2046 AD Astroid destroys America”.'));
+  // baktun band
+  const bg=el('g',{'data-cat':'chrono'},s);const bk=X(1652);
+  el('rect',{x:PL,y:AX+28,width:bk-PL,height:20,fill:'#e7c355','fill-opacity':.06,stroke:'#3a486a'},bg);
+  el('rect',{x:bk,y:AX+28,width:X(2046)-bk,height:20,fill:'#e7c355','fill-opacity':.14,stroke:'#e7c355'},bg);
+  tx(bg,PL+6,AX+42,'12th Baktun',{fill:'#aeb7cd','font-size':10.5});
+  tx(bg,bk+6,AX+42,'13th Baktun is 394.3 yrs [144,000 days] to End of America 2046 AD',{fill:'#e6ebf5','font-size':10.5});
+  el('line',{x1:bk,y1:AX+48,x2:bk,y2:AX+58,stroke:'#e7c355','stroke-dasharray':'2 2'},bg);
+  tx(bg,bk,AX+68,'1652 AD [5546 AM]',{fill:'#e7c355','font-size':10.5,'text-anchor':'middle','font-family':'JetBrains Mono'});
+  el('path',{d:`M${PL} ${AX+64} l12 -6 v4 h16 v4 h-16 v4z`,fill:'#aeb7cd'},bg);
+  tx(bg,PL+34,AX+68,'Mayan Long-Count begins 3113 BC',{fill:'#aeb7cd','font-size':10.5});
+  bind(bg,T('#e7c355','13th Baktun','1652 AD [5546 AM] → 2046 AD','13th Baktun is 394.3 yrs [144,000 days] to End of America 2046 AD. Mayan Long-Count begins 3113 BC.'));
+})();
+chips(CAT);
+
+</script>
+</body>
+</html>
