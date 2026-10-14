@@ -1,0 +1,32 @@
+// Plate 81 · Chart XXV — transcribed from plates/p081.png. Measurement figure; no dates printed.
+window.PLATE = {
+  plate: 81,
+  chart: 'XXV',
+  kind: 'figure',
+  title: 'King’s Chamber and Antechamber Measurements',
+  subtitle: 'Distances in pyramid inches from the Great Step to the King’s Chamber south wall',
+  signed: "Breshears '06",
+  rotated: true,
+  range: [0, 600],
+  transcribed: 'Transcribed 13 Oct 2026 from the scan; all values are p" measurements, no dated labels',
+  events: [],
+  spans: [],
+  math: [
+    { eq: '102 + 102 = 204', cap: 'King’s Chamber width 204 p" in two halves of 102 p"' },
+    { eq: '51 + 51 = 102', cap: 'Second passage 102 p" in two halves of 51 p"' },
+    { eq: '52 + 16 + 102 = 170', cap: 'Entry passage [52], granite leaf [16] and second passage [102] total 170 p"' },
+  ],
+  notes: [
+    'Section through the Great Step, Antechamber and King’s Chamber with dimension lines in pyramid inches (p").',
+    'King’s Chamber: length 412 p" [diagonal label], 230 p" across, 204 p" divided 102 p" + 102 p".',
+    'Entry passage [52], granite leaf [16] and second passage [102] total 170 p"; second passage drawn 51 p" + 51 p" = 102 p".',
+    'Antechamber: 116 p" and 148 p"; 58 p"; granite leaf 16 p"; 52 p" entry passage; 72 p" to 1 p" boss on granite leaf.',
+    'Length of triple veil in Antechamber 80 p". Center of granite leaf as defined by boss face and south face 80 p" from entry passage.',
+    'Joint between blocks 76 p" from north Antechamber wall. Joint between first and second granite blocks 38 p" from N. wall of Antechamber.',
+    'South face of granite leaf 36 p" from N. wall of Antechamber. Countersunk north face of granite leaf 134 p" from Great Step. North wall of Antechamber 112 p" from Great Step.',
+    'Great Step 126 p"; 60.96 p"; 38 p"; 34 p"; Great Step top 1700 p" above base, 1656 p" above base marked below it.',
+    'Measures from the Great Step: 204, 170, 144, 270, 330 p"; and 204, 330, 408, 474, 534 p" to the south wall of King’s Chamber.',
+    'Vertical to S. wall of Queen’s Chamber 103 p" from Great Step; vertical to N. wall of subterranean chamber 43 p" from Great Step; vertical to S. wall of subterranean chamber 368 p" from Great Step.',
+    'Well-pit central axis of subterranean chamber, and central north–south axis of Great Pyramid, are marked with arrows.',
+  ],
+};

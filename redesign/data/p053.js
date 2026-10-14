@@ -1,0 +1,45 @@
+// Plate 53 · Chart XVII — transcribed from plates/p053.png. Years as written on the plate (BC negative).
+window.PLATE = {
+  plate: 53,
+  chart: 'XVII',
+  kind: 'figure',
+  title: '1776 AD at the Axis Conjunct',
+  subtitle: '3036 p" from 1261 BC floor joint to 1776 AD [5670 AM]; 1110 p" back to 666 AD entry',
+  signed: "Breshears '06",
+  rotated: false,
+  range: [-1550, 2050],
+  transcribed: 'Transcribed 13 Oct 2026 from the scan',
+  anchors: [
+    { year: -1261, label: '1261 BC floor joint', note: '1261 BC [2634 AM], lowest point in pyramid with a sloping angle' },
+    { year: 1776, label: '1776 AD [5670 AM]', note: '1776 Anno Domini [5670 AM], axis conjunct' },
+  ],
+  events: [
+    { year: -1447, label: 'The Exodus', am: 2448, cat: 'hist' },
+    { year: -1261, label: 'Floor joint: lowest sloping point in pyramid', am: 2634, cat: 'cycle', note: '1261 BC 186 years short of 1447 BC [2448 AM], known as the Exodus' },
+    { year: 666, label: 'Pyramid entry', cat: 'cycle' },
+    { year: 1776, label: 'Axis conjunct', am: 5670, cat: 'hist', note: '1776 AD is 5670 Annus Mundi' },
+    { year: 1962, label: 'End of Anunnaki Ner chronology', cat: 'anun', note: 'Monument is 186 p" short of 6000; 1776 AD + 186 is 1962 AD' },
+  ],
+  spans: [
+    { from: -1261, to: 1776, years: 3036, label: '3036 p" from floor joint to axis conjunct', cat: 'cycle' },
+    { from: 666, to: 1776, years: 1110, label: '1110 p" to entry / to conjunct', cat: 'cycle' },
+    { from: -1447, to: -1261, years: 186, label: '186 years short of the Exodus', cat: 'hist' },
+    { from: 1776, to: 1962, years: 186, label: '1776 AD + 186', formula: '1776 + 186 = 1962', cat: 'anun' },
+  ],
+  math: [
+    { eq: '1776 + 186 = 1962', cap: '1962 AD end of Anunnaki Ner chronology' },
+    { eq: '5670 + 144 = 5814', cap: '1776 AD is 5670 Annus Mundi; 5814 p" height' },
+    { eq: '6000 - 186 = 5814', cap: 'Monument is 186 p" short of 6000' },
+    { eq: '1700 - 524 = 1176', cap: 'Great Step height less 524 p" north base to entrance' },
+    { eq: '1176 + 600 = 1776', cap: 'Adding one Anunnaki Ner [600] gives 1776' },
+    { eq: '44 × 4 = 176', cap: '176 p" to base' },
+    { eq: '444 × 4 = 1776', cap: '1776 is 444×4' },
+  ],
+  notes: [
+    'Cross-section of the Great Pyramid with a 5814 p" height marker and a small capstone pyramid drawn apart at upper right.',
+    'Monument is 186 p" short of 6000. 1776 AD + 186 is 1962 AD, end of Anunnaki Ner chronology.',
+    '1700 p" from base to Great Step. Height of Great Step at 1700 p" subtracting 524 p" from north base to entrance is 1176 p"; adding one Anunnaki Ner [600] gives us 1776.',
+    '1261 BC floor joint is the lowest point in pyramid with a sloping angle. Just as highest point of pyramid is 186 short of 6000, so too is 1261 BC 186 years short of 1447 BC [2448 AM], known as the Exodus.',
+    'Enlarged inset of the passages: "To 666 AD pyramid entry" 1110 p" to entry with 176 p" to base; "To 1776 AD axis conjunct" 1110 p" to conjunct with 666 p" to base at 666 AD. 176 is 44×4; 1776 is 444×4.',
+  ],
+};

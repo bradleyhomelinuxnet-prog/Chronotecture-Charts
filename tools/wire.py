@@ -3,6 +3,7 @@
 
 Reads redesign/*.html and tools/plates.tsv, then rewrites:
   * viewer.js  - the REDESIGNS map (which plate page gets the "Interactive redesign" switch)
+                 and the ENGINE list (plates with redesign/data/pNNN.js get an "Engine view")
   * index.html - FLAGS (chart/text per plate), STARS (interactive), KW (search words),
                  and the interactive counter.
 Run from the repository root: python3 tools/wire.py
@@ -38,6 +39,8 @@ def label_of(n):
 vm = {('p%03d.html' % n): [redesign[n], label_of(n)] for n in sorted(redesign) if n not in OWN_SWITCH}
 v = open('viewer.js', encoding='utf-8').read()
 v = re.sub(r'  var REDESIGNS=\{.*?\};', lambda m: '  var REDESIGNS=' + json.dumps(vm, ensure_ascii=False, separators=(',', ':')) + ';', v, count=1, flags=re.S)
+engine = sorted(int(re.search(r'p(\d{3})', x).group(1)) for x in glob.glob('redesign/data/p[0-9][0-9][0-9].js'))
+v = re.sub(r'  var ENGINE=\[[^\]]*\];', '  var ENGINE=[%s];' % ','.join(map(str, engine)), v, count=1)
 open('viewer.js', 'w', encoding='utf-8').write(v)
 
 # index.html
@@ -60,4 +63,4 @@ n_inter = len(stars) + 2  # + the Great Step and the Constellation, which have n
 ix = re.sub(r'(data-to=")\d+("[^>]*>0</div><div class="l">Interactive)', r'\g<1>%d\2' % n_inter, ix)
 ix = re.sub(r'(data-to=")\d+("[^>]*>0</div><div class="l">Chart plates)', r'\g<1>%d\2' % flags.count('1'), ix)
 open('index.html', 'w', encoding='utf-8').write(ix)
-print('viewer.js: %d redesign switches; index.html: %d chart plates, %d interactive (%d plates)' % (len(vm), flags.count('1'), n_inter, len(stars)))
+print('viewer.js: %d redesign switches, %d engine views; index.html: %d chart plates, %d interactive (%d plates)' % (len(vm), len(engine), flags.count('1'), n_inter, len(stars)))

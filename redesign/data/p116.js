@@ -1,0 +1,30 @@
+// Plate 116 · Phoenix Chronometry III — transcribed from plates/p116.png.
+window.PLATE = {
+  plate: 116,
+  kind: 'figure',
+  title: 'Phoenix Chronometry III: Great Step and King’s Chamber',
+  subtitle: 'King’s Chamber volume as 552 × 35,020 and 5520 × 3502',
+  rotated: true,
+  range: [0, 100],
+  transcribed: 'Transcribed 13 Oct 2026 from the scan; plate headed "Phoenix Chronometry III"; no dated labels',
+  events: [],
+  spans: [],
+  math: [
+    { eq: '340 + 126 + 34 + 52 = 552', cap: '552 (138×4)' },
+    { eq: '138 × 4 = 552', cap: 'as printed beside 552' },
+    { eq: '138 × 12 = 1656', cap: '1656 (138×12) to base' },
+    { eq: '1700 + 340 = 2040', cap: '1700 to base plus the Gallery height' },
+    { eq: '412 × 204 × 230 = 19,331,040', cap: 'King’s Chamber in cubic inches' },
+    { eq: '552 × 35,020 = 19,331,040', cap: '…or 552 × 35,020' },
+    { eq: '5520 × 3502 = 19,331,040', cap: '…or 5520 × 3502' },
+    { eq: '230 × 126 = 28,980', cap: '28,980 is 4140×7, or 414×70' },
+    { eq: '4140 × 7 = 28,980', cap: 'as printed' },
+    { eq: '414 × 70 = 28,980', cap: 'as printed' },
+  ],
+  notes: [
+    'Section through the Great Step, antechamber and King’s Chamber, drawn sideways, headed "Phoenix Chronometry III".',
+    'Height of Grand Gallery 340; Great Step block (limestone) 126 long and 34 high at the Central Axis; 52 across the antechamber entry; granite blocks labelled.',
+    'King’s Chamber: 412 length, 204 width, 230 height.',
+    'Lines down to the base: 1656 (138×12) to base, 1700 to base.',
+  ],
+};

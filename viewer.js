@@ -18,6 +18,17 @@
   // Generated list: tools/wire.py rewrites the REDESIGNS line from the redesign/ folder.
   var REDESIGNS={"p013.html":["chart-i.html","Chart I"],"p014.html":["p014.html","Chart I·b"],"p015.html":["p015.html","Chart I·c"],"p016.html":["p016.html","Chart I·d"],"p017.html":["ie.html","Chart I·e"],"p018.html":["p018.html","Chart II"],"p021.html":["p021.html","Chart III"],"p022.html":["p022.html","Chart III·b"],"p023.html":["p023.html","Chart IV"],"p024.html":["p024.html","Chart V"],"p025.html":["p025.html","Chart V"],"p026.html":["p026.html","Chart V"],"p027.html":["p027.html","Chart VI"],"p028.html":["p028.html","Chart VI"],"p029.html":["vic.html","Chart VI·c"],"p030.html":["vid.html","Chart VI·d"],"p038.html":["p038.html","Chart VIII"],"p039.html":["p039.html","Chart VIII·b"],"p040.html":["p040.html","Chart IX"],"p041.html":["p041.html","Chart IX·b / IX·c"],"p042.html":["p042.html","Chart X, XI, XII"],"p043.html":["p043.html","Chart X·b"],"p044.html":["p044.html","Chart X·c"],"p045.html":["p045.html","Chart XI·b"],"p046.html":["p046.html","Chart XIII–XVI"],"p047.html":["p047.html","Chart XIV·b"],"p048.html":["p048.html","Chart XIV·c"],"p053.html":["p053.html","Chart XVII"],"p054.html":["p054.html","Chart XVII"],"p055.html":["p055.html","Chart XVII"],"p059.html":["p059.html","Chart XVIII"],"p060.html":["p060.html","Chart XIX"],"p061.html":["p061.html","Chart XIX·c"],"p062.html":["p062.html","Chart XIX·d"],"p063.html":["p063.html","Chart XX / XXI"],"p064.html":["p064.html","Chart XX·b"],"p069.html":["p069.html","Chart XXII"],"p070.html":["p070.html","Chart XXI·b"],"p071.html":["p071.html","Chart XXII·c"],"p073.html":["p073.html","Chart XXIII"],"p074.html":["p074.html","Chart XXIII·b"],"p080.html":["p080.html","Chart XXIV"],"p081.html":["p081.html","Chart XXV"],"p082.html":["p082.html","Chart XXVI"],"p083.html":["p083.html","Chart XXVII"],"p084.html":["p084.html","Chart XXVIII"],"p085.html":["p085.html","Chart XXIX"],"p086.html":["p086.html","Chart XXX"],"p087.html":["p087.html","Chart XXXI"],"p088.html":["p088.html","Chart XXXII"],"p089.html":["p089.html","Chart XXXIII"],"p090.html":["p090.html","Chart XXXIV"],"p091.html":["p091.html","Chart XXXV"],"p110.html":["p110.html","Foundation of Time"],"p111.html":["p111.html","Vertical Distances"],"p112.html":["p112.html","Sloping & Horizontal Distances"],"p113.html":["p113.html","Lower Chamber Level"],"p114.html":["p114.html","Phoenix Chronometry I"],"p115.html":["p115.html","Phoenix Chronometry II"],"p116.html":["p116.html","Phoenix Chronometry III"],"p117.html":["p117.html","Phoenix Chronometry IV"],"p118.html":["p118.html","Rejected Cornerstone"]};
   var NUM=parseInt((PAGE.match(/p(\d+)\.html/)||[])[1],10);
+  // Generated list: tools/wire.py rewrites the ENGINE line from redesign/data/ (plates drawn by the shared engine).
+  var ENGINE=[14,15,16,18,22,23,24,25,26,27,28,38,40,41,42,44,46,53,54,55,59,60,61,62,63,64,69,70,71,73,74,79,80,81,82,83,84,85,86,87,88,89,90,91,100,105,108,109,111,112,114,115,116,117];
+  function addEngine(wrap){
+    if(!wrap || ENGINE.indexOf(NUM)<0 || wrap.querySelector('[data-view="engine"]')) return;
+    var seg=wrap.querySelector('.seg');
+    if(!seg){ addSeg(wrap,''); seg=wrap.querySelector('.seg'); seg.removeChild(seg.lastChild); }
+    var b=document.createElement('button'); b.type='button'; b.dataset.view='engine'; b.textContent='Engine view \u25C8'; seg.appendChild(b);
+    var f=document.createElement('iframe'); f.className='frame'; f.title='engine view'; f.loading='lazy'; f.dataset.pane='engine';
+    f.src='../redesign/e'+('00'+NUM).slice(-3)+'.html'; f.style.display='none'; wrap.appendChild(f);
+    bindSegs();
+  }
   function addSeg(wrap,second){
     var seg=document.createElement('div'); seg.className='seg';
     seg.innerHTML='<button type="button" class="on" data-view="plate">Original plate</button><button type="button" data-view="redesign">'+second+'</button>';
@@ -25,10 +36,11 @@
   }
   (function wireRedesign(){
     var r=REDESIGNS[PAGE], wrap=document.getElementById('stagewrap');
+    if(wrap && wrap.querySelector('.seg')) addEngine(wrap);
     if(!r || !wrap || wrap.querySelector('.seg')) return;
     addSeg(wrap,'Interactive redesign \u2726');
     var f=document.createElement('iframe'); f.className='frame'; f.title='redesign'; f.loading='lazy'; f.src='../redesign/'+r[0];
-    wrap.appendChild(f);
+    wrap.appendChild(f); addEngine(wrap);
     var pn=document.querySelector('.tb-center .pnum');
     if(pn && !pn.querySelector('.serif')){ var s=document.createElement('span'); s.className='serif'; s.style.cssText='color:#ffcf5c;font-size:17px'; s.textContent=r[1]; pn.appendChild(document.createTextNode('\u00a0\u00b7\u00a0')); pn.appendChild(s); }
   })();
@@ -41,14 +53,15 @@
     var sc=document.createElement('script'); sc.src='../text/texts.js';
     sc.onload=function(){
       var t=window.CHRONO_TEXT && window.CHRONO_TEXT[NUM];
-      if(!t || wrap.querySelector('.seg')) return;
+      if(wrap.querySelector('.seg')) return;
+      if(!t){ addEngine(wrap); return; }
       addSeg(wrap,'Read text \u00b6');
       var pane=document.createElement('div'); pane.className='frame textpane';
       var lines=t.split('\n'), head=lines.shift(), h2=lines.shift(), html='<div class="tp-in"><div class="tp-k">'+esc(head)+'</div>';
       if(h2) html+='<h2 class="serif">'+esc(h2)+'</h2>';
       lines.join('\n').split(/\n\s*\n/).forEach(function(par){ par=par.trim(); if(par) html+='<p>'+esc(par).replace(/\n/g,'<br>')+'</p>'; });
       pane.innerHTML=html+'</div>'; wrap.appendChild(pane);
-      bindSegs();
+      bindSegs(); addEngine(wrap);
     };
     document.head.appendChild(sc);
     function esc(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
@@ -161,7 +174,9 @@
     for(var j=0;j<segs.length;j++){ segs[j].onclick=(function(btn){return function(){
       for(var k=0;k<segs.length;k++)segs[k].classList.remove('on');
       btn.classList.add('on');
-      if(btn.dataset.view==='redesign')wrap.classList.add('redesign');
+      var v=btn.dataset.view, fr=wrap.querySelectorAll('.frame');
+      for(var m=0;m<fr.length;m++) fr[m].style.display=((fr[m].dataset.pane||'redesign')===v)?'':'none';
+      if(v!=='plate')wrap.classList.add('redesign');
       else { wrap.classList.remove('redesign'); setTimeout(fit,30); }
     };})(segs[j]); }
   }

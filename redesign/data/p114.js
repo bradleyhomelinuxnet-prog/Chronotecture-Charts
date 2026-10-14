@@ -1,0 +1,36 @@
+// Plate 114 · Phoenix Chronometry I — transcribed from plates/p114.png. Years as written on the plate (BC negative).
+window.PLATE = {
+  plate: 114,
+  kind: 'figure',
+  title: 'Phoenix Chronometry I: Sums to 1902 AD',
+  subtitle: 'Passage sums in multiples of 138; 5796 = 1902 AD',
+  rotated: true,
+  range: [1850, 1950],
+  transcribed: 'Transcribed 13 Oct 2026 from the scan; plate headed "Phoenix Chronometry I"',
+  events: [
+    { year: 1902, label: '5796 = 1902 AD', am: 5796, cat: 'proph', note: '1110 + 176 + 666 + 808 = 2760; 2760 + 3036 = 5796 = 1902 AD' },
+  ],
+  spans: [],
+  math: [
+    { eq: '5814 + 534 = 6348', cap: '6348 (138×46)' },
+    { eq: '138 × 46 = 6348', cap: 'as printed beside 6348' },
+    { eq: '5814 - 846 = 4968', cap: '4968 (138×36)' },
+    { eq: '138 × 36 = 4968', cap: 'as printed beside 4968' },
+    { eq: '1656 + 34 + 1070 = 2760', cap: 'Column at the base line' },
+    { eq: '2760 + 552 = 3312', cap: 'Column at the base line' },
+    { eq: '1656 + 1070 + 1414 = 4140', cap: 'Below the base line' },
+    { eq: '534 + 846 = 1380', cap: 'Beside the Queen’s Chamber' },
+    { eq: '1836 + 1200 = 3036', cap: '3036 (138×22)' },
+    { eq: '138 × 22 = 3036', cap: 'as printed beside 3036' },
+    { eq: '1518 × 3 = 4554', cap: '4554 is 1518×3' },
+    { eq: '1518 + 1110 + 176 + 666 + 808 = 4278', cap: 'Entrance column' },
+    { eq: '1110 + 176 + 666 + 808 = 2760', cap: 'Entrance column' },
+    { eq: '2760 + 3036 = 5796', cap: '5796 = 1902 AD' },
+  ],
+  notes: [
+    'Great Pyramid section, drawn sideways, headed "Phoenix Chronometry I".',
+    '144th course of blocks is 4140 inches.',
+    'An unruled column of figures near the apex side: 3036, 1656, 552, 138, 552.',
+    'Measures on the drawing: 808, 666, 176, 1110, 3036 (Descending Passage), 1200, 846, 1836, 34, 534, 1656, 1070, 552 width and 1414 at the subterranean chamber, boxed 1518 and 4140 at the entrance.',
+  ],
+};
