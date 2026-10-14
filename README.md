@@ -13,7 +13,7 @@ A navigable study edition of Jason M. Breshears' *Chronotecture: The Lost Scienc
 | `plates/` | The full-size plate images |
 | `thumbs/` | Thumbnails for the index |
 | `redesign/` | The rebuilt interactives: the original nine (Chart I, II·b, II·c, I·e, VI·c, VI·d, the Great Step, the Constellation, Plate 119) plus one page per chart plate, `pNNN.html` |
-| `redesign/engine/`, `redesign/data/` | The shared chart engine: each `data/pNNN.js` describes one plate and `eNNN.html` draws it with `engine/chart.js`. Plate pages show it as **Engine view**, alongside the hand-built redesign (spec: `engine/SPEC.md`) |
+| `redesign/engine/`, `redesign/data/` | The shared chart engine: each `data/pNNN.js` describes one plate and `eNNN.html` draws it with `engine/chart.js`. Every plate (all 119) has one; plate pages show it as **Engine view**, alongside the hand-built redesign or the "Read text" view (spec: `engine/SPEC.md`) |
 | `text/` | Cleaned transcriptions of the text plates (`pNNN.txt`), bundled into `texts.js` for the plate viewer's "Read text" view and the atlas search |
 | `AUDIT.md` | The arithmetic audit: every sum and span on the chart rebuilds, checked plate by plate (report only; the plates' numbers are unchanged) |
 | `tools/` | `wire.py` (wires the rebuilt pages into `viewer.js` and `index.html` from `plates.tsv`) and `build_texts.py` (builds `text/texts.js`) |
