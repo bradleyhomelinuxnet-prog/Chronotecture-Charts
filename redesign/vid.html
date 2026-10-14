@@ -8,183 +8,202 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#05070d;--panel:#0b1120;--ink:#e8eefc;--muted:#7f8db0;--line:#1a2338;--line2:#26324f;
-    --cyan:#4fe3ff;--gold:#ffd15c;--green:#7ed491;--red:#ff7a6b;--comet:#5cb3f2;--war:#9c8bf0;--proph:#ffd15c;--quake:#f08a4b;--hist:#37e0c8;
-    --glow-cyan:0 0 18px #4fe3ff55,0 0 4px #4fe3ff88;}
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
   *{box-sizing:border-box}
-  html,body{margin:0;background:radial-gradient(1200px 720px at 70% -12%,#14213f 0%,#05070d 62%);color:var(--ink);
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
     font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;background:repeating-linear-gradient(0deg,#ffffff05 0,#ffffff05 1px,transparent 1px,transparent 3px);mix-blend-mode:overlay}
-  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px;position:relative;z-index:2}
-  header.mast{border-bottom:1px solid var(--line2);padding-bottom:18px;margin-bottom:8px}
-  .kick{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--cyan);text-transform:uppercase;text-shadow:var(--glow-cyan)}
-  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:.98;margin:.2em 0 .08em;
-    background:linear-gradient(180deg,#fff,#bfe9ff 55%,#4fe3ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 24px #4fe3ff33)}
-  h1 .s{display:block;font-size:.42em;letter-spacing:.04em;color:var(--gold);font-weight:600;margin-top:.35em;-webkit-text-fill-color:var(--gold)}
-  .prov{color:var(--muted);font-size:13px;max-width:850px;line-height:1.6;margin-top:12px}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
   .prov b{color:var(--ink);font-weight:500}
-  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:22px}
-  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
-  @media(max-width:960px){.bottom{grid-template-columns:1fr}}
-  .grid>*,.bottom>*{min-width:0}
-  .card{min-width:0;background:linear-gradient(180deg,#0b1120,#080d18);border:1px solid var(--line2);border-radius:16px;padding:16px 18px}
-  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;margin:2px 0 4px;color:#eaf4ff}
-  .card .hint{color:var(--muted);font-size:12px;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
-  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch}
-  .scroll svg{min-width:760px}
-  svg{width:100%;height:auto;display:block;overflow:visible}
-  .mrow{padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;margin-bottom:9px}
-  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13px;color:#eaf4ff}
-  .mrow .cap{font-size:11px;color:var(--muted);margin-top:3px;line-height:1.5}
-  .g{color:var(--gold);font-weight:600}.c{color:var(--cyan);font-weight:600}
-  table.chk{width:100%;border-collapse:collapse;font-family:'JetBrains Mono',monospace;font-size:12px}
-  table.chk th{color:var(--muted);font-weight:500;text-align:left;border-bottom:1px solid var(--line2);padding:6px 6px;font-size:10.5px;letter-spacing:.08em;text-transform:uppercase}
-  table.chk td{padding:6px 6px;border-bottom:1px solid var(--line);vertical-align:top}
-  table.chk td.n{text-align:right;font-variant-numeric:tabular-nums}
-  .ok{color:var(--green)}.bad{color:var(--red);font-weight:600}
-  .chips{display:flex;flex-wrap:wrap;gap:8px;margin:14px 0 2px}
-  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);font:12px 'JetBrains Mono',monospace;border-radius:100px;padding:6px 12px;display:inline-flex;align-items:center;gap:7px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
   .chip .dot{width:9px;height:9px;border-radius:50%}
-  .chip[aria-pressed="false"]{opacity:.32;filter:saturate(.2)}
-  .chip:focus-visible,.bar:focus-visible{outline:2px solid var(--cyan);outline-offset:2px}
-  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:14px;padding-top:12px}
-  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);border-radius:11px;
-    padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transition:.12s;box-shadow:0 18px 40px -18px #000}
-  #tip .h{font-weight:600;font-family:'JetBrains Mono',monospace;color:var(--cyan)}
-  #tip .y{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11.5px;margin-top:2px}
-  #tip .b{color:var(--muted);margin-top:4px}
-  .back{position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px;backdrop-filter:blur(6px)}
-  .back:hover{border-color:#4fe3ff;box-shadow:0 0 14px #4fe3ff55}
-  @media(max-width:640px){.wrap{padding:56px 16px 60px}.back{top:10px;right:12px}}
-  @media(prefers-reduced-motion:reduce){*{transition:none!important;animation:none!important}}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+
 </style>
 </head>
 <body>
-<a class="back" href="../index.html">&larr; Atlas</a>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
 <div class="wrap">
-  <header class="mast">
-    <div class="kick">Lost Science of Prophetic Engineering · Chart VI·d · Breshears '07</div>
-    <h1>The Hijrah Doublings<span class="s">Six spans from 622 AD, each run twice</span></h1>
-    <p class="prov">A modern rebuild of Breshears' Chart VI·d, preserved verbatim. Every bar starts at <b>622 AD [4516 AM]</b>, the Hijrah. It runs a span of years to a medieval event, and then the same span again to a later one: <b>622, 632, 692, 711, 726 and 734 years</b>, doubled. The chart is framed by 50-year jubilees and ends at <b>6000 AM (2106 AD)</b>. Its principal icon is the black meteoric rock in the Kaaba.</p>
+<header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;VI·d · Plate&nbsp;30</div>
+    <h1>Chronotecture
+      <span class="sub">622&nbsp;AD [4516&nbsp;AM] — six spans, each run twice</span>
+    </h1>
+    <p class="prov">A rebuild of Jason&nbsp;M.&nbsp;Breshears’ hand-drawn chart&nbsp;VI·d (Breshears&nbsp;’07), with every date, span and annotation preserved verbatim; only the visual language is new. Its structural key: <b>622&nbsp;AD [4516&nbsp;AM], the Islamic Hijrah Calendar</b>. Each bar runs a span from 622&nbsp;AD to a medieval event, then <b>the same span again</b> to a later one: 622, 632, 692, 711, 726 and 734 years. The ruler is marked in 50-year jubilees and ends at 6000&nbsp;AM [2106&nbsp;AD]. “Principle icon of a black meteoric rock in Kaaba.”</p>
   </header>
 
-  <div class="chips" id="chips" role="group" aria-label="Show or hide a doubling"></div>
-
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
   <div class="grid">
     <div class="card">
-      <h2>Doubled spans from the Hijrah</h2>
-      <div class="hint">Solid bar = first span · second bar = the same span again · hover or tap for the event · ticks every 50 years (jubilees)</div>
-      <div class="scroll"><svg id="tl" viewBox="0 0 1400 560" role="img" aria-label="Six doubled spans from 622 AD to 2090 AD"></svg></div>
+      <h2>Doubled spans from 622&nbsp;AD [4516&nbsp;AM]</h2>
+      <div class="hint">Solid: the first span, to the medieval event. Outlined: the same span again. The first three bars sit above the jubilee ruler and the last three below it, as on the plate. Hover or tap a bar. <span class="anchor-key"><i></i>ANCHOR 622 AD [4516 AM]</span></div>
+      <div class="swipe">⟷ swipe to pan the timeline</div>
+      <div class="scroller" data-focus=".5"><svg id="tl" class="wide" viewBox="0 0 1400 600" role="img" aria-label="Doubled spans from 622 AD, chart VI·d"></svg></div>
     </div>
     <div class="bottom">
-      <div class="card">
-        <h2>Every figure, checked</h2>
-        <div class="hint">Worked out from the chart's own numbers · AM = years since 3895 BC (1 AM)</div>
-        <div class="scroll"><table class="chk" id="chk"><thead><tr><th>Claim on the chart</th><th class="n">Chart</th><th class="n">Worked out</th><th></th></tr></thead><tbody></tbody></table></div>
-      </div>
-      <div class="card">
-        <h2>The measures</h2>
-        <div class="mrow"><div class="eq"><span class="g">622</span> + <span class="c">622</span> = 1244 · + <span class="c">622</span> = 1866</div><div class="cap">The Hijrah's own number, run twice: Muslim capture of Jerusalem, then the last of the seven comets.</div></div>
-        <div class="mrow"><div class="eq">632 · 692 · 711 · 726 · 734</div><div class="cap">Five more spans, each doubled: 1886, 2006, 2044, 2074 and 2090 AD. The last three fall inside the final 144 years before 6000 AM.</div></div>
-        <div class="mrow"><div class="eq">622 AD = <span class="g">4516 AM</span> · 2106 AD = <span class="g">6000 AM</span></div><div class="cap">1484 years from the Hijrah to the end of the count.</div></div>
-        <div class="mrow"><div class="eq">50-year jubilees</div><div class="cap">The chart's time strip is ruled in jubilees; the ticks on the timeline above follow it.</div></div>
-        <div class="foot">Source: J. M. Breshears, <i>Chronotecture</i> (2017), Chart VI·d (plate 30). Content transcribed unchanged; interpretive redraw for study.</div>
-      </div>
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked (AM&nbsp;=&nbsp;AD&nbsp;+&nbsp;3894). Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid">
+        <div class="mrow"><span class="eq">622 + 622 = 1244 AD [5238 AM]</span><span class="cap">“1244&nbsp;AD [622&nbsp;AD + 622] Muslim capture of Jerusalem.”</span><span class="aw">as written — 1244&nbsp;AD is 5138&nbsp;AM (1244 + 3894); 5238&nbsp;AM would be 1344&nbsp;AD</span></div>
+        <div class="mrow"><span class="eq">1244 + 622 = 1866</span><span class="cap">Last of 7 comets pass; earthquake activity.</span></div>
+        <div class="mrow"><span class="eq">622 + 632 = 1254 AD [5148 AM] · 1254 + 632 = 1886</span><span class="cap">Nibiru passes over ecliptic entering ⇄ Enochian text found; Statue of Liberty.</span></div>
+        <div class="mrow"><span class="eq">622 + 692 = 1314 AD [5208 AM] · 1314 + 692 = 2006 AD [5900 AM]</span><span class="cap">Nibiru seen exiting ⇄ undetected astroid passes Earth; meteorite impacts mountain in Norway.</span></div>
+        <div class="mrow"><span class="eq">622 + 711 = 1333 AD [5227 AM] · 1333 + 711 = 2044 AD [5938 AM]</span><span class="cap">Meteorite impacts Central Asia ⇄ First Trumpet meteorites hit Earth.</span></div>
+        <div class="mrow"><span class="eq">622 + 726 = 1348 AD [5242 AM] · 1348 + 726 = 2074 AD [5968 AM]</span><span class="cap">Height of Great Black Death ⇄ Seven Comets bring 7 plagues.</span></div>
+        <div class="mrow"><span class="eq">622 + 734 = 1356 AD [5250 AM] · 1356 + 734 = 2090 AD [5984 AM]</span><span class="cap">Muslims strip Great Pyramid blocks after quake ⇄ 7 plagues finished.</span></div>
+        <div class="mrow"><span class="eq">622 AD = 4516 AM · 2106 AD = 6000 AM</span><span class="cap">Both ends of the ruler hold.</span></div>
+      </div><div style="font-size:12.5px;color:var(--muted);line-height:1.6">Read together with chart&nbsp;VI·c, which mirrors spans either side of the same 622&nbsp;AD.</div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised), grouped by region.</div><details class="tx"><summary>Show transcription</summary><div class="cols">
+        <div><h3>Header</h3><ul><li>VI.d</li><li>Breshears ’07</li><li>622 AD [4516 AM] Islamic Hijrah Calendar</li><li>622 AD</li><li>Principle icon of a black <u>meteoric</u> rock in Kaaba</li><li>50 year jubilees</li><li>6000 AM · 2106 AD</li><li>BC | AD (three times)</li></ul></div>
+        <div><h3>Bars</h3><ul><li>622 yrs. to 1244 AD [5238 AM] · 622 more yrs. to 1866 AD</li><li>632 yrs. to 1254 AD [5148 AM] · 632 more yrs. to 1886 AD</li><li>692 yrs. to 1314 AD [5208 AM] · 692 yrs. to 2006 AD [5900 AM]</li><li>711 yrs. to 1333 AD [5227 AM] · 711 more yrs to 2044 AD [5938 AM]</li><li>726 yrs. to 1348 AD [5242 AM] · 726 more yrs to 2074 AD [5968 AM]</li><li>734 yrs. to 1356 AD [5250 AM] · 734 yrs more to 2090 AD [5984 AM]</li></ul></div>
+        <div><h3>Callouts (above)</h3><ul><li>1244 AD [622 AD + 622] Muslim capture of Jerusalem</li><li>1254 AD Anunnaki planet Nibiru passes over ecliptic entering</li><li>1314 AD Nibiru seen from Earth as it exits system</li><li>1866 AD last of 7 comets pass; earthquake activity</li><li>1886 AD Enochian text found; Statue of Liberty</li><li>2006 AD undetected astroid passes Earth in July; meteorite impacts mountain in Norway</li></ul></div>
+        <div><h3>Callouts (below)</h3><ul><li>1333 AD meteorite impacts Central Asia</li><li>1348 AD height of Great Black Death</li><li>1356 AD Muslims strip Great Pyramid blocks after quake.</li><li>2044 AD First Trumpet meteorites hit Earth</li><li>2074 AD Seven Comets bring 7 plagues</li><li>2090 AD 7 plagues finished</li></ul></div>
+      </div><h3>Uncertain readings</h3><ul><li><span class="unc">[?]</span> “Principle” and “astroid” spelled as on the plate.</li></ul></details><div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;VI·d (plate&nbsp;30). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div></div>
     </div>
   </div>
 </div>
-<div id="tip" role="status" aria-live="polite"></div>
+<div id="tip"></div>
 <script>
-var NS='http://www.w3.org/2000/svg';
-function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
-function esc(s){return String(s).replace(/[&<>"]/g,function(c){return{'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c];});}
-var tip=document.getElementById('tip');
-function show(h,e){tip.innerHTML=h;tip.style.opacity=1;var r=e.clientX!=null?{x:e.clientX,y:e.clientY}:(function(){var b=e.target.getBoundingClientRect();return{x:b.left+b.width/2,y:b.top};})();var x=r.x+15,y=r.y+13;if(x+300>innerWidth)x=Math.max(8,r.x-306);if(y+150>innerHeight)y=r.y-150;tip.style.left=x+'px';tip.style.top=y+'px';}
-function hide(){tip.style.opacity=0;}
 
-var HIJRAH=622, AM_START=-3895;
-function am(y){return (y<0?y+1:y)-(AM_START+1);}   // years since 3895 BC, no year 0
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+function yl(v){return v<0?(-v)+' BC':v+' AD';}
+// span bar: x1<x2 in px; offL draws an off-scale arrow at left end
+function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL){g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR){g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  g.appendChild(el('rect',{x:x1-6,y:o.y-24,width:x2-x1+12,height:44,fill:'transparent'}));
+  if(o.lab){const t=tx(g,o.lx,o.y-9,o.lab,{'text-anchor':o.la||'start','font-size':12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});}
+  if(o.lab2){tx(g,o.lx,o.y+17,o.lab2,{'text-anchor':o.la||'start','font-size':11,class:'h',fill:'#8b95ad'});}
+  bind(g,o.tip);p.appendChild(g);return g;}
 
-// Transcribed from the plate. am = the Anno Mundi label printed on the chart (null = none printed).
-var ROWS=[
-  {span:622, col:'#ffd15c', mid:{y:1244,am:5238,t:'Muslim capture of Jerusalem',n:'1244 AD [622 AD + 622 AD]'}, end:{y:1866,am:null,t:'Last of 7 comets pass; earthquake activity',n:'622 more years'}},
-  {span:632, col:'#5cb3f2', mid:{y:1254,am:5148,t:'Anunnaki planet Nibiru passes over ecliptic, entering',n:''}, end:{y:1886,am:null,t:'Enochian text found; Statue of Liberty',n:'632 more years'}},
-  {span:692, col:'#37e0c8', mid:{y:1314,am:5208,t:'Nibiru seen from Earth as it exits the system',n:''}, end:{y:2006,am:5900,t:'Undetected asteroid passes Earth in July; meteorite impacts a mountain in Norway',n:'692 years'}},
-  {span:711, col:'#f08a4b', mid:{y:1333,am:5227,t:'Meteorite impacts Central Asia',n:''}, end:{y:2044,am:5938,t:'First Trumpet: meteorites hit Earth',n:'711 more years'}},
-  {span:726, col:'#9c8bf0', mid:{y:1348,am:5242,t:'Height of the Great Black Death',n:''}, end:{y:2074,am:5968,t:'Seven comets bring 7 plagues',n:'726 more years'}},
-  {span:734, col:'#ff7a6b', mid:{y:1356,am:5250,t:'Muslims strip Great Pyramid blocks after a quake',n:''}, end:{y:2090,am:5984,t:'7 plagues finished',n:'734 years more'}}
+const CAT={
+  islam:{c:'#37b6a6',label:'Islam & the pyramid'},
+  nibiru:{c:'#e58fb6',label:'Nibiru'},
+  cel:{c:'#5cb3f2',label:'Comets, meteorites & astroids'},
+  plague:{c:'#9c8bf0',label:'Plagues'}
+};
+const YMIN=580, YMAX=2130, PL=60, PR=1340;
+const X=y=>PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);
+const svg=document.getElementById('tl'), A=622, AX=X(A), RUL=330, x6=X(2106);
+for(let y=600;y<=2100;y+=50){const x=X(y);svg.appendChild(el('line',{x1:x,y1:60,x2:x,y2:580,stroke:y%100?'#141c2e':'#1a2440'}));}
+const rg=el('g',{});
+for(let y=622;y<2106;y+=50){const x1=X(y),x2=X(Math.min(y+50,2106));rg.appendChild(el('rect',{x:x1,y:RUL-8,width:x2-x1,height:16,fill:'#121a2c',stroke:'#3a486a'}));}
+tx(rg,AX-8,RUL+4,'50 year jubilees',{'text-anchor':'end',fill:'#8b95ad','font-size':11,class:'h'});
+for(let y=700;y<=2100;y+=100)tx(rg,X(y),RUL+26,String(y),{'text-anchor':'middle',fill:'#aeb7cd','font-size':10,class:'mono'});
+bind(rg,T('50 year jubilees','#8b95ad','622 AD → 2106 AD','The ruler is ticked in 50-year jubilees from the Hijrah.'));svg.appendChild(rg);
+svg.appendChild(el('line',{x1:x6,y1:40,x2:x6,y2:580,stroke:'#e7c355','stroke-width':2}));
+tx(svg,x6-6,40,'6000 AM · 2106 AD',{'text-anchor':'end',fill:'#e7c355','font-size':11.5,class:'mono'});
+svg.appendChild(el('line',{x1:AX,y1:30,x2:AX,y2:580,stroke:'#ffcf5c','stroke-width':2.2}));
+const ag=el('g',{});ag.appendChild(el('path',{d:`M${AX-14} 40 L${AX+14} 40 L${AX} 64 Z`,fill:'#ffcf5c'}));
+tx(ag,AX+20,44,'622 AD [4516 AM] Islamic Hijrah Calendar',{fill:'#ffcf5c','font-size':14,class:'mono','font-weight':500});
+svg.appendChild(ag);bind(ag,T('622 AD [4516 AM]','#ffcf5c','Islamic Hijrah Calendar','Hijrah Year One.'));
+const kg=el('g',{});kg.appendChild(el('rect',{x:860,y:58,width:28,height:34,rx:3,fill:'#0a0d14',stroke:'#5d6885'}));
+tx(kg,898,72,'Principle icon of a black',{fill:'#aeb7cd','font-size':11});tx(kg,898,88,'meteoric rock in Kaaba',{fill:'#aeb7cd','font-size':11});
+bind(kg,T('The Kaaba stone','#aeb7cd','','Principle icon of a black meteoric rock in Kaaba.'));svg.appendChild(kg);
+const B=[
+ {v:622,e1:1244,am1:5238,e2:1866,am2:null,c1:'islam',c2:'cel',l1:'622 yrs. to 1244 AD [5238 AM]',l2:'622 more yrs. to 1866 AD',n1:'1244 AD [622 AD + 622] Muslim capture of Jerusalem',n2:'1866 AD last of 7 comets pass; earthquake activity',aw:'As written: 1244 AD is 5138 AM; 5238 AM would be 1344 AD.'},
+ {v:632,e1:1254,am1:5148,e2:1886,c1:'nibiru',c2:'islam',l1:'632 yrs. to 1254 AD [5148 AM]',l2:'632 more yrs. to 1886 AD',n1:'1254 AD Anunnaki planet Nibiru passes over ecliptic entering',n2:'1886 AD Enochian text found; Statue of Liberty'},
+ {v:692,e1:1314,am1:5208,e2:2006,am2:5900,c1:'nibiru',c2:'cel',l1:'692 yrs. to 1314 AD [5208 AM]',l2:'692 yrs. to 2006 AD [5900 AM]',n1:'1314 AD Nibiru seen from Earth as it exits system',n2:'2006 AD undetected astroid passes Earth in July; meteorite impacts mountain in Norway'},
+ {v:711,e1:1333,am1:5227,e2:2044,am2:5938,c1:'cel',c2:'cel',l1:'711 yrs. to 1333 AD [5227 AM]',l2:'711 more yrs to 2044 AD [5938 AM]',n1:'1333 AD meteorite impacts Central Asia',n2:'2044 AD First Trumpet meteorites hit Earth'},
+ {v:726,e1:1348,am1:5242,e2:2074,am2:5968,c1:'plague',c2:'plague',l1:'726 yrs. to 1348 AD [5242 AM]',l2:'726 more yrs to 2074 AD [5968 AM]',n1:'1348 AD height of Great Black Death',n2:'2074 AD Seven Comets bring 7 plagues'},
+ {v:734,e1:1356,am1:5250,e2:2090,am2:5984,c1:'islam',c2:'plague',l1:'734 yrs. to 1356 AD [5250 AM]',l2:'734 yrs more to 2090 AD [5984 AM]',n1:'1356 AD Muslims strip Great Pyramid blocks after quake.',n2:'2090 AD 7 plagues finished'}
 ];
-var shown=ROWS.map(function(){return true;});
-
-var YMIN=600, YMAX=2120, PL=70, PR=1350, TOP=96, RH=76;
-function X(y){return PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);}
-
-function draw(){
-  var svg=document.getElementById('tl'); while(svg.firstChild) svg.removeChild(svg.firstChild);
-  var bottom=TOP+ROWS.length*RH+10;
-  // jubilee ruler
-  for(var yv=650;yv<=2100;yv+=50){var xx=X(yv),major=yv%250===0;
-    svg.appendChild(el('line',{x1:xx,y1:TOP-26,x2:xx,y2:bottom,stroke:major?'#223050':'#141d31','stroke-width':1}));
-    if(major){var t=el('text',{x:xx,y:TOP-32,fill:'#5d6885','font-size':10,'text-anchor':'middle','font-family':'JetBrains Mono'});t.textContent=yv+' AD';svg.appendChild(t);}}
-  // anchor and terminus
-  [[HIJRAH,'☪ HIJRAH · 622 AD [4516 AM]','#ffd15c','start'],[2106,'2106 AD · 6000 AM','#7f8db0','end']].forEach(function(a){
-    var xx=X(a[0]);svg.appendChild(el('line',{x1:xx,y1:TOP-60,x2:xx,y2:bottom+6,stroke:a[2],'stroke-width':a[0]===HIJRAH?2:1.2,'stroke-dasharray':a[0]===HIJRAH?'':'4 5',opacity:.9}));
-    var t=el('text',{x:xx+(a[3]==='start'?6:-6),y:TOP-64,fill:a[2],'font-size':12,'text-anchor':a[3],'font-family':'JetBrains Mono','letter-spacing':'.05em'});t.textContent=a[1];svg.appendChild(t);});
-  ROWS.forEach(function(r,i){
-    if(!shown[i]) return;
-    var y=TOP+i*RH, x0=X(HIJRAH), x1=X(r.mid.y), x2=X(r.end.y);
-    function seg(xa,xb,yy,solid,ev,label){
-      var g=el('g',{class:'bar',tabindex:'0',role:'button','aria-label':label,style:'cursor:pointer'});
-      g.appendChild(el('rect',{x:xa,y:yy,width:Math.max(2,xb-xa),height:18,rx:4,fill:solid?r.col:'none',stroke:r.col,'stroke-width':1.6,opacity:solid?.9:1}));
-      g.appendChild(el('circle',{cx:xb,cy:yy+9,r:5,fill:r.col,stroke:'#05070d','stroke-width':1.5}));
-      var h='<div class="h">'+esc(label)+'</div><div class="y">'+esc(ev.y+' AD'+(ev.am!=null?' ['+ev.am+' AM]':''))+'</div><div class="b">'+esc(ev.t)+'</div>';
-      g.addEventListener('mousemove',function(e){show(h,e);}); g.addEventListener('mouseleave',hide);
-      g.addEventListener('focus',function(e){show(h,e);}); g.addEventListener('blur',hide);
-      g.addEventListener('click',function(e){show(h,e);});
-      svg.appendChild(g);
-      return g;
-    }
-    seg(x0,x1,y,true,r.mid,r.span+' years to '+r.mid.y+' AD');
-    seg(x1,x2,y+22,false,r.end,r.span+' more years to '+r.end.y+' AD');
-    var t=el('text',{x:x0+8,y:y+13,fill:'#05070d','font-size':11,'font-weight':600,'font-family':'JetBrains Mono','pointer-events':'none'});t.textContent=r.span+' yrs → '+r.mid.y;svg.appendChild(t);
-    var t2=el('text',{x:x1+8,y:y+35,fill:r.col,'font-size':11,'font-family':'JetBrains Mono','pointer-events':'none'});t2.textContent=r.span+' more → '+r.end.y;svg.appendChild(t2);
-    var t3=el('text',{x:x1+8,y:y+56,fill:'#aeb7cd','font-size':10.5,'pointer-events':'none'});t3.textContent=r.mid.y+': '+r.mid.t+'  ·  '+r.end.y+': '+(r.end.t.length>58?r.end.t.slice(0,56)+'…':r.end.t);svg.appendChild(t3);
-  });
-  svg.setAttribute('viewBox','0 0 1400 '+(TOP+ROWS.length*RH+30));
-}
-
-(function chips(){
-  var box=document.getElementById('chips');
-  ROWS.forEach(function(r,i){
-    var b=document.createElement('button');b.type='button';b.className='chip';b.setAttribute('aria-pressed','true');
-    b.innerHTML='<span class="dot" style="background:'+r.col+'"></span>'+r.span+' × 2';
-    b.onclick=function(){shown[i]=!shown[i];b.setAttribute('aria-pressed',String(shown[i]));draw();};
-    box.appendChild(b);
-  });
-})();
-
-(function check(){
-  var body=document.querySelector('#chk tbody'), rows=[];
-  function add(claim,chart,got){rows.push([claim,chart,got]);}
-  add('622 AD in AM',4516,am(622));
-  ROWS.forEach(function(r){
-    add('622 + '+r.span,r.mid.y,HIJRAH+r.span);
-    add(r.mid.y+' + '+r.span,r.end.y,r.mid.y+r.span);
-    if(r.mid.am!=null) add(r.mid.y+' AD in AM',r.mid.am,am(r.mid.y));
-    if(r.end.am!=null) add(r.end.y+' AD in AM',r.end.am,am(r.end.y));
-  });
-  add('2106 AD in AM',6000,am(2106));
-  rows.forEach(function(r){
-    var ok=r[1]===r[2],tr=document.createElement('tr');
-    tr.innerHTML='<td>'+esc(r[0])+'</td><td class="n">'+r[1]+'</td><td class="n">'+r[2]+'</td><td class="'+(ok?'ok':'bad')+'">'+(ok?'✓':'✗')+'</td>';
-    body.appendChild(tr);
-  });
-  var misses=rows.filter(function(r){return r[1]!==r[2];});
-  var note=(rows.length-misses.length)+' of '+rows.length+' figures check out.';
-  if(misses.length) note+=' '+misses.map(function(r){return r[0]+' is '+r[2]+', not '+r[1]+'.';}).join(' ');
-  var tr=document.createElement('tr');tr.innerHTML='<td colspan="4" style="color:var(--muted);padding-top:10px">'+esc(note)+'</td>';body.appendChild(tr);
-})();
-draw();
+B.forEach((q,i)=>{const y=i<3?RUL-190+i*64:RUL+64+(i-3)*64,x1=X(q.e1),x2=X(q.e2),a=CAT[q.c1].c,b=CAT[q.c2].c;
+  const g=el('g',{class:'row','data-cat':q.c1});
+  g.appendChild(el('rect',{x:AX,y:y-6,width:x1-AX,height:12,rx:6,fill:a}));g.appendChild(el('circle',{cx:x1,cy:y,r:5,fill:a,stroke:'#0b0f1a','stroke-width':1.5}));
+  tx(g,AX+10,y-11,q.l1,{fill:'#e6ecf8','font-size':12,'font-weight':600,class:'h'});tx(g,AX+10,y+20,q.n1,{fill:'#8b95ad','font-size':11,class:'h'});
+  g.appendChild(el('rect',{x:AX,y:y-26,width:x1-AX,height:52,fill:'transparent'}));
+  bind(g,T(q.l1,a,`622 AD → ${q.e1} AD · ${q.e1-A} years`,q.n1+(q.aw?'. '+q.aw:'')));svg.appendChild(g);
+  const h=el('g',{class:'row','data-cat':q.c2});
+  h.appendChild(el('rect',{x:x1,y:y-6,width:x2-x1,height:12,rx:6,fill:'none',stroke:b,'stroke-width':1.6,'stroke-dasharray':'6 4'}));h.appendChild(el('circle',{cx:x2,cy:y,r:5,fill:b}));
+  tx(h,x1+10,y-11,q.l2,{fill:b,'font-size':12,'font-weight':600,class:'h'});tx(h,x2,y+20,q.n2,{'text-anchor':'end',fill:'#8b95ad','font-size':11,class:'h'});
+  h.appendChild(el('rect',{x:x1,y:y-26,width:x2-x1,height:52,fill:'transparent'}));
+  bind(h,T(q.l2,b,`${q.e1} AD → ${q.e2} AD · ${q.e2-q.e1} years`,q.n2));svg.appendChild(h);});
+chips(CAT,'.row');
 </script>
 </body>
 </html>

@@ -8,151 +8,217 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#05070d;--panel:#0b1120;--ink:#e8eefc;--muted:#7f8db0;--line:#1a2338;--line2:#26324f;
-    --cyan:#4fe3ff;--gold:#ffd15c;--violet:#b98cff;--stone:#c9b98f;
-    --glow-cyan:0 0 18px #4fe3ff55,0 0 4px #4fe3ff88;--glow-gold:0 0 18px #ffd15c55,0 0 4px #ffd15c88;}
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
   *{box-sizing:border-box}
-  html,body{margin:0;background:radial-gradient(1200px 720px at 70% -12%,#14213f 0%,#05070d 62%);color:var(--ink);
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
     font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
   .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
-  header.mast{border-bottom:1px solid var(--line2);padding-bottom:18px;margin-bottom:8px}
-  .kick{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--cyan);text-transform:uppercase;text-shadow:var(--glow-cyan)}
-  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:.98;margin:.2em 0 .08em;
-    background:linear-gradient(180deg,#fff,#bfe9ff 55%,#4fe3ff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 0 24px #4fe3ff33)}
-  h1 .s{display:block;font-size:.42em;letter-spacing:.04em;color:var(--gold);font-weight:600;margin-top:.35em;-webkit-text-fill-color:var(--gold)}
-  .prov{color:var(--muted);font-size:13px;max-width:820px;line-height:1.6;margin-top:12px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
   .prov b{color:var(--ink);font-weight:500}
-  .grid{display:grid;grid-template-columns:1.35fr .65fr;gap:22px;margin-top:22px}
-  @media(max-width:960px){.grid{grid-template-columns:1fr}}
-  .card{background:linear-gradient(180deg,#0b1120,#080d18);border:1px solid var(--line2);border-radius:16px;padding:16px 18px;position:relative}
-  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;margin:2px 0 4px}
-  .card .hint{color:var(--muted);font-size:12px;margin-bottom:6px;font-family:'JetBrains Mono',monospace;letter-spacing:.02em}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
   svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
   .mono{font-family:'JetBrains Mono',monospace}
-  .mrow{padding:11px 13px;border:1px solid var(--line);border-radius:11px;background:#0e1526;margin-bottom:10px}
-  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:#eaf4ff}
-  .mrow .cap{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.5}
-  .g{color:var(--gold);font-weight:600}.c{color:var(--cyan);font-weight:600}
-  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:16px;padding-top:12px}
-  #tip{position:fixed;pointer-events:none;z-index:50;max-width:290px;background:#0c1220f2;border:1px solid var(--line2);border-radius:11px;
-    padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transition:.12s;box-shadow:0 18px 40px -18px #000}
-  #tip .h{font-weight:600;font-family:'JetBrains Mono',monospace;color:var(--cyan)}
-  #tip .y{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11.5px;margin-top:2px}
-  #tip .b{color:var(--muted);margin-top:4px}
-  .back{position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px;backdrop-filter:blur(6px)}
-  .back:hover{border-color:#4fe3ff;box-shadow:0 0 14px #4fe3ff55}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+
 </style>
 </head>
 <body>
-<a class="back" href="../index.html">&larr; Atlas</a>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
 <div class="wrap">
-  <header class="mast">
-    <div class="kick">Lost Science of Prophetic Engineering · Chart I · Breshears '06</div>
-    <h1>The Pyramid-Inch Calendar<span class="s">Great Pyramid passages read as years — the Giza Course Countdown</span></h1>
-    <p class="prov">A modern rebuild of Breshears' hand-drawn Chart I, preserved verbatim. Its premise: <b>one pyramid-inch (P″) = one year</b>. The descending and ascending passages, measured in inches, become chronologies; their meeting and the face of the <b>Great Step</b> fix the dates. Hover any passage, node, or measure for its reading.</p>
+<header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;I · Plate&nbsp;13</div>
+    <h1>Chronotecture
+      <span class="sub">The Pyramid-Inch Calendar — 3361&nbsp;P″ + 2435&nbsp;AM = 5796&nbsp;AM [1902&nbsp;AD]</span>
+    </h1>
+    <p class="prov">A rebuild of Jason&nbsp;M.&nbsp;Breshears’ hand-drawn chart&nbsp;I (Breshears&nbsp;’06), with every date, measurement and annotation preserved verbatim; only the visual language is new. Its premise: <b>one pyramid-inch (P″) is one year</b>. The two passages meet at 1460&nbsp;BC [2435&nbsp;AM]; the Ascendant Passage runs <b>3361&nbsp;P″</b> from there to the face of the Great Step, giving <b>1902&nbsp;AD</b>, the start of the Giza Course Countdown Calendar, and the Descendant Passage runs <b>3036&nbsp;P″</b> down to its end joint.</p>
   </header>
 
   <div class="grid">
     <div class="card">
-      <h2>Cross-section of the passages</h2>
-      <div class="hint">South face left · North face 51°51′ right · 1 P″ = 1 year</div>
-      <svg id="art" viewBox="0 0 1000 660" role="img" aria-label="Great Pyramid passage cross-section"></svg>
+      <h2>Section through the passages</h2>
+      <div class="hint">South face left, north face right, as on the plate. The Passage Conjunct Axis rises from the junction; the Central Axis stands at the face of the Great Step. Hover or tap a passage, axis or note. <span class="anchor-key"><i></i>1460 BC [2435 AM] · 1902 AD [5796 AM]</span></div>
+      <div class="swipe">⟷ swipe to pan the section</div>
+      <div class="scroller" data-focus=".5"><svg id="art" class="mid" viewBox="0 0 1000 700" role="img" aria-label="Section through the Great Pyramid passages, chart I"></svg></div>
     </div>
-    <div class="card">
-      <h2>The calendar mathematics</h2>
-      <div class="hint">Straight from the plate's own figures.</div>
-      <div class="mrow"><div class="eq"><span class="c">3361 P″</span> + 2435 AM = <span class="g">5796 AM</span> = 1902 AD</div><div class="cap">Ascending passage to the Great Step sets the <b>start of the Giza Course Countdown Calendar</b>.</div></div>
-      <div class="mrow"><div class="eq">5796 = <span class="g">414 × 14</span></div><div class="cap">A sum referencing the Stonehenge "Cursed Earth" system.</div></div>
-      <div class="mrow"><div class="eq"><span class="c">3036 P″</span> · differential of <span class="g">600</span></div><div class="cap">Descendant passage vs. the 2436 AM axis date — a relation to the Anunnaki Ner system.</div></div>
-      <div class="mrow"><div class="eq">Enoch: 365 × 4 = <span class="g">1460</span></div><div class="cap">Ascended in his 365th year; 1460 BC = 2435 AM, 144.8 decades after his ascent at Achuzan, 2908 BC [987 AM].</div></div>
-      <div class="mrow" style="border-color:#5a4a1f88"><div class="eq"><span class="g">4140 − 3036 = 1104</span></div><div class="cap">Baseline minus the descendant vector isolates the core cycle: <b>1104 = 552×2 = 138×8</b>. The passages rest on the same base-138 spine as II·b and II·c. ( 3036 = 138×22 )</div></div>
-      <div class="foot">Source: J. M. Breshears, <i>Chronotecture</i> (2017), Chart I. Content transcribed unchanged; interpretive redraw for study.</div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked (AM&nbsp;=&nbsp;3895&nbsp;−&nbsp;BC; AD&nbsp;+&nbsp;3894; no year zero). Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid">
+        <div class="mrow"><span class="eq">3361 + 2435 = 5796</span><span class="cap">“3361&nbsp;P″ + 2435&nbsp;AM [1460&nbsp;BC] = 5796&nbsp;AM; 1902&nbsp;AD start of Giza Course Countdown Calendar.”</span></div>
+        <div class="mrow"><span class="eq">5796 AM = 1902 AD · 2435 AM = 1460 BC</span><span class="cap">Both conversions hold on the Anno Mundi count from 3895&nbsp;BC.</span></div>
+        <div class="mrow"><span class="eq">414 × 14 = 5796</span><span class="cap">“5796&nbsp;AM [1902&nbsp;AD] is exactly 414×14 years, a sum referencing the Stonehenge Cursed Earth system.”</span></div>
+        <div class="mrow"><span class="eq">3036 − 2436 = 600</span><span class="cap">“Differential of 600 between axis date of 2436 Annus Mundi and remaining 3036&nbsp;P″ down Descendant Passage.”</span><span class="aw">note — the sum holds as written; the same axis is 2435&nbsp;AM [1460&nbsp;BC] elsewhere on the plate, and 3036 − 2435 = 601</span></div>
+        <div class="mrow"><span class="eq">365 × 4 = 1460</span><span class="cap">“Enoch ascended in 365th year: 365×4 = 1460.”</span></div>
+        <div class="mrow"><span class="eq">2908 BC → 1460 BC = 1448 yrs = 144.8 decades</span><span class="cap">“This is 144.8 decades after Enoch’s ascent in Achuzan 2908&nbsp;BC [987&nbsp;AM].” 2908&nbsp;BC = 987&nbsp;AM holds.</span></div>
+      </div><div style="font-size:12.5px;color:var(--muted);line-height:1.6">Read together with chart&nbsp;I·e: the 1902&nbsp;AD [5796&nbsp;AM] found here is the start of the 204-year Giza Course Countdown to 2106&nbsp;AD [6000&nbsp;AM].</div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised), grouped by region.</div><details class="tx"><summary>Show transcription</summary><div class="cols">
+        <div><h3>Header</h3><ul><li>I</li><li>Breshears ’06</li></ul></div>
+        <div><h3>Pyramid (upper section)</h3><ul><li>South face</li><li>North face 51′51</li><li>Central axis at face of Great Step</li><li>3361 P″ (ascending line inside the circle)</li><li>3036 P″ (dashed descending line below the base)</li><li>3361 P″ + 2435 AM [1460 BC] = 5796 AM; <u>1902 AD</u> start of Giza Course Countdown Calendar</li></ul></div>
+        <div><h3>Notes</h3><ul><li>5796 AM [1902 AD] is exactly 414×14 years, a sum referencing the <u>Stonehenge Cursed Earth</u> system.</li><li>Differential of 600 between axis date of 2436 Annus Mundi and remaining 3036 P″ down Descendant Passage, exhibiting relation to <u>Anunnaki Ner</u> system.</li></ul></div>
+        <div><h3>Passages (lower section)</h3><ul><li>Ascendant Passage</li><li>3361 P″ to face of Great Step</li><li>Descendant Passage</li><li>3036 P″ to passage end joint</li><li>Pyramid entry</li><li>Passage conjunct axis</li><li>52 P″ (four bore heights: two on the Ascendant, one at the junction, one on the Descendant)</li></ul></div>
+        <div><h3>Enoch</h3><ul><li>Enoch ascended in 365<sup>th</sup> year: 365×4 = <u>1460</u></li><li>1460 BC [2435 Annus Mundi] This is 144.8 decades after Enoch’s ascent in Achuzan 2908 BC [987 AM], Enoch’s 365<sup>th</sup> year.</li></ul></div>
+      </div></details><div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;I (plate&nbsp;13). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div></div>
     </div>
   </div>
 </div>
 <div id="tip"></div>
-
 <script>
+
 const NS='http://www.w3.org/2000/svg';
-function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
 const tip=document.getElementById('tip');
-function show(h,e){tip.innerHTML=h;tip.style.opacity=1;let x=e.clientX+15,y=e.clientY+13;if(x+300>innerWidth)x=e.clientX-306;if(y+150>innerHeight)y=e.clientY-150;tip.style.left=x+'px';tip.style.top=y+'px';}
-function hide(){tip.style.opacity=0;}
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+function yl(v){return v<0?(-v)+' BC':v+' AD';}
+// span bar: x1<x2 in px; offL draws an off-scale arrow at left end
+function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL){g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR){g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  g.appendChild(el('rect',{x:x1-6,y:o.y-24,width:x2-x1+12,height:44,fill:'transparent'}));
+  if(o.lab){const t=tx(g,o.lx,o.y-9,o.lab,{'text-anchor':o.la||'start','font-size':12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});}
+  if(o.lab2){tx(g,o.lx,o.y+17,o.lab2,{'text-anchor':o.la||'start','font-size':11,class:'h',fill:'#8b95ad'});}
+  bind(g,o.tip);p.appendChild(g);return g;}
+
 const svg=document.getElementById('art');
-
-// ---- geometry ----
-const apex=[500,66], bL=[120,470], bR=[880,470], baseY=470;
-const E=[742,322];   // pyramid entry (north face)
-const J=[560,420];   // passage junction
-const S=[250,592];   // lower chamber end (descending)
-const G=[380,336];   // face of the Great Step (ascending end)
-
-// pyramid body (hatched)
-svg.appendChild(el('polygon',{points:`${apex} ${bL} ${bR}`,fill:'#0e1a30',stroke:'#3a4straggler'.replace('3a4straggler','3a4a6e'),['stroke-width']:1.5,opacity:.9}));
-// masonry courses (faint horizontal lines inside)
-for(let y=110;y<baseY;y+=26){const t=(y-apex[1])/(baseY-apex[1]);const xl=apex[0]+(bL[0]-apex[0])*t,xr=apex[0]+(bR[0]-apex[0])*t;
-  svg.appendChild(el('line',{x1:xl,y1:y,x2:xr,y2:y,stroke:'#22314f',['stroke-width']:1,opacity:.5}));}
-// bedrock
-svg.appendChild(el('rect',{x:120,y:baseY,width:760,height:170,fill:'#080f1e',opacity:.6}));
-for(let y=baseY+22;y<640;y+=24)svg.appendChild(el('line',{x1:120,y1:y,x2:880,y2:y,stroke:'#182339',['stroke-width']:1,opacity:.5}));
-svg.appendChild(el('line',{x1:120,y1:baseY,x2:880,y2:baseY,stroke:'#3a4a6e',['stroke-width']:1.4}));
-// central axis + conjunct axis
-svg.appendChild(el('line',{x1:500,y1:80,x2:500,y2:626,stroke:'#56628f',['stroke-width']:1,['stroke-dasharray']:'3 6',opacity:.7}));
-const ca=el('text',{x:507,y:150,fill:'#7b86a4','font-size':10,'font-family':'JetBrains Mono'});ca.textContent='CENTRAL AXIS';svg.appendChild(ca);
-svg.appendChild(el('line',{x1:J[0],y1:J[1],x2:J[0],y2:150,stroke:'#3a4a6e',['stroke-width']:1,['stroke-dasharray']:'2 5',opacity:.6}));
-
-// inscribed circle (original geometry motif)
-svg.appendChild(el('circle',{cx:500,cy:320,r:150,fill:'none',stroke:'#4fe3ff22',['stroke-width']:1.2}));
-
-function passage(a,b,col,cls,data){
-  const g=el('g',{class:cls,style:'cursor:pointer'});
-  g.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,['stroke-width']:11,['stroke-linecap']:'round',opacity:.28}));
-  g.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,['stroke-width']:2.4,['stroke-linecap']:'round'}));
-  g.addEventListener('mousemove',e=>show(data,e));g.addEventListener('mouseleave',hide);
-  svg.appendChild(g);return g;
-}
-// descending passage E -> S (through J)
-passage(E,S,'#4fe3ff','desc',`<div class="h">Descendant Passage · 3036 P″</div><div class="y">to the passage end-joint</div><div class="b">3036 years. Differential of 600 from the 2436 AM axis — the Anunnaki Ner relation. 3036 = 138 × 22.</div>`);
-// ascending passage J -> G
-passage(J,G,'#ffd15c','asc',`<div class="h">Ascendant Passage · 3361 P″</div><div class="y">to the face of the Great Step</div><div class="b">3361 + 2435 AM = 5796 AM = 1902 AD — the start of the Giza Course Countdown Calendar.</div>`);
-// entry stub on the face
-passage(E,[812,368],'#ffd15c','entry',`<div class="h">Pyramid Entry</div><div class="y">North face, 51°51′</div><div class="b">The mouth of the descending passage on the north face.</div>`);
-
-// 52 P" bore ticks
-function tick(p,ang){const dx=Math.cos(ang)*11,dy=Math.sin(ang)*11;
-  svg.appendChild(el('line',{x1:p[0]-dx,y1:p[1]-dy,x2:p[0]+dx,y2:p[1]+dy,stroke:'#9fb0d6',['stroke-width']:1.6}));}
-const perpDesc=Math.atan2(S[1]-E[1],S[0]-E[0])+Math.PI/2;
-const perpAsc=Math.atan2(G[1]-J[1],G[0]-J[0])+Math.PI/2;
-tick([648,380],perpDesc);tick([360,516],perpDesc);tick([470,378],perpAsc);
-const t52=el('text',{x:632,y:372,fill:'#9fb0d6','font-size':10,'font-family':'JetBrains Mono','text-anchor':'end'});t52.textContent='52 P″';svg.appendChild(t52);
-
+const apex=[500,60], bL=[110,440], bR=[890,440], BASE=440;
+const E=[700,255], J=[590,324], S=[150,600], G=[500,280], CX=500;
+// bedrock courses
+svg.appendChild(el('rect',{x:60,y:BASE,width:880,height:200,fill:'#0f1626',stroke:'#24304a'}));
+for(let y=BASE+28;y<640;y+=28){svg.appendChild(el('line',{x1:60,y1:y,x2:940,y2:y,stroke:'#1a2338'}));
+  for(let x=60+((y/28)%2?40:0);x<940;x+=80)svg.appendChild(el('line',{x1:x,y1:y-28,x2:x,y2:y,stroke:'#1a2338'}));}
+// pyramid body and courses
+svg.appendChild(el('polygon',{points:`${apex} ${bL} ${bR}`,fill:'#151d31',stroke:'#c9b98f','stroke-width':1.4}));
+for(let y=84;y<BASE;y+=12){const t=(y-apex[1])/(BASE-apex[1]);svg.appendChild(el('line',{x1:apex[0]+(bL[0]-apex[0])*t,y1:y,x2:apex[0]+(bR[0]-apex[0])*t,y2:y,stroke:'#22304c'}));}
+svg.appendChild(el('line',{x1:60,y1:BASE,x2:940,y2:BASE,stroke:'#3a486a','stroke-width':1.6}));
+svg.appendChild(el('circle',{cx:600,cy:330,r:150,fill:'none',stroke:'#33415f','stroke-dasharray':'3 5'}));
+// faces
+function rot(s,x,y,a,o){return tx(svg,x,y,s,Object.assign({'text-anchor':'middle',transform:`rotate(${a} ${x} ${y})`,fill:'#8b95ad','font-size':12,class:'mono'},o||{}));}
+rot('SOUTH FACE',282,236,-44);rot('NORTH FACE 51′51',790,318,44);
+// central axis at face of Great Step
+const ca=el('g',{});ca.appendChild(el('line',{x1:CX,y1:46,x2:CX,y2:660,stroke:'#ffcf5c','stroke-width':1.4,'stroke-dasharray':'4 5',opacity:.8}));
+ca.appendChild(el('rect',{x:CX-4,y:40,width:8,height:620,fill:'transparent'}));
+tx(ca,CX-8,262,'CENTRAL AXIS AT FACE OF GREAT STEP',{'text-anchor':'start',fill:'#ffcf5c','font-size':10.5,class:'mono h',transform:`rotate(-90 ${CX-8} 262)`});
+svg.appendChild(ca);bind(ca,T('Central axis at face of Great Step','#ffcf5c','1902 AD [5796 AM]','The Ascendant Passage reaches the face of the Great Step on this axis.'));
+// passage conjunct axis
+const pa=el('g',{});pa.appendChild(el('line',{x1:J[0],y1:J[1],x2:J[0],y2:180,stroke:'#9c8bf0','stroke-width':1.2,'stroke-dasharray':'2 5'}));
+pa.appendChild(el('rect',{x:J[0]-4,y:180,width:8,height:J[1]-180,fill:'transparent'}));
+tx(pa,J[0]-6,308,'PASSAGE CONJUNCT AXIS',{fill:'#9c8bf0','font-size':10.5,class:'mono h',transform:`rotate(-90 ${J[0]-6} 308)`});
+svg.appendChild(pa);bind(pa,T('Passage conjunct axis','#9c8bf0','1460 BC [2435 Annus Mundi]','Rises from the junction of the Ascendant and Descendant passages.'));
+// passages
+function passage(a,b,col,h){const g=el('g',{});
+  g.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,'stroke-width':14,'stroke-linecap':'round',opacity:.22}));
+  g.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,'stroke-width':3,'stroke-linecap':'round'}));
+  bind(g,h);svg.appendChild(g);return g;}
+passage(E,S,'#5cb3f2',T('Descendant Passage','#5cb3f2','3036 P″ to passage end joint','“Differential of 600 between axis date of 2436 Annus Mundi and remaining 3036 P″ down Descendant Passage, exhibiting relation to Anunnaki Ner system.”'));
+passage(J,G,'#e7c355',T('Ascendant Passage','#e7c355','3361 P″ to face of Great Step','3361 P″ + 2435 AM [1460 BC] = 5796 AM; 1902 AD start of Giza Course Countdown Calendar.'));
+// 52 P" bore heights
+function tick(p,a,b,lab){const ang=Math.atan2(b[1]-a[1],b[0]-a[0])+Math.PI/2,dx=Math.cos(ang)*12,dy=Math.sin(ang)*12;
+  const g=el('g',{});g.appendChild(el('line',{x1:p[0]-dx,y1:p[1]-dy,x2:p[0]+dx,y2:p[1]+dy,stroke:'#aeb7cd','stroke-width':1.6}));
+  tx(g,p[0]+dx+4,p[1]+dy+12,lab,{fill:'#aeb7cd','font-size':10,class:'mono h'});bind(g,T('52 P″','#aeb7cd','bore height','The passage bore, marked 52 P″ on the plate.'));svg.appendChild(g);}
+const onLine=(a,b,t)=>[a[0]+(b[0]-a[0])*t,a[1]+(b[1]-a[1])*t];
+tick(onLine(E,S,.08),E,S,'52 P″');tick(onLine(E,S,.72),E,S,'52 P″');tick(onLine(J,G,.55),J,G,'52 P″');tick(J,J,G,'52 P″');
+// measures
+function mlab(p,s,col,a){tx(svg,p[0],p[1],s,{fill:col,'font-size':14,'font-weight':600,class:'mono h','text-anchor':'middle',transform:`rotate(${a} ${p[0]} ${p[1]})`});}
+mlab([548,290],'3361 P″','#e7c355',-26);mlab([330,474],'3036 P″','#5cb3f2',32);
+rot('Ascendant Passage',552,328,-26,{fill:'#e7c355','font-size':11});rot('Descendant Passage',420,452,32,{fill:'#5cb3f2','font-size':11});
 // nodes
-function node(p,col,label,ly,anchor,data){
-  const g=el('g',{style:'cursor:pointer'});
-  g.appendChild(el('circle',{cx:p[0],cy:p[1],r:6,fill:col,stroke:'#05070d',['stroke-width']:1.5}));
-  g.appendChild(el('circle',{cx:p[0],cy:p[1],r:11,fill:'none',stroke:col,['stroke-width']:1,opacity:.5}));
-  const t=el('text',{x:p[0],y:p[1]+ly,fill:col,'font-size':11.5,'text-anchor':anchor,'font-family':'JetBrains Mono'});t.textContent=label;g.appendChild(t);
-  g.addEventListener('mousemove',e=>show(data,e));g.addEventListener('mouseleave',hide);svg.appendChild(g);
-}
-// Great Step glyph
-svg.appendChild(el('path',{d:`M${G[0]-14} ${G[1]+6} h10 v-8 h10`,fill:'none',stroke:'#ffd15c',['stroke-width']:2.4,['stroke-linejoin']:'round'}));
-node(G,'#ffd15c','◆ Great Step',-16,'middle',`<div class="h">Face of the Great Step</div><div class="y">5796 AM = 1902 AD</div><div class="b">Where the ascending count lands — the start of the countdown calendar. Its limestone block runs 126 P″ = 42×3 years to 2028 AD (plate 99).</div>`);
-node(E,'#ffd15c','Entry',22,'start',`<div class="h">Pyramid Entry · North face</div><div class="b">Mouth of the descending passage.</div>`);
-node(S,'#4fe3ff','End-joint',20,'middle',`<div class="h">Descending end-joint</div><div class="y">3036 P″ from entry</div><div class="b">Lower Chamber terminus.</div>`);
-node(J,'#b98cff','Junction · 2435 AM',34,'middle',`<div class="h">Passage junction</div><div class="y">2435 AM = 1460 BC</div><div class="b">Enoch's 365×4 = 1460. The conjunct axis rises from here.</div>`);
-
-// measure labels along passages
-function mlab(mid,txt,col,dy){const t=el('text',{x:mid[0],y:mid[1]+dy,fill:col,'font-size':12.5,'text-anchor':'middle','font-family':'JetBrains Mono','font-weight':500});
-  t.setAttribute('paint-order','stroke');t.setAttribute('stroke','#05070d');t.setAttribute('stroke-width','3');t.textContent=txt;svg.appendChild(t);}
-mlab([470,468],'3036 P″','#4fe3ff',0);
-mlab([458,360],'3361 P″','#ffd15c',0);
-
-// face labels
-function face(txt,x,y,rot){const t=el('text',{x:x,y:y,fill:'#6b7699','font-size':11,'font-family':'JetBrains Mono','text-anchor':'middle',transform:`rotate(${rot} ${x} ${y})`});t.textContent=txt;svg.appendChild(t);}
-face('SOUTH FACE',300,250,-38);
-face('NORTH FACE 51°51′',690,250,38);
-face('Descendant Passage',300,555,-29);
-face('Ascendant Passage',455,392,-26);
+function node(p,col,h){const g=el('g',{});g.appendChild(el('circle',{cx:p[0],cy:p[1],r:6.5,fill:col,stroke:'#0b0f1a','stroke-width':1.5}));
+  g.appendChild(el('circle',{cx:p[0],cy:p[1],r:12,fill:'none',stroke:col,opacity:.5}));bind(g,h);svg.appendChild(g);return g;}
+svg.appendChild(el('path',{d:`M${G[0]-18} ${G[1]+8} h12 v-10 h12`,fill:'none',stroke:'#ffcf5c','stroke-width':2.4}));
+node(G,'#ffcf5c',T('Face of the Great Step','#ffcf5c','5796 AM = 1902 AD','Start of the Giza Course Countdown Calendar.'));
+node(J,'#9c8bf0',T('Junction · 1460 BC [2435 Annus Mundi]','#9c8bf0','144.8 decades after 2908 BC [987 AM]','Enoch ascended in his 365th year: 365×4 = 1460.'));
+node(E,'#5cb3f2',T('Pyramid entry','#5cb3f2','north face 51′51','Mouth of the Descendant Passage.'));
+node(S,'#5cb3f2',T('Passage end joint','#5cb3f2','3036 P″','The end of the Descendant Passage.'));
+tx(svg,E[0]+14,E[1]+4,'Pyramid entry',{fill:'#5cb3f2','font-size':12,class:'h'});
+tx(svg,S[0]+4,S[1]+26,'Passage end joint',{fill:'#5cb3f2','font-size':12,class:'h'});
+// callouts
+function note(x,y,lines,col,h){const g=el('g',{});lines.forEach((s,i)=>tx(g,x,y+i*16,s,{fill:i?'#c3ccdf':col,'font-size':i?12:13,'font-weight':i?400:600,class:'h'}));bind(g,h);svg.appendChild(g);}
+note(150,150,['3361 P″ + 2435 AM [1460 BC] = 5796 AM;','1902 AD start of','Giza Course Countdown Calendar'],'#ffcf5c',T('1902 AD [5796 AM]','#ffcf5c','3361 + 2435 = 5796','5796 AM [1902 AD] is exactly 414×14 years, a sum referencing the Stonehenge Cursed Earth system.'));
+svg.appendChild(el('path',{d:`M372 176 Q440 200 ${G[0]-12} ${G[1]-6}`,fill:'none',stroke:'#ffcf5c','stroke-width':1.2,'stroke-dasharray':'3 4'}));
+note(640,520,['1460 BC [2435 Annus Mundi]','This is 144.8 decades after Enoch’s','ascent in Achuzan 2908 BC [987 AM],','Enoch’s 365th year.'],'#9c8bf0',T('1460 BC [2435 Annus Mundi]','#9c8bf0','2908 BC → 1460 BC = 1448 years','144.8 decades after Enoch’s ascent in Achuzan, 2908 BC [987 AM].'));
+svg.appendChild(el('path',{d:`M636 512 L${J[0]+8} ${J[1]+10}`,fill:'none',stroke:'#9c8bf0','stroke-width':1.2,'stroke-dasharray':'3 4'}));
+note(70,520,['Enoch ascended','in 365th year:','365 × 4 = 1460'],'#c9b98f',T('Enoch','#c9b98f','365 × 4 = 1460','Ascended in his 365th year.'));
+note(640,470,['5796 AM [1902 AD] is exactly 414×14 years,','a sum referencing the Stonehenge Cursed Earth system.'],'#e7c355',T('414 × 14 = 5796','#e7c355','5796 AM [1902 AD]','A sum referencing the Stonehenge Cursed Earth system.'));
+note(70,70,['Differential of 600 between axis date of','2436 Annus Mundi and remaining 3036 P″','down Descendant Passage, exhibiting','relation to Anunnaki Ner system.'],'#5cb3f2',T('Differential of 600','#5cb3f2','3036 − 2436 = 600','Note: the junction is 2435 AM [1460 BC] elsewhere on the plate; 3036 − 2435 = 601.'));
 </script>
 </body>
 </html>

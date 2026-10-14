@@ -8,128 +8,206 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#05070d;--panel:#0b1120;--ink:#e8eefc;--muted:#7f8db0;--line:#1a2338;--line2:#26324f;
-    --cyan:#4fe3ff;--gold:#ffd15c;--stone:#d8c7a4;--granite:#e0555f;--comet:#5cb3f2;
-    --glow-cyan:0 0 18px #4fe3ff55,0 0 4px #4fe3ff88;--glow-gold:0 0 18px #ffd15c55,0 0 4px #ffd15c99;}
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
   *{box-sizing:border-box}
-  html,body{margin:0;background:radial-gradient(1200px 720px at 70% -12%,#14213f 0%,#05070d 62%);color:var(--ink);
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
     font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;background:repeating-linear-gradient(0deg,#ffffff05 0,#ffffff05 1px,transparent 1px,transparent 3px);mix-blend-mode:overlay}
-  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px;position:relative;z-index:2}
-  header.mast{border-bottom:1px solid var(--line2);padding-bottom:18px;margin-bottom:8px}
-  .kick{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--cyan);text-transform:uppercase;text-shadow:var(--glow-cyan)}
-  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(32px,5vw,56px);line-height:.98;margin:.2em 0 .08em;
-    background:linear-gradient(180deg,#fff,#bfe9ff 55%,#4fe3ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 24px #4fe3ff33)}
-  h1 .s{display:block;font-size:.42em;letter-spacing:.04em;color:var(--gold);font-weight:600;margin-top:.35em;-webkit-text-fill-color:var(--gold)}
-  .prov{color:var(--muted);font-size:13px;max-width:840px;line-height:1.6;margin-top:12px}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
   .prov b{color:var(--ink);font-weight:500}
-  .grid{display:grid;grid-template-columns:1.35fr .65fr;gap:22px;margin-top:22px}
-  @media(max-width:960px){.grid{grid-template-columns:1fr}}
-  .card{background:linear-gradient(180deg,#0b1120,#080d18);border:1px solid var(--line2);border-radius:16px;padding:16px 18px}
-  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:22px;margin:2px 0 4px;color:#eaf4ff}
-  .card .hint{color:var(--muted);font-size:12px;margin-bottom:6px;font-family:'JetBrains Mono',monospace}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
   svg{width:100%;height:auto;display:block;overflow:visible}
-  .mrow{padding:11px 13px;border:1px solid var(--line);border-radius:11px;background:#0e1526;margin-bottom:10px}
-  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:#eaf4ff}
-  .mrow .cap{font-size:11.5px;color:var(--muted);margin-top:3px;line-height:1.5}
-  .g{color:var(--gold);font-weight:600}.c{color:var(--cyan);font-weight:600}
-  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:16px;padding-top:12px}
-  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);border-radius:11px;
-    padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transition:.12s;box-shadow:0 18px 40px -18px #000}
-  #tip .h{font-weight:600;font-family:'JetBrains Mono',monospace;color:var(--cyan)}
-  #tip .y{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11.5px;margin-top:2px}
-  #tip .b{color:var(--muted);margin-top:4px}
-  .back{position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px;backdrop-filter:blur(6px)}
-  .back:hover{border-color:#4fe3ff;box-shadow:0 0 14px #4fe3ff55}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+
 </style>
 </head>
 <body>
-<a class="back" href="../index.html">&larr; Atlas</a>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
 <div class="wrap">
-  <header class="mast">
-    <div class="kick">Lost Science of Prophetic Engineering · The Great Step</div>
-    <h1>The Great Step Countdown Calendar<span class="s">126 inches of limestone — 1902 → 2028 AD, then the red granite</span></h1>
-    <p class="prov">Read from plates I and the Great-Step text (page 123), preserved verbatim. At the top of the Grand Gallery, the <b>Great Step</b> is a limestone block <b>126 inches</b> long. At <b>1 inch = 1 year</b> from its face in <b>1902 AD</b>, it counts <b>126 years = 42×3</b> to <b>2028 AD</b> — the final limestone year — after which the floor turns to <b>red granite</b>. Hover any marker.</p>
+<header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · The Great Step · Plates&nbsp;97 &amp; 99</div>
+    <h1>Chronotecture
+      <span class="sub">The Great Step — 126&nbsp;P″ of limestone, 1902 to 2028&nbsp;AD, then the red granite</span>
+    </h1>
+    <p class="prov">A rebuild of the Great Step chronology Breshears gives in his text (plates&nbsp;97 and 99, book pages&nbsp;121 and&nbsp;123), with every date and measurement preserved verbatim; only the visual language is new. There is no single plate for it: the drawn alignments are on charts&nbsp;XXVII and XXVIII (plates&nbsp;83–84). Its structural key: <b>the Great Step is a limestone block 126&nbsp;P″ long</b>; at one pyramid-inch per year from its face in <b>1902&nbsp;AD</b> it counts “120 + 6” years, three periods of 42, to <b>2028&nbsp;AD (5922&nbsp;AM)</b>, the final limestone year. The red granite floor begins in 2029&nbsp;AD.</p>
   </header>
 
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
   <div class="grid">
     <div class="card">
       <h2>The countdown, inch by inch</h2>
-      <div class="hint">1 P″ = 1 year · limestone 1902–2028 · red granite 2028–2052</div>
-      <svg id="tl" viewBox="0 0 1360 360" role="img" aria-label="Great Step countdown timeline"></svg>
+      <div class="hint">1&nbsp;P″ = 1 year. Limestone from 1902 to 2028&nbsp;AD, ticked every inch and divided into three 42-year periods; the latent dates of the 43rd and 103rd inch below; the red granite after 2028. Hover or tap a marker. <span class="anchor-key"><i></i>FACE OF THE GREAT STEP 1902 AD</span></div>
+      <div class="swipe">⟷ swipe to pan the timeline</div>
+      <div class="scroller" data-focus=".4"><svg id="tl" class="wide" viewBox="0 0 1400 440" role="img" aria-label="The Great Step countdown, 1902 to 2052 AD"></svg></div>
     </div>
-    <div class="card">
-      <h2>The measures</h2>
-      <div class="hint">Straight from the stone.</div>
-      <div class="mrow"><div class="eq"><span class="c">126 P″</span> = <span class="g">42 × 3</span></div><div class="cap">Three 42-year periods: 1902 · 1944 · 1986 · <b>2028 AD</b> (5922 AM), the final limestone year.</div></div>
-      <div class="mrow"><div class="eq">43rd P″ → <span class="g">1945 AD</span></div><div class="cap">A latent date (5839 AM): Germany falls, the first nuclear test, Hiroshima & Nagasaki, the UN founded.</div></div>
-      <div class="mrow"><div class="eq">103 P″ → <span class="g">2005 AD</span></div><div class="cap">5899 AM — the last year of the 118th Jubilee from Eden (3895 BC = 1 AM).</div></div>
-      <div class="mrow"><div class="eq">2028 → 2052 = <span class="g">24 yrs</span> · ½ = 2040</div><div class="cap">2028 is 24 years before the Seven Kings (2052); the half-point, 2040, returns planet Phoenix.</div></div>
-      <div class="mrow" style="border-color:#5a4a1f88"><div class="eq"><span class="g">7344</span> = the whole timeline</div><div class="cap">The entire chronometrical length of the Great Pyramid — and 1 P″ = 1 year links this Step to Chart I's 1902 start.</div></div>
-      <div class="foot">Source: J. M. Breshears, <i>Chronotecture</i> (2017), Great-Step chronology (p.123) &amp; Chart I. Content transcribed unchanged; interpretive redraw for study.</div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic written in the text, checked (AM&nbsp;=&nbsp;AD&nbsp;+&nbsp;3894; 1&nbsp;AM&nbsp;=&nbsp;3895&nbsp;BC). Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid">
+        <div class="mrow"><span class="eq">120 + 6 = 126 · 1902 + 120 = 2022</span><span class="cap">“A 120 + 6 year period”: ten 12-year (144-month) periods from 1902 to 2022&nbsp;AD, then “the 6 years remaining”.</span></div>
+        <div class="mrow"><span class="eq">1902 + 126 = 2028 AD (5922 AM)</span><span class="cap">The final limestone year; the red granite floor begins in 2029&nbsp;AD.</span></div>
+        <div class="mrow"><span class="eq">42 × 3 = 126 · 1944 · 1986 · 2028</span><span class="cap">“Subdivided into three 42 year periods.”</span></div>
+        <div class="mrow"><span class="eq">2028 − 1776 = 252 = 36 × 7</span><span class="cap">“The 252nd year (36x7:360x7) of the United States.”</span></div>
+        <div class="mrow"><span class="eq">2052 − 2028 = 24 · 2028 + 12 = 2040</span><span class="cap">24 years before the Seven Kings are released; half of it ends at 2040&nbsp;AD, planet Phoenix.</span></div>
+        <div class="mrow"><span class="eq">1902 + 43 = 1945 AD (5839 AM)</span><span class="cap">The 43rd P″, aligned with the North Wall of the Lower Chamber.</span></div>
+        <div class="mrow"><span class="eq">1902 + 103 = 2005 AD (5899 AM)</span><span class="cap">103&nbsp;P″ from the face, aligned with the South Wall of the Middle Chamber.</span></div>
+        <div class="mrow"><span class="eq">5899 AM = “last year of the 118th Jubilee”</span><span class="cap">Counted from Man’s banishment from Eden in 3895&nbsp;BC (1&nbsp;AM).</span><span class="aw">as written — 118 × 50 = 5900, so the 118th jubilee runs 5851–5900&nbsp;AM and its last year is 5900&nbsp;AM (2006&nbsp;AD); 5899&nbsp;AM is its 49th year</span></div>
+      </div><div style="font-size:12.5px;color:var(--muted);line-height:1.6">Read together with chart&nbsp;I, whose Ascendant Passage reaches the face of the Great Step at 1902&nbsp;AD [5796&nbsp;AM], and chart&nbsp;XXVII (plate&nbsp;83), which draws this block.</div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">The source passages, verbatim from the text plates (their spelling kept).</div><details class="tx"><summary>Show transcription</summary><div class="cols">
+        <div><h3>Plate 97 (book page 121)</h3><ul><li>The Great Step is a huge limestone block 126 P" in length that exhibits the same .6 variance that the length of the Descendant Passage does, at 4146 P.</li><li>Thus, the Great Step, as a foundation (beginning) to this timeline covers a 120 + 6 year period (120 being the genatria for Hebrew word foundation).</li><li>This countdown is comprised of ten 12-year (144 months) periods starting with 1902 AD … initiated a 120 year calendar to the fulfillment of this curse against the United States in 2022 AD.</li></ul></div>
+        <div><h3>Plate 99 (book page 123): the end of the limestone</h3><ul><li>We are left with the 6 years remaining (6 is the number of Man) to the end of the limestone Great Step block for a total of 126 P". This indicates ythe year 2028 AD (5922 AM)</li><li>This is the 252nd year (36x7:360x7) of the United States when it detonates a weapon more powerful than any nuclear weapon thus far detonated … In this year also a manned spacecraft will succeed in an unprecedented mission.</li><li>2028 AD is the final limestone year, the following year, 2029 AD, begins the red granite floor which denotes the active presence of Anunnakion Earth.</li><li>2028 AD is exactly 24 years before the Seven Kings are released in 2052 AD. Half of this 24 year period ends at 2040 AD, the year the planet Phoenic returns to the inner system … the Sixth Seal judgement.</li></ul></div>
+        <div><h3>Plate 99: the three 42-year periods</h3><ul><li>The 126 P" length of the Great Step chronology is subdivided into three 42 year periods (42x3 is 126).</li><li>The first 42 years ends at 1944 AD when the USA sent B-29 Superfortresses bombing cities of Japan and also initiated D-Day … 174,000 American troops from 5000 ships … The largest nbaval battle in world history was also faught in this year when 218 Allied vessels faught 64 Japanese ships.</li><li>The next 42 years period ended at 1986 AD (already detailed) and the final one of course at 2028 AD.</li></ul></div>
+        <div><h3>Plate 99: the latent dates</h3><ul><li>The North Wall of the Lower Chamber is aligned with the 43rd P" of the Step, giving us the year 1945 AD (5839 AM) when Germany fell to the Allied Forces, the USA first tested a nuclear device at New Mexico … US bombers dropped atmoic weapons over Hiroshima nad Nagasaki. The United Nations is founded …</li><li>The other date indicated by a vertical line drawn down to the South Wall of the Middle Chamber lies exactly 103 P" from the face of the Great Step, which reveals that to us the year 2005 AD (5899 AM), the last year of the 118th Jubilee from Man’s Banishment from Eden in 3895 BC (1 AM).</li><li>The year 2005 was a year of storms: hurricanes Katrina and Rita … Astronomers take the first direct photograph of a exoplanet … An amazing crop formation appeared encoded clearly the sum of 7344, the entire length of the Great Pyramid’s chronometrical timeline!</li><li>All of these alignments can be seen on Plate XXVII and XXVIII.</li></ul></div>
+      </div></details><div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), the Great Step chronology (plates&nbsp;97 and 99; charts&nbsp;XXVII–XXVIII). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div></div>
     </div>
   </div>
 </div>
 <div id="tip"></div>
-
 <script>
-var NS='http://www.w3.org/2000/svg';
-function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
-var tip=document.getElementById('tip');
-function show(h,e){tip.innerHTML=h;tip.style.opacity=1;var x=e.clientX+15,y=e.clientY+13;if(x+300>innerWidth)x=e.clientX-306;if(y+150>innerHeight)y=e.clientY-150;tip.style.left=x+'px';tip.style.top=y+'px';}
-function hide(){tip.style.opacity=0;}
-var svg=document.getElementById('tl');
 
-var Y0=1898, Y1=2056, PL=60, PR=1320, AX=150;
-function X(y){return PL+(y-Y0)/(Y1-Y0)*(PR-PL);}
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+function yl(v){return v<0?(-v)+' BC':v+' AD';}
+// span bar: x1<x2 in px; offL draws an off-scale arrow at left end
+function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL){g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR){g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  g.appendChild(el('rect',{x:x1-6,y:o.y-24,width:x2-x1+12,height:44,fill:'transparent'}));
+  if(o.lab){const t=tx(g,o.lx,o.y-9,o.lab,{'text-anchor':o.la||'start','font-size':12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});}
+  if(o.lab2){tx(g,o.lx,o.y+17,o.lab2,{'text-anchor':o.la||'start','font-size':11,class:'h',fill:'#8b95ad'});}
+  bind(g,o.tip);p.appendChild(g);return g;}
 
-// limestone band 1902-2028, granite band 2028-2052
-svg.appendChild(el('rect',{x:X(1902),y:AX-18,width:X(2028)-X(1902),height:36,fill:'#1a2033',stroke:'#4a5a80',['stroke-width']:1}));
-svg.appendChild(el('rect',{x:X(2028),y:AX-18,width:X(2052)-X(2028),height:36,fill:'#2a1418',stroke:'#e0555f',['stroke-width']:1,opacity:.9}));
-var sl=el('text',{x:(X(1902)+X(2028))/2,y:AX+4,fill:'#c9b98f','font-size':11,'text-anchor':'middle','font-family':'JetBrains Mono','letter-spacing':'.1em'});sl.textContent='LIMESTONE · 126 P″';svg.appendChild(sl);
-var gl=el('text',{x:(X(2028)+X(2052))/2,y:AX+4,fill:'#e0555f','font-size':10.5,'text-anchor':'middle','font-family':'JetBrains Mono','letter-spacing':'.08em'});gl.textContent='RED GRANITE';svg.appendChild(gl);
-
-// per-year (P") ticks
-for(var yy=1902; yy<=2052; yy++){
-  var xx=X(yy), major=((yy-1902)%42===0);
-  svg.appendChild(el('line',{x1:xx,y1:AX-18,x2:xx,y2:AX-18-(major?12:5),stroke:major?'#9fb0d6':'#3a4a6e',['stroke-width']:major?1.6:1}));
-}
-// 42-year division labels
-[1902,1944,1986,2028].forEach(function(yy){
-  var xx=X(yy);
-  var t=el('text',{x:xx,y:AX-36,fill:'#7f8db0','font-size':10,'text-anchor':'middle','font-family':'JetBrains Mono'});
-  t.textContent=yy; svg.appendChild(t);
-});
-
-// events
-var EV=[
-  {y:1902,cat:'start',t:'Calendar begins',yr:'1902 AD · P″ 0',b:'The face of the Great Step. Year zero of the 126-inch limestone block (Chart I).'},
-  {y:1944,cat:'war',t:'First 42 years end',yr:'1944 AD · P″ 42',b:'D-Day / Operation Overlord — 174,000 troops from 5,000 ships; B-29s bomb Japan; the largest naval battle in history (218 vs 64 ships).'},
-  {y:1945,cat:'impact',t:'The 43rd inch',yr:'1945 AD [5839 AM]',b:'A latent date read down through the masonry: Germany falls, the first US nuclear test (New Mexico), Hiroshima & Nagasaki, the UN founded.'},
-  {y:1986,cat:'war',t:'Second 42 years end',yr:'1986 AD · P″ 84',b:'The middle division of the limestone Step.'},
-  {y:2005,cat:'impact',t:'The 103rd inch',yr:'2005 AD [5899 AM]',b:'103 P″ from the face: the last year of the 118th Jubilee from Man’s banishment from Eden (3895 BC = 1 AM). Hurricanes Katrina & Rita; the first exoplanet photographed.'},
-  {y:2028,cat:'proph',t:'Final limestone year',yr:'2028 AD [5922 AM]',b:'126 P″ = 42×3. The 252nd year of the USA (36×7); a weapon beyond any nuclear device; an unprecedented manned mission.'},
-  {y:2029,cat:'proph',t:'The red granite floor',yr:'2029 AD',b:'The limestone ends; the granite begins — the active presence of the Anunnaki upon Earth.'},
-  {y:2040,cat:'comet',t:'Planet Phoenix returns',yr:'2040 AD',b:'Half of the final 24 years. Phoenix returns to the inner system and occults the Sun — the Sixth Seal.'},
-  {y:2052,cat:'proph',t:'The Seven Kings released',yr:'2052 AD',b:'24 years after 2028. The end of the countdown.'}
+const CAT={
+  lime:{c:'#c9b98f',label:'Limestone periods'},
+  war:{c:'#9c8bf0',label:'War & nations'},
+  latent:{c:'#f08a4b',label:'Latent dates'},
+  proph:{c:'#e7c355',label:'Granite & prophecy'}
+};
+const YMIN=1896, YMAX=2058, PL=60, PR=1340;
+const X=y=>PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);
+const svg=document.getElementById('tl'), AX=X(1902), BY=160;
+// limestone and granite bands
+const lg=el('g',{class:'row','data-cat':'lime'});
+lg.appendChild(el('rect',{x:AX,y:BY-20,width:X(2028)-AX,height:40,fill:'#1d2234',stroke:'#c9b98f'}));
+tx(lg,(AX+X(2028))/2,BY+5,'LIMESTONE GREAT STEP · 126 P″ · 120 + 6',{'text-anchor':'middle',fill:'#c9b98f','font-size':12,class:'mono h'});
+for(let y=1902;y<=2028;y++){const x=X(y),m=(y-1902)%42===0,t=(y-1902)%12===0;lg.appendChild(el('line',{x1:x,y1:BY-20,x2:x,y2:BY-20-(m?16:t?9:4),stroke:m?'#ffcf5c':t?'#aeb7cd':'#4a5a80','stroke-width':m?2:1}));}
+[1902,1944,1986,2028].forEach((y,i)=>tx(lg,X(y),BY-42,String(y)+(i?' · '+(42*i)+' P″':''),{'text-anchor':'middle',fill:'#ffcf5c','font-size':11,class:'mono'}));
+lg.appendChild(el('rect',{x:AX,y:BY-50,width:X(2028)-AX,height:70,fill:'transparent'}));
+bind(lg,T('Limestone Great Step · 126 P″','#c9b98f','1902 → 2028 AD (5922 AM)','42×3 is 126: 1944 · 1986 · 2028 AD. Minor ticks every P″; taller ticks every 12 years (144 months), ten of them to 2022 AD, then the 6 years remaining.'));svg.appendChild(lg);
+const gg=el('g',{class:'row','data-cat':'proph'});
+gg.appendChild(el('rect',{x:X(2028),y:BY-20,width:X(2052)-X(2028),height:40,fill:'#2a1418',stroke:'#e0555f'}));
+tx(gg,(X(2028)+X(2052))/2,BY+5,'RED GRANITE',{'text-anchor':'middle',fill:'#e0555f','font-size':11.5,class:'mono h'});
+bind(gg,T('The red granite floor','#e0555f','begins 2029 AD','Denotes the active presence of Anunnaki on Earth. 2028 AD is exactly 24 years before the Seven Kings are released in 2052 AD.'));svg.appendChild(gg);
+// face anchor
+svg.appendChild(el('line',{x1:AX,y1:40,x2:AX,y2:420,stroke:'#ffcf5c','stroke-width':2.2}));
+tx(svg,AX+8,52,'Face of the Great Step · 1902 AD',{fill:'#ffcf5c','font-size':13,class:'mono','font-weight':500});
+// 120 bracket
+const b=el('g',{class:'row','data-cat':'lime'});b.appendChild(el('path',{d:`M${AX} 90 V82 H${X(2022)} V90 M${X(2022)} 82 H${X(2028)} V90`,fill:'none',stroke:'#aeb7cd'}));
+tx(b,(AX+X(2022))/2,76,'120 years · ten 12-year (144 months) periods → 2022 AD',{'text-anchor':'middle',fill:'#aeb7cd','font-size':11,class:'h'});
+tx(b,X(2025),76,'+6',{'text-anchor':'middle',fill:'#aeb7cd','font-size':11,class:'mono'});
+bind(b,T('120 + 6','#aeb7cd','1902 → 2022 → 2028 AD','“120 being the genatria for Hebrew word foundation”; “the 6 years remaining (6 is the number of Man)”.'));svg.appendChild(b);
+const EV=[
+ {y:1944,cat:'war',t:'1944 AD · first 42 years end',b:'B-29 Superfortresses bomb Japan; D-Day, Operation Overlord: 174,000 American troops from 5000 ships; 218 Allied vessels fought 64 Japanese ships.'},
+ {y:1945,cat:'latent',t:'1945 AD (5839 AM) · 43rd P″',b:'Aligned with the North Wall of the Lower Chamber. Germany falls; first US nuclear test at New Mexico; Hiroshima and Nagasaki; the United Nations is founded.'},
+ {y:1986,cat:'war',t:'1986 AD · second 42 years end',b:'“The next 42 years period ended at 1986 AD (already detailed).”'},
+ {y:2005,cat:'latent',t:'2005 AD (5899 AM) · 103 P″',b:'Aligned with the South Wall of the Middle Chamber; “the last year of the 118th Jubilee” (as written: 118 × 50 = 5900, so 5899 AM is the 49th year). Hurricanes Katrina and Rita; a crop formation encoding 7344.'},
+ {y:2028,cat:'proph',t:'2028 AD (5922 AM) · final limestone year',b:'The 252nd year (36x7:360x7) of the United States; a weapon more powerful than any nuclear weapon; a manned spacecraft succeeds in an unprecedented mission.'},
+ {y:2040,cat:'proph',t:'2040 AD · planet Phoenix returns',b:'Half of the 24 years from 2028: Phoenix transits occulting the sun, the Sixth Seal judgement.'},
+ {y:2052,cat:'proph',t:'2052 AD · Seven Kings released',b:'24 years after 2028 AD.'}
 ];
-var COL={start:'#4fe3ff',war:'#9c8bf0',impact:'#f08a4b',proph:'#ffd15c',comet:'#5cb3f2'};
-var lastx=-999, lvl=0;
-EV.forEach(function(ev){
-  var xx=X(ev.y), col=COL[ev.cat];
-  lvl = (xx-lastx<120)? lvl+1 : 0; lastx=xx;
-  var ly=AX+40+lvl*30;
-  var g=el('g',{style:'cursor:pointer'});
-  g.appendChild(el('line',{x1:xx,y1:AX+18,x2:xx,y2:ly-10,stroke:col,['stroke-width']:1,opacity:.5}));
-  g.appendChild(el('circle',{cx:xx,cy:AX+18,r:5,fill:col,stroke:'#05070d',['stroke-width']:1.5}));
-  var yr=el('text',{x:xx,y:ly-12,fill:col,'font-size':11,'text-anchor':'middle','font-family':'JetBrains Mono','font-weight':500});
-  yr.textContent=ev.y; g.appendChild(yr);
-  var t=el('text',{x:xx,y:ly+3,fill:'#aeb7cd','font-size':10.5,'text-anchor':'middle'});
-  t.textContent=ev.t; g.appendChild(t);
-  g.addEventListener('mousemove',function(e){show('<div class="h">'+ev.t+'</div><div class="y">'+ev.yr+'</div><div class="b">'+ev.b+'</div>',e);});
-  g.addEventListener('mouseleave',hide);
-  svg.appendChild(g);
-});
+const LV={1944:0,1945:1,1986:0,2005:1,2028:2,2040:3,2052:4};
+EV.forEach(e=>{const x=X(e.y),col=CAT[e.cat].c,ly=BY+64+LV[e.y]*38;
+  const g=el('g',{class:'row','data-cat':e.cat});
+  g.appendChild(el('line',{x1:x,y1:BY+20,x2:x,y2:ly-14,stroke:col,opacity:.6}));
+  g.appendChild(el('circle',{cx:x,cy:BY+20,r:5,fill:col,stroke:'#0b0f1a','stroke-width':1.5}));
+  tx(g,x,ly,e.t,{'text-anchor':e.y>=2028?'end':'middle',fill:col,'font-size':11.5,'font-weight':600,class:'h'});
+  g.appendChild(el('rect',{x:x-8,y:BY+14,width:16,height:ly-BY-10,fill:'transparent'}));
+  bind(g,T(e.t,col,'',e.b));svg.appendChild(g);});
+for(let y=1900;y<=2050;y+=10)tx(svg,X(y),410,String(y),{'text-anchor':'middle',fill:'#5d6885','font-size':10,class:'mono'});
+chips(CAT,'.row');
 </script>
 </body>
 </html>

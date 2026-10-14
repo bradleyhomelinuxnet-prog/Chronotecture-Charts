@@ -8,205 +8,237 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#05070d;--panel:#0b1120;--ink:#e8eefc;--muted:#7f8db0;--line:#1a2338;--line2:#26324f;
-    --cyan:#4fe3ff;--gold:#ffd15c;--violet:#b98cff;--teal:#37e0c8;
-    --glow-cyan:0 0 18px #4fe3ff55,0 0 4px #4fe3ff88;--glow-gold:0 0 18px #ffd15c66,0 0 5px #ffd15c99;}
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
   *{box-sizing:border-box}
-  html,body{margin:0;background:radial-gradient(1300px 800px at 50% -10%,#12203f 0%,#05070d 62%);color:var(--ink);
-    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
-  body::after{content:"";position:fixed;inset:0;z-index:0;pointer-events:none;opacity:.45;background:repeating-linear-gradient(0deg,#ffffff05 0,#ffffff05 1px,transparent 1px,transparent 3px);mix-blend-mode:overlay}
-  .wrap{max-width:1280px;margin:0 auto;padding:26px 22px 60px;position:relative;z-index:2}
-  header{text-align:center;border-bottom:1px solid var(--line2);padding-bottom:16px;margin-bottom:6px}
-  .kick{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.44em;color:var(--cyan);text-transform:uppercase;text-shadow:var(--glow-cyan)}
-  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,6vw,64px);line-height:.96;margin:.16em 0 .06em;
-    background:linear-gradient(180deg,#fff,#bfe9ff 52%,#4fe3ff);-webkit-background-clip:text;background-clip:text;-webkit-text-fill-color:transparent;color:transparent;filter:drop-shadow(0 0 26px #4fe3ff35)}
-  .sub{color:var(--muted);font-size:14px;max-width:700px;margin:8px auto 0;line-height:1.55}
-  .sub b{color:var(--ink);font-weight:500}
-  .stage{position:relative;margin-top:14px}
-  svg{width:100%;height:auto;display:block;overflow:visible;cursor:default}
-  .hint{position:absolute;left:10px;top:10px;font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);
-    background:#070d18aa;border:1px solid var(--line);border-radius:8px;padding:7px 11px;line-height:1.6;pointer-events:none}
-  .hint b{color:var(--cyan)}
-  #panel{position:fixed;right:18px;bottom:18px;z-index:40;width:300px;max-width:calc(100vw - 36px);
-    background:linear-gradient(180deg,#0c1424,#080e1a);border:1px solid var(--line2);border-radius:14px;padding:16px 17px;
-    box-shadow:0 24px 60px -24px #000,var(--glow-cyan);opacity:0;transform:translateY(10px);transition:.18s;pointer-events:none}
-  #panel.on{opacity:1;transform:none;pointer-events:auto}
-  #panel .tag{font-family:'JetBrains Mono',monospace;font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--gold)}
-  #panel h3{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:24px;margin:4px 0 6px;color:#eaf4ff}
-  #panel p{color:var(--muted);font-size:13px;line-height:1.6;margin:0 0 10px}
-  #panel .apps{font-family:'JetBrains Mono',monospace;font-size:11px;color:var(--muted);margin-bottom:10px}
-  #panel .apps b{color:var(--cyan)}
-  #panel a.open{display:inline-block;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.08em;color:#04121a;
-    background:linear-gradient(180deg,#ffe27a,#ffca44);padding:8px 14px;border-radius:100px;text-decoration:none;font-weight:700;box-shadow:var(--glow-gold)}
-  #panel .close{position:absolute;right:12px;top:10px;color:var(--muted);cursor:pointer;font-size:16px}
-  .foot{color:#4a5578;font-family:'JetBrains Mono',monospace;font-size:11px;text-align:center;margin-top:16px}
-  .foot a{color:var(--cyan)}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+  .cmap{display:grid;grid-template-columns:1fr 300px;gap:18px;align-items:start}
+  @media(max-width:880px){.cmap{grid-template-columns:1fr}}
+  .pane{border:1px solid var(--line);border-radius:12px;background:#0e1526;padding:14px 16px;min-height:220px}
+  .pane .tag{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase}
+  .pane h3{font-family:'Cormorant Garamond',serif;font-size:24px;margin:4px 0 6px;font-weight:600}
+  .pane p{font-size:13px;line-height:1.55;color:#d3dbec;margin:0 0 8px}
+  .pane .apps{font-size:12px;color:var(--muted);line-height:1.6}
+  .pane .apps b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500}
+  .pane a{display:inline-block;margin-top:8px;color:#4fe3ff;font-family:'JetBrains Mono',monospace;font-size:12px;text-decoration:none;border:1px solid #26324f;border-radius:100px;padding:6px 12px}
+  .node,.chart{cursor:pointer}
 </style>
 </head>
 <body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
 <div class="wrap">
-  <header>
-    <div class="kick">The Chronotecture Atlas · Cross-Map</div>
-    <h1 class="ser">The Constellation</h1>
-    <p class="sub">The charts are not separate — they share a spine of recurring numbers and fixed dates. <b>Click any node</b> to light up every chart that uses it; click a <b style="color:#ffd15c">gold chart-star</b> to open its interactive. Click empty space to reset.</p>
+<header class="masthead">
+    <div class="kicker">Chronotecture Atlas · Cross-Map</div>
+    <h1>Chronotecture
+      <span class="sub">The Constellation — the numbers and dates the charts share</span>
+    </h1>
+    <p class="prov">An atlas cross-map, not a Breshears plate. Each <b>gold star</b> is a rebuilt chart; each <b>blue node</b> is a number or date, and a line joins them only where that figure is written on the chart’s plate. Every figure is given as the plate writes it, with the plate cited in the source list at the end. Click a node to light up every chart that uses it; click a star, then “Open”, to go to its rebuild.</p>
   </header>
-  <div class="stage">
-    <svg id="map" viewBox="0 0 1000 760" role="img" aria-label="Constellation cross-map"></svg>
-    <div class="hint"><b>◆</b> charts &nbsp; <b>●</b> shared number / date<br><b>click</b> a node to trace its links</div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>The cross-map</h2>
+      <div class="hint">Click a node or star; click empty space to reset. <span class="anchor-key"><i></i>CHARTS ◆ · SHARED FIGURES ●</span></div>
+      <div class="cmap">
+        <div class="scroller" data-focus=".5"><svg id="map" class="mid" viewBox="0 0 1000 760" role="img" aria-label="Constellation cross-map of shared numbers and dates"></svg></div>
+        <div class="pane" id="pane"><div class="tag" id="ptag">Start here</div><h3 id="ptitle">138</h3><p id="pdesc">Click any node or star.</p><div class="apps" id="papps"></div><a id="popen" href="#" style="display:none">Open →</a></div>
+      </div>
+    </div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The shared figures, checked against the plates that write them. Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid">
+        <div class="mrow"><span class="eq">138 × 4 = 552 · × 8 = 1104 · × 16 = 2208</span><span class="cap">The doubling drawn on plate&nbsp;119; 552, 1104 and 2208 are written on II·b and II·c.</span></div>
+        <div class="mrow"><span class="eq">414 × 4 = 1656 = 864 + 792</span><span class="cap">The Flood palindrome, II·b.</span></div>
+        <div class="mrow"><span class="eq">1962 + 144 = 2106 · 1902 + 144 = 2046 · 144 × 3 = 432</span><span class="cap">II·b, I·e, VI·c.</span></div>
+        <div class="mrow"><span class="eq">1135 BC = 2670 AM (II·c) · 2760 AM (II·b)</span><span class="cap">The comet that darkens the sun.</span><span class="aw">as written — 3895 − 1135 = 2760; II·c’s 2670 transposes it</span></div>
+        <div class="mrow"><span class="eq">1688 BC [2208 AM] · 552 to 1135 BC or from 2239 BC</span><span class="cap">II·b and II·c.</span><span class="aw">as written — 2208&nbsp;AM is 1687&nbsp;BC, and 552 from either 1135 or 2239&nbsp;BC lands on 1687&nbsp;BC</span></div>
+        <div class="mrow"><span class="eq">622 − 552 = 70 AD · 622 AD = 4516 AM</span><span class="cap">VI·c and VI·d.</span></div>
+        <div class="mrow"><span class="eq">3361 + 2435 = 5796 = 1902 AD · 1902 + 204 = 2106</span><span class="cap">Chart&nbsp;I and I·e.</span></div>
+        <div class="mrow"><span class="eq">1902 + 126 = 2028 · 2028 + 24 = 2052</span><span class="cap">The Great Step.</span></div>
+      </div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every node’s figure, as written, and the plates that write it.</div><details class="tx"><summary>Show sources</summary><div class="cols" id="srcs"></div></details><div class="foot">An atlas cross-map built from J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), plates&nbsp;13–30, 44, 97–99 and 114, and the atlas’ own plate&nbsp;119. Figures transcribed unchanged; this is an interpretive map for study, not an endorsement of the underlying claims.</div></div>
+    </div>
   </div>
-  <div class="foot"><a href="../index.html">← back to the atlas</a> &nbsp;·&nbsp; a living map of the shared structure</div>
 </div>
-
-<div id="panel">
-  <span class="close" id="pclose">✕</span>
-  <div class="tag" id="ptag"></div>
-  <h3 id="ptitle"></h3>
-  <p id="pdesc"></p>
-  <div class="apps" id="papps"></div>
-  <a class="open" id="popen" href="#" style="display:none">Open interactive →</a>
-</div>
-
+<div id="tip"></div>
 <script>
-var NS='http://www.w3.org/2000/svg';
-function el(n,a){var e=document.createElementNS(NS,n);for(var k in a)e.setAttribute(k,a[k]);return e;}
-var CX=500, CY=380;
 
-var CHARTS=[
-  {id:'I',   lbl:'I',    full:'The Pyramid-Inch Calendar',   href:'chart-i.html',
-     refs:['n138','n1104','d1902','enoch','p3036','p3361','d1460']},
-  {id:'IIb', lbl:'II·b', full:'Palindrome of the Great Flood', href:'iib.html',
-     refs:['n138','n552','n1104','n2208','d1135','flood','d1688','d583','d1902','d2106','n1656','n144','enoch']},
-  {id:'IIc', lbl:'II·c', full:'Recursive Pyramid Timeline',  href:'iic.html',
-     refs:['n138','n552','n1104','n2208','d1135','flood','d1688','d583','d2106','n1656','enoch']},
-  {id:'VIc', lbl:'VI·c', full:'The Hijrah Palindrome',       href:'vic.html',
-     refs:['n552','enoch','d2106','n144','d622']},
-  {id:'GS',  lbl:'Step', full:'The Great Step Countdown',    href:'great-step.html',
-     refs:['d1902','d2028','d2052']},
-  {id:'Id',  lbl:'I·d',  full:'The 1902 Axis',               href:'id.html',
-     refs:['d1902','n144','d2106']},
-  {id:'Xc',  lbl:'X·c',  full:'Iron Empires',                href:'xc.html',
-     refs:['d1054','d2106']},
-  {id:'E138',lbl:'138',  full:'The 138 Engine',              href:'engine138.html',
-     refs:['n138','n552','n1104','d1902','d2106']},
-  {id:'119', lbl:'119',  full:'The Recursive Palindrome',    href:'p119.html',
-     refs:['n138','n552','n1104','n2208','n19']}
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+function yl(v){return v<0?(-v)+' BC':v+' AD';}
+// span bar: x1<x2 in px; offL draws an off-scale arrow at left end
+function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL){g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR){g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  g.appendChild(el('rect',{x:x1-6,y:o.y-24,width:x2-x1+12,height:44,fill:'transparent'}));
+  if(o.lab){const t=tx(g,o.lx,o.y-9,o.lab,{'text-anchor':o.la||'start','font-size':12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});}
+  if(o.lab2){tx(g,o.lx,o.y+17,o.lab2,{'text-anchor':o.la||'start','font-size':11,class:'h',fill:'#8b95ad'});}
+  bind(g,o.tip);p.appendChild(g);return g;}
+
+const CX=500, CY=380;
+const CHARTS=[
+  {id:'I',lbl:'I',full:'Chart I · The Pyramid-Inch Calendar (plate 13)',href:'chart-i.html',refs:['d1902','d1460','p3036','p3361','enoch']},
+  {id:'Ie',lbl:'I·e',full:'Chart I·e · The Giza Course Countdown (plate 17)',href:'ie.html',refs:['d1902','d2106','n144','d2046']},
+  {id:'Id',lbl:'I·d',full:'Chart I·d · The Great Step Axis (plate 16)',href:'p016.html',refs:['d1902','d2106','d2046']},
+  {id:'IIb',lbl:'II·b',full:'Chart II·b · The Palindrome of the Great Flood (plate 19)',href:'iib.html',refs:['n552','n1104','n2208','n1656','n144','flood','d1135','d1688','d583','d1902','d2106','d2046']},
+  {id:'IIc',lbl:'II·c',full:'Chart II·c · Spans from the Comet of 1135 BC (plate 20)',href:'iic.html',refs:['n552','n1104','n2208','flood','d1135','d1688','d583','d2106','enoch']},
+  {id:'VIc',lbl:'VI·c',full:'Chart VI·c · The Islamic Hijrah Calendar (plate 29)',href:'vic.html',refs:['d622','n552','n144','d2106','enoch','d1054']},
+  {id:'VId',lbl:'VI·d',full:'Chart VI·d · The Hijrah Doublings (plate 30)',href:'vid.html',refs:['d622','d2106']},
+  {id:'Xc',lbl:'X·c',full:'Chart X·c · Iron Empires (plate 44)',href:'p044.html',refs:['d1054','d2106','d2046']},
+  {id:'GS',lbl:'Step',full:'The Great Step Countdown (plates 97, 99)',href:'great-step.html',refs:['d1902','d2028','d2052']},
+  {id:'PhI',lbl:'Ph·I',full:'Phoenix Chronometry I (plate 114)',href:'p114.html',refs:['n138','d1902']},
+  {id:'119',lbl:'119',full:'Plate 119 · The Recursive Palindrome (atlas colophon)',href:'p119.html',refs:['n138','n552','n1104','n2208','n19']}
 ];
-// position chart-stars on an inner ellipse
-CHARTS.forEach(function(c,i){var a=-Math.PI/2 + i*(2*Math.PI/CHARTS.length);c.pos=[CX+178*Math.cos(a), CY+118*Math.sin(a)];});
-
-var NODES={
-  n138 :{lbl:'138',       tag:'base cycle', desc:'The spine of the whole system. 552 = 138×4, 1104 = 138×8, 2208 = 138×16.'},
-  n552 :{lbl:'552 yrs',   tag:'cycle',      desc:'The base comet cycle (138×4). 1688→1135 BC; 583→31 BC; 70 AD→622 AD (Hijrah).'},
-  n1104:{lbl:'1104 yrs',  tag:'cycle',      desc:'552×2 = 138×8. Great Flood → 1135 BC — and 4140 − 3036 in Chart I.'},
-  n2208:{lbl:'2208 AM',   tag:'marker',     desc:'138×16. The Anno-Mundi stamp on the 1688 BC comet.'},
-  n1656:{lbl:'1656',      tag:'symmetry',   desc:'The Flood palindrome: 1656 years each side (444×4).'},
-  n144 :{lbl:'144',       tag:'countdown',  desc:'1962+144 = 2106 (Armageddon); 432 = 144×3 (VI·c).'},
-  n19  :{lbl:'19',        tag:'cycle',      desc:'The Metonic cycle. 138 − 19 = 119.'},
-  d1135:{lbl:'1135 BC',   tag:'anchor',     desc:'Comet darkens the Sun [2670 AM] — the anchor of the II-series.'},
-  flood:{lbl:'Great Flood',tag:'anchor',    desc:'2239 BC [1656 AM]. The centre of the II·b palindrome.'},
-  d1688:{lbl:'1688 BC',   tag:'comet',      desc:'Comet darkens the Sun [2208 AM]. 552 years to 1135 BC.'},
-  d583 :{lbl:'583 BC',    tag:'comet',      desc:'Sun darkened during the Medo-Lydian War [Herodotus].'},
-  d622 :{lbl:'622 AD',    tag:'anchor',     desc:'The Hijrah — Muhammad’s Flight from Medina [4516 AM]. The axis of Chart VI·c.'},
-  d1054:{lbl:'1054 AD',   tag:'anchor',     desc:'The Taurus supernova and division of the Roman Church — Rome splits [4948 AM]. The axis of Chart X·c.'},
-  d1902:{lbl:'1902 AD',   tag:'calendar',   desc:'Start of the Giza Course Countdown Calendar; where the Great Step begins.'},
-  d2028:{lbl:'2028 AD',   tag:'countdown',  desc:'The final limestone year of the Great Step (126 P″ = 42×3).'},
-  d2052:{lbl:'2052 AD',   tag:'prophecy',   desc:'The Seven Kings released — the end of the Great Step count.'},
-  d2106:{lbl:'2106 AD',   tag:'prophecy',   desc:'Armageddon — Return of the Chief Cornerstone [6000 AM].'},
-  d1460:{lbl:'1460 BC',   tag:'passage',    desc:'2435 AM. The passage junction in Chart I. Enoch: 365×4 = 1460.'},
-  enoch:{lbl:'Enoch',     tag:'figure',     desc:'Ascended in his 365th year (365×4 = 1460); returns as a Two Witness.'},
-  p3036:{lbl:'3036 P″',   tag:'measure',    desc:'The descending passage of the Great Pyramid = 138×22.'},
-  p3361:{lbl:'3361 P″',   tag:'measure',    desc:'The ascending passage to the face of the Great Step.'}
+const NODES={
+  n138:{lbl:'138',tag:'number',desc:'Doubled on plate 119: 138×4 = 552, ×8 = 1104, ×16 = 2208. Phoenix Chronometry I totals pyramid measures to multiples of 138 (e.g. 6348 = 138×46).'},
+  n552:{lbl:'552',tag:'span',desc:'II·b: 2239 BC → 1688 BC [2208 AM] (as written; the arithmetic gives 1687 BC). II·c: 1135 BC → 583 BC, and back to 1688 BC [2208]. VI·c: 70 AD → 622 AD.'},
+  n1104:{lbl:'1104',tag:'span',desc:'“1104 yrs [552×2]”. II·b: 2239 BC → 1135 BC [2760 AM]. II·c: 2239 BC ← 1135 BC → 31 BC.'},
+  n2208:{lbl:'2208 AM',tag:'marker',desc:'“1688 BC [2208 AM]” (II·b) and “1688 BC [2208]” (II·c). 2208 = 138×16; 2208 AM is 1687 BC by the plates’ own Anno Mundi count.'},
+  n1656:{lbl:'1656',tag:'span',desc:'II·b: 1656 years either side of the Flood, “414×4 or 864+792”. The Flood is 2239 BC [1656 AM].'},
+  n144:{lbl:'144',tag:'span',desc:'II·b: 1962 AD is 144 years to Armageddon 2106 AD; 1902 is 144 years to 2046 AD. I·e: 144 years to 2046 AD. VI·c: 432 [144×3].'},
+  n19:{lbl:'19',tag:'cycle',desc:'Plate 119: the Metonic cycle, 19 years = 235 lunations; 138 − 19 = 119.'},
+  flood:{lbl:'Great Flood',tag:'date',desc:'2239 BC [1656 AM] (II·b, II·c): the centre of the II·b palindrome; “Deluge 2239 BC” on II·c.'},
+  d1135:{lbl:'1135 BC',tag:'date',desc:'Comet darkens the sun. II·c: 1135 BC [2670 AM]; II·b: 1135 BC [2760 AM]. 3895 − 1135 = 2760.'},
+  d1688:{lbl:'1688 BC',tag:'date',desc:'Comet darkens the sun [2208 AM] (II·b, II·c).'},
+  d583:{lbl:'583 BC',tag:'date',desc:'Sun darkened during the Medo-Lydian war. II·b: 583 BC [3312 AM]; II·c: [Herodotus].'},
+  d622:{lbl:'622 AD',tag:'date',desc:'622 AD [4516 AM] Islamic Hijrah Calendar (VI·c, VI·d).'},
+  d1054:{lbl:'1054 AD',tag:'date',desc:'VI·c: 1054 AD supernova in Taurus and division of Roman Church. X·c: the axis of the Iron Empires chart.'},
+  d1460:{lbl:'1460 BC',tag:'date',desc:'Chart I: 1460 BC [2435 Annus Mundi], the passage junction; Enoch: 365×4 = 1460.'},
+  d1902:{lbl:'1902 AD',tag:'date',desc:'Chart I: 5796 AM, 1902 AD start of Giza Course Countdown Calendar. I·e: 1902 AD [5796 AM] Stonehenge chronolithic system ends. II·b: Stonehenge chronology to 1902 AD. The Great Step: its face.'},
+  d2028:{lbl:'2028 AD',tag:'date',desc:'The Great Step: 2028 AD (5922 AM), the final limestone year (126 P″ = 42×3).'},
+  d2046:{lbl:'2046 AD',tag:'date',desc:'I·e: 2046 AD [5940 AM] astroid impact. II·b: 1902 is 144 years to 2046 AD impact.'},
+  d2052:{lbl:'2052 AD',tag:'date',desc:'The Great Step: 2028 AD is exactly 24 years before the Seven Kings are released in 2052 AD.'},
+  d2106:{lbl:'2106 AD',tag:'date',desc:'6000 AM, Armageddon and the return of the Chief Cornerstone (I·e, II·b, II·c, VI·c, VI·d).'},
+  enoch:{lbl:'Enoch',tag:'figure',desc:'Chart I: Enoch ascended in 365th year, 365×4 = 1460. II·c: 2066 AD when Enoch & Elijah return as Two Witnesses. VI·c: 2066 AD appearance of Enoch and Elijah.'},
+  p3036:{lbl:'3036 P″',tag:'measure',desc:'Chart I: 3036 P″ to passage end joint, down the Descendant Passage.'},
+  p3361:{lbl:'3361 P″',tag:'measure',desc:'Chart I: 3361 P″ to face of Great Step, up the Ascendant Passage.'}
 };
-
-var keys=Object.keys(NODES);
-var RX=430, RY=290;
-keys.forEach(function(k,i){var a=-Math.PI/2 + i*(2*Math.PI/keys.length);NODES[k].pos=[CX+RX*Math.cos(a), CY+RY*Math.sin(a)];NODES[k].deg=0;});
-CHARTS.forEach(function(c){c.refs.forEach(function(r){if(NODES[r])NODES[r].deg++;});});
-
-var svg=document.getElementById('map');
-[150,250,340].forEach(function(r){svg.appendChild(el('ellipse',{cx:CX,cy:CY,rx:r*1.35,ry:r*0.9,fill:'none',stroke:'#14213a',['stroke-width']:1}));});
-
-var edges=[];
-CHARTS.forEach(function(c){c.refs.forEach(function(r){
-  if(!NODES[r])return;
-  var p1=c.pos,p2=NODES[r].pos;
-  var ln=el('line',{x1:p1[0],y1:p1[1],x2:p2[0],y2:p2[1],stroke:'#2a3a5e',['stroke-width']:1,opacity:.32,class:'edge'});
-  ln.dataset.a=c.id; ln.dataset.b=r; edges.push(ln); svg.appendChild(ln);
-});});
-
-var nodeEls={};
-keys.forEach(function(k){
-  var n=NODES[k], p=n.pos, big=n.deg>=3;
-  var g=el('g',{class:'node',style:'cursor:pointer'}); g.dataset.id=k;
-  var rad=big?9:7;
-  g.appendChild(el('circle',{cx:p[0],cy:p[1],r:rad+7,fill:'#4fe3ff',opacity:0,class:'halo'}));
-  g.appendChild(el('circle',{cx:p[0],cy:p[1],r:rad,fill:big?'#8ff0ff':'#3aa9cc',stroke:'#0a1526',['stroke-width']:2,class:'dot'}));
-  var right=p[0]>=CX;
-  var t=el('text',{x:p[0]+(right?rad+8:-(rad+8)),y:p[1]+4,fill:'#bfe9ff','font-size':13,'text-anchor':right?'start':'end','font-family':'JetBrains Mono'});
-  t.textContent=n.lbl; g.appendChild(t);
-  svg.appendChild(g); nodeEls[k]=g;
-});
-
-var defs=el('defs',{});
-var rg=el('radialGradient',{id:'gg',cx:'0.5',cy:'0.4',r:'0.7'});
-rg.appendChild(el('stop',{offset:'0','stop-color':'#ffe89a'}));rg.appendChild(el('stop',{offset:'1','stop-color':'#f5b73a'}));
-defs.appendChild(rg);svg.insertBefore(defs,svg.firstChild);
-
-CHARTS.forEach(function(c){
-  var p=c.pos;
-  var g=el('g',{class:'chart',style:'cursor:pointer'}); g.dataset.id=c.id;
-  g.appendChild(el('circle',{cx:p[0],cy:p[1],r:30,fill:'#ffd15c',opacity:0,class:'halo'}));
-  g.appendChild(el('circle',{cx:p[0],cy:p[1],r:21,fill:'url(#gg)',stroke:'#ffd15c',['stroke-width']:2,class:'dot'}));
-  var t=el('text',{x:p[0],y:p[1]+2,fill:'#1a1204','font-size':c.lbl.length>2?12:14,'text-anchor':'middle','font-family':'Cormorant Garamond','font-weight':700});
-  t.textContent=c.lbl; g.appendChild(t);
-  var t2=el('text',{x:p[0],y:p[1]+38,fill:'#ffd15c','font-size':10,'text-anchor':'middle','font-family':'JetBrains Mono'});
-  t2.textContent='✦ '+c.id; g.appendChild(t2);
-  svg.appendChild(g); nodeEls[c.id]=g;
-});
-
-var panel=document.getElementById('panel');
-var chartMap={}; CHARTS.forEach(function(c){chartMap[c.id]=c;});
-function adj(id){var s={};s[id]=1;edges.forEach(function(e){if(e.dataset.a===id)s[e.dataset.b]=1;if(e.dataset.b===id)s[e.dataset.a]=1;});return s;}
-function focus(id){
-  var nb=adj(id);
-  Object.keys(nodeEls).forEach(function(k){
-    var g=nodeEls[k], on=nb[k];
-    g.style.opacity = on?1:0.14;
-    var halo=g.querySelector('.halo'); if(halo)halo.setAttribute('opacity', k===id?0.5:(on?0.22:0));
-  });
-  edges.forEach(function(e){
-    var on=e.dataset.a===id||e.dataset.b===id;
-    e.setAttribute('stroke', on?'#4fe3ff':'#2a3a5e');
-    e.setAttribute('stroke-width', on?2:1);
-    e.setAttribute('opacity', on?0.9:0.05);
-  });
-  showPanel(id);
-}
-function reset(){
-  Object.keys(nodeEls).forEach(function(k){var g=nodeEls[k];g.style.opacity=1;var h=g.querySelector('.halo');if(h)h.setAttribute('opacity',0);});
-  edges.forEach(function(e){e.setAttribute('stroke','#2a3a5e');e.setAttribute('stroke-width',1);e.setAttribute('opacity',0.32);});
-  panel.classList.remove('on');
-}
-function showPanel(id){
-  var isChart=!!chartMap[id];
-  document.getElementById('ptag').textContent = isChart?'✦ Interactive chart':(NODES[id].tag||'shared');
-  document.getElementById('ptitle').textContent = isChart?chartMap[id].full:NODES[id].lbl;
-  document.getElementById('pdesc').textContent = isChart?('Opens the rebuilt interactive. It shares '+chartMap[id].refs.length+' anchors with the rest of the atlas.'):NODES[id].desc;
-  var appsEl=document.getElementById('papps');
-  if(isChart){ appsEl.innerHTML=''; }
-  else {
-    var inC=CHARTS.filter(function(c){return c.refs.indexOf(id)>=0;}).map(function(c){return c.id;});
-    appsEl.innerHTML='appears in &nbsp;'+inC.map(function(x){return '<b>'+x+'</b>';}).join(' · ');
-  }
-  var open=document.getElementById('popen');
-  if(isChart){ open.style.display='inline-block'; open.href=chartMap[id].href; open.textContent='Open '+chartMap[id].id+' →'; }
-  else open.style.display='none';
-  panel.classList.add('on');
-}
-Object.keys(nodeEls).forEach(function(k){ nodeEls[k].addEventListener('click',function(ev){ev.stopPropagation();focus(k);}); });
-document.getElementById('map').addEventListener('click',reset);
-document.getElementById('pclose').addEventListener('click',reset);
-setTimeout(function(){focus('n138');},400);
+CHARTS.forEach((c,i)=>{const a=-Math.PI/2+i*2*Math.PI/CHARTS.length;c.pos=[CX+190*Math.cos(a),CY+130*Math.sin(a)];});
+const keys=Object.keys(NODES);
+keys.forEach((k,i)=>{const a=-Math.PI/2+i*2*Math.PI/keys.length;NODES[k].pos=[CX+410*Math.cos(a),CY+300*Math.sin(a)];NODES[k].deg=0;});
+CHARTS.forEach(c=>c.refs.forEach(r=>NODES[r].deg++));
+const svg=document.getElementById('map');
+[150,250,340].forEach(r=>svg.appendChild(el('ellipse',{cx:CX,cy:CY,rx:r*1.3,ry:r*0.92,fill:'none',stroke:'#1a2338'})));
+const edges=[];
+CHARTS.forEach(c=>c.refs.forEach(r=>{const p=NODES[r].pos,l=el('line',{x1:c.pos[0],y1:c.pos[1],x2:p[0],y2:p[1],stroke:'#33415f',opacity:.4});l.dataset.a=c.id;l.dataset.b=r;edges.push(l);svg.appendChild(l);}));
+const nodeEls={};
+keys.forEach(k=>{const n=NODES[k],p=n.pos,big=n.deg>=3,r=big?9:7,g=el('g',{class:'node'});
+  g.appendChild(el('circle',{cx:p[0],cy:p[1],r:r+7,fill:'#5cb3f2',opacity:0,class:'halo'}));
+  g.appendChild(el('circle',{cx:p[0],cy:p[1],r,fill:big?'#8fd0ff':'#3a8fc8',stroke:'#0b0f1a','stroke-width':2}));
+  const right=p[0]>=CX;tx(g,p[0]+(right?r+8:-(r+8)),p[1]+4,n.lbl,{fill:'#dfe6f5','font-size':13,'text-anchor':right?'start':'end',class:'mono h'});
+  svg.appendChild(g);nodeEls[k]=g;});
+CHARTS.forEach(c=>{const p=c.pos,g=el('g',{class:'chart'});
+  g.appendChild(el('circle',{cx:p[0],cy:p[1],r:30,fill:'#ffcf5c',opacity:0,class:'halo'}));
+  g.appendChild(el('circle',{cx:p[0],cy:p[1],r:21,fill:'#ffcf5c',stroke:'#0b0f1a','stroke-width':2}));
+  tx(g,p[0],p[1]+4,c.lbl,{fill:'#1a1204','font-size':c.lbl.length>3?11:13,'text-anchor':'middle','font-weight':700});
+  svg.appendChild(g);nodeEls[c.id]=g;});
+const chartMap={};CHARTS.forEach(c=>chartMap[c.id]=c);
+function adj(id){const s={[id]:1};edges.forEach(e=>{if(e.dataset.a===id)s[e.dataset.b]=1;if(e.dataset.b===id)s[e.dataset.a]=1;});return s;}
+function focus(id){const nb=adj(id);
+  for(const k in nodeEls){const g=nodeEls[k];g.style.opacity=nb[k]?1:.15;g.querySelector('.halo').setAttribute('opacity',k===id?.5:nb[k]?.2:0);}
+  edges.forEach(e=>{const on=e.dataset.a===id||e.dataset.b===id;e.setAttribute('stroke',on?'#4fe3ff':'#33415f');e.setAttribute('stroke-width',on?2:1);e.setAttribute('opacity',on?.9:.06);});
+  const c=chartMap[id];
+  document.getElementById('ptag').textContent=c?'Rebuilt chart':NODES[id].tag;
+  document.getElementById('ptitle').textContent=c?c.lbl:NODES[id].lbl;
+  document.getElementById('pdesc').textContent=c?c.full:NODES[id].desc;
+  document.getElementById('papps').innerHTML=c?('Shares '+c.refs.map(r=>'<b>'+NODES[r].lbl+'</b>').join(' · ')):('Written on '+CHARTS.filter(x=>x.refs.includes(id)).map(x=>'<b>'+x.lbl+'</b>').join(' · '));
+  const o=document.getElementById('popen');o.style.display=c?'inline-block':'none';if(c){o.href=c.href;o.textContent='Open '+c.lbl+' →';}}
+function reset(){for(const k in nodeEls){nodeEls[k].style.opacity=1;nodeEls[k].querySelector('.halo').setAttribute('opacity',0);}
+  edges.forEach(e=>{e.setAttribute('stroke','#33415f');e.setAttribute('stroke-width',1);e.setAttribute('opacity',.4);});}
+for(const k in nodeEls)nodeEls[k].addEventListener('click',ev=>{ev.stopPropagation();focus(k);});
+svg.addEventListener('click',reset);
+focus('n138');
+document.getElementById('srcs').innerHTML='<div><h3>Shared figures</h3><ul>'+keys.map(k=>'<li><b>'+NODES[k].lbl+'</b> — '+NODES[k].desc+'</li>').join('')+'</ul></div><div><h3>Charts</h3><ul>'+CHARTS.map(c=>'<li><b>'+c.lbl+'</b> — '+c.full+'</li>').join('')+'</ul></div>';
 </script>
 </body>
 </html>

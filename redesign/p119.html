@@ -3,126 +3,184 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Plate 119 — The Recursive Palindrome</title>
+<title>Chronotecture · Plate 119 — The Recursive Palindrome</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 <style>
-  :root{--bg:#0b0f1a;--panel:#141b2d;--ink:#e9edf6;--muted:#8b95ad;--line:#24304a;--line2:#33415f;--gold:#ffcf5c;--blue:#5cb3f2;--teal:#37b6a6}
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
   *{box-sizing:border-box}
-  html,body{margin:0;background:radial-gradient(1200px 700px at 50% -10%,#16203a 0%,var(--bg) 58%);color:var(--ink);font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
-  .wrap{max-width:1240px;margin:0 auto;padding:30px 26px 70px}
-  header{border-bottom:1px solid var(--line);padding-bottom:18px;margin-bottom:12px;text-align:center}
-  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase}
-  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,6vw,64px);line-height:.98;margin:.2em 0 .06em}
-  .eqline{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:clamp(14px,2vw,19px);letter-spacing:.06em}
-  .prov{color:var(--muted);font-size:13px;max-width:720px;line-height:1.55;margin:12px auto 0}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
   .prov b{color:var(--ink);font-weight:500}
-  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;padding:14px 18px;margin-top:18px}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
   svg{width:100%;height:auto;display:block;overflow:visible}
-  #tip{position:fixed;pointer-events:none;z-index:50;max-width:280px;background:#0c1220f2;border:1px solid var(--line2);border-radius:11px;padding:10px 12px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transition:.12s;box-shadow:0 18px 40px -18px #000}
-  #tip .t-h{font-weight:600;font-family:'JetBrains Mono',monospace;color:var(--gold)}
-  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:20px;padding-top:14px;text-align:center}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+
 </style>
 </head>
 <body>
 <a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
 <div class="wrap">
-  <header>
-    <div class="kicker">Chronotecture · Atlas colophon · a mirror added</div>
-    <h1>Plate 119 — The Recursive Palindrome</h1>
-    <div class="eqline">118 &nbsp;+&nbsp; 1 &nbsp;=&nbsp; 119 &nbsp;=&nbsp; 138 − 19</div>
-    <p class="prov">Not from Breshears — an original closing plate for the atlas. It reads the same distance out from the centre in both directions (a <b>palindrome</b>), built on the two numbers that quietly run through the whole work: <b>138</b>, whose recursive doubling (138 · 276 · 552 · 1104 · 2208) supplies the cycles in charts II·b and II·c, and <b>19</b>, the Metonic year-cycle. Their difference, <b>138 − 19 = 119</b>, is the plate you asked for.</p>
+<header class="masthead">
+    <div class="kicker">Chronotecture Atlas · Colophon · Plate&nbsp;119</div>
+    <h1>Chronotecture
+      <span class="sub">Plate 119 — The Recursive Palindrome · 138 − 19 = 119</span>
+    </h1>
+    <p class="prov">Not from Breshears: an original closing plate for the atlas, rebuilt here with every figure as drawn on it. It reads the same distance out from its centre line in both directions (a <b>palindrome</b>), built on two numbers that run through the charts: <b>138</b>, whose recursive doubling 138 · 276 · 552 · 1104 · 2208 gives the 552 and 1104 of charts&nbsp;II·b and II·c and the 2208&nbsp;AM written there, and <b>19</b>, the Metonic cycle. Their difference is the plate’s own number, <b>138 − 19 = 119</b>.</p>
   </header>
-  <div class="card">
-    <svg id="art" viewBox="0 0 1200 760" role="img" aria-label="Recursive palindrome plate"></svg>
+
+  <div class="grid">
+    <div class="card">
+      <h2>The mirrored doubling</h2>
+      <div class="hint">The Metonic semicircle above, nineteen steps from end to end; the five doublings of 138 below, each bar the same length either side of the axis. Gold bars are the figures that appear on Breshears’ plates. Hover or tap a bar. <span class="anchor-key"><i></i>MIRROR AXIS</span></div>
+      <div class="swipe">⟷ swipe to pan the plate</div>
+      <div class="scroller" data-focus=".5"><svg id="art" class="mid" viewBox="0 0 1200 760" role="img" aria-label="Plate 119, the recursive palindrome"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">Every figure on the plate, checked. All of them hold.</div><div class="mathgrid">
+        <div class="mrow"><span class="eq">138 × 1 = 138 · 138 × 2 = 276</span><span class="cap">The base and its first doubling (not on Breshears’ plates).</span></div>
+        <div class="mrow"><span class="eq">138 × 4 = <span class="base138">552</span></span><span class="cap">The 552 of charts&nbsp;II·b, II·c and VI·c.</span></div>
+        <div class="mrow"><span class="eq">138 × 8 = <span class="base138">1104</span> = 552 × 2</span><span class="cap">“1104 yrs [552×2]” on charts&nbsp;II·b and II·c.</span></div>
+        <div class="mrow"><span class="eq">138 × 16 = <span class="base138">2208</span></span><span class="cap">1688&nbsp;BC [2208&nbsp;AM] on charts&nbsp;II·b and II·c.</span></div>
+        <div class="mrow"><span class="eq">19 years = 235 lunations</span><span class="cap">The Metonic cycle: sun and moon realign (19 × 365.2422 ≈ 235 × 29.5306 ≈ 6940 days).</span></div>
+        <div class="mrow"><span class="eq">138 − 19 = 119 · 118 + 1 = 119</span><span class="cap">The plate’s number, one past Breshears’ last plate.</span></div>
+        <div class="mrow"><span class="eq">19 ↔ 91 · 138 ↔ 831 · 1·1·9 ↔ 9·1·1</span><span class="cap">Reversals, read from either end: mirrors, not equalities.</span></div>
+      </div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every label on the plate, verbatim.</div><details class="tx"><summary>Show transcription</summary><div class="cols">
+        <div><h3>Header</h3><ul><li>119 (corner box)</li></ul></div>
+        <div><h3>Upper figure</h3><ul><li>19 · the Metonic cycle</li><li>19 years = 235 lunations — sun &amp; moon realign</li></ul></div>
+        <div><h3>Lower figure</h3><ul><li>138 · recursive doubling (mirrored)</li><li>138×1 · 138 · 138×1</li><li>138×2 · 276 · 138×2</li><li>138×4 · 552 · 138×4</li><li>138×8 · 1104 · 138×8</li><li>138×16 · 2208 · 138×16</li></ul></div>
+        <div><h3>Frieze</h3><ul><li>19 ↔ 91</li><li>138 ↔ 831</li><li>1·1·9 ↔ 9·1·1</li><li>138 − 19 = 119</li></ul></div>
+      </div></details><div class="foot">An original addition to the atlas, not part of Breshears’ <i>Chronotecture</i>; the 552, 1104 and 2208 it cites are his, from charts&nbsp;II·b and II·c (plates&nbsp;19–20).</div></div>
+    </div>
   </div>
-  <div class="foot">An original addition · numbers 19 &amp; 138 · recursive &amp; palindromic by construction.</div>
 </div>
 <div id="tip"></div>
 <script>
+
 const NS='http://www.w3.org/2000/svg';
-function el(n,a){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);return e;}
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
 const tip=document.getElementById('tip');
-function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;let x=e.clientX+15,y=e.clientY+13;if(x+290>innerWidth)x=e.clientX-296;tip.style.left=x+'px';tip.style.top=y+'px';}
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
 function hideTip(){tip.style.opacity=0;}
-const svg=document.getElementById('art');
-const CX=600;
-// mirror axis
-svg.appendChild(el('line',{x1:CX,y1:40,x2:CX,y2:720,stroke:'#ffcf5c',['stroke-width']:1.5,opacity:.55,['stroke-dasharray']:'2 6'}));
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+function yl(v){return v<0?(-v)+' BC':v+' AD';}
+// span bar: x1<x2 in px; offL draws an off-scale arrow at left end
+function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL){g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR){g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  g.appendChild(el('rect',{x:x1-6,y:o.y-24,width:x2-x1+12,height:44,fill:'transparent'}));
+  if(o.lab){const t=tx(g,o.lx,o.y-9,o.lab,{'text-anchor':o.la||'start','font-size':12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});}
+  if(o.lab2){tx(g,o.lx,o.y+17,o.lab2,{'text-anchor':o.la||'start','font-size':11,class:'h',fill:'#8b95ad'});}
+  bind(g,o.tip);p.appendChild(g);return g;}
 
-// ---- 19 · Metonic semicircle (top) ----
-(function(){
-  const cy=250,R=150;
-  const g=el('g',{});
-  g.appendChild(el('path',{d:`M ${CX-R} ${cy} A ${R} ${R} 0 0 1 ${CX+R} ${cy}`,fill:'none',stroke:'#5cb3f2',['stroke-width']:2,opacity:.85}));
-  for(let i=0;i<=19;i++){
-    const a=Math.PI*(1 - i/19);
-    const x=CX+Math.cos(a)*R, y=cy-Math.sin(a)*R;
-    const mid=(i===0||i===19);
-    g.appendChild(el('circle',{cx:x,cy:y,r:mid?4:2.6,fill:mid?'#ffcf5c':'#5cb3f2'}));
-  }
-  const t=el('text',{x:CX,y:cy-R-14,fill:'#5cb3f2','font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono'});
-  t.textContent='19 · the Metonic cycle'; g.appendChild(t);
-  const s=el('text',{x:CX,y:cy-18,fill:'#8b95ad','font-size':11,'text-anchor':'middle'});
-  s.textContent='19 years = 235 lunations — sun & moon realign'; g.appendChild(s);
-  svg.appendChild(g);
-})();
-
-// ---- 138 doubling pyramid (mirrored = palindrome) ----
-(function(){
-  const rows=[
-    {v:138, m:'×1',  note:'the base'},
-    {v:276, m:'×2',  note:'138 · 2'},
-    {v:552, m:'×4',  note:'appears in II·b / II·c (the 552-yr cycle)'},
-    {v:1104,m:'×8',  note:'552×2 — the doubled comet cycle'},
-    {v:2208,m:'×16', note:'marked 2208 AM on chart II·b (1688 BC)'}
-  ];
-  const maxHW=430, top=330, step=72;
-  rows.forEach((r,i)=>{
-    const hw=r.v/2208*maxHW, y=top+i*step;
-    const inAtlas=[552,1104,2208].includes(r.v);
-    const col=inAtlas?'#ffcf5c':'#5c6a8f';
-    const g=el('g',{style:'cursor:pointer'});
-    // symmetric bar (left mirror + right)
-    g.appendChild(el('line',{x1:CX-hw,y1:y,x2:CX+hw,y2:y,stroke:col,['stroke-width']:11,['stroke-linecap']:'round',opacity:inAtlas?.95:.6}));
-    g.appendChild(el('circle',{cx:CX-hw,cy:y,r:4,fill:col}));
-    g.appendChild(el('circle',{cx:CX+hw,cy:y,r:4,fill:col}));
-    // value chip at centre
-    g.appendChild(el('rect',{x:CX-34,y:y-13,width:68,height:26,rx:13,fill:'#0b0f1a',stroke:col,['stroke-width']:1.3}));
-    const t=el('text',{x:CX,y:y+5,fill:col,'font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono','font-weight':500});
-    t.textContent=r.v; g.appendChild(t);
-    // 138 × m labels on each side (palindrome)
-    ['L','R'].forEach(side=>{
-      const sx=side==='L'?CX-hw-12:CX+hw+12;
-      const tt=el('text',{x:sx,y:y+4,fill:'#aeb7cd','font-size':11,'text-anchor':side==='L'?'end':'start','font-family':'JetBrains Mono'});
-      tt.textContent=`138${r.m}`; g.appendChild(tt);
-    });
-    g.addEventListener('mousemove',e=>showTip(`<div class="t-h">138 ${r.m} = ${r.v}</div><div style="color:#8b95ad;margin-top:3px">${r.note}</div>`,e));
-    g.addEventListener('mouseleave',hideTip);
-    svg.appendChild(g);
-  });
-  const cap=el('text',{x:CX,y:top-22,fill:'#ffcf5c','font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono'});
-  cap.textContent='138 · recursive doubling (mirrored)'; svg.appendChild(cap);
-})();
-
-// ---- palindrome frieze (bottom) ----
-(function(){
-  const y=728;
-  const items=[['19 ↔ 91'],['138 ↔ 831'],['1·1·9 ↔ 9·1·1'],['138 − 19 = 119']];
-  const gap=300; let x=CX-1.5*gap;
-  items.forEach(it=>{
-    const t=el('text',{x:x,y:y,fill:'#c3ccdf','font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono','letter-spacing':'.05em'});
-    t.textContent=it[0]; svg.appendChild(t); x+=gap;
-  });
-})();
-
-// corner label box (book-style)
-(function(){
-  svg.appendChild(el('rect',{x:24,y:24,width:64,height:40,rx:4,fill:'none',stroke:'#4a5a80',['stroke-width']:1.4}));
-  const t=el('text',{x:56,y:51,fill:'#ffcf5c','font-size':20,'text-anchor':'middle','font-family':'Cormorant Garamond','font-weight':700});
-  t.textContent='119'; svg.appendChild(t);
-})();
+const svg=document.getElementById('art'), CX=600;
+svg.appendChild(el('line',{x1:CX,y1:40,x2:CX,y2:720,stroke:'#ffcf5c','stroke-width':1.5,opacity:.55,'stroke-dasharray':'2 6'}));
+// 19 · Metonic semicircle
+(function(){const cy=250,R=150,g=el('g',{});
+  g.appendChild(el('path',{d:`M ${CX-R} ${cy} A ${R} ${R} 0 0 1 ${CX+R} ${cy}`,fill:'none',stroke:'#5cb3f2','stroke-width':2,opacity:.85}));
+  for(let i=0;i<=19;i++){const a=Math.PI*(1-i/19),end=(i===0||i===19);
+    g.appendChild(el('circle',{cx:CX+Math.cos(a)*R,cy:cy-Math.sin(a)*R,r:end?4.5:2.8,fill:end?'#ffcf5c':'#5cb3f2'}));}
+  tx(g,CX,cy-R-16,'19 · the Metonic cycle',{fill:'#5cb3f2','font-size':14,'text-anchor':'middle',class:'mono'});
+  tx(g,CX,cy-18,'19 years = 235 lunations — sun & moon realign',{fill:'#8b95ad','font-size':11.5,'text-anchor':'middle',class:'h'});
+  bind(g,T('19 · the Metonic cycle','#5cb3f2','19 years = 235 lunations','Nineteen steps from end to end: sun and moon realign.'));svg.appendChild(g);})();
+// 138 doublings, mirrored
+const ROWS=[{v:138,m:'×1',n:'the base'},{v:276,m:'×2',n:'138 · 2'},{v:552,m:'×4',n:'the 552 of charts II·b, II·c and VI·c'},{v:1104,m:'×8',n:'552×2: “1104 yrs [552×2]” on charts II·b and II·c'},{v:2208,m:'×16',n:'1688 BC [2208 AM] on charts II·b and II·c'}];
+tx(svg,CX,310,'138 · recursive doubling (mirrored)',{fill:'#ffcf5c','font-size':14,'text-anchor':'middle',class:'mono'});
+ROWS.forEach((r,i)=>{const hw=r.v/2208*430,y=340+i*72,inA=r.v>=552,col=inA?'#ffcf5c':'#5c6a8f',g=el('g',{});
+  g.appendChild(el('line',{x1:CX-hw,y1:y,x2:CX+hw,y2:y,stroke:col,'stroke-width':11,'stroke-linecap':'round',opacity:inA?.95:.6}));
+  g.appendChild(el('rect',{x:CX-36,y:y-14,width:72,height:28,rx:14,fill:'#0b0f1a',stroke:col,'stroke-width':1.3}));
+  tx(g,CX,y+5,String(r.v),{fill:col,'font-size':14,'text-anchor':'middle',class:'mono','font-weight':500});
+  tx(g,CX-Math.max(hw,36)-12,y+4,'138'+r.m,{fill:'#aeb7cd','font-size':11.5,'text-anchor':'end',class:'mono'});
+  tx(g,CX+Math.max(hw,36)+12,y+4,'138'+r.m,{fill:'#aeb7cd','font-size':11.5,class:'mono'});
+  bind(g,T(`138 ${r.m} = ${r.v}`,col,'',r.n));svg.appendChild(g);});
+['19 ↔ 91','138 ↔ 831','1·1·9 ↔ 9·1·1','138 − 19 = 119'].forEach((s,i)=>tx(svg,CX+(i-1.5)*300,736,s,{fill:'#c3ccdf','font-size':14,'text-anchor':'middle',class:'mono'}));
+svg.appendChild(el('rect',{x:24,y:24,width:72,height:44,rx:4,fill:'none',stroke:'#4a5a80','stroke-width':1.4}));
+tx(svg,60,54,'119',{fill:'#ffcf5c','font-size':22,'text-anchor':'middle','font-family':'Cormorant Garamond','font-weight':700});
 </script>
 </body>
 </html>
