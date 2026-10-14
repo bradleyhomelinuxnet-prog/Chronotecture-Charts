@@ -12,4 +12,4 @@ Kept so the work can be redone, not needed to view the atlas. Run from this fold
 | `audit.py` | Writes `AUDIT.md` from `rows.json` and `claims.json` |
 
 Order for the audit: `node dump.js && node rows.js && python3 check.py && python3 evalrows.py && python3 audit.py`.
-Paths are relative to this folder; outputs (`dump/`, `*.json`, screenshots) land in the repo root's parent folder, so delete them after use.
+Paths are relative to this folder; outputs (`dump/`, `*.json`, screenshots) land in the repo root, so delete them after use (don't commit them).
