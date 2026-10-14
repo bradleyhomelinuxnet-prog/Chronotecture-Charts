@@ -6,7 +6,7 @@ window.PLATE = {
   rotated: false, range: [-2900, 2150],
   transcribed: 'Transcribed 14 Oct 2026 from the scan; no chart number or signature',
   events: [
-    { year: -2815, label: 'Great Pyramid finished', am: 1080, cat: 'hist', note: '8640÷8 is 1080, or 2815 BC (1080 AM)' },
+    { year: -2815, label: 'Great Pyramid finished', am: 1080, cat: 'hist', note: '8640÷8 is 1080, or 2815 BCE (1080 AM)' },
   ],
   math: [
     { eq: '8640 ÷ 8 = 1080', cap: 'As the midpoint of each face is slightly concave, the pyramid actually has 8 faces' },

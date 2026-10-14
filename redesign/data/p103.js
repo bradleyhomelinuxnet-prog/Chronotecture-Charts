@@ -1,8 +1,8 @@
-// Plate 103 — text page, from text/p103.txt. Years as written (BC negative).
+// Plate 103 — text page, from text/p103.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 103, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p103.txt)',
-  title: 'The Leaf to 2052 AD: Seven Kings', subtitle: '2042, 2046, 2050; ceiling blocks of 38.8 P" from 2014 AD', range: [2010, 2135],
+  title: 'The Leaf to 2052 CE: Seven Kings', subtitle: '2042, 2046, 2050; ceiling blocks of 38.8 P" from 2014 CE', range: [2010, 2135],
   events: [
     { year: 2040, label: 'Phoenix returns', am: 5934, cat: 'comet' },
     { year: 2042, label: 'Centre of the Leaf: comet, meteoric fallout', am: 5936, cat: 'comet' },

@@ -1,22 +1,22 @@
-// Plate 84 · Chart XXVIII — transcribed from plates/p084.png. Years as written on the plate (BC negative).
+// Plate 84 · Chart XXVIII — transcribed from plates/p084.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 84,
   chart: 'XXVIII',
   kind: 'figure',
   title: '52 P" Ceiling Block in Four 13-Year Periods',
-  subtitle: '60.96 P" from 1902 AD to 1962 AD; 52 P" [13×4] from 1962 to 2014; 60 P" variance 1945 to 2005',
+  subtitle: '60.96 P" from 1902 CE to 1962 CE; 52 P" [13×4] from 1962 to 2014; 60 P" variance 1945 to 2005',
   signed: "Breshears '06",
   rotated: true,
   range: [1890, 2035],
   transcribed: 'Transcribed 13 Oct 2026 from the scan; 1962 start of the 52 P" block is given in the text, not at the block edge',
   anchors: [
-    { year: 1902, label: '1902 AD' },
-    { year: 1962, label: '1962 AD', note: 'End of 60.96 P" when 7200 yrs of Anunnaki NER system complete' },
+    { year: 1902, label: '1902 CE' },
+    { year: 1962, label: '1962 CE', note: 'End of 60.96 P" when 7200 yrs of Anunnaki NER system complete' },
   ],
   events: [
-    { year: 1902, label: '1902 AD', cat: 'hist' },
+    { year: 1902, label: '1902 CE', cat: 'hist' },
     { year: 1945, label: 'North Wall of Subterranean Chamber', cat: 'hist', note: 'Marked 1945' },
-    { year: 1962, label: '7200 yrs of Anunnaki NER system complete', cat: 'anun', note: 'Distance of 60.96 P" directly terminates at 1962 AD' },
+    { year: 1962, label: '7200 yrs of Anunnaki NER system complete', cat: 'anun', note: 'Distance of 60.96 P" directly terminates at 1962 CE' },
     { year: 1963, label: 'Assassination of a king of the world [Kennedy]', cat: 'hist', note: '.96 indirectly infers November 1963' },
     { year: 1975, label: 'End of first 13-year period', cat: 'cycle', note: 'Centerpoint alignment of vertical lines perfectly equidistant from first 13-year period [1975]' },
     { year: 1988, label: '1988', cat: 'cycle' },
@@ -39,7 +39,7 @@ window.PLATE = {
   ],
   notes: [
     '52 P" limestone ceiling block divided into four 13-year periods. This is confirmed by centerpoint alignment of vertical lines perfectly equidistant from first 13-year period [1975].',
-    'Distance of 60.96 P" directly terminates at 1962 AD when 7200 yrs of Anunnaki NER system complete, but .96 indirectly infers November 1963: assassination of a king of the world [Kennedy].',
+    'Distance of 60.96 P" directly terminates at 1962 CE when 7200 yrs of Anunnaki NER system complete, but .96 indirectly infers November 1963: assassination of a king of the world [Kennedy].',
     'Cross-section with the North Wall of the Subterranean Chamber (1945) and the North Wall of the Queen’s Chamber (2005) projected onto the ceiling blocks.',
   ],
 };

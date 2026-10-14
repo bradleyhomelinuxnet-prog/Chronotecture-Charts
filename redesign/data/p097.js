@@ -1,9 +1,9 @@
-// Plate 97 — text page, from text/p097.txt. Years as written (BC negative).
+// Plate 97 — text page, from text/p097.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 97, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p097.txt)',
-  title: 'Nineteen: The Great Step’s 12-Year Periods', subtitle: '126 P" = 120 + 6; ten 12-year periods from 1902 AD', range: [1895, 2035],
-  anchors: [ { year: 1902, label: '1902 AD', note: 'US Great Seal changed from the Phoenix to the Eagle' } ],
+  title: 'Nineteen: The Great Step’s 12-Year Periods', subtitle: '126 P" = 120 + 6; ten 12-year periods from 1902 CE', range: [1895, 2035],
+  anchors: [ { year: 1902, label: '1902 CE', note: 'US Great Seal changed from the Phoenix to the Eagle' } ],
   events: [
     { year: 1914, label: 'Astroid passes unseen; World War I; typhus', am: 5808, cat: 'impact', note: '138th year of the United States; 3360 years after the Exodus' },
     { year: 1926, label: 'NBC debuts; Goddard’s rocket', am: 5820, cat: 'hist', note: '180 years before Armageddon' },
@@ -17,5 +17,5 @@ window.PLATE = {
     { from: -1447, to: 1914, years: 3360, label: '3360 years after the Exodus', cat: 'hist' },
     { from: -931, to: 1950, years: 2880, label: 'Divided Kingdom Chronology (1440+1440)', cat: 'hist' } ],
   cycles: [ { start: 1902, step: 12, count: 10, label: '12', note: '144 months' } ],
-  notes: [ 'Note: 1776 AD to 1914 AD is 138 years, so 1914 is the 139th year counting 1776 as the first; the 3360 years from 1447 BC end in 1914 AD (no year zero). Here 931 BC is again written 3150 AM; 931 BC is 2964 AM.', 'Note: the text says “ten 12-year periods” but then lists “the 12 periods”; ten periods fill 120 years, and 1902 + 12 × 10 = 2022.' ],
+  notes: [ 'Note: 1776 CE to 1914 CE is 138 years, so 1914 is the 139th year counting 1776 as the first; the 3360 years from 1447 BCE end in 1914 CE (no year zero). Here 931 BCE is again written 3150 AM; 931 BCE is 2964 AM.', 'Note: the text says “ten 12-year periods” but then lists “the 12 periods”; ten periods fill 120 years, and 1902 + 12 × 10 = 2022.' ],
 };

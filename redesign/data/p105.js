@@ -1,4 +1,4 @@
-// Plate 105 · typed text page 129 — transcribed from plates/p105.png. Years as written on the page (BC negative).
+// Plate 105 · typed text page 129 — transcribed from plates/p105.png. Years as written on the page (BCE negative).
 window.PLATE = {
   plate: 105,
   kind: 'figure',
@@ -8,7 +8,7 @@ window.PLATE = {
   range: [1890, 1915],
   transcribed: 'Transcribed 13 Oct 2026 from the scan; typed text page (page 129), not a drawn chart; page is mostly blank',
   events: [
-    { year: 1902, label: 'Start of the rectilinear timeline', cat: 'hist', note: 'The rectilinear timeline from 1902 AD and afterward is called the most spectacular of all' },
+    { year: 1902, label: 'Start of the rectilinear timeline', cat: 'hist', note: 'The rectilinear timeline from 1902 CE and afterward is called the most spectacular of all' },
   ],
   spans: [],
   notes: [

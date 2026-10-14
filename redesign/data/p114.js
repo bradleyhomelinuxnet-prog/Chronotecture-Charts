@@ -1,14 +1,14 @@
-// Plate 114 · Phoenix Chronometry I — transcribed from plates/p114.png. Years as written on the plate (BC negative).
+// Plate 114 · Phoenix Chronometry I — transcribed from plates/p114.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 114,
   kind: 'figure',
-  title: 'Phoenix Chronometry I: Sums to 1902 AD',
-  subtitle: 'Passage sums in multiples of 138; 5796 = 1902 AD',
+  title: 'Phoenix Chronometry I: Sums to 1902 CE',
+  subtitle: 'Passage sums in multiples of 138; 5796 = 1902 CE',
   rotated: true,
   range: [1850, 1950],
   transcribed: 'Transcribed 13 Oct 2026 from the scan; plate headed "Phoenix Chronometry I"',
   events: [
-    { year: 1902, label: '5796 = 1902 AD', am: 5796, cat: 'proph', note: '1110 + 176 + 666 + 808 = 2760; 2760 + 3036 = 5796 = 1902 AD' },
+    { year: 1902, label: '5796 = 1902 CE', am: 5796, cat: 'proph', note: '1110 + 176 + 666 + 808 = 2760; 2760 + 3036 = 5796 = 1902 CE' },
   ],
   spans: [],
   math: [
@@ -25,7 +25,7 @@ window.PLATE = {
     { eq: '1518 × 3 = 4554', cap: '4554 is 1518×3' },
     { eq: '1518 + 1110 + 176 + 666 + 808 = 4278', cap: 'Entrance column' },
     { eq: '1110 + 176 + 666 + 808 = 2760', cap: 'Entrance column' },
-    { eq: '2760 + 3036 = 5796', cap: '5796 = 1902 AD' },
+    { eq: '2760 + 3036 = 5796', cap: '5796 = 1902 CE' },
   ],
   notes: [
     'Great Pyramid section, drawn sideways, headed "Phoenix Chronometry I".',

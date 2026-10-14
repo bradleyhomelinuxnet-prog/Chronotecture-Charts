@@ -1,4 +1,4 @@
-// Plate 27 · Charts VI and VII — transcribed from plates/p027.png. Years as written on the plate (BC negative).
+// Plate 27 · Charts VI and VII — transcribed from plates/p027.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 27,
   chart: 'VI · VII',
@@ -10,20 +10,20 @@ window.PLATE = {
   range: [-3050, 2150],
   transcribed: 'Transcribed 13 Oct 2026 from the scan',
   anchors: [
-    { year: -2239, label: 'The Flood', note: 'Axis of 1656 AM [2239 BC Flood]' },
-    { year: 622, label: '622 AD Hijrah', note: '622 AD start of Islamic Hijrah from 1480 AM' },
-    { year: 974, label: '974 AD floor joint', note: 'Floor joint is 974 AD [1832+3036=4868 AM]' },
+    { year: -2239, label: 'The Flood', note: 'Axis of 1656 AM [2239 BCE Flood]' },
+    { year: 622, label: '622 CE Hijrah', note: '622 CE start of Islamic Hijrah from 1480 AM' },
+    { year: 974, label: '974 CE floor joint', note: 'Floor joint is 974 CE [1832+3036=4868 AM]' },
   ],
   events: [
-    { year: -2921, label: 'Naamah born, daughter of Enoch who married Noah', am: 974, cat: 'hist', note: '974 Annus Mundi [2921 BC], year of Naamah’s birth, daughter of Enoch who married Noah, survived Flood and is origin of false religion involving veneration of the Moon' },
-    { year: -2415, label: 'Flood axis with 176 p" subtracted', am: 1480, cat: 'cycle', note: 'Axis of 1656 AM [2239 BC Flood] with 176 p" subtracted becomes 1480 AM [2415 BC]' },
+    { year: -2921, label: 'Naamah born, daughter of Enoch who married Noah', am: 974, cat: 'hist', note: '974 Annus Mundi [2921 BCE], year of Naamah’s birth, daughter of Enoch who married Noah, survived Flood and is origin of false religion involving veneration of the Moon' },
+    { year: -2415, label: 'Flood axis with 176 p" subtracted', am: 1480, cat: 'cycle', note: 'Axis of 1656 AM [2239 BCE Flood] with 176 p" subtracted becomes 1480 AM [2415 BCE]' },
     { year: -2239, label: 'Flood', am: 1656, cat: 'flood' },
-    { year: -2063, label: 'Flood axis with 176 p" added', am: 1832, cat: 'cycle', note: 'Axis of 1656 AM [2239 BC Flood] with 176 p" added becomes 1832 AM [2063 BC]' },
+    { year: -2063, label: 'Flood axis with 176 p" added', am: 1832, cat: 'cycle', note: 'Axis of 1656 AM [2239 BCE Flood] with 176 p" added becomes 1832 AM [2063 BCE]' },
     { year: 622, label: 'Start of Islamic Hijrah', cat: 'hist' },
     { year: 974, label: 'Floor joint; parallels 974 AM', am: 4868, cat: 'cycle' },
-    { year: 1480, label: '974 AD + 506 p" to pit vertical axis', cat: 'cycle', note: 'Paralleling the 1480 AM axis' },
-    { year: 2034, label: 'Return of Seven Comets, or First Seal', cat: 'comet', note: '622 AD + 1412 = 2034 AD' },
-    { year: 2036, label: 'Second Seal, or War of Gog and Magog', cat: 'proph', note: '622 AD + 1414 = 2036 AD; [Islam vs. Israel]' },
+    { year: 1480, label: '974 CE + 506 p" to pit vertical axis', cat: 'cycle', note: 'Paralleling the 1480 AM axis' },
+    { year: 2034, label: 'Return of Seven Comets, or First Seal', cat: 'comet', note: '622 CE + 1412 = 2034 CE' },
+    { year: 2036, label: 'Second Seal, or War of Gog and Magog', cat: 'proph', note: '622 CE + 1414 = 2036 CE; [Islam vs. Israel]' },
   ],
   spans: [
     { from: -2415, to: 622, years: 3036, label: '3036 p" floor joint to axis (Chart VI)', formula: '506 × 6 = 3036', cat: 'cycle' },
@@ -40,16 +40,16 @@ window.PLATE = {
     { eq: '1000 + 414 = 1414', cap: 'Stonehenge chronolithic system recognized in 1414 p"' },
     { eq: '622 + 1412 = 2034', cap: 'Return of Seven Comets or First Seal' },
     { eq: '622 + 1414 = 2036', cap: 'Second Seal, or War of Gog and Magog' },
-    { eq: '1832 + 3036 = 4868', cap: 'Floor joint is 974 AD [4868 AM]' },
-    { eq: '974 + 506 = 1480', cap: '974 AD + 506 p" to pit vertical axis is 1480 AD' },
+    { eq: '1832 + 3036 = 4868', cap: 'Floor joint is 974 CE [4868 AM]' },
+    { eq: '974 + 506 = 1480', cap: '974 CE + 506 p" to pit vertical axis is 1480 CE' },
     { eq: '1656 - 176 = 1480', cap: 'Flood axis with 176 p" subtracted' },
     { eq: '1656 + 176 = 1832', cap: 'Flood axis with 176 p" added' },
   ],
   notes: [
     'Two cross-sections of the Great Pyramid (Charts VI and VII): descending passage, ascending passage, Grand Gallery and chambers, with the subterranean pit (circle marked 506) at lower left.',
-    'Chart VI: Stonehenge chronolithic system recognized in 1414 p" [1000+414]; 414 being a cursed earth period. A large dashed circle runs from the axis at 1480 AM to the pit, labelled "622 AD start of Islamic Hijrah from 1480 AM" with "506×6=3036" inside it.',
+    'Chart VI: Stonehenge chronolithic system recognized in 1414 p" [1000+414]; 414 being a cursed earth period. A large dashed circle runs from the axis at 1480 AM to the pit, labelled "622 CE start of Islamic Hijrah from 1480 AM" with "506×6=3036" inside it.',
     'Chart VI: 1414 p" and 1412 p" measured to the pit; uneven terminus has 2" disparity.',
     'Both charts: axis at floor line is 176 p" above base line of structure; 44×4.',
-    'Chart VII: floor joint is 974 AD [1832+3036=4868 AM: 974 AD] which parallels 974 Annus Mundi [2921 BC], year of Naamah’s birth, daughter of Enoch who married Noah, survived Flood and is origin of false religion involving veneration of the Moon.',
+    'Chart VII: floor joint is 974 CE [1832+3036=4868 AM: 974 CE] which parallels 974 Annus Mundi [2921 BCE], year of Naamah’s birth, daughter of Enoch who married Noah, survived Flood and is origin of false religion involving veneration of the Moon.',
   ],
 };

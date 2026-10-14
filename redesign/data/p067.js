@@ -1,8 +1,8 @@
-// Plate 67 — text page, from text/p067.txt. Years as written (BC negative).
+// Plate 67 — text page, from text/p067.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 67, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p067.txt)',
-  title: 'Fifteen: The Cursed Earth in Plate XX', subtitle: '2359 BC + 666 = 1693 BC; + 1110 = 583 BC (3312 AM)', range: [-2400, 2150],
+  title: 'Fifteen: The Cursed Earth in Plate XX', subtitle: '2359 BCE + 666 = 1693 BCE; + 1110 = 583 BCE (3312 AM)', range: [-2400, 2150],
   events: [
     { year: -2359, label: 'Noah warned, 120 years before the Flood', am: 1536, cat: 'flood' },
     { year: -2239, label: 'Great Flood', cat: 'flood' },
@@ -17,5 +17,5 @@ window.PLATE = {
     { from: -2239, to: -1687, years: 552, label: '552 years', cat: 'comet' },
     { from: -1687, to: -1135, years: 552, label: '552 years', cat: 'comet' },
     { from: -1135, to: -583, years: 552, label: '552 years earlier', cat: 'comet' } ],
-  notes: [ 'Thales predicted the 583 BC occultation; the Antikythera Computer indicates a begin-date of 584 BC. Thales is shown kneeling beneath the Giza Complex on the National Academy of Sciences building in Washington.' ],
+  notes: [ 'Thales predicted the 583 BCE occultation; the Antikythera Computer indicates a begin-date of 584 BCE. Thales is shown kneeling beneath the Giza Complex on the National Academy of Sciences building in Washington.' ],
 };

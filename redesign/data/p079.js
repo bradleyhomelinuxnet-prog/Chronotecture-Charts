@@ -1,4 +1,4 @@
-// Plate 79 — transcribed from plates/p079.png (a typed text page, book p. 115). Years as written (BC negative).
+// Plate 79 — transcribed from plates/p079.png (a typed text page, book p. 115). Years as written (BCE negative).
 window.PLATE = {
   plate: 79,
   kind: 'figure',
@@ -24,7 +24,7 @@ window.PLATE = {
   notes: [
     'The structure’s sloping distance from beginning to end (bottom to top) parallels the interior passage-chamber system of historical and future chronometrical timelines.',
     'The 7344-year timeline is verified by the pyramid’s four corner angles; Smyth’s 47-inch mistake recurs in his corner-angle measure of 8687 P" against the true 8640 P" (Smyth, The Great Pyramid, p. 93).',
-    'The author’s work Chronicon: Timelines of the Ancient Future details this 7344-year span to 2106 AD.',
+    'The author’s work Chronicon: Timelines of the Ancient Future details this 7344-year span to 2106 CE.',
     'Text closes the review of Plate XXIII and introduces the sections encoding the Last Days.',
   ],
 };

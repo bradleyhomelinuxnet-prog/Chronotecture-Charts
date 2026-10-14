@@ -1,4 +1,4 @@
-// Plate 35 — text page, from text/p035.txt. Years as written (BC negative).
+// Plate 35 — text page, from text/p035.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 35, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p035.txt)',
@@ -8,7 +8,7 @@ window.PLATE = {
     { year: -1460, label: 'Chronometrical reference year (365×4)', cat: 'cycle' },
     { year: -1447, label: 'Exodus', am: 2448, cat: 'hist' },
     { year: -1135, label: 'Phoenix transit: new Passage Conjunct Axis', cat: 'comet' },
-    { year: 442, label: '442 AD, 1460 P" below the Great Step', am: 4336, cat: 'cycle' },
+    { year: 442, label: '442 CE, 1460 P" below the Great Step', am: 4336, cat: 'cycle' },
     { year: 641, label: 'Caliph Omar burns the Alexandrian Library', am: 4535, cat: 'hist' },
     { year: 1701, label: 'Masonic Constitution drafted', cat: 'hist' },
     { year: 1902, label: 'Giza Course Countdown begins', cat: 'proph' },

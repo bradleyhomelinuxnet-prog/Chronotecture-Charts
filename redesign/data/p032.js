@@ -1,9 +1,9 @@
-// Plate 32 — text page, from text/p032.txt. Years as written (BC negative).
+// Plate 32 — text page, from text/p032.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 32, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p032.txt)',
-  title: 'The 600-Year Ner and the Mayan Count', subtitle: '144th course at 4140 P" is 2046 AD; 1872 years from 30 AD', range: [-5300, 2150],
-  anchors: [ { year: 1902, label: '1902 AD' }, { year: 2106, label: '2106 AD (6000 AM)' } ],
+  title: 'The 600-Year Ner and the Mayan Count', subtitle: '144th course at 4140 P" is 2046 CE; 1872 years from 30 CE', range: [-5300, 2150],
+  anchors: [ { year: 1902, label: '1902 CE' }, { year: 2106, label: '2106 CE (6000 AM)' } ],
   events: [
     { year: -5239, label: 'Anunnaki Chronology begins', am: -1344, cat: 'anun' },
     { year: -3113, label: 'Mayan Long-Count begins', cat: 'cycle' },

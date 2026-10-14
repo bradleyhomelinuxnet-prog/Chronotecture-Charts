@@ -1,8 +1,8 @@
-// Plate 102 — text page, from text/p102.txt. Years as written (BC negative).
+// Plate 102 — text page, from text/p102.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 102, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p102.txt)',
-  title: 'Twenty: The Granite Leaf', subtitle: 'Boss at 72 P" from 1962 and 72 P" from the Wellpit axis: 2034 AD', range: [1955, 2115],
+  title: 'Twenty: The Granite Leaf', subtitle: 'Boss at 72 P" from 1962 and 72 P" from the Wellpit axis: 2034 CE', range: [1955, 2115],
   events: [
     { year: 1962, label: 'Entry Passage to the Antechamber', cat: 'cycle' },
     { year: 2034, label: 'Granite boss: a terrible comet', am: 5928, cat: 'comet' },

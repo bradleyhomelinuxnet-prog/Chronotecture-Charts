@@ -1,9 +1,9 @@
-// Plate 99 — text page, from text/p099.txt. Years as written (BC negative).
+// Plate 99 — text page, from text/p099.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 99, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p099.txt)',
-  title: 'The Limestone Step Ends: 2028 AD', subtitle: '42 × 3 = 126; latent dates 1945 and 2005', range: [1895, 2060],
-  anchors: [ { year: 1902, label: '1902 AD' }, { year: 2028, label: '2028 AD (5922 AM)', note: 'Final limestone year' } ],
+  title: 'The Limestone Step Ends: 2028 CE', subtitle: '42 × 3 = 126; latent dates 1945 and 2005', range: [1895, 2060],
+  anchors: [ { year: 1902, label: '1902 CE' }, { year: 2028, label: '2028 CE (5922 AM)', note: 'Final limestone year' } ],
   events: [
     { year: 1944, label: 'First 42 years: Overlord; B-29s', cat: 'hist' },
     { year: 1945, label: '43rd P": Germany falls; Hiroshima; UN', am: 5839, cat: 'hist' },

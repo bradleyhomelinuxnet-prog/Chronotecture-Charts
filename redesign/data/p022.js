@@ -1,4 +1,4 @@
-// Plate 22 · Chart III·b — transcribed from plates/p022.png. Years as written on the plate (BC negative).
+// Plate 22 · Chart III·b — transcribed from plates/p022.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 22,
   chart: 'III·b',
@@ -10,9 +10,9 @@ window.PLATE = {
   transcribed: 'Transcribed 13 Oct 2026 from the scan',
   anchors: [
     { year: -3895, label: 'Year One', note: 'One Annus Mundi: man exiled from Eden for 6000 years' },
-    { year: -2239, label: 'The Flood', note: '2239 BC [1656 AM] Great Flood of Noah' },
-    { year: -1688, label: '1688 BC', note: 'Comet darkens the sun; 2208 AM' },
-    { year: 2106, label: '6000 AM', note: '2106 AD is 6000 Annus Mundi' },
+    { year: -2239, label: 'The Flood', note: '2239 BCE [1656 AM] Great Flood of Noah' },
+    { year: -1688, label: '1688 BCE', note: 'Comet darkens the sun; 2208 AM' },
+    { year: 2106, label: '6000 AM', note: '2106 CE is 6000 Annus Mundi' },
   ],
   events: [
     { year: -5239, label: 'Anunnaki chronology begun', cat: 'anun' },
@@ -24,37 +24,37 @@ window.PLATE = {
     { year: -1135, label: 'Comet darkened sun', am: 2760, cat: 'comet' },
     { year: -537, label: 'Babylon falls to Cyrus of Persia', am: 3358, cat: 'hist' },
     { year: 503, label: '1080th year: Irish kings crowned on Lia Fáil', cat: 'hist', note: "Lia Fáil, 'Jacob's pillow'" },
-    { year: 1314, label: 'Nibiru passed Earth; great black darkness', am: 5208, cat: 'impact', note: 'Nibiru orbits under the sun 732 years to 2046 AD' },
-    { year: 1613, label: 'Book of Jasher published in Venice', am: 5507, cat: 'hist', note: 'Text fully details the 1688 BC sun darkening' },
+    { year: 1314, label: 'Nibiru passed Earth; great black darkness', am: 5208, cat: 'impact', note: 'Nibiru orbits under the sun 732 years to 2046 CE' },
+    { year: 1613, label: 'Book of Jasher published in Venice', am: 5507, cat: 'hist', note: 'Text fully details the 1688 BCE sun darkening' },
     { year: 2046, label: 'Nibiru passes Earth', cat: 'impact' },
     { year: 2106, label: 'Armageddon; Edenic Earth restored', am: 6000, cat: 'proph', note: 'Chief Cornerstone defeats the Anunnaki and seven kings' },
   ],
   spans: [
     { from: -5239, to: -4687, years: 552, label: '552', cat: 'cycle' },
     { from: -4687, to: -3895, years: 792, label: '792 years [72×11]', formula: '72 × 11 = 792', cat: 'anun' },
-    { from: -4687, to: -1688, years: 3000, label: '3000 years to 1688 BC [2208 AM]', cat: 'comet' },
+    { from: -4687, to: -1688, years: 3000, label: '3000 years to 1688 BCE [2208 AM]', cat: 'comet' },
     { from: -2839, to: -1688, years: 1151, label: '1151 years', cat: 'hist' },
     { from: -2239, to: -1688, years: 552, label: '552', cat: 'flood' },
     { from: -1688, to: -537, years: 1151, label: '1151 years', cat: 'hist' },
-    { from: -1688, to: 503, years: 2190, label: '2190 yrs [365×6] to 503 AD', formula: '365 × 6 = 2190', cat: 'hist' },
-    { from: -1688, to: 1314, years: 3000, label: '3000 years to 1314 AD [5208 AM]', cat: 'impact' },
-    { from: -1688, to: 1613, years: 3300, label: '3300 years to 1613 AD [5507 AM]', cat: 'hist' },
+    { from: -1688, to: 503, years: 2190, label: '2190 yrs [365×6] to 503 CE', formula: '365 × 6 = 2190', cat: 'hist' },
+    { from: -1688, to: 1314, years: 3000, label: '3000 years to 1314 CE [5208 AM]', cat: 'impact' },
+    { from: -1688, to: 1613, years: 3300, label: '3300 years to 1613 CE [5507 AM]', cat: 'hist' },
     { from: 1314, to: 2046, years: 732, label: 'Nibiru under the sun · 732 yrs', cat: 'impact' },
     { from: -5239, to: -3895, years: 1344, label: '1344 [552+792]', formula: '552 + 792 = 1344', cat: 'anun' },
   ],
   cycles: [
-    { start: -3895, step: 552, count: 10, label: '552', note: 'Plate column: 3343 · 2791 · 2239 · 1688 · 1135 · 583 · 31 BC · 522 · 1074 · 1626 AD' },
+    { start: -3895, step: 552, count: 10, label: '552', note: 'Plate column: 3343 · 2791 · 2239 · 1688 · 1135 · 583 · 31 BCE · 522 · 1074 · 1626 CE' },
     { start: 1254, step: 792, count: 1, label: '792', note: 'Orbital period of Nibiru: 732 under the sun, 60 over it' },
   ],
   math: [
     { eq: '552 × 3 = 1656', cap: 'Year One to the Flood: 1656 years [552×3]' },
     { eq: '72 × 11 = 792', cap: 'Years before Annus Mundi chronology' },
     { eq: '732 + 60 = 792', cap: "Nibiru's orbit: under the sun + over the sun" },
-    { eq: '552 × 10 = 5520', cap: '1626 AD is 5520 AM' },
+    { eq: '552 × 10 = 5520', cap: '1626 CE is 5520 AM' },
   ],
   notes: [
     '792 years is the orbital period of Nibiru: 732 under the sun, 60 over the sun.',
-    'Comets occult and darken the sun at 1688, 1135 and 583 BC, each one 552-year step apart.',
+    'Comets occult and darken the sun at 1688, 1135 and 583 BCE, each one 552-year step apart.',
     'The 552 column carries Anno Mundi tags at each turn: 552, 1104, 1656 (the Flood), 2208, 2760, 3312, 3864, 4416, 4968, 5520.',
   ],
 };

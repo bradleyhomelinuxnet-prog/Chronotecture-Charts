@@ -1,4 +1,4 @@
-// Plate 7 — text page, from text/p007.txt. Years as written (BC negative).
+// Plate 7 — text page, from text/p007.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 7, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p007.txt)',
@@ -6,7 +6,7 @@ window.PLATE = {
   events: [
     { year: -3113, label: 'Mayan Long-Count begins', cat: 'cycle' },
     { year: -2239, label: 'Great Flood (1656 Annus Mundi)', am: 1656, cat: 'flood' },
-    { year: 1637, label: 'John Greaves studies the Great Pyramid', cat: 'hist', note: '1637 and 1638 AD' },
+    { year: 1637, label: 'John Greaves studies the Great Pyramid', cat: 'hist', note: '1637 and 1638 CE' },
     { year: 1646, label: 'Pyramidographia published', cat: 'hist' },
     { year: 1652, label: 'Greaves dies; 12th baktun ends', cat: 'cycle' },
     { year: 1656, label: 'Ussher dies; Halley born', cat: 'hist', note: 'Parallels 1656 Annus Mundi, the Great Flood' },

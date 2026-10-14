@@ -1,9 +1,9 @@
-// Plate 2 — text page, from text/p002.txt. Years as written (BC negative).
+// Plate 2 — text page, from text/p002.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 2, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p002.txt)',
-  title: 'Preface: Four Prior Books', subtitle: 'The Annus Mundi calendar: 6000 years from the Banishment to 2106 AD', range: [-4000, 2150],
-  anchors: [ { year: 2106, label: '2106 AD (6000 AM)', note: 'Return of the Chief Cornerstone for Armageddon War' } ],
+  title: 'Preface: Four Prior Books', subtitle: 'The Annus Mundi calendar: 6000 years from the Banishment to 2106 CE', range: [-4000, 2150],
+  anchors: [ { year: 2106, label: '2106 CE (6000 AM)', note: 'Return of the Chief Cornerstone for Armageddon War' } ],
   events: [
     { year: -3895, label: 'Banishment of Mankind from Paradise', am: 1, cat: 'eden' },
     { year: 1764, label: 'Phoenix sighted by Hoffman', cat: 'comet' },

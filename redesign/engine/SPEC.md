@@ -8,8 +8,8 @@ Each engine-drawn plate is two files:
 `engine/chart.js` draws everything; no plate gets its own drawing code.
 
 ## Year convention
-Write years exactly as the plate writes them: **BC = negative, AD = positive, no year zero** (2239 BC → `-2239`,
-503 AD → `503`). The engine converts to astronomical years for positions and arithmetic. Put a plate's own Anno Mundi
+Write years exactly as the plate writes them: **BCE = negative, CE = positive, no year zero** (2239 BCE → `-2239`,
+503 CE → `503`). The engine converts to astronomical years for positions and arithmetic. Put a plate's own Anno Mundi
 tag in `am` when the plate prints one; otherwise the engine computes AM = astro + 3894.
 
 ## Fields

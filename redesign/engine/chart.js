@@ -3,8 +3,8 @@
  * anchor lines, an event band with leader lines, packed span bars, cycle-ring rows, a math check panel,
  * the plate's own notes, and the original scan for comparison.
  *
- * Years in the spec are written as the plate writes them: negative = BC (2239 BC → -2239), no year zero.
- * The engine converts to astronomical years (1 BC = 0) for positions and arithmetic.
+ * Years in the spec are written as the plate writes them: negative = BCE (2239 BCE → -2239), no year zero.
+ * The engine converts to astronomical years (1 BCE = 0) for positions and arithmetic.
  */
 (function () {
   const P = window.PLATE;
@@ -17,8 +17,8 @@
   };
   const col = (c) => (CAT[c] || CAT.hist)[1];
   const astro = (y) => (y < 0 ? y + 1 : y);
-  const fmt = (y) => (y < 0 ? `${-y} BC` : `${y} AD`);
-  const am = (y) => astro(y) + 3894; // Chronicon arithmetic: AD = AM − 3894
+  const fmt = (y) => (y < 0 ? `${-y} BCE` : `${y} CE`);
+  const am = (y) => astro(y) + 3894; // Chronicon arithmetic: CE = AM − 3894
   const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
   const el = (tag, attrs = {}, kids = '') =>
     `<${tag} ${Object.entries(attrs).map(([k, v]) => `${k}="${esc(v)}"`).join(' ')}>${kids}</${tag}>`;
@@ -58,7 +58,7 @@
   const range = P.range || [-5300, 2150];
   const full = { a: astro(range[0]), b: astro(range[1]) };
   let view = { ...full };
-  const hist = (t) => (t <= 0 ? t - 1 : t); // astronomical → as written (BC negative)
+  const hist = (t) => (t <= 0 ? t - 1 : t); // astronomical → as written (BCE negative)
   const MAXC = 40;
   const short = (t) => (t.length > MAXC ? t.slice(0, MAXC - 1) + '…' : t);
   const tip = (h, yr, b) => `data-h="${esc(h)}" data-yr="${esc(yr)}" data-b="${esc(b || '')}"`;
@@ -129,7 +129,7 @@
     }
     s += `<line x1="${L}" x2="${W - R}" y1="${AXIS_Y}" y2="${AXIS_Y}" stroke="var(--line2)" stroke-width="1.5"/>`;
     const bcad = x(1);
-    if (bcad > L && bcad < W - R) s += `<line x1="${bcad}" x2="${bcad}" y1="${AXIS_Y - 6}" y2="${H - 10}" stroke="#3b4a6e" stroke-dasharray="3 4"/><text x="${bcad + 5}" y="${H - 14}" fill="#5b6785" font-size="11">BC | AD</text>`;
+    if (bcad > L && bcad < W - R) s += `<line x1="${bcad}" x2="${bcad}" y1="${AXIS_Y - 6}" y2="${H - 10}" stroke="#3b4a6e" stroke-dasharray="3 4"/><text x="${bcad + 5}" y="${H - 14}" fill="#5b6785" font-size="11">BCE | CE</text>`;
 
     (P.anchors || []).filter((a) => inView(a.year)).forEach((a) => {
       const ax = x(a.year);

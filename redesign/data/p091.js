@@ -1,17 +1,17 @@
-// Plate 91 · Chart XXXV — transcribed from plates/p091.png. Years as written on the plate (BC negative).
+// Plate 91 · Chart XXXV — transcribed from plates/p091.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 91,
   chart: 'XXXV',
   kind: 'figure',
   title: 'The Last Days and the Stone Kingdom',
-  subtitle: 'Giza course countdown 1902–2106 AD [6000 AM], 204 years; 670 + 330 = 1000-year millennium',
+  subtitle: 'Giza course countdown 1902–2106 CE [6000 AM], 204 years; 670 + 330 = 1000-year millennium',
   signed: "Breshears '06",
   rotated: true,
   range: [-4800, 2500],
   transcribed: 'Transcribed 13 Oct 2026 from the scan; start of the 670 years and end of the 330 Stone Kingdom years are not printed',
   anchors: [
-    { year: -2239, label: 'The Flood', note: 'Comet impact caused Flood 2239 BC' },
-    { year: 1902, label: '1902 AD', note: 'Giza course countdown begins' },
+    { year: -2239, label: 'The Flood', note: 'Comet impact caused Flood 2239 BCE' },
+    { year: 1902, label: '1902 CE', note: 'Giza course countdown begins' },
     { year: 2106, label: '6000 AM', note: 'Wellpit Axis, 6000 Annus Mundi' },
   ],
   events: [
@@ -27,7 +27,7 @@ window.PLATE = {
   ],
   spans: [
     { from: -4639, to: -4309, years: 330, label: '330 yrs of Anunnaki rebellion', cat: 'anun' },
-    { from: -2909, to: -2239, years: 670, label: 'Seven kings ruled 670 yrs before the Flood', cat: 'anun', note: 'Start year not printed; 2239 BC − 670' },
+    { from: -2909, to: -2239, years: 670, label: 'Seven kings ruled 670 yrs before the Flood', cat: 'anun', note: 'Start year not printed; 2239 BCE − 670' },
     { from: 1902, to: 2106, years: 204, label: 'Giza course countdown · 204 years', cat: 'proph', note: '204 P" / courses of bricks to apex; 204 levels to top' },
     { from: 1902, to: 2022, years: 120, label: 'United States 1902–2022 [120]', cat: 'hist', note: 'Height \ decline of Iron Empire' },
     { from: 2052, to: 2106, years: 54, label: '54 yrs of seven kings of Anunnaki', cat: 'anun' },
@@ -39,7 +39,7 @@ window.PLATE = {
     { eq: '2106 - 1902 = 204', cap: 'Giza course countdown' },
   ],
   notes: [
-    'Seven kings ruled 670 yrs before comet impact caused Flood 2239 BC. Adding 670 yrs stolen by Anunnaki to 330 Stone Kingdom is 1000-year millennium.',
+    'Seven kings ruled 670 yrs before comet impact caused Flood 2239 BCE. Adding 670 yrs stolen by Anunnaki to 330 Stone Kingdom is 1000-year millennium.',
     'Bands along the Great Step and granite: Height \ decline of Iron Empire; The Last Days; 7 seals and 7 trumpets; 7 plagues; 70 years of Apocalypse.',
     'A pyramid figure at the Wellpit Axis marks 6000 Annus Mundi; 204 levels to top. The Central Axis is marked at the foot of the Great Step.',
   ],

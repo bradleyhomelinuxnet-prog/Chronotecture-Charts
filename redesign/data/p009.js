@@ -1,4 +1,4 @@
-// Plate 9 — text page, from text/p009.txt. Years as written (BC negative).
+// Plate 9 — text page, from text/p009.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 9, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p009.txt)',

@@ -1,8 +1,8 @@
-// Plate 104 — text page, from text/p104.txt. Years as written (BC negative).
+// Plate 104 — text page, from text/p104.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 104, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p104.txt)',
-  title: 'From the Resurrection to the Stone Kingdom', subtitle: '270 P" (90+90+90); 34 P" steps; Upper Chamber to 2436 AD (330 SK)', range: [1955, 2450],
+  title: 'From the Resurrection to the Stone Kingdom', subtitle: '270 P" (90+90+90); 34 P" steps; Upper Chamber to 2436 CE (330 SK)', range: [1955, 2450],
   events: [
     { year: 1962, label: 'Entry to the Antechamber passage', cat: 'cycle' },
     { year: 2028, label: 'Granite floor begins', cat: 'cycle' },

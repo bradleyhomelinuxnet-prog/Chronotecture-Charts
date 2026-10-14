@@ -1,16 +1,16 @@
-// Plate 17 · Chart I·e — transcribed from plates/p017.png. Years as written on the plate (BC negative).
+// Plate 17 · Chart I·e — transcribed from plates/p017.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 17,
   chart: 'I·e',
   title: 'The Giza Course Countdown',
-  subtitle: '204 levels of bricks [years], 1902–2106 AD, is 2448 months',
+  subtitle: '204 levels of bricks [years], 1902–2106 CE, is 2448 months',
   signed: "Breshears '07",
   rotated: true,
   range: [1895, 2115],
   transcribed: 'Transcribed 14 Oct 2026 from the scan',
   anchors: [
-    { year: 1902, label: '1902 AD [5796 AM]', note: 'Stonehenge chronolithic system ends' },
-    { year: 2106, label: '6000 AM [2106 AD]', note: 'Armageddon & Return of Chief Cornerstone' },
+    { year: 1902, label: '1902 CE [5796 AM]', note: 'Stonehenge chronolithic system ends' },
+    { year: 2106, label: '6000 AM [2106 CE]', note: 'Armageddon & Return of Chief Cornerstone' },
   ],
   events: [
     { year: 1914, label: 'World War I begins; typhus epidemic', am: 5808, cat: 'hist' },
@@ -25,25 +25,25 @@ window.PLATE = {
   ],
   spans: [
     { from: 1902, to: 1914, years: 12, label: '144 months', cat: 'hist' },
-    { from: 1902, to: 1935, years: 33, label: '33 years to 1935 AD', cat: 'hist' },
-    { from: 1902, to: 1962, years: 60, label: '60 years [720 months] to 1962 AD', formula: '60 × 12 = 720', cat: 'anun' },
-    { from: 1902, to: 1972, years: 70, label: '70 years [840 months] to 1972 AD [5866 AM]', formula: '70 × 12 = 840', cat: 'impact' },
-    { from: 1972, to: 2042, years: 70, label: '70 more years to 2042 AD [140 yrs]', cat: 'proph' },
-    { from: 1902, to: 1992, years: 90, label: '90 years to 1992 AD [1080 months]', formula: '90 × 12 = 1080', cat: 'comet' },
-    { from: 1902, to: 2022, years: 120, label: '120 years to 2022 AD (1440 months)', formula: '120 × 12 = 1440', cat: 'hist' },
-    { from: 1902, to: 2046, years: 144, label: '144 years to 2046 AD [5940 AM]', cat: 'impact' },
-    { from: 1902, to: 2106, years: 204, label: 'Giza Course Countdown, 204 levels of bricks', formula: '204 × 12 = 2448', cat: 'proph', note: 'Parallels the 2448 Annus Mundi year of the Exodus in 1447 BC [144.7 decans BC]' },
+    { from: 1902, to: 1935, years: 33, label: '33 years to 1935 CE', cat: 'hist' },
+    { from: 1902, to: 1962, years: 60, label: '60 years [720 months] to 1962 CE', formula: '60 × 12 = 720', cat: 'anun' },
+    { from: 1902, to: 1972, years: 70, label: '70 years [840 months] to 1972 CE [5866 AM]', formula: '70 × 12 = 840', cat: 'impact' },
+    { from: 1972, to: 2042, years: 70, label: '70 more years to 2042 CE [140 yrs]', cat: 'proph' },
+    { from: 1902, to: 1992, years: 90, label: '90 years to 1992 CE [1080 months]', formula: '90 × 12 = 1080', cat: 'comet' },
+    { from: 1902, to: 2022, years: 120, label: '120 years to 2022 CE (1440 months)', formula: '120 × 12 = 1440', cat: 'hist' },
+    { from: 1902, to: 2046, years: 144, label: '144 years to 2046 CE [5940 AM]', cat: 'impact' },
+    { from: 1902, to: 2106, years: 204, label: 'Giza Course Countdown, 204 levels of bricks', formula: '204 × 12 = 2448', cat: 'proph', note: 'Parallels the 2448 Annus Mundi year of the Exodus in 1447 BCE [144.7 decans BC]' },
   ],
   math: [
     { eq: '33 × 365 = 12045', cap: '33 yrs × 365 days is 12,045 days' },
     { eq: '10000 + 2045 = 12045', cap: 'or 10,000 plus 2045 days' },
-    { eq: '660 × 9 = 5940', cap: '2046 AD [5940 AM]' },
-    { eq: '108 × 55 = 5940', cap: '2046 AD [5940 AM]' },
+    { eq: '660 × 9 = 5940', cap: '2046 CE [5940 AM]' },
+    { eq: '108 × 55 = 5940', cap: '2046 CE [5940 AM]' },
     { eq: '72 + 72 = 144', cap: '72 bricks plus shaded face (inferred 72 bricks) is 144' },
-    { eq: '70 + 70 = 140', cap: '1972 AD, then 70 more years to 2042 AD' },
+    { eq: '70 + 70 = 140', cap: '1972 CE, then 70 more years to 2042 CE' },
     { eq: '204 × 12 = 2448', cap: '204 levels of bricks [years] is 2448 months' },
   ],
   notes: [
-    '6000 AM [2106 AD] in 2448th month is Man’s Exodus from 6000 years in exile.',
+    '6000 AM [2106 CE] in 2448th month is Man’s Exodus from 6000 years in exile.',
   ],
 };
