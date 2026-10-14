@@ -1,18 +1,18 @@
-// Plate 88 · Chart XXXII — transcribed from plates/p088.png. Years as written on the plate (BC negative).
+// Plate 88 · Chart XXXII — transcribed from plates/p088.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 88,
   chart: 'XXXII',
   kind: 'figure',
-  title: '2052 AD Anunnaki Released',
-  subtitle: '270 years from 1962 to 2232 AD in three 90 P" thirds',
+  title: '2052 CE Anunnaki Released',
+  subtitle: '270 years from 1962 to 2232 CE in three 90 P" thirds',
   signed: "Breshears '06",
   rotated: true,
   range: [-4400, 2300],
   transcribed: 'Transcribed 13 Oct 2026 from the scan',
   anchors: [
-    { year: 1962, label: '1962 AD', note: '1962 AD end of the Anunnaki Ner of Chronology 7200 years' },
-    { year: 2052, label: '2052 AD', note: 'Release of one third of the Anunnaki in Seven Trumpets' },
-    { year: 2232, label: '2232 AD [126 SK]', note: 'Passage terminus at entry of King’s Chamber' },
+    { year: 1962, label: '1962 CE', note: '1962 CE end of the Anunnaki Ner of Chronology 7200 years' },
+    { year: 2052, label: '2052 CE', note: 'Release of one third of the Anunnaki in Seven Trumpets' },
+    { year: 2232, label: '2232 CE [126 SK]', note: 'Passage terminus at entry of King’s Chamber' },
   ],
   events: [
     { year: -4309, label: 'Comet impact; Earth in ruin begins', cat: 'impact' },
@@ -26,12 +26,12 @@ window.PLATE = {
     { year: 2052, label: 'Release of one third of the Anunnaki in Seven Trumpets', cat: 'anun' },
     { year: 2056, label: 'First year of 120th Jubilee [50 yrs to 6000 AM]', cat: 'proph' },
     { year: 2070, label: 'Resurrection and 2nd Ascent of Enoch and Elijah', cat: 'proph' },
-    { year: 2142, label: '2142 AD', cat: 'anun' },
+    { year: 2142, label: '2142 CE', cat: 'anun' },
     { year: 2232, label: 'King’s Chamber passage terminus [126 SK]', cat: 'proph' },
   ],
   spans: [
     { from: 1962, to: 2232, years: 270, label: '270 years', cat: 'anun' },
-    { from: 1962, to: 2052, years: 90, label: '90 P" · 1/3 distance', cat: 'anun', note: '1/3 distance from 1962 AD passage overhand to entry of King’s Chamber at passage terminus 2232 AD [126 SK] is 2052 AD' },
+    { from: 1962, to: 2052, years: 90, label: '90 P" · 1/3 distance', cat: 'anun', note: '1/3 distance from 1962 CE passage overhand to entry of King’s Chamber at passage terminus 2232 CE [126 SK] is 2052 CE' },
     { from: 2052, to: 2142, years: 90, label: '90 P"', cat: 'anun' },
     { from: 2142, to: 2232, years: 90, label: '90 P"', cat: 'anun' },
     { from: 2014, to: 2052, years: 38.8, label: '1/3 distance of roof · 38.8 P"', cat: 'anun' },
@@ -43,13 +43,13 @@ window.PLATE = {
     { start: 2014, step: 14, count: 4, label: '14', note: 'Granite roof to granite floor differential of 14 P" [7+7] begins a pattern of 14-year periods: 2014 · 2028 · 2042 · 2056 · 2070' },
   ],
   math: [
-    { eq: '90 × 3 = 270', cap: 'Three 90 P" thirds from 1962 to 2232 AD' },
+    { eq: '90 × 3 = 270', cap: 'Three 90 P" thirds from 1962 to 2232 CE' },
     { eq: '7 + 7 = 14', cap: 'Granite roof to granite floor differential' },
   ],
   notes: [
     '1/3 of Anunnaki rebelled.',
-    '270 yrs Earth was in ruin by comet impact 4309–4039 BC.',
-    '270 yrs longevity of United States to comet impact [1776–2046 AD].',
+    '270 yrs Earth was in ruin by comet impact 4309–4039 BCE.',
+    '270 yrs longevity of United States to comet impact [1776–2046 CE].',
     'Granite roof to granite floor is differential of 14 P" [7+7] that begins a pattern of 14 year periods.',
   ],
 };

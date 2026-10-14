@@ -1,8 +1,8 @@
-// Plate 10 — text page, from text/p010.txt. Years as written (BC negative).
+// Plate 10 — text page, from text/p010.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 10, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p010.txt)',
-  title: 'Petrie, Davidson and the Present Study', subtitle: 'Chronotecture finished 2008 AD, 144 years after 1864', range: [1855, 2015],
+  title: 'Petrie, Davidson and the Present Study', subtitle: 'Chronotecture finished 2008 CE, 144 years after 1864', range: [1855, 2015],
   events: [
     { year: 1864, label: 'Taylor dies; Menzies; Smyth to Egypt', cat: 'hist' },
     { year: 1924, label: 'Davidson & Aldersmith, Its Divine Message', cat: 'hist' },

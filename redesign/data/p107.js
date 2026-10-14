@@ -1,12 +1,12 @@
-// Plate 107 — text page, from text/p107.txt. Years as written (BC negative).
+// Plate 107 — text page, from text/p107.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 107, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p107.txt)',
-  title: 'Chronotecture Additions', subtitle: 'Enoch made Emperor 3151 BC (744 AM); the 1948-year mirror', range: [-4100, 2150],
+  title: 'Chronotecture Additions', subtitle: 'Enoch made Emperor 3151 BCE (744 AM); the 1948-year mirror', range: [-4100, 2150],
   events: [
     { year: -4039, label: 'Year One of the Orbital Chronology', cat: 'cycle', note: 'Discovered by David Davidson in the 1920s' },
     { year: -3895, label: 'Year One Annus Mundi', am: 1, cat: 'eden' },
-    { year: -3439, label: 'Descendant Passage points at Alpha Draconis', cat: 'anun', note: 'Smyth: 3440 BC' },
+    { year: -3439, label: 'Descendant Passage points at Alpha Draconis', cat: 'anun', note: 'Smyth: 3440 BCE' },
     { year: -3208, label: 'Enoch’s first regnal year as a Sethite king', cat: 'eden' },
     { year: -3151, label: 'Enoch made Emperor over 130 kings', am: 744, cat: 'eden' },
     { year: -2965, label: 'Adam dies', cat: 'eden' },
@@ -30,5 +30,5 @@ window.PLATE = {
     { from: 1, to: 1948, years: 1948, label: '1948 years to Israel', cat: 'hist' },
     { from: -1273, to: -1129, years: 144, label: 'Exactly 144 years', cat: 'hist' } ],
   math: [ { eq: '990 - 744 = 246', cap: 'Enoch Emperor in 744 AM, 246 years before 990 AM' } ],
-  notes: [ '“If it can be shown that the design of the Great Pyramid embodies a prophetic chronology, then we have the very evidence which God Himself declared would be proof that the design is from Him.” E. Raymond Capt.' ],
+  notes: [ '“If it can be shown that the design of the Great Pyramid embodies a prophetic chronology, then we have the very evidence which God Himself declared would be proof that the design is from Him.” E. Raymond Capt.', 'Note: 3895 BCE less 1948 years is 1947 BCE, and 1948 BCE to 1948 CE is 3895 years with no year zero; the text counts 1948 each way.' ],
 };

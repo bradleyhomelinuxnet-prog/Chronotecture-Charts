@@ -1,9 +1,9 @@
-// Plate 34 — text page, from text/p034.txt. Years as written (BC negative).
+// Plate 34 — text page, from text/p034.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 34, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p034.txt)',
-  title: 'NIBIRU, the Watchers and the Pyramid’s Building', subtitle: '1200 and 792 years either side of the Flood; 2905 BC (990 AM)', range: [-4400, 2150],
-  anchors: [ { year: -2239, label: 'The Flood', note: '2239 BC (1656 AM)' } ],
+  title: 'NIBIRU, the Watchers and the Pyramid’s Building', subtitle: '1200 and 792 years either side of the Flood; 2905 BCE (990 AM)', range: [-4400, 2150],
+  anchors: [ { year: -2239, label: 'The Flood', note: '2239 BCE (1656 AM)' } ],
   events: [
     { year: -4309, label: 'PreAdamic civilization ends', am: -414, cat: 'impact' },
     { year: -3439, label: 'NIBIRU first passes Earth; the Watchers descend', am: 456, cat: 'anun' },
@@ -23,5 +23,5 @@ window.PLATE = {
     { from: -4309, to: -2239, years: 2070, label: '2070 year (414×5) timeline', formula: '414 × 5 = 2070', cat: 'impact' },
     { from: -2905, to: -2239, years: 666, label: 'Begun 666 years before the Flood', cat: 'hist' },
     { from: -2905, to: -2815, years: 90, label: '90 years of building', cat: 'hist' } ],
-  math: [ { eq: '144 × 6 = 864', cap: '864 (144×6/108×8)' }, { eq: '108 × 8 = 864', cap: '864 (144×6/108×8)' }, { eq: '990 + 90 = 1080', cap: '990 AM + 90 years was 1080 AM (2815 BC)' } ],
+  math: [ { eq: '144 × 6 = 864', cap: '864 (144×6/108×8)' }, { eq: '108 × 8 = 864', cap: '864 (144×6/108×8)' }, { eq: '990 + 90 = 1080', cap: '990 AM + 90 years was 1080 AM (2815 BCE)' } ],
 };

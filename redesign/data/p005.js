@@ -1,9 +1,9 @@
-// Plate 5 — text page, from text/p005.txt. Years as written (BC negative).
+// Plate 5 — text page, from text/p005.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 5, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p005.txt)',
-  title: 'History and the Future, to 2106 AD', subtitle: 'From the Challenger to the Seven Kings and the Chief Cornerstone', range: [1980, 2115],
-  anchors: [ { year: 2046, label: '2046 AD', note: 'Return of NIBIRU' }, { year: 2106, label: '2106 AD', note: 'Return of the Chief Cornerstone' } ],
+  title: 'History and the Future, to 2106 CE', subtitle: 'From the Challenger to the Seven Kings and the Chief Cornerstone', range: [1980, 2115],
+  anchors: [ { year: 2046, label: '2046 CE', note: 'Return of NIBIRU' }, { year: 2106, label: '2106 CE', note: 'Return of the Chief Cornerstone' } ],
   events: [
     { year: 1986, label: 'Astroid Adonis near collision; Challenger explodes', cat: 'impact' },
     { year: 1989, label: 'Undetected near-miss of a gigantic astroid', cat: 'impact' },

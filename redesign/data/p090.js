@@ -1,20 +1,20 @@
-// Plate 90 · Chart XXXIV — transcribed from plates/p090.png. Years as written on the plate (BC negative).
+// Plate 90 · Chart XXXIV — transcribed from plates/p090.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 90,
   chart: 'XXXIV',
   kind: 'figure',
   title: 'Conclusion of Geometric Chronometry',
-  subtitle: 'Dates from upper (A) and lower (B) alignments, 1902 to 2106 AD; 3.14 × 92 P" = 288.88',
+  subtitle: 'Dates from upper (A) and lower (B) alignments, 1902 to 2106 CE; 3.14 × 92 P" = 288.88',
   signed: "Breshears '06",
   rotated: true,
   range: [1890, 2120],
   transcribed: 'Transcribed 13 Oct 2026 from the scan',
   anchors: [
-    { year: 1902, label: '1902 AD', note: 'Start of rows A and B at the Great Step' },
+    { year: 1902, label: '1902 CE', note: 'Start of rows A and B at the Great Step' },
     { year: 2106, label: '6000 AM', note: 'Armageddon 6000 Annus Mundi; Stone Kingdom beyond' },
   ],
   events: [
-    { year: 1902, label: "1902 AD, start of both date rows (rows A and B)", cat: 'hist' },
+    { year: 1902, label: "1902 CE, start of both date rows (rows A and B)", cat: 'hist' },
     { year: 1914, label: "1914 (row B)", cat: 'cycle' },
     { year: 1926, label: "1926 (row B)", cat: 'cycle' },
     { year: 1938, label: "1938 (row B)", cat: 'cycle' },
@@ -34,7 +34,7 @@ window.PLATE = {
     { year: 2001, label: "2001 (row A)", cat: 'cycle' },
     { year: 2005, label: "2005 (row B)", cat: 'cycle' },
     { year: 2010, label: "2010 (row B)", cat: 'cycle' },
-    { year: 2014, label: "Circle: 92 P\" / yrs to 2106 AD begins (row A)", cat: 'proph' },
+    { year: 2014, label: "Circle: 92 P\" / yrs to 2106 CE begins (row A)", cat: 'proph' },
     { year: 2016, label: "2016 (rows A and B)", cat: 'cycle' },
     { year: 2022, label: "2022 (rows A and B)", cat: 'cycle' },
     { year: 2028, label: "2028 (rows A and B)", cat: 'cycle' },
@@ -47,7 +47,7 @@ window.PLATE = {
     { year: 2050, label: "2050 (row A)", cat: 'cycle' },
     { year: 2052, label: "2052 (row A)", cat: 'cycle' },
     { year: 2056, label: "2056 (rows A and B)", cat: 'cycle' },
-    { year: 2060, label: "2060 AD, centre of the circle (row A)", cat: 'proph' },
+    { year: 2060, label: "2060 CE, centre of the circle (row A)", cat: 'proph' },
     { year: 2062, label: "2062 (row B)", cat: 'cycle' },
     { year: 2066, label: "2066 (row A)", cat: 'cycle' },
     { year: 2070, label: "2070 (rows A and B)", cat: 'cycle' },
@@ -56,8 +56,8 @@ window.PLATE = {
     { year: 2106, label: "Armageddon, 6000 Annus Mundi (rows A and B)", am: 6000, cat: 'proph' },
   ],
   spans: [
-    { from: 1902, to: 2106, years: 204, label: 'Vertical Wellpit Axis 204 P" from 1902 AD', cat: 'proph' },
-    { from: 2014, to: 2106, years: 92, label: '92 P" / yrs', cat: 'proph', note: 'Diameter of the circle, 2014 AD to 2106 AD' },
+    { from: 1902, to: 2106, years: 204, label: 'Vertical Wellpit Axis 204 P" from 1902 CE', cat: 'proph' },
+    { from: 2014, to: 2106, years: 92, label: '92 P" / yrs', cat: 'proph', note: 'Diameter of the circle, 2014 CE to 2106 CE' },
   ],
   math: [
     { eq: '3.14 × 92 = 288.88', cap: 'Circumference of the 92 P" circle' },
@@ -69,6 +69,6 @@ window.PLATE = {
     'B. Dates derived from lower alignments of limestone and granite floor and vertical lines to Queen’s and Subterranean Chambers.',
     'Row A: 1902 · 1940 · 1944 · 1948 · 1952 · 1956 · 1962 · 1975 · 1988 · 2001 · 2014 · 2016 · 2022 · 2028 · 2034 · 2035 · 2036 · 2038 · 2042 · 2046 · 2050 · 2052 · 2056 · 2060 · 2066 · 2070 · 2090 · 2106.',
     'Row B: 1902 · 1914 · 1926 · 1938 · 1944 · 1945 · 1950 · 1962 · 1974 · 1975 · 1986 · 1998 · 2005 · 2010 · 2016 · 2022 · 2028 · 2034 · 2042 · 2056 · 2062 · 2070 · 2096 · 2106.',
-    'Cross-section of the Great Step (limestone, then granite from 2028), Antechamber and Stone Kingdom, with a circle of diameter 92 P" from 2014 AD to 2106 AD centred on 2060 AD.',
+    'Cross-section of the Great Step (limestone, then granite from 2028), Antechamber and Stone Kingdom, with a circle of diameter 92 P" from 2014 CE to 2106 CE centred on 2060 CE.',
   ],
 };

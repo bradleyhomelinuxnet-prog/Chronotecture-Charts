@@ -75,7 +75,7 @@
     function esc(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
     // dates, Anno Mundi years and pyramid-inch figures stand out from the prose
     function mark(h){return h
-      .replace(/\b(\d{1,4}(?:[.,]\d+)?)\s?(AD|BC|AM|Annus Mundi|Anno Domini)\b/g,'<span class="tp-d">$1 $2</span>')
+      .replace(/\b(\d{1,4}(?:[.,]\d+)?)\s?(BCE|CE|AD|BC|AM|Annus Mundi|Anno Domini)\b/g,'<span class="tp-d">$1 $2</span>')
       .replace(/\b(\d{1,5}(?:\.\d+)?)\s?(P"|P″|P&quot;|Pyramid Inches)/g,'<span class="tp-p">$1 $2</span>')
       .replace(/\[\?\]/g,'<span class="tp-q">[?]</span>');}
   })();

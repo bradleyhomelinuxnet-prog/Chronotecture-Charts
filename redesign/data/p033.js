@@ -1,9 +1,9 @@
-// Plate 33 — text page, from text/p033.txt. Years as written (BC negative).
+// Plate 33 — text page, from text/p033.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 33, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p033.txt)',
   title: 'Five: The Great Flood and Planet Phoenix', subtitle: '1656 P" (666+990) to the Great Step; the Flood back and forth', range: [-5300, 2150],
-  anchors: [ { year: -2239, label: '2239 BC (1656 AM)', note: 'The Great Flood' } ],
+  anchors: [ { year: -2239, label: '2239 BCE (1656 AM)', note: 'The Great Flood' } ],
   events: [
     { year: -5239, label: 'Anunnaki Chronology begins', am: -1344, cat: 'anun' },
     { year: -3895, label: 'Fall of Man', am: 1, cat: 'eden', note: 'The 1344th year of the Anunnaki Chronology' },

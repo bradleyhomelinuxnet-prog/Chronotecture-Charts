@@ -1,8 +1,8 @@
-// Plate 75 — text page, from text/p075.txt. Years as written (BC negative).
+// Plate 75 — text page, from text/p075.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 75, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p075.txt)',
-  title: 'Seventeen: The Phoenix Cycle Countdown', subtitle: '6000 AM back 808, 1110, 3036, 302 P" to 744 AM (3151 BC)', range: [-3200, 2150],
+  title: 'Seventeen: The Phoenix Cycle Countdown', subtitle: '6000 AM back 808, 1110, 3036, 302 P" to 744 AM (3151 BCE)', range: [-3200, 2150],
   events: [
     { year: -3151, label: '302 P" before 1046 AM', am: 744, cat: 'cycle' },
     { year: -2905, label: 'Great Pyramid begun', cat: 'hist' },

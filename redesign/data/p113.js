@@ -1,4 +1,4 @@
-// Plate 113 — transcribed from plates/p113.png. Years as written on the plate (BC negative).
+// Plate 113 — transcribed from plates/p113.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 113, kind: 'figure',
   title: 'Lower Chamber Level Distances',

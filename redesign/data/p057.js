@@ -1,9 +1,9 @@
-// Plate 57 — text page, from text/p057.txt. Years as written (BC negative).
+// Plate 57 — text page, from text/p057.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 57, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p057.txt)',
-  title: 'United States Begun 1776 AD (5670 AM)', subtitle: '3000 years after 1135 BC; 2520 after 745 BC; 2070 after 295 BC', range: [-2900, 2150],
-  anchors: [ { year: 1776, label: '1776 AD (5670 AM)' } ],
+  title: 'United States Begun 1776 CE (5670 AM)', subtitle: '3000 years after 1135 BCE; 2520 after 745 BCE; 2070 after 295 BCE', range: [-2900, 2150],
+  anchors: [ { year: 1776, label: '1776 CE (5670 AM)' } ],
   events: [
     { year: -2815, label: 'Great Pyramid completed', am: 1080, cat: 'hist' },
     { year: -2239, label: 'Deluge', cat: 'flood' },
@@ -14,7 +14,7 @@ window.PLATE = {
     { year: -439, label: 'Parthenon completed', cat: 'hist' },
     { year: -295, label: '3600 Annus Mundi (600×6)', am: 3600, cat: 'cycle' },
     { year: 1860, label: 'Republican Party; Lincoln', cat: 'hist' },
-    { year: 1920, label: '1920 AD (5814)', cat: 'hist' },
+    { year: 1920, label: '1920 CE (5814)', cat: 'hist' },
     { year: 2046, label: 'End of the United States', cat: 'impact' },
     { year: 2106, label: 'Armageddon', am: 6000, cat: 'proph' } ],
   spans: [

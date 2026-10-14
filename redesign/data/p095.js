@@ -1,12 +1,12 @@
-// Plate 95 — text page, from text/p095.txt. Years as written (BC negative).
+// Plate 95 — text page, from text/p095.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 95, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p095.txt)',
-  title: 'Seven Overlaps: 1836 Years to 1940–1962', subtitle: '104, 108, 116, 120 and 126 AD each + 1836', range: [60, 1990],
+  title: 'Seven Overlaps: 1836 Years to 1940–1962', subtitle: '104, 108, 116, 120 and 126 CE each + 1836', range: [60, 1990],
   events: [
     { year: 66, label: 'Jewish War against Rome; comet; plague', cat: 'hist' },
-    { year: 104, label: '104 AD (52+52)', cat: 'cycle' }, { year: 108, label: '33rd pass of Phoenix', am: 4002, cat: 'comet' },
-    { year: 116, label: 'Trajan defeats the Parthians', cat: 'hist' }, { year: 120, label: 'Rome annexes Britain', am: 4014, cat: 'hist' }, { year: 126, label: '126 AD', cat: 'cycle' },
+    { year: 104, label: '104 CE (52+52)', cat: 'cycle' }, { year: 108, label: '33rd pass of Phoenix', am: 4002, cat: 'comet' },
+    { year: 116, label: 'Trajan defeats the Parthians', cat: 'hist' }, { year: 120, label: 'Rome annexes Britain', am: 4014, cat: 'hist' }, { year: 126, label: '126 CE', cat: 'cycle' },
     { year: 1940, label: 'Five-planet alignment; Pentagon begun', am: 5834, cat: 'cycle' },
     { year: 1944, label: 'Operation Overlord', am: 5838, cat: 'hist' },
     { year: 1952, label: 'First British atomic test; H-bomb; Bilderberg', am: 5846, cat: 'hist' },

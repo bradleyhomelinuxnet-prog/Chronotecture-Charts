@@ -1,10 +1,10 @@
-// Plate 87 · Chart XXXI — transcribed from plates/p087.png. Years as written on the plate (BC negative).
+// Plate 87 · Chart XXXI — transcribed from plates/p087.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 87,
   chart: 'XXXI',
   kind: 'figure',
   title: 'Granite Leaf: Seven Seals and Trumpets',
-  subtitle: '16 P" Granite Leaf in four 4-year periods; 84 P" either side of 2046 AD',
+  subtitle: '16 P" Granite Leaf in four 4-year periods; 84 P" either side of 2046 CE',
   signed: "Breshears '06",
   rotated: true,
   range: [1950, 2145],
@@ -12,8 +12,8 @@ window.PLATE = {
   anchors: [
     { year: 1962, label: '1962' },
     { year: 2014, label: 'Granite Year One', note: 'Presence of Anunnaki in system made known' },
-    { year: 2046, label: '2046 AD' },
-    { year: 2130, label: '2130 AD · 24 SK', note: '24 SK [Stone Kingdom]' },
+    { year: 2046, label: '2046 CE' },
+    { year: 2130, label: '2130 CE · 24 SK', note: '24 SK [Stone Kingdom]' },
   ],
   events: [
     { year: 1962, label: 'Foot of the overhang', cat: 'anun' },
@@ -26,13 +26,13 @@ window.PLATE = {
     { year: 2050, label: '16th year', cat: 'proph' },
     { year: 2052, label: '2052', cat: 'anun' },
     { year: 2066, label: 'Ministry of Enoch and Elijah begins', cat: 'proph' },
-    { year: 2090, label: '2090 AD is in center', cat: 'proph' },
+    { year: 2090, label: '2090 CE is in center', cat: 'proph' },
     { year: 2130, label: '24 SK [Stone Kingdom]', cat: 'proph' },
   ],
   spans: [
     { from: 1962, to: 2046, years: 84, label: '84 P"', cat: 'hist' },
     { from: 2046, to: 2130, years: 84, label: '84 P"', cat: 'hist' },
-    { from: 2050, to: 2130, years: 80, label: '80 P" · 2090 AD in center', cat: 'proph' },
+    { from: 2050, to: 2130, years: 80, label: '80 P" · 2090 CE in center', cat: 'proph' },
     { from: 2052, to: 2090, years: 38.8, label: '38.8 P"', cat: 'anun' },
     { from: 1962, to: 2014, years: 52, label: '52 P"', cat: 'anun' },
     { from: 2014, to: 2066, years: 52, label: '52 P"', cat: 'proph' },

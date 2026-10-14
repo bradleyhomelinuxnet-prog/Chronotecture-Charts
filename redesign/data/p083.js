@@ -1,10 +1,10 @@
-// Plate 83 · Chart XXVII — transcribed from plates/p083.png. Years as written on the plate (BC negative).
+// Plate 83 · Chart XXVII — transcribed from plates/p083.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 83,
   chart: 'XXVII',
   kind: 'figure',
-  title: 'Great Step Calendar, 1902–2028 AD',
-  subtitle: '126 p" is 12.6 decans; 120 years [1440 months] to 2022 AD; thirds of 42',
+  title: 'Great Step Calendar, 1902–2028 CE',
+  subtitle: '126 p" is 12.6 decans; 120 years [1440 months] to 2022 CE; thirds of 42',
   signed: "Breshears '06",
   rotated: true,
   range: [1890, 2040],
@@ -23,7 +23,7 @@ window.PLATE = {
     { year: 2028, label: 'Limestone/granite joint', cat: 'proph' },
   ],
   spans: [
-    { from: 1902, to: 2022, years: 120, label: '120 years [1440 months] to 2022 AD', cat: 'proph' },
+    { from: 1902, to: 2022, years: 120, label: '120 years [1440 months] to 2022 CE', cat: 'proph' },
     { from: 1902, to: 2028, years: 126, label: '126 p" is 12.6 decans', cat: 'proph' },
     { from: 1902, to: 1944, years: 42, label: '1/3 of 126 p"', cat: 'cycle' },
     { from: 1944, to: 1986, years: 42, label: '1/3 of 126', cat: 'cycle' },

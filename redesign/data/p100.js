@@ -1,21 +1,21 @@
-// Plate 100 · typed text page 124 — transcribed from plates/p100.png. Years as written on the page (BC negative).
+// Plate 100 · typed text page 124 — transcribed from plates/p100.png. Years as written on the page (BCE negative).
 window.PLATE = {
   plate: 100,
   kind: 'figure',
   title: 'Commentary on Plate XXVIII: 1945 to 2014',
-  subtitle: '1945 and 2005 are 60 years apart, midpoint 1975 AD (5869 AM); 52 P" overhang as four 13-year periods',
+  subtitle: '1945 and 2005 are 60 years apart, midpoint 1975 CE (5869 AM); 52 P" overhang as four 13-year periods',
   rotated: false,
   range: [1890, 2120],
   transcribed: 'Transcribed 13 Oct 2026 from the scan; typed text page (page 124), not a drawn chart; 144-year countdown end not printed',
   anchors: [
     { year: 1902, label: 'Face of Great Step' },
-    { year: 1962, label: '1962 AD', note: 'End of the Grand Gallery; termination of the Anunnaki Chronology' },
+    { year: 1962, label: '1962 CE', note: 'End of the Grand Gallery; termination of the Anunnaki Chronology' },
   ],
   events: [
     { year: 1902, label: 'Face of the Great Step', cat: 'hist' },
     { year: 1945, label: 'North Wall of Subterranean Chamber', cat: 'hist' },
     { year: 1962, label: 'End of Grand Gallery; Anunnaki Chronology ends', cat: 'anun' },
-    { year: 1963, label: 'School-prayer ruling; Kennedy assassinated (Nov 22)', cat: 'hist', note: 'The .96 of 60.96 P" points toward the end of 1963 AD, within Year One of the 144-year countdown; text calls 1963 the start of America’s moral and spiritual decline' },
+    { year: 1963, label: 'School-prayer ruling; Kennedy assassinated (Nov 22)', cat: 'hist', note: 'The .96 of 60.96 P" points toward the end of 1963 CE, within Year One of the 144-year countdown; text calls 1963 the start of America’s moral and spiritual decline' },
     { year: 1975, label: 'Vietnam War ends; Ebla tablets found', am: 5869, cat: 'hist', note: 'Midpoint of 1945 and 2005; also the year Dr. Bartholomew Nagy published research on microbiological fossils in Martian meteorites' },
     { year: 1988, label: 'Centerpoint of overhang; Bush family presidency begins', cat: 'hist' },
     { year: 2000, label: 'Texas Seven escape from the Connally Unit', cat: 'hist' },
@@ -23,13 +23,13 @@ window.PLATE = {
     { year: 2005, label: 'South Wall of Queen’s Chamber', cat: 'hist' },
     { year: 2008, label: '144 months of Bush rule completed', cat: 'hist' },
     { year: 2014, label: 'Israel–Lebanon conflict; new technology (final year)', cat: 'proph' },
-    { year: 2022, label: 'US military in Middle East "assassinated" by treachery', cat: 'proph', note: '60 years after 1962 AD' },
+    { year: 2022, label: 'US military in Middle East "assassinated" by treachery', cat: 'proph', note: '60 years after 1962 CE' },
   ],
   spans: [
     { from: 1945, to: 2005, years: 60, label: '60 years apart', cat: 'hist' },
     { from: 1902, to: 1962, label: 'Face of Great Step to overhang · 60.96 P"', cat: 'anun' },
     { from: 1962, to: 2014, years: 52, label: 'Limestone overhang 52 P" [13×4]', formula: '13 × 4 = 52', cat: 'cycle', note: 'Passage into Antechamber (Great Pyramid: Smyth 222)' },
-    { from: 1962, to: 2022, years: 60, label: '60 years after 1962 AD', cat: 'proph' },
+    { from: 1962, to: 2022, years: 60, label: '60 years after 1962 CE', cat: 'proph' },
     { from: 1988, to: 2008, label: '144 months of Bush rule', cat: 'hist' },
     { from: 1962, to: 2106, years: 144, label: '144-year countdown from end of Anunnaki Calendar', cat: 'proph', note: 'End year not printed; 1962 + 144' },
   ],
@@ -38,13 +38,13 @@ window.PLATE = {
   ],
   math: [
     { eq: '13 × 4 = 52', cap: 'Overhang subdivided into four 13-year periods' },
-    { eq: '1962 + 13 = 1975', cap: '13 years after 1962 AD along the overhang' },
-    { eq: '1962 + 60 = 2022', cap: 'Counting 60 years after 1962 AD' },
+    { eq: '1962 + 13 = 1975', cap: '13 years after 1962 CE along the overhang' },
+    { eq: '1962 + 60 = 2022', cap: 'Counting 60 years after 1962 CE' },
   ],
   notes: [
     'Typed commentary page (page 124) explaining Plate XXVIII; no drawing.',
     'The text reads the 1963 Kennedy assassination as a "King of the World" archetype with a twofold parallel: the Crucifixion and the future assassination of the Antichrist.',
-    'Bush family rule: George Bush Sr. 4 years, Clinton 8 years, George Bush Jr. 8 more years, completing the 144 months in 2008 AD.',
+    'Bush family rule: George Bush Sr. 4 years, Clinton 8 years, George Bush Jr. 8 more years, completing the 144 months in 2008 CE.',
     'Text cites Far Out Adventures 459 for Nagy and Great Pyramid: Smyth 222 for the 52 P" overhang.',
   ],
 };

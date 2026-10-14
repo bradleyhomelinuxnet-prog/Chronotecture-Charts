@@ -1,14 +1,14 @@
-// Plate 89 · Chart XXXIII — transcribed from plates/p089.png. Years as written on the plate (BC negative).
+// Plate 89 · Chart XXXIII — transcribed from plates/p089.png. Years as written on the plate (BCE negative).
 window.PLATE = {
   plate: 89,
   chart: 'XXXIII',
   kind: 'figure',
   title: 'Stone Kingdom Years to King’s Chamber',
-  subtitle: '204 P" of granite in 34 P" steps from 2028 to 2232 AD; 126 P" from the Wellpit Axis [2106 AD]',
+  subtitle: '204 P" of granite in 34 P" steps from 2028 to 2232 CE; 126 P" from the Wellpit Axis [2106 CE]',
   signed: "Breshears '06",
   rotated: true,
   range: [2015, 2450],
-  transcribed: 'Transcribed 13 Oct 2026 from the scan; plate prints 292 SK at 2402 AD as written',
+  transcribed: 'Transcribed 13 Oct 2026 from the scan; plate prints 292 SK at 2402 CE as written',
   anchors: [
     { year: 2028, label: '2028', note: 'Great Step limestone / granite joint' },
     { year: 2106, label: 'Wellpit Axis 6000 AM', note: 'Wellpit Axis 2106, 6000 AM' },
@@ -18,7 +18,7 @@ window.PLATE = {
     { year: 2028, label: 'Granite begins after Great Step limestone', cat: 'hist' },
     { year: 2036, label: '2036', cat: 'hist', note: 'Edge of the 34 P" wellpit section' },
     { year: 2062, label: '2062', cat: 'cycle' },
-    { year: 2070, label: '2070 AD', cat: 'hist', note: 'Edge of the 34 P" wellpit section' },
+    { year: 2070, label: '2070 CE', cat: 'hist', note: 'Edge of the 34 P" wellpit section' },
     { year: 2096, label: '2096', cat: 'cycle' },
     { year: 2106, label: 'Wellpit Axis', am: 6000, cat: 'proph' },
     { year: 2130, label: '24 SK', cat: 'cycle' },
@@ -50,7 +50,7 @@ window.PLATE = {
     { eq: '360 × 7 = 2520', cap: 'Abbreviated 2520' },
   ],
   notes: [
-    'SK is Stone Kingdom year, counted from the Wellpit Axis at 2106 AD [6000 AM].',
+    'SK is Stone Kingdom year, counted from the Wellpit Axis at 2106 CE [6000 AM].',
     '126 P" of Great Step and 126 P" of Stone Kingdom years to King’s Chamber entry is total of 252 [36×7]: abbreviated 2520 [360×7].',
     'Face of Great Step is 34 P" high. The Great Step limestone is 126 P" long.',
     'Granite floor of Antechamber 102 P" [51 + 51] and entry passage to King’s Chamber 102 P" [51 + 51] sit above the two 34×3 runs.',

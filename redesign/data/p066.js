@@ -1,8 +1,8 @@
-// Plate 66 — text page, from text/p066.txt. Years as written (BC negative).
+// Plate 66 — text page, from text/p066.txt. Years as written (BCE negative).
 window.PLATE = {
   plate: 66, kind: 'figure', rotated: false,
   transcribed: 'Transcribed 14 Oct 2026 from the typed text page (text/p066.txt)',
-  title: 'The 1998 Triangle and 2815 BC', subtitle: '666 + 524 + 808 = 1998; 990 AM + 90 = 1080 AM', range: [-4400, 2150],
+  title: 'The 1998 Triangle and 2815 BCE', subtitle: '666 + 524 + 808 = 1998; 990 AM + 90 = 1080 AM', range: [-4400, 2150],
   events: [
     { year: -4309, label: 'PreAdamic World destroyed', am: -414, cat: 'impact' },
     { year: -2905, label: 'Sethites begin the Great Pyramid', am: 990, cat: 'hist' },
@@ -16,7 +16,7 @@ window.PLATE = {
     { year: 1776, label: 'Unification in America', cat: 'hist' },
     { year: 1782, label: 'Phoenix adopted as the Great Seal emblem', cat: 'hist' },
     { year: 1902, label: 'Seal changed to the Eagle', cat: 'hist' },
-    { year: 1998, label: '1998 AD (666×3)', cat: 'proph' } ],
+    { year: 1998, label: '1998 CE (666×3)', cat: 'proph' } ],
   spans: [
     { from: -2905, to: -2239, years: 666, label: '666 years prior to the Flood', cat: 'hist' },
     { from: -2905, to: -2815, years: 90, label: '90 years to complete', cat: 'hist' },
