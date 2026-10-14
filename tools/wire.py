@@ -46,7 +46,7 @@ flags = list(re.search(r'var FLAGS="([01]+)"', ix).group(1))
 for n, r in rows.items():
     if r['kind'] in ('chart', 'text'):
         flags[n - 1] = '1' if r['kind'] == 'chart' else '0'
-kw = json.loads(re.sub(r'(\d+):', r'"\1":', re.search(r'var KW=(\{.*?\});', ix).group(1)))
+kw = json.loads(re.sub(r'([{,])(\d+):', r'\1"\2":', re.search(r'var KW=(\{.*?\});', ix).group(1)))
 kw = {int(k): v for k, v in kw.items()}
 for n, r in rows.items():
     if r['kw']:
