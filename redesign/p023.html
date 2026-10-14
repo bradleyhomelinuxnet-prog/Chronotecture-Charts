@@ -256,7 +256,7 @@ txt(svg,(AXX+F[0])/2,F[1]-46,'302 P″',{'text-anchor':'middle','font-size':11,f
 
 const NOTES=[
  {n:1,col:C.pass,at:[Cj[0]+56,Cj[1]+72],h:'Axis Conjunct · 1135 BC [2760 AM]',y:'Backward and forward 1902 AD is referenced',b:'Both segments of the descending passage are counted from this point.'},
- {n:2,col:C.axis,at:[(Cj[0]+E[0])/2-6,(Cj[1]+E[1])/2-24],h:'1110 P″ + 2760 is 3870 AM [25 BC]',y:'Axis Conjunct → entry',b:'Upper segment of the descending passage.'},
+ {n:2,col:C.axis,at:[E[0]+6,E[1]-40],h:'1110 P″ + 2760 is 3870 AM [25 BC]',y:'Axis Conjunct → entry',b:'Upper segment of the descending passage.'},
  {n:3,col:C.desc,at:[mid[0]-60,mid[1]-34],h:'3036 P″ → 1902 AD [5796 AM]',y:'2760 + 3036 = 5796',b:'"3036 P″ from 1135 BC [2760 AM] is 1902 AD [5796 AM]" — ends at the floor joint.'},
  {n:4,col:C.tri,at:[E[0]+40,(E[1]+T[1])/2+30],h:'1828 P″ to exact depth level with floor joint',y:'3870 AM at entry becomes 5698 AM, or 1804 AD',b:'"…exactly 302 years to 6000 Annus Mundi [2106 AD]. This ENDS Giza Countdown, but completed triangle brings us back to 1902 AD floor joint 302 P″ from central axis 1902 AD Great Step, the BEGINNING of the Giza Course Countdown."'},
  {n:5,col:C.tri,at:[T[0]-60,T[1]+40],h:'1804 AD is 302 years to Armageddon',y:'lower corner of the triangle',b:'2106 − 1804 = 302.'},
@@ -272,14 +272,14 @@ NOTES.forEach(o=>{const g=el('g',{},svg);
   li.addEventListener('click',e=>{e.stopPropagation();pinned=li;showTip(html,e);});leg.appendChild(li);});
 
 // ruler
-(function(){const r=document.getElementById('ruler');const A0=2600,A1=6100,P0=60,P1=1340;const Xa=a=>P0+(a-A0)/(A1-A0)*(P1-P0);const Y=120;
+(function(){const r=document.getElementById('ruler');const A0=2600,A1=6250,P0=60,P1=1340;const Xa=a=>P0+(a-A0)/(A1-A0)*(P1-P0);const Y=120;
   el('line',{x1:P0,y1:Y,x2:P1,y2:Y,stroke:'#3a486a','stroke-width':2},r);
-  for(let a=2600;a<=6100;a+=100){el('line',{x1:Xa(a),y1:Y-(a%500?4:9),x2:Xa(a),y2:Y+(a%500?4:9),stroke:'#3a486a'},r);
+  for(let a=2600;a<=6200;a+=100){el('line',{x1:Xa(a),y1:Y-(a%500?4:9),x2:Xa(a),y2:Y+(a%500?4:9),stroke:'#3a486a'},r);
     if(a%500===0)txt(r,Xa(a),Y+26,a+' AM',{'text-anchor':'middle','font-size':10.5,fill:'#5d6885','font-family':'JetBrains Mono'});}
-  const M=[[2760,'1135 BC','Axis Conjunct','#ffcf5c',0],[3870,'25 BC','entry','#37b6a6',1],[5698,'1804 AD','depth level','#f08a4b',1],[5796,'1902 AD','floor joint','#5cb3f2',0],[6000,'2106 AD','6000 Annus Mundi','#9c8bf0',1]];
-  M.forEach(([a,yr,l,c,hi])=>{const g=el('g',{},r);const x=Xa(a);el('circle',{cx:x,cy:Y,r:6,fill:c},g);
-    el('line',{x1:x,y1:Y,x2:x,y2:hi?36:64,stroke:c,opacity:.7},g);
-    txt(g,x+(a>=5796?-4:4),hi?28:56,[`${a} AM · ${yr}`,l],{'font-size':11.5,fill:c,'font-family':'JetBrains Mono','text-anchor':a>=5796?'end':'start','class':'halo'});
+  const M=[[2760,'1135 BC','Axis Conjunct','#ffcf5c',56,'start'],[3870,'25 BC','entry','#37b6a6',28,'start'],[5698,'1804 AD','depth level','#f08a4b',56,'end'],[5796,'1902 AD','floor joint','#5cb3f2',22,'end'],[6000,'2106 AD','6000 Annus Mundi','#9c8bf0',62,'start']];
+  M.forEach(([a,yr,l,c,ly,an])=>{const g=el('g',{},r);const x=Xa(a);el('circle',{cx:x,cy:Y,r:6,fill:c},g);
+    el('line',{x1:x,y1:Y,x2:x,y2:ly+8,stroke:c,opacity:.7},g);
+    txt(g,x+(an==='end'?-4:4),ly,[`${a} AM · ${yr}`,l],{'font-size':11.5,fill:c,'font-family':'JetBrains Mono','text-anchor':an,'class':'halo'});
     bind(g,tipHTML(c,`${a} AM`,yr,l));});
   function br(a,b,y,lbl,c){el('path',{d:`M${Xa(a)} ${y-6} L${Xa(a)} ${y} L${Xa(b)} ${y} L${Xa(b)} ${y-6}`,fill:'none',stroke:c,'stroke-width':1.4},r);
     txt(r,(Xa(a)+Xa(b))/2,y+16,lbl,{'text-anchor':'middle','font-size':11,fill:c,'font-family':'JetBrains Mono'});}

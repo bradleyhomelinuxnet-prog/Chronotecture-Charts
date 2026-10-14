@@ -15,17 +15,43 @@
   function saveRot(){ try{ if(rot===(UPRIGHT[PAGE]||0)) localStorage.removeItem(ROT_KEY); else localStorage.setItem(ROT_KEY,String(rot)); }catch(e){} }
 
   // Interactive redesigns for plates whose page has no switch of its own.
-  var REDESIGNS={'p013.html':['chart-i.html','Chart I'],'p016.html':['id.html','Chart I·d'],'p017.html':['ie.html','Chart I·e'],'p029.html':['vic.html','Chart VI·c'],'p030.html':['vid.html','Chart VI·d']};
+  // Generated list: tools/wire.py rewrites the REDESIGNS line from the redesign/ folder.
+  var REDESIGNS={};
+  var NUM=parseInt((PAGE.match(/p(\d+)\.html/)||[])[1],10);
+  function addSeg(wrap,second){
+    var seg=document.createElement('div'); seg.className='seg';
+    seg.innerHTML='<button type="button" class="on" data-view="plate">Original plate</button><button type="button" data-view="redesign">'+second+'</button>';
+    wrap.insertBefore(seg, wrap.firstChild);
+  }
   (function wireRedesign(){
     var r=REDESIGNS[PAGE], wrap=document.getElementById('stagewrap');
     if(!r || !wrap || wrap.querySelector('.seg')) return;
-    var seg=document.createElement('div'); seg.className='seg';
-    seg.innerHTML='<button type="button" class="on" data-view="plate">Original plate</button><button type="button" data-view="redesign">Interactive redesign \u2726</button>';
-    wrap.insertBefore(seg, wrap.firstChild);
+    addSeg(wrap,'Interactive redesign \u2726');
     var f=document.createElement('iframe'); f.className='frame'; f.title='redesign'; f.loading='lazy'; f.src='../redesign/'+r[0];
     wrap.appendChild(f);
     var pn=document.querySelector('.tb-center .pnum');
     if(pn && !pn.querySelector('.serif')){ var s=document.createElement('span'); s.className='serif'; s.style.cssText='color:#ffcf5c;font-size:17px'; s.textContent=r[1]; pn.appendChild(document.createTextNode('\u00a0\u00b7\u00a0')); pn.appendChild(s); }
+  })();
+
+  // Text plates: a "Read text" view of the cleaned transcription in text/texts.js
+  // (a script, not fetch(), so it also works when the atlas is opened from disk).
+  (function wireText(){
+    var wrap=document.getElementById('stagewrap');
+    if(!wrap || wrap.querySelector('.seg') || !NUM) return;
+    var sc=document.createElement('script'); sc.src='../text/texts.js';
+    sc.onload=function(){
+      var t=window.CHRONO_TEXT && window.CHRONO_TEXT[NUM];
+      if(!t || wrap.querySelector('.seg')) return;
+      addSeg(wrap,'Read text \u00b6');
+      var pane=document.createElement('div'); pane.className='frame textpane';
+      var lines=t.split('\n'), head=lines.shift(), h2=lines.shift(), html='<div class="tp-in"><div class="tp-k">'+esc(head)+'</div>';
+      if(h2) html+='<h2 class="serif">'+esc(h2)+'</h2>';
+      lines.join('\n').split(/\n\s*\n/).forEach(function(par){ par=par.trim(); if(par) html+='<p>'+esc(par).replace(/\n/g,'<br>')+'</p>'; });
+      pane.innerHTML=html+'</div>'; wrap.appendChild(pane);
+      bindSegs();
+    };
+    document.head.appendChild(sc);
+    function esc(x){return x.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;');}
   })();
 
   // Layout fixes: the redesign switch sits on the plate, not under the top bar; on phones
@@ -35,6 +61,9 @@
     // .seg is placed against #stagewrap; without this it was placed against the page and
     // hid under the sticky top bar, so the "Interactive redesign" switch could not be reached.
     st.textContent='.stagewrap{position:relative}'+
+      '.textpane{overflow:auto;-webkit-overflow-scrolling:touch}.textpane .tp-in{max-width:760px;margin:0 auto;padding:84px 30px 70px;color:#dfe6f5;font-size:17px;line-height:1.75}'+
+      '.textpane .tp-k{font-family:\'JetBrains Mono\',monospace;font-size:11px;letter-spacing:.3em;color:#7f8db0;text-transform:uppercase}'+
+      '.textpane h2{font-size:30px;color:#ffcf5c;margin:.3em 0 .8em;line-height:1.15}.textpane p{margin:0 0 1.05em}'+
       '@media(max-width:640px){'+
       '.topbar{gap:8px!important;padding-left:12px!important;padding-right:12px!important}'+
       '.topbar .brand{font-size:17px!important}.topbar .brand small{display:none!important}'+
@@ -43,6 +72,7 @@
       '.hintbar{display:none!important}'+
       '.orient{left:12px!important;transform:none!important;max-width:calc(100% - 84px)!important;border-radius:16px!important;padding:6px 8px!important}'+
       '.orient span{display:none}'+
+      '.textpane .tp-in{padding:70px 18px 50px!important;font-size:15.5px!important}'+
       '.seg{top:10px!important;max-width:calc(100% - 20px)}.seg button{padding:7px 11px!important;font-size:11.5px!important}'+
       '}';
     document.head.appendChild(st);
@@ -125,12 +155,15 @@
   pill('Flip 180','Turn upside down',function(){rotate(2);});
   stage.appendChild(bar);
 
-  var segs=document.querySelectorAll('.seg button');
-  var wrap=document.getElementById('stagewrap');
-  for(var j=0;j<segs.length;j++){ segs[j].onclick=(function(btn){return function(){
-    for(var k=0;k<segs.length;k++)segs[k].classList.remove('on');
-    btn.classList.add('on');
-    if(btn.dataset.view==='redesign')wrap.classList.add('redesign');
-    else { wrap.classList.remove('redesign'); setTimeout(fit,30); }
-  };})(segs[j]); }
+  function bindSegs(){
+    var segs=document.querySelectorAll('.seg button');
+    var wrap=document.getElementById('stagewrap');
+    for(var j=0;j<segs.length;j++){ segs[j].onclick=(function(btn){return function(){
+      for(var k=0;k<segs.length;k++)segs[k].classList.remove('on');
+      btn.classList.add('on');
+      if(btn.dataset.view==='redesign')wrap.classList.add('redesign');
+      else { wrap.classList.remove('redesign'); setTimeout(fit,30); }
+    };})(segs[j]); }
+  }
+  bindSegs();
 })();

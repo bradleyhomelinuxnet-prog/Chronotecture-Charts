@@ -44,6 +44,7 @@
   svg{width:100%;height:auto;display:block;overflow:visible}
   .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
   @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  .bottom.wide{grid-template-columns:1fr}
   text{font-family:'Space Grotesk',sans-serif}
   .mono{font-family:'JetBrains Mono',monospace}
   .halo{paint-order:stroke;stroke:#0b0f1a;stroke-width:4px;stroke-linejoin:round}
@@ -51,6 +52,9 @@
   .hot:hover .mk, .hot.lit .mk{filter:drop-shadow(0 0 7px currentColor)}
   .hot.lit .ring{opacity:1}
 
+  .pan{width:100%}
+  .panhint{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);text-align:center;margin-top:4px;letter-spacing:.1em}
+  @media(max-width:700px){.pan{overflow-x:auto;-webkit-overflow-scrolling:touch}.pan svg{min-width:720px}.panhint{display:block}}
   .notes{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:14px}
   .note{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;cursor:pointer;transition:.15s}
   .note:hover,.note.lit{border-color:var(--line2);background:#121c33}
@@ -103,15 +107,15 @@
     <div class="card">
       <h2>Section: Great Step, Antechamber &amp; granite leaf</h2>
       <div class="hint">1 P″ = 1 year · dashed verticals are Breshears' alignment lines · the right-hand box redraws the leaf enlarged, as on the plate. Hover or tap any number, date or dimension.</div>
-      <svg id="sec" viewBox="0 0 1100 860" role="img" aria-label="Section of the Antechamber and granite leaf with year measurements"></svg>
+      <div class="pan"><svg id="sec" viewBox="0 0 1100 860" role="img" aria-label="Section of the Antechamber and granite leaf with year measurements"></svg></div><div class="panhint">← swipe the drawing sideways →</div>
       <div class="notes" id="notes"></div>
     </div>
 
-    <div class="bottom">
+    <div class="bottom ">
       <div class="card">
         <h2>Year ruler</h2>
         <div class="hint">The plate's inches laid out as years. Bars are the measured spans; dots are the dated alignments.</div>
-        <svg id="ruler" viewBox="0 0 700 280" role="img" aria-label="Year ruler"></svg>
+        <div class="pan"><svg id="ruler" viewBox="0 0 700 280" role="img" aria-label="Year ruler"></svg></div>
       </div>
       <div class="card">
         <h2>Cycle mathematics</h2>
