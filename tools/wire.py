@@ -62,5 +62,20 @@ ix = re.sub(r'var KW=\{.*?\};', lambda m: 'var KW={%s};' % ','.join('%d:%s' % (n
 n_inter = len(stars) + 2  # + the Great Step and the Constellation, which have no plate of their own
 ix = re.sub(r'(data-to=")\d+("[^>]*>0</div><div class="l">Interactive)', r'\g<1>%d\2' % n_inter, ix)
 ix = re.sub(r'(data-to=")\d+("[^>]*>0</div><div class="l">Chart plates)', r'\g<1>%d\2' % flags.count('1'), ix)
+# Boxed "Featured Interactives" card for every chart redesign not already featured by hand
+featured = set(re.findall(r'class="feat hud" href="(?:redesign|pages)/([\w-]+)\.html"', ix.split('<!--auto-feat-->')[0]))
+legacy_pg = {v[:-5]: n for n, v in LEGACY.items()}
+cards = []
+for n in sorted(redesign):
+    f = redesign[n][:-5]
+    if f in featured or 'p%03d' % n in featured or rows.get(n, {}).get('kind') == 'text': continue
+    src = open('redesign/' + redesign[n], encoding='utf-8').read()
+    t = re.search(r'<title>[^<]*?(?:—|-)\s*([^<]+)</title>', src)
+    sub = re.search(r'class="sub">(.*?)</span>', src, flags=re.S)
+    title = html.unescape(t.group(1)).strip() if t else label_of(n)
+    blurb = re.sub(r'<[^>]+>', '', html.unescape(sub.group(1))).strip() if sub else ''
+    cards.append('<a class="feat hud" href="redesign/%s"><div class="tag">&#10022; %s &middot; Plate %d</div><h4 class="serif">%s</h4><p>%s</p><div class="go">ENTER &rarr;</div></a>'
+                 % (redesign[n], html.escape(label_of(n)), n, html.escape(title), html.escape(blurb)))
+ix = re.sub(r'<!--auto-feat-->.*?<!--/auto-feat-->', lambda m: '<!--auto-feat-->' + '\n    '.join(cards) + '<!--/auto-feat-->', ix, flags=re.S)
 open('index.html', 'w', encoding='utf-8').write(ix)
 print('viewer.js: %d redesign switches, %d engine views; index.html: %d chart plates, %d interactive (%d plates)' % (len(vm), len(engine), flags.count('1'), n_inter, len(stars)))
