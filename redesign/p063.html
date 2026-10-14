@@ -1,0 +1,287 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Charts XX & XXI — Annus Mundi in the Passages</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XX / XXI · Plate&nbsp;63</div>
+    <h1>Chronotecture
+      <span class="sub">The 583&nbsp;BC Junction &amp; the Annus Mundi Passage Count</span>
+    </h1>
+    <p class="prov">A rebuild of Jason&nbsp;M.&nbsp;Breshears’ hand-drawn plate holding panels&nbsp;XX and XXI, with every date, measurement and annotation preserved verbatim; only the visual language is new. Its structural key: <b>pyramid-inches read as Annus Mundi years</b> — in XXI the measures from the central-axis base (Year One) to the entrance add up to 6000&nbsp;AM.</p>
+  </header>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Panel XX — the 583&nbsp;BC junction</h2>
+      <div class="hint">Upper chambers and passages: a 1390&nbsp;P″ horizontal from the 583&nbsp;BC axis back to the 1298&nbsp;AD point on the passage, and a 1110&nbsp;P″ run from the junction to 1693&nbsp;BC. Hover or tap the numbered markers.</div>
+      <div class="swipe">⟷ swipe to pan</div>
+      <div class="scroller" data-focus=".55"><svg id="xx" class="mid" viewBox="0 0 1000 640" role="img" aria-label="Schematic of panel XX"></svg></div>
+      <div class="legend" id="lgxx"></div>
+    </div>
+    <div class="card">
+      <h2>Panel XXI — the Annus Mundi chronology in the passages</h2>
+      <div class="hint">“From central axis base to pyramid entry is entire length of Annus Mundi chronology.” Read from the Year One at the axis base up the Great Step axis, back along the Grand Gallery and down to the entrance at 6000&nbsp;AM. Hover or tap any measure.</div>
+      <div class="swipe">⟷ swipe to pan</div>
+      <div class="scroller" data-focus=".55"><svg id="xxi" class="mid" viewBox="0 0 1000 640" role="img" aria-label="Schematic of panel XXI"></svg></div>
+    </div>
+    <div class="card">
+      <h2>Year ruler — 1 to 6000 Annus Mundi</h2>
+      <div class="hint">Panel XXI’s five measures laid end to end (1 P″ = 1 year). Their sum is exactly 6000.</div>
+      <div class="swipe">⟷ swipe to pan</div>
+      <div class="scroller"><svg id="ruler" class="mid" viewBox="0 0 1000 170" role="img" aria-label="Annus Mundi year ruler"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked. Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid"><div class="mrow"><span class="eq">583 + 1110 = 1693</span><span class="cap">“583 BC + 1110 P″ is 1693 BC [2202 AM]”.</span></div><div class="mrow"><span class="eq">1693 − 1688 = 5 · 2207 − 2202 = 5</span><span class="cap">Five Draconian years before the sun-darkening of 1688&nbsp;BC [2207&nbsp;AM].</span></div><div class="mrow"><span class="eq">360 × 5 = 1800 = ½ of 3,600</span><span class="cap">“1800 days, or ½ of 3,600”.</span></div><div class="mrow"><span class="eq">3312 AM − 1390 P″ “is 1298”</span><span class="cap">“…the Anno Domini year of return of Seven Comets”.</span><span class="aw">as written — 3312 − 1390 = 1922</span></div><div class="mrow"><span class="eq"><span class="base138">1656</span> + <span class="base138">1656</span> = <span class="base138">3312</span> · 2239 − 1656 = 583</span><span class="cap">“583 BC is 1656 years after 1656 Annus Mundi”.</span></div><div class="mrow"><span class="eq">2359 − 120 = 2239 · 1536 + 120 = <span class="base138">1656</span></span><span class="cap">Noah warned 120 years before the Flood.</span></div><div class="mrow"><span class="eq">6000 − 994 = 5006</span><span class="cap">Entrance (6000&nbsp;AM [2106&nbsp;AD]) to the passage junction, 1112&nbsp;AD [5006&nbsp;AM].</span></div><div class="mrow"><span class="eq">5006 − 1386 = 3620</span><span class="cap">Gallery roof — 275&nbsp;BC [3620&nbsp;AM], Eratosthenes.</span></div><div class="mrow"><span class="eq">3620 − 1624 = 1996</span><span class="cap">Ceiling of Grand Gallery to Great Step axis — 1899&nbsp;BC [1996&nbsp;AM], Babel.</span></div><div class="mrow"><span class="eq"><span class="base138">1656</span> + 340 = 1996</span><span class="cap">Written on the plate as a column sum.</span></div><div class="mrow"><span class="eq"><span class="base138">1656</span> P″ to foot of Great Step</span><span class="cap">1656&nbsp;AM was Great Flood 2239&nbsp;BC; axis base is Year One, 3894&nbsp;BC.</span></div><div class="mrow"><span class="eq">1656 + 340 + 1624 + 1386 + 994 = 6000</span><span class="cap">The five XXI measures together (sum checked here, not written on the plate).</span></div></div><div style="font-size:12.5px;color:var(--muted);line-height:1.6">Panel XXI is internally consistent: every AM label equals the previous one plus the stated P″ length. Panel XX’s 1298 figure is the one value that does not follow from its own subtraction.</div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised), grouped by region.</div><details class="tx"><summary>Show transcription</summary><div class="cols"><div><h3>Panel XX</h3><ul><li>XX</li><li>3312 AM − 1390 P″ is 1298, the Anno Domini year of return of Seven Comets</li><li>1298 AD</li><li>1390 P″ horizontal</li><li>583 BC [3312 AM] Sun Darkened (Herodotus)</li><li>1693 BC [2202 AM] is exactly five Draconian years [360×5] before sun darkening of 1688 BC [2207 AM]; 1800 days, or ½ of 3,600.</li><li>2359 BC [1536 AM] Noah warned that a Flood would destroy the world in 120 years [1656 AM\2239 BC.</li><li>1110 P″</li><li>999 (vertical)</li><li>583 BC (diagonal dashed line)</li><li>583 BC + 1110 P″ is 1693 BC [2202 AM]</li><li>583 BC is 1656 years after 1656 Annus Mundi [2239 BC − 1656 = 583 BC.</li></ul></div><div><h3>Panel XXI</h3><ul><li>XXI</li><li>Breshears ’06</li><li>From central axis base to pyramid entry is entire length of Annus Mundi chronology</li><li>Pyramid Entrance 6000 Annus Mundi [2106 AD]</li><li>994 P″</li><li>1386 P″ horizontal from gallery roof to axis conjunct.</li><li>1112 AD [5006 AM]</li><li>275 BC [3620 AM] Eratosthenes constructing ancient timelines using <u>Annus Mundi</u> system</li><li>1624 P″ horizontal from ceiling of Grand Gallery to Great Step axis</li><li>1899 BC [1996 AM] Babel Cataclysm</li><li>1656 + 340 = 1996 AM</li><li>340 P″</li><li>Great Step Central Axis · ← North · South →</li><li>1656 P″ to foot of Great Step. 1656 AM was Great Flood 2239 BC.</li><li>Year One Annus Mundi 3894 BC</li></ul></div></div><h3>Uncertain readings</h3><ul><li><span class="unc">[?]</span> “999” is written vertically beside a short dashed line; reading is clear, its meaning is not stated.</li><li><span class="unc">[?]</span> “Year One … 3894 BC” — the 4 is clear; other charts use 3895 BC.</li><li><span class="unc">[?]</span> Panel XX’s opening bracket “[2239 BC − 1656” and “[1656 AM\2239 BC.” are left unclosed on the plate.</li></ul></details><div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XX·XXI (plate&nbsp;63). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div></div>
+    </div>
+  </div>
+
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+function yl(v){return v<0?(-v)+' BC':v+' AD';}
+// span bar: x1<x2 in px; offL draws an off-scale arrow at left end
+function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL){g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR){g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  g.appendChild(el('rect',{x:x1-6,y:o.y-24,width:x2-x1+12,height:44,fill:'transparent'}));
+  if(o.lab){const t=tx(g,o.lx,o.y-9,o.lab,{'text-anchor':o.la||'start','font-size':12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});}
+  if(o.lab2){tx(g,o.lx,o.y+17,o.lab2,{'text-anchor':o.la||'start','font-size':11,class:'h',fill:'#8b95ad'});}
+  bind(g,o.tip);p.appendChild(g);return g;}
+
+const C={g:'#ffcf5c',c:'#5cb3f2',o:'#f08a4b',v:'#9c8bf0',t:'#37b6a6',s:'#c9b98f',m:'#8b95ad'};
+function hatch(p,pts,y0,y1,step){const id='h'+Math.random().toString(36).slice(2,7);
+  const cp=el('clipPath',{id});cp.appendChild(el('polygon',{points:pts}));p.appendChild(cp);
+  const g=el('g',{'clip-path':`url(#${id})`});g.appendChild(el('polygon',{points:pts,fill:'#121a2e'}));
+  for(let y=y0;y<y1;y+=step)g.appendChild(el('line',{x1:0,y1:y,x2:1000,y2:y,stroke:'#1f2a44','stroke-width':1}));p.appendChild(g);}
+function band(p,a,b,w,col,op){p.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,'stroke-width':w,'stroke-linecap':'butt',opacity:op||1}));}
+function dash(p,a,b,col){p.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col||'#7b86a4','stroke-width':1.3,'stroke-dasharray':'4 4'}));}
+function arrowHead(p,x,y,ang,col){const s=9;p.appendChild(el('path',{d:`M${x} ${y} L${x-s*Math.cos(ang-0.4)} ${y-s*Math.sin(ang-0.4)} L${x-s*Math.cos(ang+0.4)} ${y-s*Math.sin(ang+0.4)} Z`,fill:col}));}
+function dim(p,a,b,col){p.appendChild(el('line',{x1:a[0],y1:a[1],x2:b[0],y2:b[1],stroke:col,'stroke-width':1.6}));
+  const ang=Math.atan2(b[1]-a[1],b[0]-a[0]);arrowHead(p,b[0],b[1],ang,col);arrowHead(p,a[0],a[1],ang+Math.PI,col);}
+function castle(p,x,y){p.appendChild(el('path',{d:`M${x} ${y} v-26 h10 v8 h8 v-8 h10 v8 h8 v-8 h10 v26 Z`,fill:'#0b0f1a',stroke:C.s,'stroke-width':1.6}));}
+function house(p,x,y){p.appendChild(el('path',{d:`M${x} ${y} v-18 l12 -12 l12 12 v18 Z`,fill:'#0b0f1a',stroke:C.s,'stroke-width':1.6}));}
+const lg=[];
+function spot(p,x,y,n,col,h,lgTxt){const g=el('g',{});g.appendChild(el('circle',{cx:x,cy:y,r:12,fill:'#0b0f1a',stroke:col,'stroke-width':1.8}));
+  tx(g,x,y+4.5,String(n),{fill:col,'font-size':12,'text-anchor':'middle',class:'mono','font-weight':500});p.appendChild(g);bind(g,h);
+  if(lgTxt)lg.push([n,lgTxt,h]);return g;}
+function L(p,x,y,s,o){return tx(p,x,y,s,Object.assign({class:'h','font-size':12.5},o||{}));}
+
+/* ---------- Panel XX ---------- */
+(function(){const s=document.getElementById('xx');
+  hatch(s,'30,30 560,30 880,430 30,430',34,430,7);
+  s.appendChild(el('line',{x1:560,y1:30,x2:880,y2:430,stroke:'#3a486a','stroke-width':1.5}));
+  // brick zone
+  const bz=el('g',{});bz.appendChild(el('rect',{x:30,y:430,width:940,height:190,fill:'#151d31'}));
+  for(let r=0;r<8;r++){const y=430+r*24;bz.appendChild(el('line',{x1:200,y1:y,x2:970,y2:y,stroke:'#26324f'}));
+    for(let x=200+(r%2)*30;x<970;x+=60)bz.appendChild(el('line',{x1:x,y1:y,x2:x,y2:y+24,stroke:'#26324f'}));}
+  bz.appendChild(el('polygon',{points:'30,430 360,430 200,620 30,620',fill:'#070a12'}));s.appendChild(bz);
+  s.appendChild(el('path',{d:'M70 450 h80 v14 h-30 v60 h-20 v-60 h-30 Z',fill:'#1b2438',stroke:C.s,'stroke-width':1.2}));
+  castle(s,70,120);house(s,82,262);
+  s.appendChild(el('line',{x1:106,y1:257,x2:380,y2:257,stroke:C.s,'stroke-width':2}));
+  // passage from king's chamber down to junction J
+  const J=[640,430];band(s,[150,108],J,16,'#d8dfee',.9);
+  const P1=[430,108+(430-150)*(322/490)];
+  // 1390 dimension
+  dash(s,[430,140],P1);dash(s,[640,140],[640,600]);
+  dim(s,[436,150],[634,150],C.c);L(s,535,140,'1390 P″ HORIZONTAL',{fill:C.c,'text-anchor':'middle',class:'mono h','font-size':11.5});
+  s.appendChild(el('circle',{cx:P1[0],cy:P1[1],r:6,fill:C.g}));
+  L(s,424,134,'1298 AD',{fill:C.g,'text-anchor':'end'});
+  // 583 BC axis label
+  L(s,652,206,'583 BC [3312 AM]',{fill:C.g,'font-weight':600});L(s,652,222,'Sun Darkened (Herodotus)',{fill:C.m,'font-size':11.5});
+  // 1110 & 999
+  const K=[800,330];band(s,J,K,6,C.o);L(s,705,372,'1110 P″',{fill:C.o,'font-weight':600,transform:'rotate(-32 705 372)'});
+  dash(s,K,[800,430],C.v);L(s,812,392,'999',{fill:C.v,class:'mono h','font-size':12});
+  // lower Y
+  const Y=[720,555];dash(s,J,Y,C.g);L(s,690,488,'583 BC',{fill:C.g,'font-size':11.5,transform:'rotate(48 690 488)'});
+  band(s,[380,455],Y,18,'#d8dfee',.85);band(s,[470,620],Y,18,'#d8dfee',.85);band(s,Y,[940,445],18,'#d8dfee',.85);
+  
+  L(s,700,606,'583 BC + 1110 P″ is 1693 BC [2202 AM]',{fill:C.t,'font-weight':600});
+  s.appendChild(el('circle',{cx:J[0],cy:J[1],r:6,fill:C.g}));
+  // header boxes
+  L(s,600,58,'1693 BC [2202 AM] is exactly five Draconian years',{fill:'#dfe6f5','font-size':12});L(s,600,74,'[360×5] before sun darkening of 1688 BC [2207 AM]',{fill:'#8b95ad','font-size':11.5});
+  L(s,880,300,'2359 BC [1536 AM]',{fill:C.v,'text-anchor':'middle'});L(s,880,316,'Noah warned · 120 years',{fill:C.m,'text-anchor':'middle','font-size':11.5});
+  s.appendChild(el('path',{d:'M860 324 L808 425',stroke:C.v,fill:'none','stroke-width':1.2}));arrowHead(s,808,425,Math.atan2(101,-52),C.v);
+  L(s,230,598,'583 BC is 1656 years after 1656 AM',{fill:'#dfe6f5','font-size':12});
+  tx(s,44,606,'XX',{fill:C.s,'font-size':26,'text-anchor':'end','font-family':'Cormorant Garamond','font-weight':700});
+  // hotspots
+  spot(s,P1[0]-30,P1[1]+26,1,C.g,T('1298 AD','#ffcf5c','3312 AM − 1390 P″ is 1298','“…the Anno Domini year of return of Seven Comets.” <i>(as written; 3312 − 1390 = 1922)</i>'),'3312 AM − 1390 P″ is 1298, the Anno Domini year of return of Seven Comets');
+  spot(s,535,176,2,C.c,T('1390 P″ horizontal','#5cb3f2','1298 AD ↔ 583 BC axis','Horizontal distance from the 1298 AD point on the passage to the 583 BC [3312 AM] vertical.'),'1390 P″ horizontal');
+  spot(s,628,250,3,C.g,T('583 BC [3312 AM]','#ffcf5c','Sun Darkened','(Herodotus) — the vertical axis through the junction.'),'583 BC [3312 AM] Sun Darkened (Herodotus)');
+  spot(s,745,328,4,C.o,T('1110 P″','#f08a4b','583 BC + 1110 → 1693 BC','The run from the junction up to the dashed 999 line.'),'1110 P″');
+  spot(s,772,398,5,C.v,T('999','#9c8bf0','vertical measure','Written vertically beside a short dashed drop; no further explanation on the plate.'),'999');
+  spot(s,575,90,6,'#dfe6f5',T('Five Draconian years','#dfe6f5','1693 BC [2202 AM] → 1688 BC [2207 AM]','1693 BC [2202 AM] is exactly five Draconian years [360×5] before sun darkening of 1688 BC [2207 AM]; 1800 days, or ½ of 3,600.'),'1693 BC [2202 AM] is exactly five Draconian years [360×5] before sun darkening of 1688 BC [2207 AM]; 1800 days, or ½ of 3,600');
+  spot(s,880,268,7,C.v,T('2359 BC [1536 AM]','#9c8bf0','Noah warned','Noah warned that a Flood would destroy the world in 120 years [1656 AM\\2239 BC.'),'2359 BC [1536 AM] Noah warned that a Flood would destroy the world in 120 years [1656 AM\\2239 BC.');
+  spot(s,672,520,8,C.g,T('583 BC','#ffcf5c','dashed diagonal','From the junction down to the lower passage fork.'),'583 BC (dashed diagonal)');
+  spot(s,960,505,9,C.t,T('1693 BC [2202 AM]','#37b6a6','583 BC + 1110 P″','The broad ascending passage, arrowed upward.'),'583 BC + 1110 P″ is 1693 BC [2202 AM]');
+  spot(s,205,594,10,'#dfe6f5',T('1656 + 1656','#dfe6f5','2239 BC − 1656 = 583 BC','583 BC is 1656 years after 1656 Annus Mundi [2239 BC − 1656 = 583 BC.'),'583 BC is 1656 years after 1656 Annus Mundi [2239 BC − 1656 = 583 BC.');
+  const box=document.getElementById('lgxx');lg.forEach(([n,t,h])=>{const d=document.createElement('div');d.innerHTML=`<b>${n}</b><span>${t}</span>`;d.onclick=e=>{e.stopPropagation();showTip(h,e);};box.appendChild(d);});
+})();
+
+/* ---------- Panel XXI ---------- */
+(function(){const s=document.getElementById('xxi');
+  hatch(s,'60,600 520,40 1000,40 1000,600',44,600,7);
+  s.appendChild(el('line',{x1:60,y1:600,x2:520,y2:40,stroke:'#3a486a','stroke-width':1.5}));
+  s.appendChild(el('rect',{x:0,y:600,width:1000,height:40,fill:'#070a12'}));
+  const E=[306,300],J=[486,390],Gs=[640,313],G=[860,203],F=[860,250],AXB=[860,600];
+  band(s,E,[760,527],10,'#d8dfee',.85);band(s,J,Gs,10,'#d8dfee',.85);band(s,Gs,G,24,'#d8dfee',.8);
+  s.appendChild(el('path',{d:`M${G[0]-4} ${G[1]+14} h-14 v12 h-14`,fill:'none',stroke:C.g,'stroke-width':2.4}));
+  // axis
+  s.appendChild(el('line',{x1:860,y1:70,x2:860,y2:600,stroke:'#7b86a4','stroke-width':1.3,'stroke-dasharray':'5 4'}));
+  L(s,850,62,'GREAT · CENTRAL',{fill:C.m,'text-anchor':'end',class:'mono h','font-size':10.5});L(s,870,62,'STEP · AXIS',{fill:C.m,class:'mono h','font-size':10.5});
+  L(s,850,78,'← NORTH',{fill:C.m,'text-anchor':'end',class:'mono h','font-size':10.5});L(s,870,78,'SOUTH →',{fill:C.m,class:'mono h','font-size':10.5});
+  // chambers
+  const kc=el('g',{});kc.appendChild(el('path',{d:'M905 150 l24 -20 l24 20 Z',fill:'#0b0f1a',stroke:C.s,'stroke-width':1.5}));
+  for(let i=0;i<4;i++)kc.appendChild(el('rect',{x:910,y:152+i*16,width:38,height:14,rx:4,fill:'#0b0f1a',stroke:C.s,'stroke-width':1.3}));
+  kc.appendChild(el('rect',{x:910,y:216,width:38,height:34,fill:'#0b0f1a',stroke:C.s,'stroke-width':1.3}));s.appendChild(kc);
+  house(s,935,330);s.appendChild(el('line',{x1:878,y1:326,x2:935,y2:326,stroke:C.s,'stroke-width':2}));
+  // measures
+  function meas(a,b,col,lab,ly,h,anchor){const g=el('g',{});dim(g,a,b,col);
+    tx(g,(a[0]+b[0])/2+(anchor==='v'?12:0),ly,lab,{fill:col,'text-anchor':anchor==='v'?'start':'middle',class:'mono h','font-size':12.5,'font-weight':500});
+    g.appendChild(el('rect',{x:Math.min(a[0],b[0])-8,y:Math.min(a[1],b[1])-18,width:Math.abs(b[0]-a[0])+16+(anchor==='v'?90:0),height:Math.abs(b[1]-a[1])+30,fill:'transparent'}));
+    s.appendChild(g);bind(g,h);}
+  dash(s,E,[306,262]);dash(s,J,[486,262]);dash(s,Gs,[640,130]);
+  meas([312,262],[480,262],C.c,'994 P″',252,T('994 P″','#5cb3f2','6000 AM → 5006 AM','From the pyramid entrance (6000 Annus Mundi [2106 AD]) to the passage junction, 1112 AD [5006 AM].'));
+  meas([492,262],[634,262],C.v,'1386 P″',252,T('1386 P″ horizontal','#9c8bf0','5006 AM → 3620 AM','“1386 P″ horizontal from gallery roof to axis conjunct.”'));
+  meas([646,130],[854,130],C.o,'1624 P″',120,T('1624 P″ horizontal','#f08a4b','3620 AM → 1996 AM','“1624 P″ horizontal from ceiling of Grand Gallery to Great Step axis.”'));
+  meas([840,G[1]],[840,F[1]],C.g,'340 P″',236,T('340 P″','#ffcf5c','1656 + 340 = 1996 AM','Height of the Great Step on the central axis.'),'v');
+  const g16=el('g',{});dim(g16,[848,F[1]+4],[848,596],C.t);tx(g16,836,430,'1656 P″',{fill:C.t,'text-anchor':'end',class:'mono h','font-size':12.5,'font-weight':500});
+  g16.appendChild(el('rect',{x:760,y:F[1],width:100,height:350,fill:'transparent'}));s.appendChild(g16);
+  bind(g16,T('1656 P″ to foot of Great Step','#37b6a6','Year One → 1656 AM','1656 AM was Great Flood 2239 BC.'));
+  // nodes
+  function node(p,col,l1,l2,dx,dy,anc,h){const g=el('g',{});g.appendChild(el('circle',{cx:p[0],cy:p[1],r:6.5,fill:col,stroke:'#0b0f1a','stroke-width':1.5}));
+    L(g,p[0]+dx,p[1]+dy,l1,{fill:col,'text-anchor':anc,'font-weight':600});if(l2)L(g,p[0]+dx,p[1]+dy+15,l2,{fill:C.m,'text-anchor':anc,'font-size':11.5});s.appendChild(g);bind(g,h);}
+  node(E,C.g,'Pyramid Entrance','6000 Annus Mundi [2106 AD]',-16,-4,'end',T('Pyramid Entrance','#ffcf5c','6000 Annus Mundi [2106 AD]','The top of the count.'));
+  node(J,C.c,'1112 AD [5006 AM]','',-14,22,'end',T('1112 AD [5006 AM]','#5cb3f2','6000 − 994','The junction of descending and ascending passages.'));
+  node(Gs,C.v,'275 BC [3620 AM]','Eratosthenes · Annus Mundi system',6,34,'start',T('275 BC [3620 AM]','#9c8bf0','5006 − 1386','Eratosthenes constructing ancient timelines using Annus Mundi system.'));
+  node(G,C.o,'1899 BC [1996 AM]','Babel Cataclysm',-14,-34,'end',T('1899 BC [1996 AM] Babel Cataclysm','#f08a4b','1656 + 340 = 1996 AM','The top of the Great Step on the central axis.'));
+  node(F,C.t,'','',0,0,'start',T('Foot of Great Step','#37b6a6','1656 AM','1656 AM was Great Flood 2239 BC.'));
+  node(AXB,C.g,'Year One Annus Mundi','3894 BC',-22,-24,'end',T('Year One Annus Mundi','#ffcf5c','3894 BC','The central axis base — start of the count.'));
+  L(s,870,490,'1656 AM was',{fill:C.m,'font-size':11.5});L(s,870,505,'Great Flood 2239 BC',{fill:C.m,'font-size':11.5});
+  tx(s,40,70,'XXI',{fill:C.s,'font-size':26,'font-family':'Cormorant Garamond','font-weight':700});
+})();
+
+/* ---------- Ruler ---------- */
+(function(){const s=document.getElementById('ruler');const X=v=>40+v/6000*920;
+  const seg=[[0,1656,'#37b6a6','1656 P″','Year One → foot of Great Step (1656 AM, Flood 2239 BC)'],[1656,1996,'#ffcf5c','340','Great Step (1996 AM, Babel 1899 BC)'],
+    [1996,3620,'#f08a4b','1624 P″','Gallery ceiling → Great Step axis (3620 AM, 275 BC)'],[3620,5006,'#9c8bf0','1386 P″','Gallery roof → axis conjunct (5006 AM, 1112 AD)'],[5006,6000,'#5cb3f2','994 P″','Junction → entrance (6000 AM, 2106 AD)']];
+  seg.forEach(([a,b,c,l,d])=>{const g=el('g',{});g.appendChild(el('rect',{x:X(a)+1,y:60,width:X(b)-X(a)-2,height:26,rx:4,fill:c,opacity:.85}));
+    tx(g,(X(a)+X(b))/2,78,l,{fill:'#0b0f1a','font-size':12,'text-anchor':'middle',class:'mono','font-weight':500});s.appendChild(g);bind(g,T(l,c,`${a||1} AM → ${b} AM`,d));});
+  [[0,'1 AM','3894 BC'],[1656,'1656','2239 BC'],[1996,'1996','1899 BC'],[3620,'3620','275 BC'],[5006,'5006','1112 AD'],[6000,'6000','2106 AD']].forEach(([v,a,b],i)=>{
+    const x=X(v);s.appendChild(el('line',{x1:x,y1:52,x2:x,y2:96,stroke:'#dfe6f5'}));
+    tx(s,x,44,a,{fill:'#dfe6f5','font-size':12,'text-anchor':i===0?'start':i===5?'end':'middle',class:'mono'});
+    tx(s,x,114,b,{fill:'#8b95ad','font-size':11,'text-anchor':i===0?'start':i===5?'end':'middle',class:'mono'});});
+  tx(s,500,150,'1656 + 340 + 1624 + 1386 + 994 = 6000',{fill:'#ffcf5c','font-size':13,'text-anchor':'middle',class:'mono'});
+})();
+
+</script>
+</body>
+</html>

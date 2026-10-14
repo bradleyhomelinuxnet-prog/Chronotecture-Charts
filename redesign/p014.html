@@ -1,0 +1,319 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart I·b — The Passage Conjunct Axis</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f; --anchor:#ffcf5c; --gold:#e7c355;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px;padding-right:90px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;color:var(--muted);text-transform:uppercase;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--gold);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  .split{display:grid;grid-template-columns:1.45fr .55fr;gap:22px}
+  @media(max-width:980px){.bottom,.split{grid-template-columns:1fr}}
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg .halo{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  svg .hot{cursor:pointer}
+  svg .hot:hover{filter:brightness(1.25)}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:640px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a95;font-style:italic;font-family:'JetBrains Mono',monospace}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+
+  .scroll{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.1em;margin:2px 0 6px}
+  @media(max-width:700px){.scroll svg{min-width:920px}.swipe{display:block}}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--muted);text-transform:uppercase;padding:6px 0}
+  details.tx summary:hover{color:var(--ink)}
+  .txg{margin:10px 0 14px}
+  .txg h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.22em;color:var(--gold);text-transform:uppercase;font-weight:500;margin:0 0 6px}
+  .txg ul{margin:0;padding-left:18px;color:#cdd5e6;font-size:13px;line-height:1.6}
+  .txg li{margin:2px 0}
+  .txg .unc{color:#f08a4b}
+  .legend{list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:8px}
+  .legend li{display:flex;gap:10px;align-items:flex-start;padding:8px 10px;border:1px solid var(--line);border-radius:10px;background:#0e1526;cursor:pointer;font-size:12.5px;line-height:1.45;color:#cdd5e6}
+  .legend li:hover,.legend li.on{border-color:var(--line2);background:#121b30}
+  .legend .n{flex:0 0 22px;height:22px;border-radius:50%;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:11px;font-weight:600;color:#0b0f1a}
+  .legend b{color:var(--ink);font-weight:600}
+  @media(max-width:600px){
+    .wrap{padding:22px 16px 60px}
+    header.masthead{padding-right:0;padding-top:30px}
+    .card{padding:14px 12px 12px}
+    .card h2{font-size:20px}
+  }
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;I·b · Plate&nbsp;14</div>
+    <h1>Chronotecture
+      <span class="sub">The Passage Conjunct Axis — span-bars from 1460&nbsp;BC</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn chart&nbsp;I·b (2007), with every date, span, formula and annotation preserved verbatim; only the visual language is new. Its structural key: <b>every upper span-bar leaves the Passage Conjunct Axis at 1460&nbsp;BC [2435&nbsp;AM]</b> and lands on a dated event, ending with 3361 pyramid inches to the Great Step of 1902&nbsp;AD, while the lower field counts 365-year (Enoch) cycles.</p>
+  </header>
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+
+    <div class="card">
+      <h2>Span-bars from the Passage Conjunct Axis, 1460&nbsp;BC</h2>
+      <div class="hint">Upper field: five bars leave the axis and land on dated events. Lower field: the 365-year (Enoch) counts and the 3894-year span from Enoch's birth. Hover or tap any bar or marker. <span class="anchor-key"><i></i>AXIS 1460 BC [2435 AM]</span></div>
+      <div class="swipe">← swipe to scroll the chart →</div><div class="scroll"><svg id="tl" viewBox="0 0 1400 760" role="img" aria-label="Span-bar timeline anchored to 1460 BC"></svg></div>
+    </div>
+    <div class="card">
+      <h2>Cycle mathematics</h2>
+      <div class="hint">The arithmetic written on the plate, checked. Spans are counted BC→AD without a year zero, as Breshears does.</div>
+<div class="mathgrid">
+<div class="mrow"><span class="eq">1400 = 700×2 = 40×35</span><span class="cap">1460&nbsp;BC → 60&nbsp;BC (Diodorus)</span></div>
+<div class="mrow"><span class="eq">2100 = 700×3 = 60×35</span><span class="cap">1460&nbsp;BC → 641&nbsp;AD [4535&nbsp;AM]</span></div>
+<div class="mrow"><span class="eq">2815</span><span class="cap">1460&nbsp;BC → 1356&nbsp;AD; the same number as the BC date of the Great Pyramid's completion</span></div>
+<div class="mrow"><span class="eq">3300 = 660×5</span><span class="cap">1460&nbsp;BC → 1840&nbsp;AD [5734&nbsp;AM]</span><span class="aw">as written — 1460 BC→1840 AD counts 3299 without a year zero</span></div>
+<div class="mrow"><span class="eq">3361 P″ = 3361 years</span><span class="cap">1460&nbsp;BC → 1902&nbsp;AD [5796&nbsp;AM], the Great Step</span></div>
+<div class="mrow"><span class="eq">2905 − 1460 = 1445 = 144.5 decans</span><span class="cap">Construction began 2905&nbsp;BC [990&nbsp;AM] → axis</span></div>
+<div class="mrow"><span class="eq">1825 = 365×5 · 1460 = 365×4</span><span class="cap">365 yrs from Abraham (1825&nbsp;BC) to the axis</span></div>
+<div class="mrow"><span class="eq">1095 = 365×3</span><span class="cap">365&nbsp;AD → 1460&nbsp;AD (1460 AD is 365×4 Anno Domini)</span></div>
+<div class="mrow"><span class="eq">2488 AM = 622×4</span><span class="cap">Conquest of Canaan, 1407&nbsp;BC</span></div>
+<div class="mrow"><span class="eq">4516 − 622 = 3894</span><span class="cap">622&nbsp;AM [3273&nbsp;BC] → 622&nbsp;AD [4516&nbsp;AM]; 3894&nbsp;AM is 2–1&nbsp;BC</span></div>
+<div class="mrow"><span class="eq">1460 − 1447 = 13</span><span class="cap">13 yrs to Exodus and 10 plagues, 1447&nbsp;BC [2448&nbsp;AM]</span></div>
+<div class="mrow"><span class="eq">2905 − 2815 = 90</span><span class="cap">90 yrs. to completion of the Great Pyramid</span></div>
+</div><details class="tx"><summary>Full transcription — every annotation, verbatim</summary>
+<div class="txg"><h3>Frame</h3><ul>
+<li>Chart label: I.b</li>
+<li>Signature: Breshears '07</li>
+<li>Left column (vertical): "Edenic History" · "Preadamic and"</li>
+<li>"Antediluvian World"</li>
+<li>Vertical line: "2239 BC [1656 AM] Great Flood"</li>
+<li>Centre: "Passage Conjunct Axis" — arrow to "1460 BC [2435 AM]"</li>
+</ul></div>
+<div class="txg"><h3>Upper span-bars (from 1460 BC)</h3><ul>
+<li>"1400 [700x2\40x35] To 60 BC" — "60 BC [3835 AM] Diodorus studied Great Pyramid's casing blocks"</li>
+<li>"2100 [700x3] or 60x35 To 641 AD [4535 AM]" — "Muslims sack and burn Alexandria and Library, Egypt 641 AD"</li>
+<li>"2815 [BC date of Great Pyramid completion] To 1356 AD" — "Muslims strip off Great Pyramid casing blocks"</li>
+<li>"3300 [660x5] To 1840 AD [5734 AM]" — "Sir Henry Rawlinson translated Assyrian cuneiform"</li>
+<li>"3361 Pyramid Inches [Years] To 1902 AD [5796 AM]" — "1902 AD Great Step"</li>
+<li>"13 yrs to Exodus and 10 plagues of Egypt 1447 BC [2448 AM]" (arrow to a short mark just after the axis)</li>
+<li>"Final of 144,000 casing blocks placed on monument" — pyramid drawing at "2815 BC", dashed arrow to the 2815 bar</li>
+</ul></div>
+<div class="txg"><h3>Lower field</h3><ul>
+<li>"2905 BC → 144.5 Decans" (bar to the axis)</li>
+<li>"2905 BC [990 AM] Great Pyramid construction began 90 yrs. to completion"</li>
+<li>"365 yrs." (bar) · arrow "365x5 BC" · "1460 BC ← 365x4 BC"</li>
+<li>"1825 BC [2070 AM] Abraham translating Giza texts at Egypt"</li>
+<li>"1407 BC [2488 AM] Conquest of Canaan [2488 AM is 622x4]"</li>
+<li>"Enoch born → 622 AM [3273 BC]"</li>
+<li>"622 AM [3273 BC] ←— 3894 yrs —→ 622 AD [4516 AM]" · "3894 AM is 2-1 BC [Birth of Christ]"</li>
+<li>"365 AD [4259 AM] Major quake and tsunami destroy Alexandria, Egypt"</li>
+<li>"1460 AD is 365x4 Anno Domini Corpus Hermeticum [Fragments of Enoch] rediscovered"</li>
+<li>"1095 years 365 x 3" (between 365 AD and 1460 AD)</li>
+<li>"622 AD [4516 AM] Islamic Hijrah calendar begun"</li>
+</ul></div>
+<div class="txg"><h3>Reading notes</h3><ul><li class=unc>"700x2\40x35": the separator between the two products is a back-slash-like stroke; read as an alternative ("or").</li></ul></div>
+</details>
+    </div>
+
+  </div>
+  <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;I·b (plate&nbsp;14). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function txt(parent,x,y,s,a){a=a||{};const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},a),parent);
+  const lines=Array.isArray(s)?s:[s];const lh=a.lh||(+(a['font-size']||12)*1.25);
+  if(lines.length===1){t.textContent=lines[0];}else{lines.forEach((ln,i)=>{const sp=el('tspan',{x,dy:i?lh:0},t);sp.textContent=ln;});}
+  if(a.lh)t.removeAttribute('lh');return t;}
+const tip=document.getElementById('tip');let pinned=null;
+function place(e){const w=tip.offsetWidth||290,h=tip.offsetHeight||120;let x=e.clientX+16,y=e.clientY+14;
+  if(x+w>innerWidth-8)x=Math.max(8,e.clientX-w-12);if(y+h>innerHeight-8)y=Math.max(8,e.clientY-h-12);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function showTip(html,e){tip.innerHTML=html;tip.style.opacity=1;place(e);}
+function hideTip(){tip.style.opacity=0;}
+function tipHTML(col,h,yr,b){return `<div class="t-h"><span class="d" style="background:${col}"></span>${h}</div>`+(yr?`<div class="t-yr">${yr}</div>`:'')+(b?`<div class="t-b">${b}</div>`:'');}
+function bind(node,html){node.classList.add('hot');
+  node.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e);});
+  node.addEventListener('mouseleave',()=>{if(!pinned)hideTip();});
+  node.addEventListener('click',e=>{e.stopPropagation();if(pinned===node){pinned=null;hideTip();return;}pinned=node;showTip(html,e);});}
+document.addEventListener('click',()=>{if(pinned){pinned=null;hideTip();}});
+addEventListener('scroll',()=>{if(pinned){pinned=null;hideTip();}},{passive:true});
+function makeChips(CAT){const bar=document.getElementById('filters');if(!bar)return;const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(active.has(k)){active.delete(k);c.classList.add('off');}else{active.add(k);c.classList.remove('off');}
+      document.querySelectorAll('[data-cat]').forEach(g=>{g.style.display=active.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);});}
+function centuryBand(svg,X,y0,y1,from,to,step,x0,x1,lblStep,lblY){
+  el('rect',{x:x0,y:y0,width:x1-x0,height:y1-y0,fill:'#0f1729',stroke:'#3a486a','stroke-width':1.2},svg);
+  for(let v=Math.ceil(from/step)*step;v<=to;v+=step){const xx=X(v);if(xx<x0||xx>x1)continue;el('line',{x1:xx,y1:y0,x2:xx,y2:y1,stroke:'#2a3654','stroke-width':1},svg);}
+  for(let v=Math.ceil(from/lblStep)*lblStep;v<=to;v+=lblStep){const xx=X(v);if(xx<x0+10||xx>x1-10)continue;
+    txt(svg,xx,lblY,v<0?Math.abs(v)+' BC':(v===0?'0':v+' AD'),{fill:'#5d6885','font-size':10.5,'text-anchor':'middle','font-family':'JetBrains Mono'});}
+}
+
+
+const CAT={
+  axis :{c:'#ffcf5c',label:'Great Step / pyramid'},
+  destr:{c:'#f08a4b',label:'Destruction & quake'},
+  text :{c:'#9c8bf0',label:'Texts & translation'},
+  enoch:{c:'#5cb3f2',label:'365-year (Enoch) counts'},
+  bible:{c:'#37b6a6',label:'Biblical & calendar epochs'}
+};
+makeChips(CAT);
+const YMIN=-3420,YMAX=2010,PL=62,PR=1340;
+const X=y=>PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);
+const svg=document.getElementById('tl');
+const AX=X(-1460), AXY=340;
+
+// regions
+el('rect',{x:PL,y:30,width:X(-2239)-PL,height:690,fill:'#0e1626',opacity:.55},svg);
+txt(svg,PL+10,74,'ANTEDILUVIAN WORLD',{fill:'#5d6885','font-size':11,'font-family':'JetBrains Mono','letter-spacing':'.18em'});
+const vt=txt(svg,30,380,'PREADAMIC AND EDENIC HISTORY',{fill:'#5d6885','font-size':11,'font-family':'JetBrains Mono','letter-spacing':'.2em','text-anchor':'middle',transform:'rotate(-90 30 380)'});
+// flood line
+const fl=el('g',{'data-cat':'bible'},svg);
+el('line',{x1:X(-2239),y1:30,x2:X(-2239),y2:720,stroke:'#37b6a6','stroke-width':2.4,opacity:.8},fl);
+txt(fl,X(-2239)-7,52,'2239 BC [1656 AM] GREAT FLOOD',{fill:'#37b6a6','font-size':11,'font-family':'JetBrains Mono','text-anchor':'end'});
+bind(fl,tipHTML('#37b6a6','Great Flood','2239 BC [1656 AM]','Divides the Antediluvian World from the rest of the chart.'));
+
+// century band
+centuryBand(svg,X,AXY,AXY+16,-3400,2000,100,PL,PR,500,AXY+34);
+// BC/AD
+el('line',{x1:X(0),y1:30,x2:X(0),y2:AXY+40,stroke:'#56628f','stroke-width':1.2,'stroke-dasharray':'4 5'},svg);
+txt(svg,X(0)-6,48,'BC',{fill:'#7b86a4','font-size':11,'text-anchor':'end','font-family':'JetBrains Mono'});
+txt(svg,X(0)+6,48,'AD',{fill:'#7b86a4','font-size':11,'font-family':'JetBrains Mono'});
+
+// anchor
+el('line',{x1:AX,y1:66,x2:AX,y2:470,stroke:'#ffcf5c','stroke-width':2.2,opacity:.95},svg);
+txt(svg,AX,30,'▼ PASSAGE CONJUNCT AXIS',{fill:'#ffcf5c','font-size':11.5,'text-anchor':'middle','font-family':'JetBrains Mono','letter-spacing':'.12em'});
+txt(svg,AX,46,'1460 BC [2435 AM]',{fill:'#ffcf5c','font-size':11.5,'text-anchor':'middle','font-family':'JetBrains Mono'});
+// exodus tick
+const ex=el('g',{'data-cat':'bible'},svg);
+el('rect',{x:X(-1460),y:66,width:Math.max(3,X(-1447)-X(-1460)),height:12,fill:'#37b6a6'},ex);
+txt(ex,AX+10,76,'13 yrs → Exodus · 1447 BC [2448 AM]',{fill:'#8fd8cd','font-size':11.5,'class':'halo'});
+bind(ex,tipHTML('#37b6a6','13 yrs to Exodus','1460 BC → 1447 BC [2448 AM]','"13 yrs to Exodus and 10 plagues of Egypt 1447 BC [2448 AM]".'));
+
+const BARS=[
+ {span:'1400',form:'[700×2 \\ 40×35]',end:-60,endL:'60 BC',cat:'axis',ev:'60 BC [3835 AM] Diodorus studied Great Pyramid\'s casing blocks'},
+ {span:'2100',form:'[700×3] or 60×35',end:641,endL:'641 AD [4535 AM]',cat:'destr',ev:'Muslims sack and burn Alexandria and Library, Egypt 641 AD'},
+ {span:'2815',form:'[BC date of Great Pyramid completion]',end:1356,endL:'1356 AD',cat:'destr',ev:'Muslims strip off Great Pyramid casing blocks'},
+ {span:'3300',form:'[660×5]',end:1840,endL:'1840 AD [5734 AM]',cat:'text',ev:'Sir Henry Rawlinson translated Assyrian cuneiform'},
+ {span:'3361',form:'Pyramid Inches [Years]',end:1902,endL:'1902 AD [5796 AM]',cat:'axis',ev:'1902 AD Great Step'}
+];
+BARS.forEach((b,i)=>{
+  const y=104+i*44, col=CAT[b.cat].c, xe=X(b.end);
+  const g=el('g',{'data-cat':b.cat},svg);
+  el('line',{x1:AX,y1:y,x2:xe,y2:y,stroke:col,'stroke-width':9,'stroke-linecap':'round',opacity:.9},g);
+  el('circle',{cx:AX,cy:y,r:4.5,fill:'#ffcf5c'},g);
+  el('circle',{cx:xe,cy:y,r:5.5,fill:col,stroke:'#0b0f1a','stroke-width':1.5},g);
+  el('line',{x1:xe,y1:y,x2:xe,y2:AXY,stroke:col,'stroke-width':1,'stroke-dasharray':'2 4',opacity:.5},g);
+  txt(g,AX-14,y-2,`${b.span} ${b.form} → ${b.endL}`,{'text-anchor':'end','font-size':12.5,'font-weight':600,'class':'halo'});
+  txt(g,AX-14,y+13,b.ev.length>62?b.ev.slice(0,60)+'…':b.ev,{'text-anchor':'end','font-size':11,fill:'#8b95ad','class':'halo'});
+  bind(g,tipHTML(col,`${b.span} &nbsp;<span class="mono" style="color:#8b95ad">${b.form}</span>`,`1460 BC → ${b.endL}`,b.ev));
+});
+// pyramid at 2815 BC with dashed arrow to the 2815 bar
+(function(){const g=el('g',{'data-cat':'axis'},svg);const px=X(-2815),py=AXY-8;
+  el('path',{d:`M${px-20} ${py} L${px} ${py-26} L${px+20} ${py} Z`,fill:'#3b3420',stroke:'#ffcf5c','stroke-width':1.4},g);
+  el('path',{d:`M${px} ${py-26} L${px+20} ${py} L${px+4} ${py} Z`,fill:'#ffcf5c',opacity:.35},g);
+  el('path',{d:`M${px+24} ${py-12} L${AX-4} ${py-12}`,fill:'none',stroke:'#ffcf5c','stroke-width':1.2,'stroke-dasharray':'4 4',opacity:.75},g);
+  el('path',{d:`M${AX-12} ${py-17} L${AX-3} ${py-12} L${AX-12} ${py-7}`,fill:'none',stroke:'#ffcf5c','stroke-width':1.4},g);
+  txt(g,AX-130,py-17,'→ 2815 [BC date…] bar',{'font-size':10,fill:'#cdbf8a','font-family':'JetBrains Mono','class':'halo'});
+  txt(g,px-26,py-20,['Final of 144,000 casing','blocks placed on','monument · 2815 BC'],{'font-size':10.5,fill:'#cdbf8a','text-anchor':'end','class':'halo'});
+  bind(g,tipHTML('#ffcf5c','Final of 144,000 casing blocks placed on monument','2815 BC','Dashed arrow carries the date 2815 to the third span-bar: "2815 [BC date of Great Pyramid completion] To 1356 AD".'));
+})();
+
+// ---- lower field ----
+function lbar(x1,x2,y,col,cat,label,html,inside){const g=el('g',{'data-cat':cat},svg);
+  el('line',{x1,y1:y,x2,y2:y,stroke:col,'stroke-width':9,'stroke-linecap':'round',opacity:.85},g);
+  el('circle',{cx:x1,cy:y,r:4,fill:col},g);el('circle',{cx:x2,cy:y,r:4,fill:'#ffcf5c'},g);
+  txt(g,x1+(inside||0),y-9,label,{'font-size':12,'font-weight':600,'class':'halo'});
+  bind(g,html);return g;}
+lbar(X(-2905),AX,398,'#ffcf5c','axis','2905 BC → 144.5 Decans',tipHTML('#ffcf5c','2905 BC → 144.5 Decans','2905 BC [990 AM] → 1460 BC','1445 years = 144.5 decades: from the start of Great Pyramid construction to the Passage Conjunct Axis.'));
+lbar(X(-1825),AX,440,'#5cb3f2','enoch','365 yrs.',tipHTML('#5cb3f2','365 yrs.','1825 BC (365×5 BC) → 1460 BC (365×4 BC)','Abraham translating Giza texts at Egypt, 365 years before the axis.'));
+txt(svg,AX+12,444,'◄ 365×5 BC',{'font-size':11,fill:'#5cb3f2','font-family':'JetBrains Mono','data-cat':'enoch'});
+txt(svg,AX+12,462,'◄ 1460 BC is 365×4 BC',{'font-size':11,fill:'#5cb3f2','font-family':'JetBrains Mono','data-cat':'enoch'});
+
+function ev(o){const g=el('g',{'data-cat':o.cat},svg);const col=CAT[o.cat].c,xx=X(o.y);
+  el('line',{x1:xx,y1:AXY+16,x2:xx,y2:o.ly-14,stroke:col,'stroke-width':1,'stroke-dasharray':o.dash?'3 4':'',opacity:.6},g);
+  el('rect',{x:xx-4.5,y:AXY+3,width:9,height:9,rx:2,fill:col,transform:`rotate(45 ${xx} ${AXY+7.5})`},g);
+  txt(g,o.lx??xx,o.ly,o.lines,{'font-size':11.5,fill:'#cdd5e6','text-anchor':o.a||'start','class':'halo'});
+  txt(g,o.lx??xx,o.ly-14,o.date,{'font-size':11,fill:col,'text-anchor':o.a||'start','font-family':'JetBrains Mono','class':'halo'});
+  bind(g,tipHTML(col,o.t,o.date,o.b));return g;}
+ev({y:-2905,cat:'axis',ly:490,lx:X(-2905)-4,date:'2905 BC [990 AM]',lines:['Great Pyramid construction began','90 yrs. to completion'],t:'Great Pyramid construction began',b:'90 yrs. to completion (2815 BC).'});
+ev({y:-1825,cat:'text',ly:540,date:'1825 BC [2070 AM]',lines:['Abraham translating Giza texts at Egypt'],t:'Abraham translating Giza texts',b:'1825 BC is 365×5 BC; 365 yrs. to the axis.'});
+ev({y:-1407,cat:'bible',ly:588,dash:1,date:'1407 BC [2488 AM]',lines:['Conquest of Canaan [2488 AM is 622×4]'],t:'Conquest of Canaan',b:'"[2488 AM is 622x4]".'});
+ev({y:365,cat:'destr',ly:416,lx:X(365)-8,a:'end',date:'365 AD [4259 AM]',lines:['Major quake and tsunami','destroy Alexandria, Egypt'],t:'Major quake and tsunami destroy Alexandria, Egypt',b:'Start of the 1095-year (365×3) span to 1460 AD.'});
+ev({y:1460,cat:'text',ly:490,lx:X(1460)+6,a:'end',date:'1460 AD is 365×4 Anno Domini',lines:['Corpus Hermeticum [Fragments of','Enoch] rediscovered'],t:'Corpus Hermeticum [Fragments of Enoch] rediscovered',b:'"1460 AD is 365x4 Anno Domini".'});
+ev({y:622,cat:'bible',ly:600,dash:1,lx:X(622)+6,date:'622 AD [4516 AM]',lines:['Islamic Hijrah calendar begun'],t:'Islamic Hijrah calendar begun',b:'End of the 3894-year span from Enoch\'s birth (622 AM).'});
+// 1095 dimension
+(function(){const g=el('g',{'data-cat':'enoch'},svg);const a=X(365),b=X(1460),y=540;
+  el('line',{x1:a,y1:y,x2:b,y2:y,stroke:'#5cb3f2','stroke-width':1.6},g);
+  el('path',{d:`M${a+8} ${y-5} L${a} ${y} L${a+8} ${y+5} M${b-8} ${y-5} L${b} ${y} L${b-8} ${y+5}`,fill:'none',stroke:'#5cb3f2','stroke-width':1.6},g);
+  el('line',{x1:a,y1:430,x2:a,y2:y+6,stroke:'#5cb3f2','stroke-width':1,opacity:.5},g);el('line',{x1:b,y1:510,x2:b,y2:y+6,stroke:'#5cb3f2','stroke-width':1,opacity:.5},g);
+  txt(g,(a+b)/2,y-8,'1095 YEARS · 365 × 3',{'text-anchor':'middle','font-size':12,fill:'#9ccff5','font-family':'JetBrains Mono','class':'halo'});
+  bind(g,tipHTML('#5cb3f2','1095 years · 365 × 3','365 AD → 1460 AD','From the Alexandria quake [4259 AM] to the rediscovery of the Corpus Hermeticum.'));})();
+// 3894 dimension
+(function(){const g=el('g',{'data-cat':'bible'},svg);const a=X(-3273),b=X(622),y=690;
+  el('line',{x1:a,y1:y,x2:b,y2:y,stroke:'#37b6a6','stroke-width':1.8},g);
+  el('path',{d:`M${a+9} ${y-5} L${a} ${y} L${a+9} ${y+5} M${b-9} ${y-5} L${b} ${y} L${b-9} ${y+5}`,fill:'none',stroke:'#37b6a6','stroke-width':1.8},g);
+  el('line',{x1:b,y1:612,x2:b,y2:y,stroke:'#37b6a6','stroke-width':1,'stroke-dasharray':'3 4',opacity:.6},g);
+  el('line',{x1:a,y1:AXY+16,x2:a,y2:y,stroke:'#37b6a6','stroke-width':1,'stroke-dasharray':'3 4',opacity:.6},g);
+  txt(g,(a+b)/2,y-8,'3894 YRS',{'text-anchor':'middle','font-size':13,fill:'#8fd8cd','font-family':'JetBrains Mono','font-weight':500,'class':'halo'});
+  txt(g,a+6,y-30,['Enoch born','622 AM [3273 BC]'],{'font-size':11.5,fill:'#cdd5e6','class':'halo'});
+  txt(g,b+8,y+4,'622 AD [4516 AM]',{'font-size':11,fill:'#8fd8cd','font-family':'JetBrains Mono','class':'halo'});
+  bind(g,tipHTML('#37b6a6','3894 yrs','622 AM [3273 BC] → 622 AD [4516 AM]','Enoch born in 622 AM; 3894 years later the Hijrah calendar begins in 622 AD.'));
+  // birth of Christ marker
+  const c=el('g',{'data-cat':'bible'},svg);const xc=X(-1);
+  el('line',{x1:xc,y1:y-48,x2:xc,y2:y+16,stroke:'#37b6a6','stroke-width':1.2},c);
+  el('circle',{cx:xc,cy:y,r:5,fill:'#37b6a6'},c);
+  txt(c,xc+8,y+26,'3894 AM is 2–1 BC [Birth of Christ]',{'font-size':11.5,fill:'#cdd5e6','class':'halo'});
+  bind(c,tipHTML('#37b6a6','Birth of Christ','3894 AM is 2-1 BC','Midpoint marker on the 3894-year span.'));})();
+
+</script>
+</body>
+</html>

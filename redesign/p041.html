@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart IX·b–c — Countdowns to 2001 and 2045 AD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-measure:#5cb3f2; --c-date:#e7c355; --c-event:#9c8bf0; --c-quake:#f08a4b; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  @media(max-width:600px){.wrap{padding:22px 16px 60px}}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px;padding-right:90px}
+  @media(max-width:600px){header.masthead{padding-right:0;padding-top:30px}}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;color:var(--muted);text-transform:uppercase;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-date);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  @media(max-width:880px){.bottom,.two{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  @media(max-width:600px){.card{padding:14px 12px 12px}}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card h2 .pn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;color:var(--anchor);border:1px solid #5a4a1f;border-radius:6px;padding:2px 7px;margin-right:9px;vertical-align:4px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.halo,svg .halo text{paint-order:stroke;stroke:#0b0f1a;stroke-width:4px;stroke-linejoin:round}
+  .hot{cursor:pointer}
+  .hot:hover .hl,.hot.on .hl{stroke-width:3.2px;filter:drop-shadow(0 0 6px currentColor)}
+  .hot:hover text{fill:#fff}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:min(300px,calc(100vw - 24px));background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-date);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  #tip q{color:#cfd6e8;font-style:italic;quotes:"“" "”"}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:11px;color:#6f7a96;font-style:italic;margin-top:2px}
+  .mrow.off{border-color:#4a3a2a}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+
+  details.tr summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none;display:flex;align-items:center;gap:10px}
+  details.tr summary::-webkit-details-marker{display:none}
+  details.tr summary::before{content:'▸';font-size:15px;color:var(--muted);transition:.15s}
+  details.tr[open] summary::before{transform:rotate(90deg)}
+  details.tr summary small{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);font-weight:400}
+  .trgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:8px 26px;margin-top:12px}
+  .trgrid h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--c-measure);margin:12px 0 6px;font-weight:500}
+  .trgrid ul{margin:0;padding:0 0 0 16px}
+  .trgrid li{font-size:13px;line-height:1.5;color:#cfd6e8;margin-bottom:5px}
+  .trgrid li .u{color:#f0a85a;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .uncert{font-size:12px;color:var(--muted);margin-top:12px;border-top:1px dashed var(--line2);padding-top:10px;line-height:1.55}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin:2px 0 6px}
+  .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:3px}
+
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;IX·b–IX·c · Plate&nbsp;41</div>
+    <h1>Chronotecture
+      <span class="sub">Fall of the Towers and the Terminal Epoch: span-bars landing on 2001 and 2045&nbsp;AD</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn charts&nbsp;IX·b and IX·c (<b>2007</b>), preserved verbatim; only the visual language is redesigned. Its structural key: <b>every bar in a panel ends on the same date</b>, 2001&nbsp;AD [5895&nbsp;AM] in IX·b and 2045&nbsp;AD [5939&nbsp;AM] in IX·c, so each historical event is linked to it by its span. 2106&nbsp;AD [6000&nbsp;AM] closes both panels.</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+
+  <div class="grid">
+    <div class="card">
+      <h2><span class="pn">IX·b</span>Spans to the destruction of the World Trade Center</h2>
+      <div class="hint">All five bars land on 2001&nbsp;AD [5895&nbsp;AM], "Fall of the Towers". Hover or tap a bar for its full annotation.</div>
+      <svg id="b" viewBox="0 0 1400 470" role="img" aria-label="Span bars ending at 2001 AD"></svg>
+    </div>
+    <div class="card">
+      <h2><span class="pn">IX·c</span>Spans to the terminal epoch, 2045&nbsp;AD</h2>
+      <div class="hint">All eight bars land on 2045&nbsp;AD [5939&nbsp;AM], the "terminal epoch of Pyramid's orbital chronology".</div>
+      <svg id="c" viewBox="0 0 1400 640" role="img" aria-label="Span bars ending at 2045 AD"></svg>
+    </div>
+
+    <div class="card">
+      <h2>Cycle mathematics</h2>
+      <div class="hint">Each span as written, checked against its endpoints. AD + 3894 = AM.</div>
+      <div class="mathgrid">
+        <div class="mrow"><span class="eq">641 + 1360 = 2001 · 1360 = 1000 + 360</span><span class="cap">Alexandrian Library → WTC. 641&nbsp;AD = 4535&nbsp;AM.</span></div>
+        <div class="mrow"><span class="eq">1281 + 720 = 2001 · 720 = 72×10 = 360×2</span><span class="cap">Kublai Khan's fleet → WTC; the "72" is circled at the bar's end.</span></div>
+        <div class="mrow"><span class="eq">2001 − 72 = 1929 AD</span><span class="cap">"72 yrs, prior to 2001 AD is 1929 AD stock market disaster in NY."</span></div>
+        <div class="mrow"><span class="eq">1701 + 300 · 1861 + 140 · 1941 + 60 = 2001</span><span class="cap">Masonic Constitution, Civil War, Pearl Harbor.</span></div>
+        <div class="mrow"><span class="eq">356 + 2400 → 2045 · 2400 = 600 [?] 4</span><span class="cap">Alexander born "356 AD [3539 AM]"; the operator in "[600&nbsp;&nbsp;4]" is blank on the plate.</span><span class="aw">As written: 3539&nbsp;AM corresponds to 356&nbsp;BC, which is how the bar is placed here.</span></div>
+        <div class="mrow"><span class="eq">365 + 1680 = 2045 · 1680 = 70×24</span><span class="cap">Alexandria quake/tsunami, written "365 AD [5259 AM]".</span><span class="aw">As written: 365&nbsp;AD would be 4259&nbsp;AM by the plate's own offset.</span></div>
+        <div class="mrow"><span class="eq">641 + 1404 = 2045 · 1404 = 108×13</span><span class="cap">Alexandrian Library destroyed.</span></div>
+        <div class="mrow"><span class="eq">1055 + 990 = 2045</span><span class="cap">American Toltec Empire ends.</span></div>
+        <div class="mrow"><span class="eq">1837 + 208 = 2045 · 208 = 52×4</span><span class="cap">Col. Vyse's base casing blocks; "52° x 4 faces is 208".</span></div>
+        <div class="mrow"><span class="eq">1859 + 186 = 2045</span><span class="cap">Taylor's pyramid inch; "186,000 speed of light".</span></div>
+        <div class="mrow"><span class="eq">1865 + 180 = 2045 · 180 = 60×3 = ½ of 360</span><span class="cap">End of Civil War.</span></div>
+        <div class="mrow"><span class="eq">1945 + 100 = 2045</span><span class="cap">WWII ends; B-25 into the Empire State Building.</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <details class="tr">
+        <summary>Full transcription <small>every annotation on the plate, verbatim, grouped by region</small></summary>
+        <div class="trgrid">
+          <div>
+            <h3>IX·b · notes</h3>
+            <ul>
+              <li>Muslims fell World Trade Center in New York</li>
+              <li>641 AD Muslims destroy famous Alexandrian Library; loss of 1/2 million texts a disaster. 1000+<u>360</u> years</li>
+              <li>1281 AD Typhoon disaster ruins Kublai Khan's fleet; 72x10 yrs, or <u>360</u>x2. 72 yrs, prior to <u>2001</u> AD is 1929 AD stock market disaster in NY</li>
+              <li>1701 AD Masonic Constitution written about preflood Giza sciences; original hgt. of Great Step surface 1700 P", variant lift caused by earthquake</li>
+              <li>1861 AD Civil War disaster begins</li>
+              <li>1941 AD Pearl Harbor disaster</li>
+              <li>2001 AD [5895 AM] · Fall of the Towers · 2106 AD [6000 AM] · Centuries</li>
+            </ul>
+          </div>
+          <div>
+            <h3>IX·b · bars</h3>
+            <ul>
+              <li>641 AD [4535 AM] is 1360 years [1000+360] to Destruction of World Trade Center</li>
+              <li>1281 AD is 720 yrs. to 2001 [5895 AM] (72 circled)</li>
+              <li>1701 AD is 300 yrs.</li>
+              <li>140 yrs</li>
+              <li>60</li>
+            </ul>
+            <h3>IX·c · notes</h3>
+            <ul>
+              <li>Terminal epoch of Pyramid's orbital chronology defined by sum of monument's base diagonals as found in D. Davidson's research in 1929 AD as 2045 AD</li>
+              <li>52° x 4 faces is 208</li>
+              <li>1837 AD Col Vyse discovered base casing blocks 52x4 years [208] before 2045 AD</li>
+              <li>1859 AD Taylor published discovery of pyramid inch · 186,000 speed of light; pyramid inch is a solar unit</li>
+              <li>1865 AD end of Civil War; 600,000 lives claimed · 60x3 or 1/2 of 360</li>
+              <li>1945 AD WW II ends; B-25 bomber flies into Empire State Building</li>
+            </ul>
+          </div>
+          <div>
+            <h3>IX·c · bars</h3>
+            <ul>
+              <li>100 · 180 yrs · 186 yrs · 208 yrs</li>
+              <li>1055 AD American Toltec Empire ends 990 yrs</li>
+              <li>641 AD Muslims destroy Alexandrian Library 1404 yrs. [108x13]</li>
+              <li>365 AD [5259 AM] Major quake\Tsunami ruins Alexandria, Egypt 1680 yrs. [70x24]</li>
+              <li>356 AD [3539 AM] Alexander the Great born beginning Western Civilization's 2400 yrs. [600 <span class="u">[?]</span> 4] to 2045 AD [5939 AM]</li>
+              <li>2045 AD [5939 AM] · 2106 AD [6000 AM] · Breshears '07</li>
+            </ul>
+          </div>
+        </div>
+        <div class="uncert"><b>Reading notes.</b> "356 AD" is clearly written, though its AM bracket (3539) equals 356&nbsp;BC; the bar is drawn from 356&nbsp;BC so that it measures the stated 2400 years. "5259 AM" for 365&nbsp;AD is as written. The multiplication sign in "[600&nbsp;&nbsp;4]" is missing on the plate.</div>
+      </details>
+    </div>
+
+    <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), charts&nbsp;IX·b–IX·c (plate&nbsp;41). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+  </div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function tx(parent,x,y,str,a){const t=el('text',Object.assign({x,y,fill:'#cfd6e8','font-size':14},a||{}),parent);
+  const lines=String(str).split('\n');
+  if(lines.length===1){t.textContent=str;}
+  else{const lh=(a&&a.lh)||((+(a&&a['font-size'])||14)*1.25);lines.forEach((l,i)=>{const s=el('tspan',{x,dy:i?lh:0},t);s.textContent=l;});}
+  return t;}
+const tip=document.getElementById('tip');
+let tipLock=false;
+function showTip(html,e){tip.innerHTML=html;tip.style.opacity=1;
+  const w=tip.offsetWidth||290,h=tip.offsetHeight||120;
+  let x=e.clientX+16,y=e.clientY+14;
+  if(x+w>innerWidth-8)x=Math.max(8,e.clientX-w-12);
+  if(y+h>innerHeight-8)y=Math.max(8,e.clientY-h-12);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;document.querySelectorAll('.hot.on').forEach(g=>g.classList.remove('on'));}
+function T(col,title,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function hot(g,html){g.classList.add('hot');
+  g.addEventListener('mousemove',e=>{if(!tipLock)showTip(html,e);});
+  g.addEventListener('mouseleave',()=>{if(!tipLock)hideTip();});
+  g.addEventListener('click',e=>{e.stopPropagation();hideTip();g.classList.add('on');tipLock=true;showTip(html,e);});
+  return g;}
+document.addEventListener('click',()=>{tipLock=false;hideTip();});
+window.addEventListener('scroll',()=>{if(tipLock){tipLock=false;hideTip();}},{passive:true});
+
+/* ---------- filter chips ---------- */
+function makeChips(CAT,barId){
+  const bar=document.getElementById(barId||'filters');if(!bar)return;
+  const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{
+    const c=document.createElement('div');c.className='chip';c.dataset.k=k;
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=(e)=>{e.stopPropagation();if(active.has(k)){active.delete(k);c.classList.add('off');}else{active.add(k);c.classList.remove('off');}
+      document.querySelectorAll('[data-cat]').forEach(g=>{g.style.display=active.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);});
+}
+
+/* ---------- Great Pyramid section (shared schematic geometry) ----------
+   Base frame: ground y=330, apex (500,0), central axis x=500, north face on the RIGHT. */
+function section(svg,o){
+  o=Object.assign({ox:500,oy:330,s:1,sub:true,subDepth:150,wide:440,chambers:true,courses:true},o||{});
+  const P=(x,y)=>[o.ox+o.s*(x-500),o.oy+o.s*(y-330)];
+  const R={P,s:o.s};
+  R.apex=P(500,0);R.bL=P(238,330);R.bR=P(762,330);
+  R.E=P(730,290);R.C=P(683,313);R.F=P(509,400);R.Gs=P(610,278);R.GS=P(512,230);
+  R.Q=P(503,278);R.K=P(465,222);R.S=P(432,394);R.T=P(330,400);R.pit=P(430,440);
+  R.groundY=R.bL[1];R.axisX=R.apex[0];
+  const g=el('g',{},svg);R.g=g;
+  const L=o.ox-o.s*o.wide,Rr=o.ox+o.s*o.wide;
+  if(o.sub){el('rect',{x:L,y:R.groundY,width:Rr-L,height:o.s*o.subDepth,fill:'#070b14',opacity:.85},g);
+    for(let y=R.groundY+14*o.s;y<R.groundY+o.s*o.subDepth;y+=16*o.s)el('line',{x1:L,y1:y,x2:Rr,y2:y,stroke:'#121a2c','stroke-width':1},g);}
+  el('polygon',{points:`${R.apex} ${R.bL} ${R.bR}`,fill:'#111a2e',stroke:'#3a4a6e','stroke-width':1.4},g);
+  if(o.courses){for(let y=R.apex[1]+14*o.s;y<R.groundY;y+=13*o.s){const t=(y-R.apex[1])/(R.groundY-R.apex[1]);
+    el('line',{x1:R.apex[0]+(R.bL[0]-R.apex[0])*t+2,y1:y,x2:R.apex[0]+(R.bR[0]-R.apex[0])*t-2,y2:y,stroke:'#1d2944','stroke-width':1},g);}}
+  el('line',{x1:L,y1:R.groundY,x2:Rr,y2:R.groundY,stroke:'#4a5a80','stroke-width':1.6},g);
+  const pas=(pts,w)=>{const d='M'+pts.map(p=>p.join(' ')).join(' L');
+    el('path',{d,fill:'none',stroke:'#5f7299','stroke-width':(w||7)*o.s,'stroke-linejoin':'round','stroke-linecap':'round',opacity:.45},g);
+    el('path',{d,fill:'none',stroke:'#e3e9f6','stroke-width':1.8,'stroke-linejoin':'round','stroke-linecap':'round'},g);};
+  // descending passage + subterranean
+  pas([R.E,R.F,P(470,400)]);
+  if(o.chambers){
+    pas([R.C,R.Gs]);                         // ascending
+    pas([R.Gs,R.GS],11);                     // grand gallery
+    pas([R.Gs,P(512,278)],5);                // queen's passage
+    el('path',{d:`M${P(493,279)} L${P(493,268)} L${P(502,262)} L${P(511,268)} L${P(511,279)} Z`,fill:'#e3e9f6',opacity:.85},g); // queen's chamber
+    el('path',{d:`M${P(512,231)} L${P(502,231)} L${P(502,226)} L${P(490,226)} L${P(490,231)} L${P(486,231)} L${P(486,213)} L${P(442,213)} L${P(442,232)} L${P(512,232)} Z`,fill:'#e3e9f6',opacity:.85},g); // antechamber + king's chamber
+  }
+  // subterranean chamber, pit, dead-end
+  el('rect',{x:P(395,386)[0],y:P(395,386)[1],width:75*o.s,height:18*o.s,fill:'#e3e9f6',opacity:.85},g);
+  el('rect',{x:P(426,404)[0],y:P(426,404)[1],width:9*o.s,height:36*o.s,fill:'#e3e9f6',opacity:.7},g);
+  pas([P(395,400),R.T],4);
+  // central axis
+  el('line',{x1:R.axisX,y1:R.apex[1]-10*o.s,x2:R.axisX,y2:R.groundY+o.s*(o.subDepth-6),stroke:'#56628f','stroke-width':1.1,'stroke-dasharray':'4 5',opacity:.8},g);
+  return R;
+}
+/* dimension line between a and b, offset perpendicular by off; label along it */
+function dim(parent,a,b,label,col,off,o){o=o||{};
+  const dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len;
+  const A=[a[0]+nx*off,a[1]+ny*off],B=[b[0]+nx*off,b[1]+ny*off];
+  const g=el('g',{},parent);
+  if(off){el('line',{x1:a[0],y1:a[1],x2:A[0]+nx*4*Math.sign(off),y2:A[1]+ny*4*Math.sign(off),stroke:col,'stroke-width':.8,opacity:.5},g);
+    el('line',{x1:b[0],y1:b[1],x2:B[0]+nx*4*Math.sign(off),y2:B[1]+ny*4*Math.sign(off),stroke:col,'stroke-width':.8,opacity:.5},g);}
+  el('line',{x1:A[0],y1:A[1],x2:B[0],y2:B[1],stroke:col,'stroke-width':1.6,class:'hl',...(o.dash?{'stroke-dasharray':o.dash}:{})},g);
+  const ah=(p,ux,uy)=>el('path',{d:`M${p[0]} ${p[1]} L${p[0]-ux*9-uy*4} ${p[1]-uy*9+ux*4} L${p[0]-ux*9+uy*4} ${p[1]-uy*9-ux*4} Z`,fill:col},g);
+  if(o.arrows!==false){ah(B,dx/len,dy/len);ah(A,-dx/len,-dy/len);}
+  if(label){let ang=Math.atan2(dy,dx)*180/Math.PI;if(ang>90)ang-=180;if(ang<-90)ang+=180;
+    const m=[(A[0]+B[0])/2+nx*(o.lo||12)*Math.sign(off||1),(A[1]+B[1])/2+ny*(o.lo||12)*Math.sign(off||1)];
+    const t=tx(g,m[0],m[1]+4,label,{fill:col,'font-size':o.fs||14,'text-anchor':'middle','font-family':'JetBrains Mono','font-weight':500,class:'halo',transform:`rotate(${ang} ${m[0]} ${m[1]})`});}
+  return g;}
+/* pin: dot at p with a leader to a label block */
+function pin(parent,p,lp,label,col,o){o=o||{};
+  const g=el('g',{},parent);
+  el('line',{x1:p[0],y1:p[1],x2:lp[0],y2:lp[1]-4,stroke:col,'stroke-width':1,opacity:.6,'stroke-dasharray':o.dash||'none'},g);
+  el('circle',{cx:p[0],cy:p[1],r:o.r||5.5,fill:col,stroke:'#0b0f1a','stroke-width':1.5,class:'hl'},g);
+  el('circle',{cx:p[0],cy:p[1],r:(o.r||5.5)+5,fill:'none',stroke:col,'stroke-width':1,opacity:.45},g);
+  tx(g,lp[0],lp[1],label,{fill:o.fill||col,'font-size':o.fs||14,'text-anchor':o.anchor||'start','font-family':o.mono===false?'Space Grotesk':'JetBrains Mono','font-weight':500,class:'halo',lh:o.lh});
+  return g;}
+function arrowHead(parent,p,ang,col,sz){sz=sz||9;const c=Math.cos(ang),s=Math.sin(ang);
+  return el('path',{d:`M${p[0]} ${p[1]} L${p[0]-c*sz-s*sz*.45} ${p[1]-s*sz+c*sz*.45} L${p[0]-c*sz+s*sz*.45} ${p[1]-s*sz-c*sz*.45} Z`,fill:col},parent);}
+
+const CAT={
+  disaster:{c:'#f08a4b',label:'Disaster / war'},
+  know    :{c:'#5cb3f2',label:'Pyramid knowledge'},
+  civ     :{c:'#9c8bf0',label:'Civilizations'}
+};
+const YMIN=-450,YMAX=2170,PL=40,PR=1360;
+const X=y=>PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);
+function panel(id,H,land,landLbl,landAM,headline,bars,notes){
+  const svg=document.getElementById(id);
+  const AX=H-60,top=86,rowH=(AX-top-14)/bars.length;
+  // grid + axis
+  el('rect',{x:PL,y:30,width:X(0)-PL,height:AX-30,fill:'#0e1626',opacity:.5},svg);
+  for(let y=-400;y<=2100;y+=100){const xx=X(y);
+    el('line',{x1:xx,y1:AX,x2:xx,y2:AX+(y%500?8:14),stroke:'#3a486a'},svg);
+    if(y%500===0){el('line',{x1:xx,y1:34,x2:xx,y2:AX,stroke:'#1c2740'},svg);
+      tx(svg,xx,AX+30,y<0?(-y)+' BC':(y?y+' AD':'BC | AD'),{fill:'#5d6885','font-size':12,'text-anchor':'middle','font-family':'JetBrains Mono'});}}
+  el('line',{x1:PL,y1:AX,x2:PR,y2:AX,stroke:'#3a486a','stroke-width':2},svg);
+  tx(svg,PL,AX+48,'CENTURIES',{fill:'#4d5876','font-size':10.5,'font-family':'JetBrains Mono','letter-spacing':'.2em'});
+  // 2106 line
+  const x6=X(2106);el('line',{x1:x6,y1:30,x2:x6,y2:AX,stroke:'#7b86a4','stroke-width':1,'stroke-dasharray':'5 5'},svg);
+  tx(svg,x6+6,AX-6,'2106 AD [6000 AM]',{fill:'#7b86a4','font-size':11,'font-family':'JetBrains Mono',transform:`rotate(-90 ${x6+6} ${AX-6})`});
+  // landing line
+  const xl=X(land);
+  el('line',{x1:xl,y1:46,x2:xl,y2:AX+6,stroke:'#ffcf5c','stroke-width':2.2},svg);
+  arrowHead(svg,[xl,62],Math.PI/2,'#ffcf5c',14);
+  tx(svg,xl-10,30,landLbl,{fill:'#ffcf5c','font-size':19,'font-family':'JetBrains Mono','text-anchor':'end','font-weight':500});
+  tx(svg,xl-10,50,landAM+' · '+headline,{fill:'#c9b26a','font-size':12,'font-family':'JetBrains Mono','text-anchor':'end'});
+  bars.forEach((b,i)=>{const y=top+i*rowH+rowH/2,col=CAT[b.cat].c,xs=X(b.from);
+    const g=hot(el('g',{'data-cat':b.cat},svg),T(col,b.t,b.yr,b.b));
+    el('line',{x1:xs,y1:y,x2:xl,y2:y,stroke:col,'stroke-width':9,'stroke-linecap':'round',opacity:.9,class:'hl'},g);
+    el('circle',{cx:xs,cy:y,r:5.5,fill:col,stroke:'#0b0f1a','stroke-width':1.5},g);
+    el('circle',{cx:xl,cy:y,r:4,fill:'#ffcf5c'},g);
+    if(b.circ){el('circle',{cx:xl+16,cy:y,r:11,fill:'#0b0f1a',stroke:'#ffcf5c'},g);tx(g,xl+16,y+4,b.circ,{fill:'#ffcf5c','font-size':11,'text-anchor':'middle','font-family':'JetBrains Mono'});}
+    const right=xs>900,tx0=right?xs-14:xs+4,an=right?'end':'start';
+    tx(g,tx0,right?y-2:y-10,b.l1,{fill:'#e3e9f6','font-size':14,'font-weight':600,'text-anchor':an,class:'halo'});
+    tx(g,tx0,right?y+14:y+22,b.l2,{fill:'#9aa5bf','font-size':12,'text-anchor':an,class:'halo'});
+  });
+  (notes||[]).forEach(n=>{const g=hot(el('g',{'data-cat':n.cat},svg),T(CAT[n.cat].c,n.t,'',n.b));
+    tx(g,n.x,n.y,n.txt,{fill:n.fill||'#aeb7cd','font-size':n.fs||13,lh:(n.fs||13)*1.3,'font-weight':n.w||400});});
+}
+panel('b',470,2001,'2001 AD','[5895 AM]','Fall of the Towers',[
+  {from:1941,cat:'disaster',l1:'1941 AD · 60',l2:'Pearl Harbor disaster',t:'1941 AD Pearl Harbor disaster',yr:'1941 → 2001 · 60',b:'Box "60" on the plate.'},
+  {from:1861,cat:'disaster',l1:'1861 AD · 140 yrs',l2:'Civil War disaster begins',t:'1861 AD Civil War disaster begins',yr:'1861 → 2001 · 140 yrs',b:''},
+  {from:1701,cat:'know',l1:'1701 AD is 300 yrs.',l2:'Masonic Constitution on preflood Giza sciences',t:'1701 AD Masonic Constitution',yr:'1701 → 2001 · 300 yrs',b:'"1701 AD Masonic Constitution written about preflood Giza sciences; original hgt. of Great Step surface 1700 P", variant lift caused by earthquake."'},
+  {from:1281,cat:'disaster',circ:'72',l1:'1281 AD is 720 yrs. to 2001 [5895 AM]',l2:'Typhoon ruins Kublai Khan\'s fleet · 72×10 or 360×2',t:'1281 AD Typhoon disaster',yr:'1281 → 2001 · 720 yrs',b:'"1281 AD Typhoon disaster ruins Kublai Khan\'s fleet; 72x10 yrs, or 360x2. 72 yrs, prior to 2001 AD is 1929 AD stock market disaster in NY."'},
+  {from:641,cat:'disaster',l1:'641 AD [4535 AM] is 1360 years [1000+360]',l2:'to Destruction of World Trade Center',t:'641 AD Muslims destroy Alexandrian Library',yr:'641 → 2001 · 1360 yrs [1000+360]',b:'"641 AD Muslims destroy famous Alexandrian Library; loss of 1/2 million texts a disaster. 1000+360 years."'}
+],[
+  {x:60,y:100,cat:'disaster',txt:'Muslims fell\nWorld Trade Center\nin New York',fs:20,w:600,fill:'#e9edf6',t:'Muslims fell World Trade Center in New York',b:'Drawn on the plate beside two smoking towers.'}
+]);
+panel('c',640,2045,'2045 AD','[5939 AM]','Terminal epoch',[
+  {from:1945,cat:'disaster',l1:'1945 AD · 100',l2:'WW II ends; B-25 bomber flies into Empire State Building',t:'1945 AD WW II ends',yr:'1945 → 2045 · 100',b:'"1945 AD WW II ends; B-25 bomber flies into Empire State Building."'},
+  {from:1865,cat:'disaster',l1:'1865 AD · 180 yrs · 60×3 or ½ of 360',l2:'End of Civil War; 600,000 lives claimed',t:'1865 AD end of Civil War',yr:'1865 → 2045 · 180 yrs',b:'"1865 AD end of Civil War; 600,000 lives claimed." Span marked "60x3 or 1/2 of 360".'},
+  {from:1859,cat:'know',l1:'1859 AD · 186 yrs',l2:'Taylor publishes the pyramid inch · 186,000 speed of light',t:'1859 AD Taylor published discovery of pyramid inch',yr:'1859 → 2045 · 186 yrs',b:'"186,000 speed of light; pyramid inch is a solar unit."'},
+  {from:1837,cat:'know',l1:'1837 AD · 208 yrs · 52×4',l2:'Col Vyse discovered base casing blocks',t:'1837 AD Col Vyse',yr:'1837 → 2045 · 208 yrs',b:'"1837 AD Col Vyse discovered base casing blocks 52x4 years [208] before 2045 AD."'},
+  {from:1055,cat:'civ',l1:'1055 AD American Toltec Empire ends 990 yrs',l2:'',t:'1055 AD American Toltec Empire ends',yr:'1055 → 2045 · 990 yrs',b:''},
+  {from:641,cat:'disaster',l1:'641 AD Muslims destroy Alexandrian Library 1404 yrs. [108×13]',l2:'',t:'641 AD Alexandrian Library',yr:'641 → 2045 · 1404 yrs [108×13]',b:''},
+  {from:365,cat:'disaster',l1:'365 AD [5259 AM] Major quake\\Tsunami ruins Alexandria, Egypt',l2:'1680 yrs. [70×24]',t:'365 AD Major quake / tsunami, Alexandria',yr:'365 → 2045 · 1680 yrs [70×24]',b:'Written "365 AD [5259 AM]" (as written).'},
+  {from:-356,cat:'civ',l1:'356 AD [3539 AM] Alexander the Great born, beginning Western Civilization\'s 2400 yrs.',l2:'[600 [?] 4] to 2045 AD [5939 AM]',t:'Alexander the Great born',yr:'written "356 AD [3539 AM]" · 2400 yrs',b:'Bar drawn from 356 BC (= 3539 AM) so it spans the stated 2400 years. Operator in "[600  4]" blank on the plate.'}
+],[
+  {x:60,y:96,cat:'know',txt:'Terminal epoch of Pyramid\'s orbital\nchronology defined by sum of\nmonument\'s base diagonals as found\nin D. Davidson\'s research in 1929 AD\nas 2045 AD',fs:14,fill:'#cfd6e8',t:'Terminal epoch · D. Davidson, 1929',b:'"Terminal epoch of Pyramid\'s orbital chronology defined by sum of monument\'s base diagonals as found in D. Davidson\'s research in 1929 AD as 2045 AD."'},
+  {x:470,y:110,cat:'know',txt:'52° × 4 faces is 208',fs:16,fill:'#5cb3f2',t:'52° x 4 faces is 208',b:'Beside the plate\'s pyramid sketch.'}
+]);
+// pyramid glyph in IX·c
+(function(){const svg=document.getElementById('c');const g=hot(el('g',{'data-cat':'know'},svg),T('#5cb3f2','Pyramid sketch','52° x 4 faces is 208',''));
+  el('path',{d:'M560 150 L470 250 L560 280 L650 235 Z M560 150 L560 280',fill:'none',stroke:'#5cb3f2','stroke-width':1.4,opacity:.8},g);
+  el('path',{d:'M470 250 L560 225 L650 235 M560 150 L560 225',fill:'none',stroke:'#5cb3f2','stroke-width':1,'stroke-dasharray':'4 4',opacity:.6},g);})();
+makeChips(CAT);
+</script>
+</body>
+</html>

@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XIII–XVI — The Conjunct Axis at 820 AD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-measure:#5cb3f2; --c-date:#e7c355; --c-event:#9c8bf0; --c-quake:#f08a4b; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  @media(max-width:600px){.wrap{padding:22px 16px 60px}}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px;padding-right:90px}
+  @media(max-width:600px){header.masthead{padding-right:0;padding-top:30px}}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.32em;color:var(--muted);text-transform:uppercase;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-date);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .two{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  @media(max-width:880px){.bottom,.two{grid-template-columns:1fr}}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  @media(max-width:600px){.card{padding:14px 12px 12px}}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card h2 .pn{font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.2em;color:var(--anchor);border:1px solid #5a4a1f;border-radius:6px;padding:2px 7px;margin-right:9px;vertical-align:4px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.halo,svg .halo text{paint-order:stroke;stroke:#0b0f1a;stroke-width:4px;stroke-linejoin:round}
+  .hot{cursor:pointer}
+  .hot:hover .hl,.hot.on .hl{stroke-width:3.2px;filter:drop-shadow(0 0 6px currentColor)}
+  .hot:hover text{fill:#fff}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:min(300px,calc(100vw - 24px));background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-date);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  #tip q{color:#cfd6e8;font-style:italic;quotes:"“" "”"}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:11px;color:#6f7a96;font-style:italic;margin-top:2px}
+  .mrow.off{border-color:#4a3a2a}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+
+  details.tr summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none;display:flex;align-items:center;gap:10px}
+  details.tr summary::-webkit-details-marker{display:none}
+  details.tr summary::before{content:'▸';font-size:15px;color:var(--muted);transition:.15s}
+  details.tr[open] summary::before{transform:rotate(90deg)}
+  details.tr summary small{font-family:'Space Grotesk',sans-serif;font-size:12px;color:var(--muted);font-weight:400}
+  .trgrid{display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,320px),1fr));gap:8px 26px;margin-top:12px}
+  .trgrid h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--c-measure);margin:12px 0 6px;font-weight:500}
+  .trgrid ul{margin:0;padding:0 0 0 16px}
+  .trgrid li{font-size:13px;line-height:1.5;color:#cfd6e8;margin-bottom:5px}
+  .trgrid li .u{color:#f0a85a;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .uncert{font-size:12px;color:var(--muted);margin-top:12px;border-top:1px dashed var(--line2);padding-top:10px;line-height:1.55}
+  .legend{display:flex;flex-wrap:wrap;gap:6px 16px;font-size:12px;color:var(--muted);margin:2px 0 6px}
+  .legend i{display:inline-block;width:14px;height:3px;border-radius:2px;margin-right:6px;vertical-align:3px}
+
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Charts&nbsp;XIII, XIV, XV, XVI · Plate&nbsp;46</div>
+    <h1>Chronotecture
+      <span class="sub">Seth, Al Mamoun and 6000&nbsp;AM: four readings of the passage conjunct</span>
+    </h1>
+    <p class="prov">A modern rebuild of Jason&nbsp;M.&nbsp;Breshears' hand-drawn charts&nbsp;XIII–XVI (<b>2006</b>), preserved verbatim; only the visual language is redesigned. Its structural key: <b>the conjunct of the ascending and descending passages is fixed at 820&nbsp;AD [4714&nbsp;AM]</b>, the year Al Mamoun broke into the ascending passage. From there 176&nbsp;P″ up and 1110&nbsp;P″ out reach 2106&nbsp;AD = 6000&nbsp;AM, and the sloping 4146&nbsp;P″ reaches back to the subterranean level.</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+
+  <div class="grid">
+    <div class="card"><h2><span class="pn">XIII</span>Seth, 130 AM, to 1356&nbsp;AD</h2>
+      <div class="hint">Sloping 4146&nbsp;P″ against 3706 horizontal: a 440&nbsp;P″ differential. Hover or tap any element.</div>
+      <svg id="p13" viewBox="0 -30 1000 560" role="img" aria-label="Chart XIII"></svg></div>
+    <div class="card"><h2><span class="pn">XIV</span>820&nbsp;AD: Great Step to passage axis</h2>
+      <div class="hint">1700&nbsp;P″ high + 3014 horizontal = 4714 = 820&nbsp;AD; the axis then rises 176&nbsp;P″ to 2106&nbsp;AD.</div>
+      <svg id="p14" viewBox="0 -30 1000 560" role="img" aria-label="Chart XIV"></svg></div>
+    <div class="card"><h2><span class="pn">XV</span>6000 AM, −666, and Enoch's perimeter</h2>
+      <div class="hint">820 + 176 + 1110 = 2106&nbsp;AD; minus 666 = 1440&nbsp;AD; 4146 back from 6000&nbsp;AM = 1854&nbsp;AM.</div>
+      <svg id="p15" viewBox="0 -30 1000 590" role="img" aria-label="Chart XV"></svg></div>
+    <div class="card"><h2><span class="pn">XVI</span>820 AM to 820 AD: 3894 years</h2>
+      <div class="hint">From the King's Chamber wall (820&nbsp;AM) through 534&nbsp;P″ and 3360&nbsp;P″ to the conjunct (4714&nbsp;AM = 820&nbsp;AD).</div>
+      <svg id="p16" viewBox="0 -30 1000 560" role="img" aria-label="Chart XVI"></svg></div>
+
+    <div class="card">
+      <h2>Cycle mathematics</h2>
+      <div class="hint">The arithmetic on the plate, checked. AD + 3894 = AM; BC + AM = 3895.</div>
+      <div class="mathgrid">
+        <div class="mrow"><span class="eq">130 + 1414 + 3706 = 5250 AM = 1356 AD</span><span class="cap">XIII: Seth born 130&nbsp;AM (13×10) = 3765&nbsp;BC; subterranean level; horizontal.</span></div>
+        <div class="mrow"><span class="eq">4146 − 3706 = 440</span><span class="cap">XIII: sloping vs. horizontal, "440&nbsp;P″ differential".</span></div>
+        <div class="mrow"><span class="eq">1700 + 3014 = 4714 = 820 AD</span><span class="cap">XIV: Great Step height + horizontal to the passage axis.</span></div>
+        <div class="mrow"><span class="eq">1930 + 176 = 2106 AD = 6000 AM · 176 = 44×4</span><span class="cap">XIV: 1930&nbsp;AD [5824&nbsp;AM], discovery of Pluto.</span></div>
+        <div class="mrow"><span class="eq">820 + 176 + 1110 = 2106 AD</span><span class="cap">XV: conjunct + axis height + passage to entry.</span></div>
+        <div class="mrow"><span class="eq">6000 AM [2106 AD] − 666 = 1440 AD</span><span class="cap">XV.</span></div>
+        <div class="mrow"><span class="eq">6000 − 4146 = 1854 AM = 2041 BC</span><span class="cap">XV: "204 decades to birth of Chief Cornerstone".</span></div>
+        <div class="mrow off"><span class="eq">176 + 1110 + 666 + 994 → "Perimeter of 3100"</span><span class="cap">XV: trapezoid sides as drawn; 3100&nbsp;BC [795&nbsp;AM] = 108th regnal year of Enoch (3208&nbsp;BC − 108 = 3100&nbsp;BC).</span><span class="aw">As written: the four labelled sides sum to 2946, not 3100.</span></div>
+        <div class="mrow"><span class="eq">820 AM + 534 + 3360 = 4714 AM</span><span class="cap">XVI: King's Chamber wall → conjunct.</span></div>
+        <div class="mrow"><span class="eq">4714 − 820 = 3894</span><span class="cap">XVI: "3894 AM is year Chief Cornerstone born 2-1 BC."</span></div>
+      </div>
+    </div>
+
+    <div class="card">
+      <details class="tr">
+        <summary>Full transcription <small>every annotation on the plate, verbatim, grouped by panel</small></summary>
+        <div class="trgrid">
+          <div>
+            <h3>XIII</h3>
+            <ul>
+              <li>1356 AD</li>
+              <li>4146 P" sloping · 440 P" differential · 3706 horizontal</li>
+              <li>1414 P"</li>
+              <li>Sethite builders of Great Pyrmid patriarch was Seth, born 130 AM (13x10), 3765 BC. 130+1414+3706 = 5250 Annus Mundi: <u>1356 AD</u></li>
+            </ul>
+            <h3>XIV</h3>
+            <ul>
+              <li>Great Step to passage axis 3014 horizontal P"</li>
+              <li>1700 P" high</li>
+              <li>1700+3014 = 4714, 820 AD [4714 AM]</li>
+              <li>820 AD (axis) · 1110 P"</li>
+              <li>1930 AD is 176 P" to 2106 AD, or 6000 Annus Mundi</li>
+              <li>820 AD marked new discovery of ascendant passage by Al Mamoun.</li>
+              <li>820 AD axis is 176 P" [44x4] above base</li>
+              <li>1930 AD [5824 AM] new discovery of Pluto, a planet already known to Ancients; discovery of stone records Ugarit opening historic window to Ancient World.</li>
+              <li>Breshears '06</li>
+            </ul>
+          </div>
+          <div>
+            <h3>XV</h3>
+            <ul>
+              <li>820 AD +176 P" +1110 P" = 2106 AD</li>
+              <li>6000 Annus Mundi [2106 AD] -666 → 1440 AD</li>
+              <li>820 AD · 1110 P" · 176 P" · 666</li>
+              <li>(trapezoid) 176 · 1110 · 666 · 994</li>
+              <li>1854 AM 2041 BC</li>
+              <li>4146 years from 6000 AM is 1854 AM [2041 BC]</li>
+              <li>204 decades to Birth of Chief Cornerstone</li>
+              <li>Perimeter of 3100. 3100 BC [795 AM] was <u>108th</u> regnal year of Enoch [reigned 3208 BC-2908 BC]</li>
+            </ul>
+          </div>
+          <div>
+            <h3>XVI</h3>
+            <ul>
+              <li>820 AM · 534 P" · +3360 P" · 4714 AM</li>
+              <li>534 P"</li>
+              <li>820 Annus Mundi [3075 BC]</li>
+              <li>3360 P"</li>
+              <li>4714 AM 820 AD</li>
+              <li>From 820 Annus Mundi to 820 AD is <u>3894</u> years [4714-820]. 3894 AM is year Chief Cornerstone born 2-1 BC.</li>
+            </ul>
+          </div>
+        </div>
+        <div class="uncert"><b>Reading notes.</b> The vertical side of the XV trapezoid is written sideways and reads "666" (it can look like "999" when rotated); 666 matches the "−666" beside it. "Pyrmid" is spelled so. The sideways-scanned plate was rotated to read.</div>
+      </details>
+    </div>
+
+    <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), charts&nbsp;XIII–XVI (plate&nbsp;46). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+  </div>
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,parent){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(parent)parent.appendChild(e);return e;}
+function tx(parent,x,y,str,a){const t=el('text',Object.assign({x,y,fill:'#cfd6e8','font-size':14},a||{}),parent);
+  const lines=String(str).split('\n');
+  if(lines.length===1){t.textContent=str;}
+  else{const lh=(a&&a.lh)||((+(a&&a['font-size'])||14)*1.25);lines.forEach((l,i)=>{const s=el('tspan',{x,dy:i?lh:0},t);s.textContent=l;});}
+  return t;}
+const tip=document.getElementById('tip');
+let tipLock=false;
+function showTip(html,e){tip.innerHTML=html;tip.style.opacity=1;
+  const w=tip.offsetWidth||290,h=tip.offsetHeight||120;
+  let x=e.clientX+16,y=e.clientY+14;
+  if(x+w>innerWidth-8)x=Math.max(8,e.clientX-w-12);
+  if(y+h>innerHeight-8)y=Math.max(8,e.clientY-h-12);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;document.querySelectorAll('.hot.on').forEach(g=>g.classList.remove('on'));}
+function T(col,title,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function hot(g,html){g.classList.add('hot');
+  g.addEventListener('mousemove',e=>{if(!tipLock)showTip(html,e);});
+  g.addEventListener('mouseleave',()=>{if(!tipLock)hideTip();});
+  g.addEventListener('click',e=>{e.stopPropagation();hideTip();g.classList.add('on');tipLock=true;showTip(html,e);});
+  return g;}
+document.addEventListener('click',()=>{tipLock=false;hideTip();});
+window.addEventListener('scroll',()=>{if(tipLock){tipLock=false;hideTip();}},{passive:true});
+
+/* ---------- filter chips ---------- */
+function makeChips(CAT,barId){
+  const bar=document.getElementById(barId||'filters');if(!bar)return;
+  const active=new Set(Object.keys(CAT));
+  Object.entries(CAT).forEach(([k,v])=>{
+    const c=document.createElement('div');c.className='chip';c.dataset.k=k;
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=(e)=>{e.stopPropagation();if(active.has(k)){active.delete(k);c.classList.add('off');}else{active.add(k);c.classList.remove('off');}
+      document.querySelectorAll('[data-cat]').forEach(g=>{g.style.display=active.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);});
+}
+
+/* ---------- Great Pyramid section (shared schematic geometry) ----------
+   Base frame: ground y=330, apex (500,0), central axis x=500, north face on the RIGHT. */
+function section(svg,o){
+  o=Object.assign({ox:500,oy:330,s:1,sub:true,subDepth:150,wide:440,chambers:true,courses:true},o||{});
+  const P=(x,y)=>[o.ox+o.s*(x-500),o.oy+o.s*(y-330)];
+  const R={P,s:o.s};
+  R.apex=P(500,0);R.bL=P(238,330);R.bR=P(762,330);
+  R.E=P(730,290);R.C=P(683,313);R.F=P(509,400);R.Gs=P(610,278);R.GS=P(512,230);
+  R.Q=P(503,278);R.K=P(465,222);R.S=P(432,394);R.T=P(330,400);R.pit=P(430,440);
+  R.groundY=R.bL[1];R.axisX=R.apex[0];
+  const g=el('g',{},svg);R.g=g;
+  const L=o.ox-o.s*o.wide,Rr=o.ox+o.s*o.wide;
+  if(o.sub){el('rect',{x:L,y:R.groundY,width:Rr-L,height:o.s*o.subDepth,fill:'#070b14',opacity:.85},g);
+    for(let y=R.groundY+14*o.s;y<R.groundY+o.s*o.subDepth;y+=16*o.s)el('line',{x1:L,y1:y,x2:Rr,y2:y,stroke:'#121a2c','stroke-width':1},g);}
+  el('polygon',{points:`${R.apex} ${R.bL} ${R.bR}`,fill:'#111a2e',stroke:'#3a4a6e','stroke-width':1.4},g);
+  if(o.courses){for(let y=R.apex[1]+14*o.s;y<R.groundY;y+=13*o.s){const t=(y-R.apex[1])/(R.groundY-R.apex[1]);
+    el('line',{x1:R.apex[0]+(R.bL[0]-R.apex[0])*t+2,y1:y,x2:R.apex[0]+(R.bR[0]-R.apex[0])*t-2,y2:y,stroke:'#1d2944','stroke-width':1},g);}}
+  el('line',{x1:L,y1:R.groundY,x2:Rr,y2:R.groundY,stroke:'#4a5a80','stroke-width':1.6},g);
+  const pas=(pts,w)=>{const d='M'+pts.map(p=>p.join(' ')).join(' L');
+    el('path',{d,fill:'none',stroke:'#5f7299','stroke-width':(w||7)*o.s,'stroke-linejoin':'round','stroke-linecap':'round',opacity:.45},g);
+    el('path',{d,fill:'none',stroke:'#e3e9f6','stroke-width':1.8,'stroke-linejoin':'round','stroke-linecap':'round'},g);};
+  // descending passage + subterranean
+  pas([R.E,R.F,P(470,400)]);
+  if(o.chambers){
+    pas([R.C,R.Gs]);                         // ascending
+    pas([R.Gs,R.GS],11);                     // grand gallery
+    pas([R.Gs,P(512,278)],5);                // queen's passage
+    el('path',{d:`M${P(493,279)} L${P(493,268)} L${P(502,262)} L${P(511,268)} L${P(511,279)} Z`,fill:'#e3e9f6',opacity:.85},g); // queen's chamber
+    el('path',{d:`M${P(512,231)} L${P(502,231)} L${P(502,226)} L${P(490,226)} L${P(490,231)} L${P(486,231)} L${P(486,213)} L${P(442,213)} L${P(442,232)} L${P(512,232)} Z`,fill:'#e3e9f6',opacity:.85},g); // antechamber + king's chamber
+  }
+  // subterranean chamber, pit, dead-end
+  el('rect',{x:P(395,386)[0],y:P(395,386)[1],width:75*o.s,height:18*o.s,fill:'#e3e9f6',opacity:.85},g);
+  el('rect',{x:P(426,404)[0],y:P(426,404)[1],width:9*o.s,height:36*o.s,fill:'#e3e9f6',opacity:.7},g);
+  pas([P(395,400),R.T],4);
+  // central axis
+  el('line',{x1:R.axisX,y1:R.apex[1]-10*o.s,x2:R.axisX,y2:R.groundY+o.s*(o.subDepth-6),stroke:'#56628f','stroke-width':1.1,'stroke-dasharray':'4 5',opacity:.8},g);
+  return R;
+}
+/* dimension line between a and b, offset perpendicular by off; label along it */
+function dim(parent,a,b,label,col,off,o){o=o||{};
+  const dx=b[0]-a[0],dy=b[1]-a[1],len=Math.hypot(dx,dy)||1,nx=-dy/len,ny=dx/len;
+  const A=[a[0]+nx*off,a[1]+ny*off],B=[b[0]+nx*off,b[1]+ny*off];
+  const g=el('g',{},parent);
+  if(off){el('line',{x1:a[0],y1:a[1],x2:A[0]+nx*4*Math.sign(off),y2:A[1]+ny*4*Math.sign(off),stroke:col,'stroke-width':.8,opacity:.5},g);
+    el('line',{x1:b[0],y1:b[1],x2:B[0]+nx*4*Math.sign(off),y2:B[1]+ny*4*Math.sign(off),stroke:col,'stroke-width':.8,opacity:.5},g);}
+  el('line',{x1:A[0],y1:A[1],x2:B[0],y2:B[1],stroke:col,'stroke-width':1.6,class:'hl',...(o.dash?{'stroke-dasharray':o.dash}:{})},g);
+  const ah=(p,ux,uy)=>el('path',{d:`M${p[0]} ${p[1]} L${p[0]-ux*9-uy*4} ${p[1]-uy*9+ux*4} L${p[0]-ux*9+uy*4} ${p[1]-uy*9-ux*4} Z`,fill:col},g);
+  if(o.arrows!==false){ah(B,dx/len,dy/len);ah(A,-dx/len,-dy/len);}
+  if(label){let ang=Math.atan2(dy,dx)*180/Math.PI;if(ang>90)ang-=180;if(ang<-90)ang+=180;
+    const m=[(A[0]+B[0])/2+nx*(o.lo||12)*Math.sign(off||1),(A[1]+B[1])/2+ny*(o.lo||12)*Math.sign(off||1)];
+    const t=tx(g,m[0],m[1]+4,label,{fill:col,'font-size':o.fs||14,'text-anchor':'middle','font-family':'JetBrains Mono','font-weight':500,class:'halo',transform:`rotate(${ang} ${m[0]} ${m[1]})`});}
+  return g;}
+/* pin: dot at p with a leader to a label block */
+function pin(parent,p,lp,label,col,o){o=o||{};
+  const g=el('g',{},parent);
+  el('line',{x1:p[0],y1:p[1],x2:lp[0],y2:lp[1]-4,stroke:col,'stroke-width':1,opacity:.6,'stroke-dasharray':o.dash||'none'},g);
+  el('circle',{cx:p[0],cy:p[1],r:o.r||5.5,fill:col,stroke:'#0b0f1a','stroke-width':1.5,class:'hl'},g);
+  el('circle',{cx:p[0],cy:p[1],r:(o.r||5.5)+5,fill:'none',stroke:col,'stroke-width':1,opacity:.45},g);
+  tx(g,lp[0],lp[1],label,{fill:o.fill||col,'font-size':o.fs||14,'text-anchor':o.anchor||'start','font-family':o.mono===false?'Space Grotesk':'JetBrains Mono','font-weight':500,class:'halo',lh:o.lh});
+  return g;}
+function arrowHead(parent,p,ang,col,sz){sz=sz||9;const c=Math.cos(ang),s=Math.sin(ang);
+  return el('path',{d:`M${p[0]} ${p[1]} L${p[0]-c*sz-s*sz*.45} ${p[1]-s*sz+c*sz*.45} L${p[0]-c*sz+s*sz*.45} ${p[1]-s*sz-c*sz*.45} Z`,fill:col},parent);}
+
+const CAT={
+  measure:{c:'#5cb3f2',label:'Passage measures (P″)'},
+  date   :{c:'#e7c355',label:'Dated points'},
+  event  :{c:'#9c8bf0',label:'Events & figures'}
+};
+const C=k=>CAT[k].c;
+const lay=(svg,k)=>el('g',{'data-cat':k},svg);
+function note(svg,k,x,y,title,body,tipT,tipB,o){o=o||{};const g=hot(lay(svg,k),T(C(k),tipT||title,o.yr||'',tipB||''));
+  if(title)tx(g,x,y,title,{fill:C(k),'font-size':o.tf||15,'font-weight':600,'text-anchor':o.anchor||'start',class:'halo'});
+  if(body)tx(g,x,y+(title?20:0),body,{fill:o.fill||'#b8c1d6','font-size':o.fs||13,lh:(o.fs||13)*1.3,'text-anchor':o.anchor||'start',class:'halo'});
+  return g;}
+function lbl(g,x,y,s,col,o){o=o||{};return tx(g,x,y,s,{fill:col,'font-size':o.fs||14,'font-family':'JetBrains Mono','text-anchor':o.anchor||'start',class:'halo',lh:o.lh||17,...(o.rot!=null?{transform:`rotate(${o.rot} ${x} ${y})`}:{})});}
+const S=1.08;
+function mk(id){return section(document.getElementById(id),{ox:400,oy:340,s:S,subDepth:150,wide:390});}
+
+/* XIII */
+(function(){const svg=document.getElementById('p13'),R=mk('p13');const F=R.F,E=R.E;
+  {const g=hot(lay(svg,'date'),T(C('date'),'1356 AD','at the entry','130 + 1414 + 3706 = 5250 Annus Mundi: 1356 AD'));pin(g,E,[E[0]+40,E[1]-70],'1356 AD',C('date'),{fs:16});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'4146 P″ sloping','entry → foot of descending passage','Against 3706 horizontal: 440 P″ differential.'));
+   dim(g,F,E,'',C('measure'),-18);lbl(g,(F[0]+E[0])/2-26,(F[1]+E[1])/2-24,'4146 P″ sloping',C('measure'),{rot:-26.5,anchor:'middle'});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'3706 horizontal','foot of passage → below the entry','130 + 1414 + 3706 = 5250'));
+   const B=[E[0],F[1]+46];el('line',{x1:E[0],y1:E[1],x2:E[0],y2:B[1]+6,stroke:C('measure'),'stroke-width':1,'stroke-dasharray':'3 3'},g);
+   el('line',{x1:F[0],y1:F[1],x2:F[0],y2:B[1]+6,stroke:C('measure'),'stroke-width':1,'stroke-dasharray':'3 3'},g);
+   dim(g,[F[0],B[1]],B,'',C('measure'),0);lbl(g,(F[0]+E[0])/2,B[1]+24,'3706 horizontal',C('measure'),{anchor:'middle'});}
+  note(svg,'measure',E[0]+90,E[1]+70,'440 P″','differential','440 P″ differential','4146 − 3706 = 440',{tf:16});
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'1414 P″','length of the subterranean level',''));
+   const a=R.T,b=R.P(470,400);dim(g,[a[0],a[1]-60],[b[0],b[1]-60],'',C('measure'),0);
+   el('line',{x1:a[0],y1:a[1],x2:a[0],y2:a[1]-66,stroke:C('measure'),'stroke-dasharray':'3 3'},g);el('line',{x1:b[0],y1:b[1],x2:b[0],y2:b[1]-66,stroke:C('measure'),'stroke-dasharray':'3 3'},g);
+   lbl(g,(a[0]+b[0])/2,a[1]-70,'1414 P″',C('measure'),{anchor:'middle'});}
+  note(svg,'event',700,30,'Sethite builders','of Great Pyrmid: patriarch was\nSeth, born 130 AM (13×10),\n3765 BC.\n130 + 1414 + 3706 = 5250\nAnnus Mundi: 1356 AD','Sethite builders of Great Pyrmid','"Sethite builders of Great Pyrmid patriarch was Seth, born 130 AM (13x10), 3765 BC. 130+1414+3706 = 5250 Annus Mundi: 1356 AD"');
+})();
+
+/* XIV */
+(function(){const svg=document.getElementById('p14'),R=mk('p14');const Cc=R.C,E=R.E,GS=R.GS;
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'1700 P″ high','Great Step above base',''));
+   const x=GS[0]-200;el('line',{x1:x,y1:GS[1],x2:GS[0],y2:GS[1],stroke:C('measure'),'stroke-dasharray':'3 3'},g);
+   dim(g,[x,R.groundY],[x,GS[1]],'',C('measure'),0);lbl(g,x-10,(GS[1]+R.groundY)/2,'1700 P″\nhigh',C('measure'),{anchor:'end'});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'Great Step to passage axis','3014 horizontal P″','1700 + 3014 = 4714 → 820 AD [4714 AM].'));
+   const y=GS[1]-40;el('line',{x1:GS[0],y1:GS[1],x2:GS[0],y2:y-6,stroke:C('measure'),'stroke-dasharray':'3 3'},g);
+   dim(g,[GS[0],y],[Cc[0],y],'',C('measure'),0);lbl(g,(GS[0]+Cc[0])/2,y-12,'Great Step to passage axis · 3014 horizontal P″',C('measure'),{anchor:'middle',fs:12.5});}
+  {const g=hot(lay(svg,'date'),T(C('date'),'820 AD [4714 AM]','passage axis / conjunct','"1700+3014 = 4714, 820 AD [4714 AM]." "820 AD marked new discovery of ascendant passage by Al Mamoun."'));
+   el('line',{x1:Cc[0],y1:GS[1]-46,x2:Cc[0],y2:R.groundY,stroke:C('date'),'stroke-width':1.4,'stroke-dasharray':'4 4'},g);
+   pin(g,Cc,[Cc[0]-210,Cc[1]+80],'1700 + 3014 = 4714,\n820 AD [4714 AM]',C('date'),{fs:14});
+   tx(g,Cc[0]-210,Cc[1]+124,'820 AD marked new discovery of\nascendant passage by Al Mamoun.',{fill:'#d8c78f','font-size':12.5,lh:16,class:'halo'});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'820 AD axis is 176 P″ [44×4] above base','',''));
+   dim(g,[Cc[0]+8,R.groundY],[Cc[0]+8,Cc[1]],'',C('measure'),0);lbl(g,Cc[0]+14,R.groundY+24,'176 P″ [44×4] above base',C('measure'),{fs:12.5});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'1110 P″','conjunct → entry','820 + 1110 = 1930 AD.'));dim(g,Cc,E,'1110 P″',C('measure'),-16,{fs:13});}
+  {const g=hot(lay(svg,'date'),T(C('date'),'1930 AD is 176 P″ to 2106 AD','or 6000 Annus Mundi',''));
+   el('line',{x1:E[0],y1:E[1],x2:E[0],y2:E[1]-130,stroke:C('date'),'stroke-dasharray':'3 4'},g);
+   pin(g,E,[E[0]+30,E[1]-150],'1930 AD is 176 P″\nto 2106 AD,\nor 6000 Annus Mundi',C('date'),{fs:14});}
+  note(svg,'event',700,425,'1930 AD [5824 AM]','new discovery of Pluto, a planet\nalready known to Ancients;\ndiscovery of stone records Ugarit\nopening historic window to\nAncient World.','1930 AD [5824 AM]','"New discovery of Pluto, a planet already known to Ancients; discovery of stone records Ugarit opening historic window to Ancient World."');
+})();
+
+/* XV */
+(function(){const svg=document.getElementById('p15'),R=mk('p15');const Cc=R.C,E=R.E,F=R.F;
+  note(svg,'date',20,20,'820 AD + 176 P″ + 1110 P″','= 2106 AD','820 AD +176 P″ +1110 P″','= 2106 AD',{tf:16,fs:16,fill:'#e7c355'});
+  {const g=hot(lay(svg,'date'),T(C('date'),'820 AD','conjunct',''));pin(g,Cc,[Cc[0]-90,Cc[1]-90],'820 AD',C('date'),{fs:14,anchor:'end'});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'176 P″','conjunct height above base',''));dim(g,[Cc[0],R.groundY],[Cc[0],Cc[1]],'',C('measure'),0);lbl(g,Cc[0]-6,R.groundY-4,'176 P″',C('measure'),{anchor:'end',fs:12.5});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'1110 P″','conjunct → entry',''));dim(g,Cc,E,'1110 P″',C('measure'),-16,{fs:13});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'666','entry height above base (dashed triangle)',''));
+   el('path',{d:`M${E[0]} ${E[1]} L${E[0]} ${R.groundY} L${Cc[0]} ${R.groundY}`,fill:'none',stroke:C('measure'),'stroke-dasharray':'4 4'},g);
+   lbl(g,E[0]+6,(E[1]+R.groundY)/2+5,'666',C('measure'),{fs:13});}
+  {const g=hot(lay(svg,'date'),T(C('date'),'6000 Annus Mundi [2106 AD] −666','→ 1440 AD','2106 − 666 = 1440'));
+   pin(g,E,[E[0]+40,E[1]-150],'6000 Annus Mundi\n[2106 AD]\n−666',C('date'),{fs:15});
+   el('path',{d:`M${E[0]+110} ${E[1]-80} Q ${E[0]+150} ${E[1]-50} ${E[0]+150} ${E[1]-10}`,fill:'none',stroke:C('date'),'stroke-width':2},g);
+   arrowHead(g,[E[0]+150,E[1]-6],Math.PI/2,C('date'),12);
+   lbl(g,E[0]+150,E[1]+18,'1440 AD',C('date'),{fs:18,anchor:'middle'});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'4146 years from 6000 AM is 1854 AM [2041 BC]','entry → foot of descending passage',''));
+   dim(g,F,E,'',C('measure'),18);lbl(g,(F[0]+E[0])/2+20,(F[1]+E[1])/2+40,'4146 years from 6000 AM is 1854 AM [2041 BC]',C('measure'),{rot:-26.5,anchor:'middle',fs:12});}
+  {const g=hot(lay(svg,'event'),T(C('event'),'1854 AM · 2041 BC','204 decades to Birth of Chief Cornerstone',''));
+   el('line',{x1:F[0],y1:F[1]-80,x2:F[0],y2:F[1]+50,stroke:C('event'),'stroke-dasharray':'3 4'},g);
+   pin(g,F,[F[0]-20,F[1]-100],'1854 AM\n2041 BC',C('event'),{fs:14,anchor:'end'});
+   tx(g,F[0]-20,F[1]+70,'204 decades to Birth of\nChief Cornerstone',{fill:'#c4bdf3','font-size':13,'text-anchor':'end',lh:16,class:'halo'});}
+  // trapezoid
+  {const g=hot(lay(svg,'event'),T(C('event'),'Perimeter of 3100','sides 176 · 1110 · 666 · 994 (as drawn)','"Perimeter of 3100. 3100 BC [795 AM] was 108th regnal year of Enoch [reigned 3208 BC-2908 BC]." The labelled sides sum to 2946 (as written).'));
+   const x0=780,y0=530;const pts=[[x0,y0],[x0,y0-24],[x0+150,y0-84],[x0+150,y0]];
+   el('polygon',{points:pts.map(p=>p.join(',')).join(' '),fill:'#9c8bf01a',stroke:C('event'),'stroke-width':1.6,class:'hl'},g);
+   lbl(g,x0-6,y0-10,'176',C('event'),{anchor:'end',fs:13});lbl(g,x0+66,y0-64,'1110',C('event'),{fs:13,rot:-22});
+   lbl(g,x0+158,y0-38,'666',C('event'),{fs:13});lbl(g,x0+75,y0+20,'994',C('event'),{anchor:'middle',fs:13});
+   tx(g,760,y0-150,'Perimeter of 3100. 3100 BC\n[795 AM] was 108th regnal\nyear of Enoch [reigned\n3208 BC – 2908 BC]',{fill:'#c4bdf3','font-size':13,lh:16,class:'halo'});}
+})();
+
+/* XVI */
+(function(){const svg=document.getElementById('p16'),R=mk('p16');const Cc=R.C,GS=R.GS;
+  const wall=R.P(442,222);
+  {const g=hot(lay(svg,'date'),T(C('date'),'820 Annus Mundi [3075 BC]','King\'s Chamber wall line',''));
+   el('line',{x1:wall[0],y1:wall[1]-10,x2:wall[0],y2:R.groundY,stroke:C('date'),'stroke-dasharray':'3 4'},g);
+   lbl(g,wall[0]-8,R.groundY-60,'820\nAnnus Mundi\n[3075 BC]',C('date'),{anchor:'end',fs:13.5});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'534 P″','chamber wall → Great Step',''));
+   dim(g,[wall[0],wall[1]-24],[GS[0],wall[1]-24],'',C('measure'),0);lbl(g,(wall[0]+GS[0])/2,wall[1]-34,'534 P″',C('measure'),{anchor:'middle',fs:13});}
+  {const g=hot(lay(svg,'measure'),T(C('measure'),'3360 P″','Great Step → conjunct',''));
+   dim(g,GS,R.Gs,'',C('measure'),18);dim(g,R.Gs,Cc,'',C('measure'),18);lbl(g,R.Gs[0]+8,R.Gs[1]+40,'3360 P″',C('measure'),{fs:14});}
+  {const g=hot(lay(svg,'date'),T(C('date'),'4714 AM · 820 AD','conjunct',''));
+   el('line',{x1:Cc[0],y1:Cc[1]-120,x2:Cc[0],y2:R.groundY,stroke:C('date'),'stroke-dasharray':'3 4'},g);
+   pin(g,Cc,[Cc[0]+12,Cc[1]-130],'4714 AM\n820 AD',C('date'),{fs:15});}
+  note(svg,'date',20,20,'820 AM + 534 P″ + 3360 P″','= 4714 AM','820 AM +534 P″ +3360 P″ = 4714 AM','',{tf:16,fs:16,fill:'#e7c355'});
+  note(svg,'event',700,390,'From 820 Annus Mundi','to 820 AD is 3894 years\n[4714−820]. 3894 AM is year\nChief Cornerstone born 2-1 BC.','From 820 Annus Mundi to 820 AD','"From 820 Annus Mundi to 820 AD is 3894 years [4714-820]. 3894 AM is year Chief Cornerstone born 2-1 BC."');
+})();
+makeChips(CAT);
+</script>
+</body>
+</html>

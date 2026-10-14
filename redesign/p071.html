@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XXII·c — Countdowns to 2052 AD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XXII·c · Plate&nbsp;71</div>
+    <h1>Chronotecture
+      <span class="sub">Countdowns to 2052&nbsp;AD — the Eighth King’s Reign</span>
+    </h1>
+    <p class="prov">A rebuild of Jason&nbsp;M.&nbsp;Breshears’ hand-drawn chart&nbsp;XXII·c, with every date, span and annotation preserved verbatim; only the visual language is new. Its structural key: <b>eleven countdown bars land together on 2052&nbsp;AD [108×19]</b>, the midpoint (54|54) of the 108 years from 1998 to 6000&nbsp;AM [2106&nbsp;AD].</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2>Countdowns to 2052&nbsp;AD — Abaddon’s reign</h2>
+      <div class="hint">Every bar terminates on 2052&nbsp;AD [108×19] [5946&nbsp;AM]; the 54|54 arc marks 2052 as the midpoint of the 108 years from 1998 to 6000&nbsp;AM [2106&nbsp;AD]. Hover or tap a bar. <span class="anchor-key"><i></i>LANDING 2052 AD [108×19]</span></div>
+      <div class="swipe">⟷ swipe to pan the timeline</div>
+      <div class="scroller" data-focus=".8"><svg id="tl" class="wide" viewBox="0 0 1400 760" role="img" aria-label="Countdown bars converging on 2052 AD"></svg></div>
+    </div>
+    <div class="card">
+      <h2>The eighth king</h2>
+      <div class="hint" style="font-size:13.5px;color:#cfd7ea;max-width:900px">“2052&nbsp;AD [1440 days after Nibiru pass in 2046&nbsp;AD] the Eighth King, Abaddon the Destroyer, who is of the <u>Seven Kings</u> of the Anunnaki in Revelation begins his reign in Apocalypse that was ‘cut off’ by the Flood in Sumerian Kinglists.”</div>
+      <div class="hint">“2052&nbsp;AD [108×19] [5946&nbsp;AM] 19 is lunar number. Anunnaki orig. thought to be <u>Moon</u> of old.” — and on the right margin: “6000&nbsp;AM [2106&nbsp;AD] Anunnaki defeated in Armageddon.”</div>
+    </div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked. Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid"><div class="mrow"><span class="eq">108 × 19 = 2052</span><span class="cap">The landing year.</span></div><div class="mrow"><span class="eq">666 × 3 = 1998 · 2052 − 1998 = 54 · 2106 − 1998 = 108</span><span class="cap">“1998 AD is 666×3 and 54 yrs to 2052; 108 to 6000 AM” — 54 + 54 = 108.</span></div><div class="mrow"><span class="eq">2052 − 2000 = 52</span><span class="cap">5-planet alignment on 5\5\2000.</span></div><div class="mrow"><span class="eq">2052 − 1948 = 104 = 52 × 2</span><span class="cap">Israel becomes recognized nation.</span></div><div class="mrow"><span class="eq">2052 − 1908 = 144</span><span class="cap">Comet over USSR; Sicily quake &amp; tsunami.</span></div><div class="mrow"><span class="eq">2052 − 1896 = 156 = 52 × 3</span><span class="cap">“1896 AD [52×3] 156 yrs” — Japan tsunami.</span></div><div class="mrow"><span class="eq">2052 − 1866 = 186</span><span class="cap">“1866 AD [5760 AM]” — Vatican stripped of power.</span></div><div class="mrow"><span class="eq">2052 − 1864 = 188 · 1000 + 864 = 1864</span><span class="cap">Piazzi Smyth.</span></div><div class="mrow"><span class="eq">2052 − 1692 = 360</span><span class="cap">Salem witch trials \ putrid rain.</span></div><div class="mrow"><span class="eq">2052 − 1532 = 520 = 52 × 10</span><span class="cap">Comet; Pizarro betrays the Inca.</span></div><div class="mrow"><span class="eq">2052 − 1252 = 800 = 40 × 20 · 252 = 36 × 7</span><span class="cap">“1252 AD [1000+252: 36×7]” — Inquisition torture.</span></div><div class="mrow"><span class="eq">2052 − 1062 = 990 = 90 × 11</span><span class="cap">Ottoman Turks destroy Greek Christendom.</span></div><div class="mrow"><span class="eq">1440 days</span><span class="cap">2046 → 2052 AD: six years of 240 days (the 240-day year is stated on chart XXI·b).</span></div></div><div style="font-size:12.5px;color:var(--muted);line-height:1.6">The 52-year unit recurs: 52, 104, 156 and 520 are all multiples of 52 written on the plate.</div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised), grouped by region.</div><details class="tx"><summary>Show transcription</summary><div class="cols"><div><h3>Header &amp; frame</h3><ul><li>XXII.c</li><li>Breshears ’07</li><li>6000 AM [2106 AD] Anunnaki defeated in Armageddon (vertical line)</li><li>Scale: 1200 · 1300 · 1400 · 1500 · 1600 · 1700 · 1800 · 1900 · 2000</li></ul></div><div><h3>Text blocks</h3><ul><li>2052 AD [1440 days after Nibiru pass in 2046 AD] the Eighth King, Abaddon the Destroyer, who is of the <u>Seven Kings</u> of the Anunnaki in Revelation begins his reign in Apocalypse that was “cut off” by the Flood in Sumerian Kinglists.</li><li>2052 AD [108×19] [5946 AM] 19 is lunar number. Anunnaki orig. thought to be <u>Moon</u> of old.</li><li>1998 AD is 666×3 and 54 yrs to 2052; 108 to 6000 AM</li><li>54 | 54 (circle about 2052)</li></ul></div><div><h3>Callouts</h3><ul><li>2000 AD 5-planet alignment on 5\5\2000 is 52 yrs to 2052.</li><li>1948 AD Israel becomes recognized nation. 104 is 52×2.</li><li>1908 AD comet explodes over USSR; quake at 5:20 AM in Cicily and tsunami kills 120,000 people</li><li>1896 AD submarine quake and tsunami kills 30,000 in Japan</li><li>1866 AD Europe strips the Vatican of its power</li><li>1864 AD Piazzi Smyth studied Great Pyramid’s prophetic significance.</li></ul></div><div><h3>Bars (top to bottom)</h3><ul><li>1998 AD</li><li>2000 AD</li><li>1948 is 104 yrs</li><li>1908 AD is 144 yrs.</li><li>1896 AD [52×3] 156 yrs</li><li>1866 AD [5760 AM] 186 yrs.</li><li>1864 AD [1000+864] 188 yrs</li><li>1692 AD Salem Witch Trials\Putrid Rain 360 yrs.</li><li>1532 AD comet and Pizarro betrays the Inca 520 yrs [52×10]</li><li>1252 AD [1000+252: 36×7] Roman Papacy authorizes torture as Inquisition method 800 yrs [40×20]</li><li>1062 AD Ottoman Turks [Islamic] destroy Greek Christendom and N.W. Rome 990 years [90×11] to 2052 AD</li></ul></div></div><h3>Uncertain readings</h3><ul><li><span class="unc">[?]</span> “Cicily” spelled as on the plate.</li><li><span class="unc">[?]</span> Leftmost cell of the scale (≈1100) carries no number on the plate.</li></ul></details><div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XXII·c (plate&nbsp;71). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div></div>
+    </div>
+  </div>
+
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+function yl(v){return v<0?(-v)+' BC':v+' AD';}
+// span bar: x1<x2 in px; offL draws an off-scale arrow at left end
+function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL){g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR){g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  g.appendChild(el('rect',{x:x1-6,y:o.y-24,width:x2-x1+12,height:44,fill:'transparent'}));
+  if(o.lab){const t=tx(g,o.lx,o.y-9,o.lab,{'text-anchor':o.la||'start','font-size':12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});}
+  if(o.lab2){tx(g,o.lx,o.y+17,o.lab2,{'text-anchor':o.la||'start','font-size':11,class:'h',fill:'#8b95ad'});}
+  bind(g,o.tip);p.appendChild(g);return g;}
+
+const CAT={
+  cel:{c:'#5cb3f2',label:'Comets / planets'},
+  cata:{c:'#f08a4b',label:'Quake & tsunami'},
+  ch:{c:'#e58fb6',label:'Church, empire & nation'},
+  pyr:{c:'#e7c355',label:'Pyramid & prophecy'}
+};
+const A=2052, YMIN=1085, YMAX=2122, PL=60, PR=1340;
+const X=y=>PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);
+const svg=document.getElementById('tl'), AX=X(A), x6=X(2106);
+const R=[
+ {s:1998,cat:'pyr',lab:'1998 AD',l2:'1998 AD is 666×3 and 54 yrs to 2052; 108 to 6000 AM'},
+ {s:2000,cat:'cel',lab:'2000 AD',l2:'5-planet alignment on 5\\5\\2000 is 52 yrs to 2052'},
+ {s:1948,cat:'ch',lab:'1948 is 104 yrs',l2:'Israel becomes recognized nation. 104 is 52×2.'},
+ {s:1908,cat:'cel',lab:'1908 AD is 144 yrs.',l2:'Comet explodes over USSR; quake at 5:20 AM in Cicily and tsunami kills 120,000 people'},
+ {s:1896,cat:'cata',lab:'1896 AD [52×3] 156 yrs',l2:'Submarine quake and tsunami kills 30,000 in Japan'},
+ {s:1866,cat:'ch',lab:'1866 AD [5760 AM] 186 yrs.',l2:'Europe strips the Vatican of its power'},
+ {s:1864,cat:'pyr',lab:'1864 AD [1000+864] 188 yrs',l2:'Piazzi Smyth studied Great Pyramid’s prophetic significance'},
+ {s:1692,cat:'ch',lab:'1692 AD Salem Witch Trials\\Putrid Rain 360 yrs.',l2:''},
+ {s:1532,cat:'cel',lab:'1532 AD Comet and Pizarro betrays the Inca 520 yrs [52×10]',l2:''},
+ {s:1252,cat:'ch',lab:'1252 AD [1000+252: 36×7] Roman Papacy authorizes torture as Inquisition method 800 yrs [40×20]',l2:''},
+ {s:1062,cat:'ch',off:1,lab:'1062 AD Ottoman Turks [Islamic] destroy Greek Christendom and N.W. Rome 990 years [90×11] to 2052 AD',l2:''}
+];
+const TOP=150, RH=50, AXIS=TOP+R.length*RH-12;
+for(let y=1100;y<=2100;y+=100){const x=X(y);svg.appendChild(el('line',{x1:x,y1:110,x2:x,y2:AXIS,stroke:'#1c2740'}));}
+svg.appendChild(el('rect',{x:PL,y:AXIS-8,width:PR-PL,height:16,fill:'#121a2c',stroke:'#3a486a'}));
+for(let y=1200;y<=2000;y+=100)tx(svg,X(y)+5,AXIS+4,String(y),{fill:'#aeb7cd','font-size':10.5,class:'mono'});
+// 6000 AM line
+svg.appendChild(el('line',{x1:x6,y1:40,x2:x6,y2:AXIS+30,stroke:'#e7c355','stroke-width':2}));
+const g6=el('g',{});tx(g6,x6,AXIS+48,'6000 AM [2106 AD]',{fill:'#e7c355','font-size':11,'text-anchor':'end',class:'mono'});
+tx(g6,x6,AXIS+63,'Anunnaki defeated in Armageddon',{fill:'#8b95ad','font-size':11,'text-anchor':'end'});svg.appendChild(g6);
+bind(g6,T('6000 AM [2106 AD]','#e7c355','','Anunnaki defeated in Armageddon.'));
+// 54|54 arc
+const r=x6-AX, cy=118;
+const arc=el('g',{});arc.appendChild(el('path',{d:`M${AX-r} ${cy} A${r} ${r*0.85} 0 0 1 ${x6} ${cy}`,fill:'none',stroke:'#e7c355','stroke-width':1.6,opacity:.85}));
+arc.appendChild(el('line',{x1:AX-r,y1:cy,x2:AX-r,y2:AXIS,stroke:'#e7c355','stroke-dasharray':'2 4',opacity:.6}));
+tx(arc,AX-r/2,cy-8,'54',{fill:'#e7c355','font-size':13,'text-anchor':'middle',class:'mono'});
+tx(arc,AX+r/2,cy-8,'54',{fill:'#e7c355','font-size':13,'text-anchor':'middle',class:'mono'});
+svg.appendChild(arc);bind(arc,T('54 | 54','#e7c355','1998 → 2052 → 2106','2052 is the midpoint of the 108 years from 1998 AD (666×3) to 6000 AM [2106 AD].'));
+// anchor
+svg.appendChild(el('line',{x1:AX,y1:44,x2:AX,y2:AXIS+30,stroke:'#ffcf5c','stroke-width':2.2}));
+const ag=el('g',{});ag.appendChild(el('circle',{cx:AX,cy:52,r:9,fill:'#ffcf5c'}));
+tx(ag,AX-r-16,48,'2052 AD [108×19]',{fill:'#ffcf5c','font-size':13,'text-anchor':'end',class:'mono','font-weight':500});
+tx(ag,AX-r-16,64,'[5946 AM] · 19 is lunar number',{fill:'#ffcf5c','font-size':11,'text-anchor':'end',class:'mono'});svg.appendChild(ag);
+bind(ag,T('2052 AD [108×19] [5946 AM]','#ffcf5c','1440 days after Nibiru pass in 2046 AD','The Eighth King, Abaddon the Destroyer, who is of the Seven Kings of the Anunnaki in Revelation begins his reign. 19 is lunar number; Anunnaki orig. thought to be Moon of old.'));
+R.forEach((q,i)=>{const y=TOP+i*RH;const col=CAT[q.cat].c;
+  spanBar(svg,{x1:q.off?PL+18:X(q.s),x2:AX-3,y,col,cat:q.cat,offL:!!q.off,lab:q.lab,lab2:q.l2,lx:AX-14,la:'end',
+    tip:T(q.lab,col,`${q.s} AD → 2052 AD · ${A-q.s} years`,q.l2+(q.off?' <i>(starts off the scale)</i>':''))});
+});
+chips(CAT,'.row');
+
+</script>
+</body>
+</html>

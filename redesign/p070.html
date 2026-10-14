@@ -1,0 +1,204 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XXI·b — 13 Countdowns to 2046 AD</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-comet:#5cb3f2; --c-quake:#f08a4b; --c-proph:#e7c355; --c-hist:#9c8bf0; --c-flood:#37b6a6;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);background-color:var(--bg);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+  body{overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.6}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-proph);font-weight:600;margin-top:.35em;line-height:1.25}
+  .prov{color:var(--muted);font-size:13px;max-width:780px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch;margin:0 -4px;padding:0 4px}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.1fr .9fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  svg text.h{paint-order:stroke;stroke:#0b0f1a;stroke-width:3.4px;stroke-linejoin:round}
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-proph);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 18px;margin:6px 0 14px}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#6f7a96;font-style:italic;font-family:'JetBrains Mono',monospace;margin-top:2px}
+  .base138{color:var(--anchor);font-weight:600}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+  .anchor-key{display:inline-flex;align-items:center;gap:7px;color:var(--anchor);font-size:12.5px;font-family:'JetBrains Mono',monospace}
+  .anchor-key i{width:2px;height:14px;background:var(--anchor);display:inline-block;box-shadow:0 0 8px var(--anchor)}
+  details.tx{margin-top:4px}
+  details.tx summary{cursor:pointer;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.12em;color:var(--c-comet);text-transform:uppercase;padding:6px 0}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;color:var(--muted);text-transform:uppercase;margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px}
+  .tx li{font-size:13px;line-height:1.55;margin:3px 0;color:#d3dbec}
+  .tx li .unc{color:#f08a4b;font-family:'JetBrains Mono',monospace;font-size:11px}
+  .cols{columns:2 420px;column-gap:28px}
+  .cols>div{break-inside:avoid}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:#5d6885;letter-spacing:.14em;text-transform:uppercase;margin:2px 0 6px}
+  .legend{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:8px 16px;margin:10px 0 4px}
+  .legend div{font-size:12px;color:var(--muted);line-height:1.45;display:flex;gap:8px;cursor:pointer}
+  .legend b{color:var(--anchor);font-family:'JetBrains Mono',monospace;font-weight:500;flex:0 0 auto}
+  @media(max-width:700px){
+    .wrap{padding:54px 16px 60px}
+    .mathgrid{grid-template-columns:1fr}
+    .scroller svg.wide{min-width:860px}
+    .scroller svg.mid{min-width:620px}
+    .kicker{padding-right:0;letter-spacing:.28em}
+    .swipe{display:block}
+  }
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XXI·b · Plate&nbsp;70</div>
+    <h1>Chronotecture
+      <span class="sub">13 Countdowns to End of United States — converging on 2046&nbsp;AD</span>
+    </h1>
+    <p class="prov">A rebuild of Jason&nbsp;M.&nbsp;Breshears’ hand-drawn chart&nbsp;XXI·b, with every date, span and annotation preserved verbatim; only the visual language is new. Its structural key: <b>every countdown bar terminates on one landing year, 2046&nbsp;AD [186×11] = 5940&nbsp;AM</b>, sixty 240-day years before 6000&nbsp;AM.</p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+  <div class="grid">
+    <div class="card">
+      <h2>13 countdowns to end of United States</h2>
+      <div class="hint">Every bar runs from its dated event to the single landing year, 2046&nbsp;AD. Arrows mark spans that begin far off the scale. Hover or tap a bar for the full annotation. <span class="anchor-key"><i></i>LANDING 2046 AD [186×11] · 5940 AM</span></div>
+      <div class="swipe">⟷ swipe to pan the timeline</div>
+      <div class="scroller" data-focus=".7"><svg id="tl" class="wide" viewBox="0 0 1400 940" role="img" aria-label="Countdown bars converging on 2046 AD"></svg></div>
+    </div>
+    <div class="bottom">
+      <div class="card"><h2>Cycle mathematics</h2><div class="hint">The arithmetic actually written on the plate, checked. Figures that do not hold are kept and marked <i>as written</i>.</div><div class="mathgrid"><div class="mrow"><span class="eq">186 × 11 = 2046</span><span class="cap">The landing year, written beside it as “2046 AD [186×11]”.</span></div><div class="mrow"><span class="eq">108 × 55 = 5940 · 660 × 9 = 5940</span><span class="cap">“5940 AM [108×55\660×9]” — the same year in Anno Mundi.</span></div><div class="mrow"><span class="eq">2046 − 2006 = 40 · −1996 = 50 · −1994 = 52</span><span class="cap">Asteroid near-miss · comet Hyakutake · Shoemaker-Levy into Jupiter (“52 yrs. from impact to impact”).</span></div><div class="mrow"><span class="eq">2046 − 1986 = 60 · −1976 = 70 · 52 × 38 = 1976</span><span class="cap">Challenger / asteroid Adonis · Viking I on Mars.</span></div><div class="mrow"><span class="eq">2046 − 1946 = 100 · 40 × 146 = 5840</span><span class="cap">“1946 AD [5840 AM is 40×146]” — United Nations.</span></div><div class="mrow"><span class="eq">2046 − 1906 = 140 = 70 × 2</span><span class="cap">San Francisco quake\fire [5800 AM]; 5:13 AM = 313th minute of the 108th day.</span></div><div class="mrow"><span class="eq">2046 − 1902 = 144</span><span class="cap">“144th course of bricks” — end of the Cursed Earth chronology of fifteen <span class="base138">414</span>-year periods from 4309&nbsp;BC.</span></div><div class="mrow"><span class="eq">186 × 10 = 1860 · 2046 − 1860 = 186</span><span class="cap">Confederacy secedes — “186 yrs. to N. America broken”.</span></div><div class="mrow"><span class="eq">2046 − 1776 = 270 = 90 × 3</span><span class="cap">USA separates from Iron Empire Britain.</span></div><div class="mrow"><span class="eq">1776 = [444×3]</span><span class="cap">Bracket beside 1776&nbsp;AD.</span><span class="aw">as written — 444 × 3 = 1332; 444 × 4 = 1776</span></div><div class="mrow"><span class="eq">2046 − 1602 = 444 · “a third of 1776”</span><span class="cap">Greaves born, Prof. of Astronomy.</span><span class="aw">as written — 1776 ÷ 3 = 592; 444 is a quarter of 1776</span></div><div class="mrow"><span class="eq">55 BC → 2046 AD = 2100 = 700 × 3</span><span class="cap">Caesar invades Britain [3840&nbsp;AM] (no year zero).</span></div><div class="mrow"><span class="eq">240 × 60 = 14,400</span><span class="cap">Nibiru reduces the 360-day year by a third to 240 days; 2046 → 6000&nbsp;AM [2106&nbsp;AD] is 60 such years = 14,400 days.</span></div><div class="mrow"><span class="eq">2047 AM · 2047 yrs after 1 BC</span><span class="cap">Sodom &amp; Gomorrah (7 comets, 2047&nbsp;AM) mirrored by USA destroyed 2047 years after Christ’s 1&nbsp;BC birth.</span></div></div><div style="font-size:12.5px;color:var(--muted);line-height:1.6">Ten of the thirteen bars are exact year differences to 2046; the plate lays them out as a staircase so the landing column is a single vertical edge.</div></div>
+      <div class="card"><h2>Full transcription</h2><div class="hint">Every annotation on the plate, verbatim (capitalisation normalised), grouped by region.</div><details class="tx"><summary>Show transcription</summary><div class="cols"><div><h3>Header</h3><ul><li>XXI.b — 13 Countdowns to End of United States</li><li>Breshears ’07</li><li>2046 AD [186×11]</li><li>5940 AM [108×55\660×9]</li><li>6000 Annus Mundi [2106 AD] (vertical line)</li></ul></div><div><h3>Callouts (left and top)</h3><ul><li>1976 AD NASA <u>Viking I</u> photographs anomalies on Mars during USA bicentennial year.</li><li>1986 AD NASA space shuttle <u>Challenger</u> and seven astronauts explode; astroid <u>Adonis</u> passes 186,000 miles from Earth [5 miles wide]</li><li>1946 AD USA Iron Empire global dominance is secured by establishment of United Nations</li><li>1906 AD quake at 5:13 AM on April 18th; this is the 313th minute of the 108th day of the year. [Mayan Calendar 3113 BC]</li><li>1902 AD end of Cursed Earth chronology of fifteen 414 year periods that began with astroid impact that destroyed PreAdamic World 4309 BC</li><li>1994 AD comet Shoemaker-Levy collided into Jupiter</li><li>52 yrs. from impact to impact</li><li>1996 AD comet Hyakutake passes over Al Gol [most <u>evil</u> star] exactly 365 days after comet Hale-Bopp passed over Al Gol in 1995.</li><li>July 2-3 astroid passes closer than Moon [½ mile wide]</li></ul></div><div><h3>Right panel</h3><ul><li>2046 AD impact is second trumpet of Revelation. Day, night and year reduced by a 3rd by Nibiru passing so original year of 360 [changed to 365.24 by cataclysm] becomes 240 days, thus 2046 AD is <u>14,400</u> days to 6000 AM [240×60]</li></ul></div><div><h3>Bars (top to bottom)</h3><ul><li>2006 AD is 40 yrs.</li><li>1996 AD is 50 years</li><li>1994 AD [5888] 52 years</li><li>1986 AD [5880 AM] 60 years</li><li>1976 AD [52×38] is 70 years</li><li>1946 AD [5840 AM is 40×146] is 100 years</li><li>1906 AD [5800 AM] San Francisco quake\fire 140 yrs. [70×2]</li><li>1902 AD is 144 years to 2046 AD [144th course of bricks]</li><li>1860 AD [186×10] USA <u>broken</u> as Confederacy secedes 186 yrs. to N. America broken</li><li>3113 BC [782 AM] 13 Clan Mayan system ends at 13th Baktun 2046 AD end of USA [13th Tribe\Colonies\Empire]</li><li>1776 AD [444×3] USA separates from Iron Empire Britain 270 [90×3] years before 2046 AD</li><li>1602 AD pyramid researcher Greaves born, Prof. of Astronomy 444 yrs [a <u>third</u> of 1776] to 2046 AD</li><li>55 BC [3840 AM] Caesar [Iron Empire] of Rome invades Britain [start of future Iron Empire] 2100 [700×3] yrs.</li><li>Sodom &amp; Gomorrah destroyed by 7 comets in 2047 AM. USA destroyed 2047 yrs after Christ’s 1 BC birth</li></ul></div><div><h3>Scale &amp; foot</h3><ul><li>1800 AD · 1900 AD · 2001 AD</li><li>Maya held that at end of 13th Baktun “time would collapse.”</li></ul></div></div><h3>Uncertain readings</h3><ul><li><span class="unc">[?]</span> “1776 AD [444×3]” — digits clear; arithmetic does not hold (see Cycle mathematics).</li><li><span class="unc">[?]</span> Only 14 bars are drawn although the title says 13 countdowns; the bar count is reproduced as drawn.</li></ul></details><div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XXI·b (plate&nbsp;70). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div></div>
+    </div>
+  </div>
+
+</div>
+<div id="tip"></div>
+<script>
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,t){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(t!=null)e.textContent=t;return e;}
+const tip=document.getElementById('tip');
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;const w=Math.min(300,innerWidth-16);tip.style.maxWidth=w+'px';
+  let x=e.clientX+16,y=e.clientY+14;if(x+w>innerWidth)x=Math.max(8,e.clientX-w-8);
+  const th=tip.offsetHeight||150;if(y+th>innerHeight)y=Math.max(8,e.clientY-th-10);tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(title,col,yr,body){return `<div class="t-h"><span class="d" style="background:${col}"></span>${title}</div>${yr?`<div class="t-yr">${yr}</div>`:''}${body?`<div class="t-b">${body}</div>`:''}`;}
+function bind(n,h){n.style.cursor='pointer';n.addEventListener('mousemove',e=>showTip(h,e));n.addEventListener('mouseleave',hideTip);
+  n.addEventListener('click',e=>{e.stopPropagation();showTip(h,e);});}
+document.addEventListener('click',hideTip);
+window.addEventListener('scroll',hideTip,{passive:true});
+function tx(p,x,y,s,o){const t=el('text',Object.assign({x,y,fill:'#dfe6f5','font-size':12},o||{}),s);p.appendChild(t);return t;}
+function chips(CAT,sel){const bar=document.getElementById('filters');if(!bar)return;const on=new Set(Object.keys(CAT));
+  for(const[k,v]of Object.entries(CAT)){const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=()=>{if(on.has(k)){on.delete(k);c.classList.add('off');}else{on.add(k);c.classList.remove('off');}
+      document.querySelectorAll(sel).forEach(g=>{g.style.display=on.has(g.getAttribute('data-cat'))?'':'none';});};
+    bar.appendChild(c);}}
+function focusScrollers(){document.querySelectorAll('.scroller[data-focus]').forEach(s=>{s.scrollLeft=Math.max(0,s.scrollWidth*(+s.dataset.focus)-s.clientWidth/2);});}
+window.addEventListener('load',focusScrollers);
+function yl(v){return v<0?(-v)+' BC':v+' AD';}
+// span bar: x1<x2 in px; offL draws an off-scale arrow at left end
+function spanBar(p,o){const g=el('g',{class:'row','data-cat':o.cat});
+  const x1=Math.min(o.x1,o.x2),x2=Math.max(o.x1,o.x2);
+  g.appendChild(el('rect',{x:x1,y:o.y-4,width:Math.max(2,x2-x1),height:8,rx:4,fill:o.col,opacity:.92}));
+  if(o.offL){g.appendChild(el('path',{d:`M${x1-2} ${o.y-9} L${x1-16} ${o.y} L${x1-2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x1,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  if(o.offR){g.appendChild(el('path',{d:`M${x2+2} ${o.y-9} L${x2+16} ${o.y} L${x2+2} ${o.y+9} Z`,fill:o.col}));}
+  else g.appendChild(el('circle',{cx:x2,cy:o.y,r:4.5,fill:o.col,stroke:'#0b0f1a','stroke-width':1.5}));
+  g.appendChild(el('rect',{x:x1-6,y:o.y-24,width:x2-x1+12,height:44,fill:'transparent'}));
+  if(o.lab){const t=tx(g,o.lx,o.y-9,o.lab,{'text-anchor':o.la||'start','font-size':12.5,'font-weight':600,class:'h',fill:'#e6ecf8'});}
+  if(o.lab2){tx(g,o.lx,o.y+17,o.lab2,{'text-anchor':o.la||'start','font-size':11,class:'h',fill:'#8b95ad'});}
+  bind(g,o.tip);p.appendChild(g);return g;}
+
+const CAT={
+  cel:{c:'#5cb3f2',label:'Comets / asteroids / space'},
+  emp:{c:'#e58fb6',label:'USA & Iron Empire'},
+  quake:{c:'#f08a4b',label:'Earthquake'},
+  cal:{c:'#9c8bf0',label:'Calendars & chronologies'}
+};
+const A=2046, YMIN=1740, YMAX=2118, PL=60, PR=1340;
+const X=y=>PL+(y-YMIN)/(YMAX-YMIN)*(PR-PL);
+const svg=document.getElementById('tl'), AX=X(A);
+const R=[
+ {s:2006,cat:'cel',lab:'2006 AD is 40 yrs.',l2:'July 2-3 astroid passes closer than Moon [½ mile wide]'},
+ {s:1996,cat:'cel',lab:'1996 AD is 50 years',l2:'Comet Hyakutake passes over Al Gol [most evil star]',full:'1996 AD comet Hyakutake passes over Al Gol [most evil star] exactly 365 days after comet Hale-Bopp passed over Al Gol in 1995.'},
+ {s:1994,cat:'cel',lab:'1994 AD [5888] 52 years',l2:'Comet Shoemaker-Levy collided into Jupiter · 52 yrs. from impact to impact'},
+ {s:1986,cat:'cel',lab:'1986 AD [5880 AM] 60 years',l2:'Shuttle Challenger explodes; astroid Adonis passes 186,000 miles from Earth',full:'1986 AD NASA space shuttle Challenger and seven astronauts explode; astroid Adonis passes 186,000 miles from Earth [5 miles wide]'},
+ {s:1976,cat:'cel',lab:'1976 AD [52×38] is 70 years',l2:'NASA Viking I photographs anomalies on Mars during USA bicentennial year'},
+ {s:1946,cat:'emp',lab:'1946 AD [5840 AM is 40×146] is 100 years',l2:'USA Iron Empire global dominance is secured by establishment of United Nations'},
+ {s:1906,cat:'quake',lab:'1906 AD [5800 AM] San Francisco quake\\fire 140 yrs. [70×2]',l2:'Quake at 5:13 AM on April 18th — the 313th minute of the 108th day [Mayan Calendar 3113 BC]'},
+ {s:1902,cat:'cal',lab:'1902 AD is 144 years to 2046 AD [144th course of bricks]',l2:'End of Cursed Earth chronology of fifteen 414 year periods, begun 4309 BC',full:'1902 AD end of Cursed Earth chronology of fifteen 414 year periods that began with astroid impact that destroyed PreAdamic World 4309 BC'},
+ {s:1860,cat:'emp',lab:'1860 AD [186×10] USA broken as Confederacy secedes 186 yrs. to N. America broken',l2:''},
+ {s:-3113,cat:'cal',off:1,lab:'3113 BC [782 AM] 13 Clan Mayan system ends at 13th Baktun 2046 AD end of USA [13th Tribe\\Colonies\\Empire]',l2:''},
+ {s:1776,cat:'emp',lab:'1776 AD [444×3] USA separates from Iron Empire Britain 270 [90×3] years before 2046 AD',l2:''},
+ {s:1602,cat:'cal',off:1,lab:'1602 AD pyramid researcher Greaves born, Prof. of Astronomy 444 yrs [a third of 1776] to 2046 AD',l2:''},
+ {s:-55,cat:'emp',off:1,lab:'55 BC [3840 AM] Caesar [Iron Empire] of Rome invades Britain [start of future Iron Empire] 2100 [700×3] yrs.',l2:''},
+ {s:-1,cat:'cel',off:1,lab:'Sodom & Gomorrah destroyed by 7 comets in 2047 AM. USA destroyed 2047 yrs after Christ’s 1 BC birth',l2:''}
+];
+const TOP=124, RH=52, AXIS=TOP+9*RH-6;
+// grid & ticks
+for(let y=1750;y<=2100;y+=10){const x=X(y);svg.appendChild(el('line',{x1:x,y1:84,x2:x,y2:900,stroke:y%50?'#141c30':'#1c2740'}));}
+[1800,1900,2001].forEach(y=>{const x=X(y);svg.appendChild(el('line',{x1:x,y1:84,x2:x,y2:900,stroke:'#33415f','stroke-dasharray':'3 5'}));});
+function ruler(yy){svg.appendChild(el('rect',{x:PL,y:yy-8,width:PR-PL,height:16,fill:'#121a2c',stroke:'#3a486a'}));
+  [1800,1900,2001].forEach(y=>tx(svg,X(y)+5,yy+4,y+' AD',{fill:'#aeb7cd','font-size':10.5,class:'mono'}));
+  [1750,1850,1950,2050,2100].forEach(y=>tx(svg,X(y)+4,yy+4,String(y),{fill:'#4b5674','font-size':9.5,class:'mono'}));}
+ruler(AXIS); ruler(910);
+// 6000 AM line
+const x6=X(2106);svg.appendChild(el('line',{x1:x6,y1:60,x2:x6,y2:910,stroke:'#e7c355','stroke-width':2}));
+tx(svg,x6-6,62,'6000 ANNUS MUNDI [2106 AD]',{fill:'#e7c355','font-size':10.5,class:'mono','text-anchor':'end'});
+// 14,400 days bracket
+const gB=el('g',{});gB.appendChild(el('path',{d:`M${AX} 100 V92 H${x6} V100`,fill:'none',stroke:'#e7c355','stroke-width':1.3}));
+tx(gB,(AX+x6)/2,86,'14,400 days',{fill:'#e7c355','font-size':10.5,'text-anchor':'middle',class:'mono'});svg.appendChild(gB);
+bind(gB,T('2046 → 6000 AM [2106 AD]','#e7c355','14,400 days [240×60]','2046 AD impact is second trumpet of Revelation. Day, night and year reduced by a 3rd by Nibiru passing so original year of 360 [changed to 365.24 by cataclysm] becomes 240 days, thus 2046 AD is 14,400 days to 6000 AM [240×60].'));
+// anchor
+svg.appendChild(el('line',{x1:AX,y1:40,x2:AX,y2:910,stroke:'#ffcf5c','stroke-width':2.2}));
+const ag=el('g',{});ag.appendChild(el('circle',{cx:AX,cy:52,r:9,fill:'#ffcf5c'}));
+tx(ag,AX-16,48,'2046 AD [186×11]',{fill:'#ffcf5c','font-size':13,'text-anchor':'end',class:'mono','font-weight':500});
+tx(ag,AX-16,64,'5940 AM [108×55\\660×9]',{fill:'#ffcf5c','font-size':11,'text-anchor':'end',class:'mono'});svg.appendChild(ag);
+bind(ag,T('2046 AD [186×11] · 5940 AM','#ffcf5c','108×55 = 660×9 = 5940','The common landing of every countdown: 13th Baktun end, “end of USA”, the impact of the second trumpet.'));
+R.forEach((r,i)=>{const y=TOP+(i<9?i:i+1)*RH+(i>=9?6:0);const col=CAT[r.cat].c;
+  const x1=r.off?PL+18:X(r.s);
+  const yrs=r.s<0?(A-r.s-1):(A-r.s);
+  spanBar(svg,{x1,x2:AX-3,y,col,cat:r.cat,offL:!!r.off,lab:r.lab,lab2:r.l2,lx:AX-14,la:'end',
+    tip:T(r.lab,col,`${yl(r.s)} → 2046 AD${r.s>0?' · '+yrs+' years':''}`,(r.full||r.l2||'')+(r.off?' <i>(starts off the scale)</i>':''))});
+});
+chips(CAT,'.row');
+
+</script>
+</body>
+</html>

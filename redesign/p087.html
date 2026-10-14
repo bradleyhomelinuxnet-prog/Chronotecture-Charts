@@ -1,0 +1,397 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XXXI — Granite Leaf [Seven Seals &amp; Trumpets]</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --cyan:#4fe3ff; --gold:#e7c355; --anchor:#ffcf5c; --granite:#e0555f; --stone:#d8c7a4;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  body{background-color:var(--bg)}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  @media(max-width:600px){.wrap{padding:22px 14px 50px}}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;line-height:1.7;padding-right:96px}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--gold);font-weight:600;margin-top:.35em;line-height:1.25}
+  @media(max-width:600px){h1 .sub{font-size:.55em}}
+  .prov{color:var(--muted);font-size:13px;max-width:820px;line-height:1.6;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  @media(max-width:600px){.card{padding:14px 12px 12px}}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .bottom{display:grid;grid-template-columns:1.15fr .85fr;gap:22px}
+  @media(max-width:880px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+  .halo{paint-order:stroke;stroke:#0b0f1a;stroke-width:4px;stroke-linejoin:round}
+  .hot{cursor:pointer}
+  .hot:hover .mk, .hot.lit .mk{filter:drop-shadow(0 0 7px currentColor)}
+  .hot.lit .ring{opacity:1}
+
+  .notes{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:10px;margin-top:14px}
+  .note{display:flex;gap:10px;align-items:flex-start;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;cursor:pointer;transition:.15s}
+  .note:hover,.note.lit{border-color:var(--line2);background:#121c33}
+  .note .num{flex:0 0 auto;width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-family:'JetBrains Mono',monospace;font-size:11.5px;font-weight:500;color:#0b0f1a}
+  .note .nt{font-size:12.5px;line-height:1.5;color:var(--ink)}
+  .note .nt i{display:block;font-style:normal;color:var(--muted);font-size:11.5px;margin-top:2px}
+  .note .nt .yr{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11px}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;transform:translateY(4px);
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--gold);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin:6px 0 12px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526;min-width:0}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:10.5px;color:#7a6a3a;font-family:'JetBrains Mono',monospace;letter-spacing:.04em}
+  .base138{color:var(--anchor);font-weight:600}
+  .ok{color:#37b6a6}
+  details.tx summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none}
+  details.tx summary::-webkit-details-marker{display:none}
+  details.tx summary::before{content:'▸ ';color:var(--muted);font-size:16px}
+  details.tx[open] summary::before{content:'▾ '}
+  .tx h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px;font-weight:500}
+  .tx ul{margin:0;padding-left:18px;font-size:13px;line-height:1.65}
+  .tx li .unc{color:#f08a4b}
+  .tx .uncnote{font-size:12px;color:var(--muted);margin-top:14px;line-height:1.55}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XXXI · Plate&nbsp;87</div>
+    <h1>Chronotecture
+      <span class="sub">Granite Leaf — the Seven Seals &amp; Seven Trumpets</span>
+    </h1>
+    <p class="prov">A rebuild of Breshears' hand-drawn chart XXXI, the same Antechamber section as chart XXX, re-read on a different scale. Every date, measure and annotation is preserved verbatim. Structural key: <b>84&nbsp;P″ from the 1962 line puts the leaf at 2046, a second 84&nbsp;P″ reaches 2130 AD (24 SK), and the 16&nbsp;P″ leaf divides into four 4-year periods, 2034–2050, split between the Seven Seals and Seven Trumpets.</b></p>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Section: the leaf between 1962 and 2130</h2>
+      <div class="hint">1 P″ = 1 year · the right-hand box redraws the 16 P″ leaf enlarged, as on the plate. Hover or tap any number, date or dimension.</div>
+      <svg id="sec" viewBox="0 0 1100 860" role="img" aria-label="Antechamber section with granite leaf divided into seals and trumpets"></svg>
+      <div class="notes" id="notes"></div>
+    </div>
+
+    <div class="bottom">
+      <div class="card">
+        <h2>Year ruler</h2>
+        <div class="hint">The plate's inches laid out as years (1 P″ = 1 year).</div>
+        <svg id="ruler" viewBox="0 0 1000 290" role="img" aria-label="Year ruler"></svg>
+      </div>
+      <div class="card">
+        <h2>Cycle mathematics</h2>
+        <div class="hint">The arithmetic written on the plate, checked. Items that do not compute exactly are shown as written.</div>
+        <div class="mathgrid" id="math"></div>
+        
+      </div>
+    </div>
+
+    <div class="card">
+      <details class="tx">
+        <summary>Full transcription</summary>
+        <div class="hint" style="margin-top:6px">Every annotation on the plate, verbatim (capitalisation normalised from Breshears' hand-lettered small caps). <span style="color:#f08a4b">[?]</span> marks an uncertain reading.</div>
+        <div id="tx"></div>
+      </details>
+      <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XXXI (plate&nbsp;87). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+    </div>
+  </div>
+</div>
+
+<div id="tip"></div>
+
+<script>
+const D = {"cats": ["measure", "proph", "comet", "anun", "axis"], "overlay": {"vlines": [{"x": 215, "y1": 455, "y2": 523}, {"x": 357, "y1": 335, "y2": 523}, {"x": 432, "y1": 280, "y2": 400}, {"x": 500, "y1": 455, "y2": 523}, {"x": 215, "y1": 610, "y2": 680}, {"x": 315, "y1": 610, "y2": 690}, {"x": 400, "y1": 610, "y2": 690}, {"x": 838, "y1": 160, "y2": 505}], "shapes": [{"tag": "rect", "a": {"x": 670, "y": 148, "width": 335, "height": 367, "rx": 10, "fill": "none", "stroke": "#4fe3ff", "stroke-width": 1, "stroke-dasharray": "2 6", "opacity": 0.35}}, {"tag": "text", "a": {"x": 997, "y": 507, "fill": "#4fe3ff", "opacity": 0.55, "font-size": 11, "text-anchor": "end", "font-family": "JetBrains Mono", "letter-spacing": ".18em"}, "text": "ENLARGED DETAIL"}, {"tag": "path", "a": {"d": "M812 298 L858 292 Q864 292 864 298 L864 477 L812 477 L812 340 L804 336 L804 320 L812 316 Z", "fill": "url(#pg)", "stroke": "#e0555f", "stroke-width": 1.8}}, {"tag": "path", "a": {"d": "M690 258 L800 258 L812 262 M690 192 L770 192 L826 285 M935 192 L882 192 L852 285 M935 258 L880 258 L864 285 M720 510 L812 480 M960 510 L864 480", "fill": "none", "stroke": "#8b95ad", "stroke-width": 1.2, "stroke-dasharray": "4 4", "opacity": 0.8}}], "dims": [{"x1": 370, "x2": 432, "y": 190, "lbl": "38.8 P″", "ly": 182, "fs": 13, "h": "38.8 P″", "yr": "2052 → 2090", "b": "Width marked over the granite ceiling blocks."}, {"x1": 383, "x2": 480, "y": 393, "lbl": "80 P″", "ly": 415, "h": "80 P″", "yr": "2090 AD is in center", "b": "“80 P″ — 2090 AD is in Center.”"}, {"x1": 215, "x2": 357, "y": 497, "lbl": "84 P″", "h": "84 P″", "yr": "1962 → 2046"}, {"x1": 357, "x2": 500, "y": 497, "lbl": "84 P″", "h": "84 P″", "yr": "2046 → 2130 AD [24 SK]"}, {"x1": 218, "x2": 312, "y": 668, "lbl": "52 P″", "ly": 690, "h": "52 P″", "yr": "1962 → 2014", "b": "Great Step limestone up to granite year one."}, {"x1": 318, "x2": 398, "y": 712, "lbl": "52 P″", "ly": 734, "h": "52 P″", "yr": "2014 → 2066"}], "dates": [{"x": 352, "y": 170, "t": "2052", "fs": 14, "cat": "anun", "h": "2052", "b": "Left end of the 38.8 P″ ceiling measure."}, {"x": 437, "y": 170, "t": "2090", "fs": 14, "cat": "proph", "h": "2090", "b": "Right end of the 38.8 P″ ceiling measure."}, {"x": 446, "y": 330, "t": "2090", "rot": 90, "anchor": "middle", "fs": 14, "cat": "proph", "h": "2090", "b": "Vertical alignment from the ceiling joint — 2090 AD is in center."}, {"x": 345, "y": 326, "t": "2046 AD", "cat": "proph", "ul": 62, "h": "2046 AD", "b": "Face of the granite leaf on this reading."}, {"x": 170, "y": 503, "t": "1962", "cat": "anun", "h": "1962"}, {"x": 357, "y": 518, "t": "2046", "cat": "proph", "h": "2046"}, {"x": 510, "y": 496, "t": "2130 AD", "anchor": "start", "cat": "axis", "h": "2130 AD", "yr": "24 SK [Stone Kingdom]"}, {"x": 510, "y": 515, "t": "24 SK [Stone Kingdom]", "anchor": "start", "fs": 12.5, "cat": "axis", "h": "2130 AD", "yr": "24 SK [Stone Kingdom]"}, {"x": 205, "y": 650, "t": "1962", "rot": -90, "fs": 14, "cat": "anun", "h": "1962"}, {"x": 330, "y": 650, "t": "2014", "rot": 90, "fs": 14, "cat": "anun", "h": "2014", "b": "Granite year one."}, {"x": 414, "y": 650, "t": "2066", "rot": 90, "fs": 14, "cat": "proph", "h": "2066", "b": "2066 AD begins ministry of Enoch and Elijah."}, {"x": 745, "y": 186, "t": "2038 AD", "cat": "proph", "fs": 14, "h": "2038 AD", "yr": "4th year"}, {"x": 745, "y": 206, "t": "4th year", "fill": "#8b95ad", "fs": 12, "cat": "proph", "h": "2038 AD", "yr": "4th year"}, {"x": 745, "y": 252, "t": "2034 AD", "cat": "proph", "fs": 14, "h": "2034 AD", "yr": "1st year"}, {"x": 745, "y": 272, "t": "1st year", "fill": "#8b95ad", "fs": 12, "cat": "proph", "h": "2034 AD", "yr": "1st year"}, {"x": 838, "y": 160, "t": "2042 AD", "cat": "proph", "fs": 14, "h": "2042 AD", "yr": "8th year", "b": "Centre line of the leaf."}, {"x": 838, "y": 178, "t": "8th year", "fill": "#8b95ad", "fs": 12, "cat": "proph", "h": "2042 AD", "yr": "8th year"}, {"x": 945, "y": 186, "t": "2046 AD", "cat": "proph", "fs": 14, "h": "2046 AD (boxed)", "yr": "12th year", "b": "Boxed on the plate."}, {"x": 945, "y": 206, "t": "12th year", "fill": "#8b95ad", "fs": 12, "cat": "proph", "h": "2046 AD", "yr": "12th year"}, {"x": 945, "y": 252, "t": "2050 AD", "cat": "proph", "fs": 14, "h": "2050 AD", "yr": "16th year"}, {"x": 945, "y": 272, "t": "16th year", "fill": "#8b95ad", "fs": 12, "cat": "proph", "h": "2050 AD", "yr": "16th year"}, {"x": 778, "y": 505, "t": "Seven Seals", "fs": 13, "cat": "proph", "h": "Seven Seals", "b": "Left half of the leaf: 2034–2042."}, {"x": 905, "y": 505, "t": "Seven Trumpets", "fs": 13, "cat": "proph", "h": "Seven Trumpets", "b": "Right half of the leaf: 2042–2050."}], "notes": [{"n": 1, "x": 720, "y": 350, "cat": "proph", "lbl": "An architectural|anomaly", "h": "Granite leaf in Antechamber", "b": "“Granite Leaf in AnteChamber is an architectural anomaly signifying the greatest changes on Earth caused by the Heavens.”"}, {"n": 2, "x": 905, "y": 350, "cat": "measure", "lbl": "16 P″ = 4 × 4", "h": "16 P″ width", "yr": "2034 · 2038 · 2042 · 2046 · 2050", "b": "“16 P″ Width divided into 4 periods of 4 years.”"}, {"n": 3, "x": 120, "y": 760, "cat": "anun", "lbl": "Granite Year One", "ax": 305, "ay": 690, "h": "Granite Year One", "yr": "2014", "b": "“Granite Year One (Presence of Anunnaki in System Made Known)”."}, {"n": 4, "x": 450, "y": 770, "cat": "comet", "lbl": "2040 AD midpoint", "ax": 358, "ay": 722, "h": "2040 AD midpoint", "b": "“2040 AD Midpoint — Sun Darkened by Planet Phoenix.”"}, {"n": 5, "x": 450, "y": 650, "cat": "proph", "lbl": "2066 AD — Enoch & Elijah", "h": "Ministry of Enoch and Elijah", "yr": "2066 AD", "b": "“2066 AD Begins Ministry of Enoch and Elijah.”"}, {"n": 6, "x": 240, "y": 60, "cat": "proph", "lbl": "Granite Leaf [Seven|Seals & Trumpets]", "h": "Plate title", "yr": "XXXI", "b": "“Granite Leaf [Seven Seals &amp; Trumpets]”."}]}, "math": [{"eq": "84 + 84 = 168 · 1962 + 84 = 2046 <span class=\"ok\">✓</span>", "cap": "2046 + 84 = 2130 AD ✓"}, {"eq": "2130 AD = 24 SK", "cap": "Stone Kingdom years (SK) counted from 2106 AD: 2106 + 24 = 2130 ✓"}, {"eq": "52 + 52 · 1962 → 2014 → 2066 <span class=\"ok\">✓</span>", "cap": "Great Step limestone, then granite year one to the ministry of Enoch & Elijah."}, {"eq": "(2014 + 2066) ÷ 2 = 2040 <span class=\"ok\">✓</span>", "cap": "“2040 AD midpoint” of the second 52 P″."}, {"eq": "16 = 4 × 4 · 2034 → 2038 → 2042 → 2046 → 2050", "cap": "1st, 4th, 8th, 12th, 16th years across the leaf."}, {"eq": "2052 + 38.8 = 2090.8", "cap": "Ceiling width marked 2052 → 2090.", "aw": "38.8 P″ spans 2052–2090"}], "trans": [{"r": "Title box", "items": ["XXXI", "Granite Leaf [Seven Seals &amp; Trumpets]"]}, {"r": "Antechamber ceiling &amp; interior", "items": ["2052", "2090", "38.8 P″", "2090 (vertical)", "2046 AD", "80 P″", "2090 AD is in Center"]}, {"r": "Floor line", "items": ["1962", "84 P″", "2046", "84 P″", "2130 AD", "24 SK [Stone Kingdom]", "Great Step Limestone", "Granite"]}, {"r": "Below the floor", "items": ["1962", "2014", "2066", "52 P″", "52 P″", "Granite Year One (Presence of Anunnaki in System Made Known)", "2066 AD Begins Ministry of Enoch and Elijah.", "2040 AD Midpoint Sun Darkened by Planet Phoenix."]}, {"r": "Enlarged leaf (King's Chamber outline)", "items": ["2038 AD 4th Year", "2034 AD 1st Year", "2042 AD 8th Year", "2046 AD 12th Year (boxed)", "2050 AD 16th Year", "Granite Leaf in AnteChamber is an architectural anomaly signifying the greatest changes on Earth caused by the Heavens.", "16 P″ Width divided into 4 periods of 4 years", "Seven Seals | Seven Trumpets"]}, {"r": "Signature", "items": ["Breshears 06"]}], "unc": "“38.8 P″” could be read “38,8 P″” (decimal comma). The 80 P″ arrow's exact end-points are not marked on the plate; it is drawn centred on the 2090 line.", "sec": {"struct": {"gallery": [95, 300], "ante": null, "kc": null}}, "ruler": {"min": 1955, "max": 2135, "tick": 20, "gap": 46, "axisY": 170, "spans": [{"a": 1962, "b": 2046, "row": 0, "cat": "measure", "lbl": "84 P″", "yr": "1962 → 2046"}, {"a": 2046, "b": 2130, "row": 0, "cat": "measure", "lbl": "84 P″", "yr": "2046 → 2130 AD [24 SK]"}, {"a": 1962, "b": 2014, "row": 1, "cat": "anun", "lbl": "52 P″", "yr": "1962 → 2014"}, {"a": 2014, "b": 2066, "row": 1, "cat": "proph", "lbl": "52 P″", "yr": "2014 → 2066"}, {"a": 2034, "row": 2, "cat": "proph", "lbl": "16 P″ · seals & trumpets", "lpos": "start", "yr": "2034 – 2050", "desc": "Seven Seals 2034–2042, Seven Trumpets 2042–2050."}, {"a": 2052, "b": 2090, "row": 3, "cat": "measure", "lbl": "38.8 P″", "lpos": "end", "yr": "2052 → 2090 (as written)"}], "dates": [{"y": 1962, "cat": "anun", "h": "1962"}, {"y": 2014, "cat": "anun", "h": "Granite Year One"}, {"y": 2034, "cat": "proph", "h": "1st year of the leaf"}, {"y": 2040, "cat": "comet", "h": "Midpoint — sun darkened by planet Phoenix"}, {"y": 2046, "cat": "proph", "h": "12th year · leaf face on the 84 P″ reading"}, {"y": 2050, "cat": "proph", "h": "16th year"}, {"y": 2066, "cat": "proph", "h": "Ministry of Enoch and Elijah begins"}, {"y": 2090, "cat": "proph", "h": "2090 AD is in center (80 P″)"}, {"y": 2130, "cat": "axis", "h": "24 SK [Stone Kingdom]"}]}};
+
+const CAT = {
+  measure:{c:'#4fe3ff', label:'P″ measures'},
+  proph:  {c:'#e7c355', label:'Seals · apocalypse · prophecy'},
+  anun:   {c:'#9c8bf0', label:'Anunnaki chronology'},
+  comet:  {c:'#5cb3f2', label:'Comets · the heavens'},
+  axis:   {c:'#f08a4b', label:'6000 AM · Stone Kingdom'},
+  hist:   {c:'#37b6a6', label:'Earth history'},
+  trackA: {c:'#4fe3ff', label:'A · upper alignments'},
+  trackB: {c:'#e7c355', label:'B · lower alignments'},
+  geo:    {c:'#f08a4b', label:'Circle geometry'}
+};
+const col = k => (CAT[k]||CAT.measure).c;
+
+/* ---------- tooltip (hover + tap) ---------- */
+const tip=document.getElementById('tip');
+let pinned=false;
+function place(cx,cy){ let x=cx+16, y=cy+14; const w=Math.min(300,innerWidth-24);
+  if(x+w>innerWidth-8) x=Math.max(8,cx-w-10); if(y+170>innerHeight) y=Math.max(8,cy-170);
+  tip.style.left=x+'px'; tip.style.top=y+'px'; }
+function showTip(html,e){ tip.innerHTML=html; tip.style.opacity=1; place(e.clientX,e.clientY); }
+function hideTip(){ if(!pinned) tip.style.opacity=0; }
+document.addEventListener('click',()=>{ pinned=false; tip.style.opacity=0; clearLit(); });
+window.addEventListener('scroll',()=>{ if(pinned){pinned=false;tip.style.opacity=0;} },{passive:true});
+function tipHTML(o){ return `<div class="t-h"><span class="d" style="background:${col(o.cat)}"></span>${o.h}</div>${o.yr?`<div class="t-yr">${o.yr}</div>`:''}${o.b?`<div class="t-b">${o.b}</div>`:''}`; }
+function bind(g,o,onPin){
+  const html=tipHTML(o);
+  g.classList.add('hot');
+  g.addEventListener('mousemove',e=>{ if(!pinned) showTip(html,e); });
+  g.addEventListener('mouseleave',hideTip);
+  g.addEventListener('click',e=>{ e.stopPropagation(); clearLit(); pinned=true; showTip(html,e); if(onPin) onPin(); });
+}
+function clearLit(){ document.querySelectorAll('.lit').forEach(n=>n.classList.remove('lit')); }
+
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,p){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(p)p.appendChild(e);return e;}
+function tx(p,x,y,s,a){ const t=el('text',Object.assign({x,y},a||{}),p); t.textContent=s; return t; }
+
+/* ---------- shared drawing vocabulary ---------- */
+function defs(svg){
+  const d=el('defs',{},svg);
+  const g=el('pattern',{id:'pg',width:12,height:12,patternUnits:'userSpaceOnUse',patternTransform:'rotate(45)'},d);
+  el('rect',{width:12,height:12,fill:'#26141c'},g);
+  el('path',{d:'M0 0H12M0 0V12',stroke:'#e0555f',['stroke-width']:1,opacity:.55},g);
+  const l=el('pattern',{id:'pl',width:10,height:10,patternUnits:'userSpaceOnUse'},d);
+  el('rect',{width:10,height:10,fill:'#2a2518'},l);
+  [[2,2],[7,4],[4,8],[9,9],[1,6]].forEach(([x,y])=>el('circle',{cx:x,cy:y,r:.8,fill:'#d8c7a4',opacity:.55},l));
+  const c=el('pattern',{id:'pc',width:9,height:9,patternUnits:'userSpaceOnUse',patternTransform:'rotate(-30)'},d);
+  el('rect',{width:9,height:9,fill:'#161e31'},c);
+  el('path',{d:'M0 4.5H9',stroke:'#24304a',['stroke-width']:1},c);
+  const k=el('pattern',{id:'pk',width:14,height:6,patternUnits:'userSpaceOnUse'},d);
+  el('rect',{width:14,height:6,fill:'#1a2033'},k);
+  el('path',{d:'M0 3H9',stroke:'#2c3858',['stroke-width']:1},k);
+  ['measure','proph','anun','comet','axis','hist','trackA','trackB','geo'].forEach(n=>{
+    const m=el('marker',{id:'ah-'+n,viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'},d);
+    el('path',{d:'M0 0L10 5L0 10z',fill:col(n)},m);
+  });
+  const m=el('marker',{id:'ah-dim',viewBox:'0 0 10 10',refX:9,refY:5,markerWidth:7,markerHeight:7,orient:'auto-start-reverse'},d);
+  el('path',{d:'M0 0L10 5L0 10z',fill:'#8b95ad'},m);
+}
+const VOID='#070b15', EDGE='#3a486a';
+function granite(p,x,y,w,h,joints,vert){ el('rect',{x,y,width:w,height:h,fill:'url(#pg)',stroke:'#7a3a44',['stroke-width']:1.4},p);
+  (joints||[]).forEach(j=> vert? el('line',{x1:x,y1:j,x2:x+w,y2:j,stroke:'#7a3a44',['stroke-width']:1.2},p) : el('line',{x1:j,y1:y,x2:j,y2:y+h,stroke:'#7a3a44',['stroke-width']:1.2},p)); }
+function voidR(p,x,y,w,h){ el('rect',{x,y,width:w,height:h,fill:VOID,stroke:EDGE,['stroke-width']:1.2},p); }
+function leaf(p,x,y,w,h,boss){ const b=boss||7;
+  el('path',{d:`M${x} ${y+4} L${x+w-5} ${y} Q${x+w} ${y} ${x+w} ${y+5} L${x+w} ${y+h} L${x} ${y+h} L${x} ${y+h*0.3} L${x-b*.5} ${y+h*0.27} L${x-b*.5} ${y+h*0.17} L${x} ${y+h*0.15} Z`,
+    fill:'url(#pg)',stroke:'#e0555f',['stroke-width']:1.6},p); }
+function structLabel(p,x,y,s,rot){ const t=tx(p,x,y,s,{fill:'#55618a','font-size':12,'font-family':'JetBrains Mono','letter-spacing':'.22em','text-anchor':'middle'}); if(rot) t.setAttribute('transform',`rotate(${rot} ${x} ${y})`); return t; }
+
+/* The shared antechamber section — traced from the common base drawing of plates XXX–XXXV */
+function section(svg,o){
+  const base=el('g',{},svg);
+  // bedrock & core masonry below the Great Step
+  const bed = o.wellpit ? [[0,652],[115,600],[115,612],[215,612],[215,775],[470,775],[470,860],[0,860]]
+                        : [[0,652],[115,600],[115,612],[250,612],[250,860],[0,860]];
+  el('polygon',{points:bed.join(' '),fill:'url(#pc)',stroke:'#2b3756',['stroke-width']:1},base);
+  // Grand Gallery void + corbel courses
+  const wall=[]; for(let k=0;k<9;k++){ wall.push([172+k*5.4, k*57]); }
+  const gv=[[0,0]].concat(wall.map(w=>[w[0],w[1]])).concat([[215,455],[215,523],[115,523],[115,600],[0,652]]);
+  el('polygon',{points:gv.join(' '),fill:'#0a1020'},base);
+  for(let k=0;k<9;k++){ const [wx,wy]=wall[k]; const y2=wy+48+wx*0.47;
+    el('line',{x1:wx,y1:wy+48,x2:0,y2:y2,stroke:'#3b4a70',['stroke-width']:1.3},base);
+    el('line',{x1:wx,y1:wy,x2:wx,y2:wy+48,stroke:'#3b4a70',['stroke-width']:1.3},base); }
+  el('line',{x1:0,y1:652,x2:115,y2:600,stroke:'#3b4a70',['stroke-width']:1.6},base);
+  // core limestone masonry (overhang & above the antechamber)
+  const core=[[178,0],[560,0],[553,140],[570,140],[570,300],[500,300],[500,210],[300,210],[300,455],[215,455],[215,456]];
+  for(let k=8;k>=0;k--) core.push([wall[k][0]+6,wall[k][1]]);
+  el('polygon',{points:core.join(' '),fill:'url(#pc)',stroke:'#2b3756',['stroke-width']:1},base);
+  // granite: antechamber ceiling, passage walls, King's Chamber ceiling & wall
+  granite(base,300,210,200,70,[367,433]);
+  granite(base,500,300,170,155,[585]);
+  granite(base,570,140,95,160);
+  el('path',{d:'M560 12 L1090 12 L1090 140 L553 140 Q548 90 556 60 Z',fill:'url(#pg)',stroke:'#7a3a44',['stroke-width']:1.4},base);
+  granite(base,1015,140,75,383,[210,300,372,445],true);
+  // voids
+  voidR(base,300,280,200,243); voidR(base,215,455,85,68); voidR(base,500,455,170,68); voidR(base,665,140,350,383);
+  el('rect',{x:216,y:456,width:290,height:66,fill:VOID},base);
+  el('rect',{x:499,y:456,width:170,height:66,fill:VOID},base);
+  // floor: Great Step limestone + granite
+  el('rect',{x:115,y:523,width:215,height:87,fill:'url(#pl)',stroke:'#8d7f5e',['stroke-width']:1.4},base);
+  granite(base,330,523,690,85);
+  if(!o.noFloorLabels){
+    tx(base,222,560,'GREAT STEP',{fill:'#d8c7a4','font-size':13,'text-anchor':'middle','letter-spacing':'.18em','font-family':'JetBrains Mono',class:'halo'});
+    tx(base,222,580,'LIMESTONE',{fill:'#d8c7a4','font-size':13,'text-anchor':'middle','letter-spacing':'.18em','font-family':'JetBrains Mono',class:'halo'});
+    tx(base,o.graniteX||690,571,'GRANITE',{fill:'#f0a0a6','font-size':15,'text-anchor':'middle','letter-spacing':'.34em','font-family':'JetBrains Mono',class:'halo'});
+  }
+  if(!o.noLeaf) leaf(base,340,372,26,84,8);
+  if(o.wellpit){ el('path',{d:'M385 755 L448 755 L448 742 L478 742 L478 755 L500 755 L650 690',fill:'none',stroke:'#3b4a70',['stroke-width']:1.6},base);
+    el('path',{d:'M452 755 L452 790 L470 790 L470 760',fill:'none',stroke:'#3b4a70',['stroke-width']:1.4},base); }
+  const S=o.struct||{};
+  if(S.gallery!==null) structLabel(base,...(S.gallery||[95,300]),'GRAND GALLERY',-25);
+  if(S.ante!==null) structLabel(base,...(S.ante||[400,302]),'ANTECHAMBER');
+  if(S.kc!==null) structLabel(base,...(S.kc||[840,162]),"KING'S CHAMBER");
+}
+
+/* ---------- overlay primitives ---------- */
+function vline(p,v){ el('line',{x1:v.x,y1:v.y1,x2:v.x2??v.x,y2:v.y2,stroke:v.c||'#8b95ad',['stroke-width']:1.2,['stroke-dasharray']:'5 5',opacity:v.o||.75},p); }
+function dim(p,d){
+  const c=col(d.cat||'measure'); const g=el('g',{'data-cat':d.cat||'measure'},p);
+  const vert = d.y1!==undefined;
+  if(vert){ el('line',{x1:d.x,y1:d.y1,x2:d.x,y2:d.y2,stroke:c,['stroke-width']:1.6,'marker-start':`url(#ah-${d.cat||'measure'})`,'marker-end':`url(#ah-${d.cat||'measure'})`},g);
+    el('rect',{x:d.x-12,y:Math.min(d.y1,d.y2),width:24,height:Math.abs(d.y2-d.y1),fill:'transparent'},g); }
+  else { el('line',{x1:d.x1,y1:d.y,x2:d.x2,y2:d.y,stroke:c,['stroke-width']:1.6,'marker-start':d.noStart?'':`url(#ah-${d.cat||'measure'})`,'marker-end':`url(#ah-${d.cat||'measure'})`},g);
+    el('rect',{x:Math.min(d.x1,d.x2),y:d.y-14,width:Math.abs(d.x2-d.x1),height:28,fill:'transparent'},g); }
+  if(d.lbl){ const lx = d.lx ?? (vert? d.x+10 : (d.x1+d.x2)/2), ly = d.ly ?? (vert? (d.y1+d.y2)/2+5 : d.y-8);
+    const t=tx(g,lx,ly,d.lbl,{fill:c,'font-size':d.fs||15,'text-anchor':d.anchor||(vert?'start':'middle'),'font-family':'JetBrains Mono','font-weight':500,class:'halo'});
+    if(d.rot) t.setAttribute('transform',`rotate(${d.rot} ${lx} ${ly})`); }
+  bind(g,{cat:d.cat||'measure',h:d.h||d.lbl,yr:d.yr,b:d.b});
+}
+function date(p,d){
+  const c=d.cat?col(d.cat):'#ffd15c'; const g=el('g',{'data-cat':d.cat||'measure'},p);
+  const t=tx(g,d.x,d.y,d.t,{fill:d.fill||c,'font-size':d.fs||15,'text-anchor':d.anchor||'middle','font-family':'JetBrains Mono','font-weight':500,class:'halo'});
+  if(d.rot) t.setAttribute('transform',`rotate(${d.rot} ${d.x} ${d.y})`);
+  if(d.ul) el('line',{x1:d.x-(d.anchor==='start'?0:d.ul/2),y1:d.y+4,x2:d.x+(d.anchor==='start'?d.ul:d.ul/2),y2:d.y+4,stroke:d.fill||c,['stroke-width']:1,opacity:.6},g);
+  if(d.h) bind(g,{cat:d.cat,h:d.h,yr:d.yr,b:d.b});
+  return g;
+}
+function lead(p,a){ el('path',{d:a.d,fill:'none',stroke:col(a.cat||'measure'),['stroke-width']:a.w||1.3,opacity:a.o||.75,'marker-end':a.noHead?'':`url(#ah-${a.cat||'measure'})`,['stroke-dasharray']:a.dash||''},p); }
+const noteEls={};
+function note(p,n){
+  const c=col(n.cat); const g=el('g',{'data-cat':n.cat,style:`color:${c}`},p);
+  if(n.ax!==undefined) el('path',{d:`M${n.x} ${n.y} L${n.ax} ${n.ay}`,stroke:c,['stroke-width']:1.3,opacity:.7,fill:'none','marker-end':`url(#ah-${n.cat})`,['stroke-dasharray']:'4 3'},g);
+  if(n.lbl){ const lines=n.lbl.split('|'); const right=n.side!=='left';
+    lines.forEach((s,i)=>tx(g,n.x+(right?22:-22),n.y+5+(i-(lines.length-1)/2)*18,s,{fill:'#c9d2e6','font-size':14.5,'text-anchor':right?'start':'end',class:'halo'})); }
+  el('circle',{class:'ring',cx:n.x,cy:n.y,r:21,fill:'none',stroke:c,['stroke-width']:1.5,opacity:0},g);
+  el('circle',{class:'mk',cx:n.x,cy:n.y,r:14,fill:c,stroke:'#0b0f1a',['stroke-width']:2},g);
+  tx(g,n.x,n.y+5,String(n.n),{fill:'#0b0f1a','font-size':14,'font-weight':600,'text-anchor':'middle','font-family':'JetBrains Mono'});
+  bind(g,{cat:n.cat,h:n.h,yr:n.yr,b:n.b},()=>{ g.classList.add('lit'); const li=document.getElementById('note-'+n.n); if(li) li.classList.add('lit'); });
+  noteEls[n.n]=g;
+}
+function drawOverlay(svg,O){
+  const p=el('g',{},svg);
+  (O.vlines||[]).forEach(v=>vline(p,v));
+  (O.shapes||[]).forEach(s=>{ const e=el(s.tag,s.a,p); if(s.text){e.textContent=s.text;} });
+  (O.leads||[]).forEach(a=>lead(p,a));
+  (O.dims||[]).forEach(d=>dim(p,d));
+  (O.dates||[]).forEach(d=>date(p,d));
+  (O.notes||[]).forEach(n=>note(p,n));
+}
+
+/* ---------- notes list ---------- */
+function noteList(){
+  const box=document.getElementById('notes');
+  (D.overlay.notes||[]).forEach(n=>{
+    const d=document.createElement('div'); d.className='note'; d.id='note-'+n.n; d.dataset.cat=n.cat;
+    d.innerHTML=`<span class="num" style="background:${col(n.cat)}">${n.n}</span><span class="nt">${n.h}${n.yr?` <span class="yr">${n.yr}</span>`:''}<i>${n.b||''}</i></span>`;
+    const lit=on=>{ const g=noteEls[n.n]; if(g) g.classList.toggle('lit',on); };
+    d.addEventListener('mouseenter',()=>{ if(!pinned) lit(true); });
+    d.addEventListener('mouseleave',()=>{ if(!pinned) lit(false); });
+    d.addEventListener('click',e=>{ e.stopPropagation(); clearLit(); pinned=false; tip.style.opacity=0; lit(true); d.classList.add('lit');
+      const g=noteEls[n.n]; if(g&&g.scrollIntoView&&innerWidth<880) g.scrollIntoView({block:'center',behavior:'smooth'}); });
+    box.appendChild(d);
+  });
+}
+
+/* ---------- year ruler ---------- */
+function ruler(R){
+  const svg=document.getElementById('ruler'); defs(svg);
+  const PL=40, PR=960, Y=R.axisY||150;
+  const X=y=>PL+(y-R.min)/(R.max-R.min)*(PR-PL);
+  // P" scale band
+  el('line',{x1:PL,y1:Y,x2:PR,y2:Y,stroke:'#3a486a',['stroke-width']:2},svg);
+  for(let y=Math.ceil(R.min/R.tick)*R.tick; y<=R.max; y+=R.tick){ const x=X(y);
+    el('line',{x1:x,y1:Y-5,x2:x,y2:Y+5,stroke:'#3a486a',['stroke-width']:1.2},svg);
+    tx(svg,x,Y+22,String(y),{fill:'#5d6885','font-size':12,'text-anchor':'middle','font-family':'JetBrains Mono'}); }
+  for(let y=Math.ceil(R.min); y<=R.max; y++){ if(y%R.tick) el('line',{x1:X(y),y1:Y-2,x2:X(y),y2:Y+2,stroke:'#26324f',['stroke-width']:.8},svg); }
+  tx(svg,PL,Y+42,R.scale||'1 P″ = 1 year',{fill:'#5d6885','font-size':11.5,'font-family':'JetBrains Mono','letter-spacing':'.12em'});
+  // spans
+  (R.spans||[]).forEach((s,i)=>{
+    const c=col(s.cat); const yy=Y-28-s.row*30; const a=Math.max(s.a,R.min), b=Math.min(s.b,R.max);
+    const g=el('g',{'data-cat':s.cat},svg);
+    el('line',{x1:X(a),y1:yy,x2:X(b),y2:yy,stroke:c,['stroke-width']:7,['stroke-linecap']:'round',opacity:.85},g);
+    if(s.a<R.min) tx(g,X(a)-6,yy+5,'◂',{fill:c,'font-size':14,'text-anchor':'end'});
+    el('line',{x1:X(a),y1:yy,x2:X(a),y2:Y,stroke:c,['stroke-width']:1,['stroke-dasharray']:'2 4',opacity:.45},g);
+    el('line',{x1:X(b),y1:yy,x2:X(b),y2:Y,stroke:c,['stroke-width']:1,['stroke-dasharray']:'2 4',opacity:.45},g);
+    const mid=(X(a)+X(b))/2; const lx = s.lpos==='end'? X(b)+10 : s.lpos==='start'? X(a)-10 : mid;
+    tx(g,lx,yy-9,s.lbl,{fill:'#dfe6f5','font-size':13,'text-anchor':s.lpos==='end'?'start':s.lpos==='start'?'end':'middle','font-family':'JetBrains Mono',class:'halo'});
+    bind(g,{cat:s.cat,h:s.h||s.lbl,yr:s.yr,b:s.desc});
+  });
+  // date markers with staggered labels
+  const ds=(R.dates||[]).slice().sort((a,b)=>a.y-b.y); let last=[-1e9,-1e9,-1e9];
+  ds.forEach(d=>{ const x=X(d.y), c=col(d.cat); let lv=0; while(lv<2 && x-last[lv]<(R.gap||52)) lv++; last[lv]=x;
+    const ly=Y+66+lv*24; const g=el('g',{'data-cat':d.cat},svg);
+    el('line',{x1:x,y1:Y,x2:x,y2:ly-14,stroke:c,['stroke-width']:1,opacity:.5},g);
+    el('circle',{cx:x,cy:Y,r:5,fill:c,stroke:'#0b0f1a',['stroke-width']:1.5},g);
+    tx(g,x,ly,d.lbl||String(d.y),{fill:c,'font-size':13,'text-anchor':'middle','font-family':'JetBrains Mono','font-weight':500});
+    bind(g,{cat:d.cat,h:d.h,yr:d.yr||d.lbl||String(d.y),b:d.b});
+  });
+  // deep-time strip (BC references)
+  if(R.deep){ const Q=R.deep, DY=Q.y, XD=y=>PL+(y-Q.min)/(Q.max-Q.min)*(PR-PL);
+    tx(svg,PL,DY-44,Q.title,{fill:'#7b86a4','font-size':12,'font-family':'JetBrains Mono','letter-spacing':'.16em'});
+    el('line',{x1:PL,y1:DY,x2:PR,y2:DY,stroke:'#3a486a',['stroke-width']:1.6},svg);
+    for(let y=Math.ceil(Q.min/Q.tick)*Q.tick;y<=Q.max;y+=Q.tick){ const x=XD(y); el('line',{x1:x,y1:DY-4,x2:x,y2:DY+4,stroke:'#3a486a'},svg);
+      tx(svg,x,DY+20,Math.abs(y)+' BC',{fill:'#5d6885','font-size':11.5,'text-anchor':'middle','font-family':'JetBrains Mono'}); }
+    (Q.spans||[]).forEach(s=>{ const c=col(s.cat), yy=DY-16-(s.row||0)*22; const g=el('g',{'data-cat':s.cat},svg);
+      el('line',{x1:XD(s.a),y1:yy,x2:XD(s.b),y2:yy,stroke:c,['stroke-width']:7,['stroke-linecap']:'round',opacity:.85},g);
+      tx(g,(XD(s.a)+XD(s.b))/2,yy-9,s.lbl,{fill:'#dfe6f5','font-size':12.5,'text-anchor':'middle','font-family':'JetBrains Mono',class:'halo'});
+      bind(g,{cat:s.cat,h:s.h||s.lbl,yr:s.yr,b:s.desc}); });
+    (Q.dates||[]).forEach(d=>{ const x=XD(d.y), c=col(d.cat); const g=el('g',{'data-cat':d.cat},svg);
+      el('circle',{cx:x,cy:DY,r:5,fill:c,stroke:'#0b0f1a',['stroke-width']:1.5},g);
+      tx(g,x,DY+40,d.lbl,{fill:c,'font-size':12.5,'text-anchor':'middle','font-family':'JetBrains Mono'});
+      bind(g,{cat:d.cat,h:d.h,yr:d.lbl,b:d.b}); });
+  }
+}
+
+/* ---------- maths & transcription ---------- */
+function maths(){
+  const m=document.getElementById('math');
+  D.math.forEach(r=>{ const d=document.createElement('div'); d.className='mrow';
+    d.innerHTML=`<span class="eq">${r.eq}</span><span class="cap">${r.cap}</span>${r.aw?`<span class="aw">as written — ${r.aw}</span>`:''}`; m.appendChild(d); });
+  const t=document.getElementById('tx');
+  D.trans.forEach(sec=>{ const h=document.createElement('h3'); h.textContent=sec.r; t.appendChild(h);
+    const ul=document.createElement('ul'); sec.items.forEach(s=>{ const li=document.createElement('li'); li.innerHTML=s.replace(/\[\?\]/g,'<span class="unc">[?]</span>'); ul.appendChild(li); }); t.appendChild(ul); });
+  if(D.unc){ const p=document.createElement('div'); p.className='uncnote'; p.innerHTML='<b style="color:#c9d2e6">Reading notes.</b> '+D.unc; t.appendChild(p); }
+}
+
+/* ---------- filters ---------- */
+function filters(){
+  const bar=document.getElementById('filters'); const active=new Set(D.cats);
+  D.cats.forEach(k=>{ const c=document.createElement('div'); c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${col(k)}"></span>${CAT[k].label}`;
+    c.onclick=e=>{ e.stopPropagation(); if(active.has(k)){active.delete(k);c.classList.add('off');} else {active.add(k);c.classList.remove('off');} apply(); };
+    bar.appendChild(c); });
+  function apply(){ document.querySelectorAll('[data-cat]').forEach(n=>{ n.style.display = active.has(n.getAttribute('data-cat'))?'':'none'; }); }
+}
+
+/* ---------- build ---------- */
+const svg=document.getElementById('sec'); defs(svg);
+
+if(typeof customSection==='function'){ customSection(svg); }
+else section(svg,D.sec||{});
+drawOverlay(svg,D.overlay);
+noteList();
+if(D.ruler) ruler(D.ruler);
+if(typeof customRuler==='function'){ customRuler(); }
+maths(); filters();
+</script>
+</body>
+</html>

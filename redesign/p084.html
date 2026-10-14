@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · Chart XXVIII — The 52 P″ Ceiling Block — Four 13-Year Periods from 1962</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@500;600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#0b0f1a; --bg2:#111726; --panel:#141b2d; --ink:#e9edf6; --muted:#8b95ad;
+    --line:#24304a; --line2:#33415f;
+    --c-dim:#5cb3f2; --c-year:#e7c355; --c-vert:#37b6a6; --c-note:#c3a4ff; --stone:#c9b98f;
+    --anchor:#ffcf5c;
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:radial-gradient(1200px 700px at 70% -10%, #16203a 0%, var(--bg) 55%);color:var(--ink);
+    font-family:'Space Grotesk',system-ui,sans-serif;-webkit-font-smoothing:antialiased;overflow-x:hidden}
+  .wrap{max-width:1440px;margin:0 auto;padding:30px 26px 70px}
+  @media(max-width:600px){.wrap{padding:22px 14px 50px}}
+  header.masthead{border-bottom:1px solid var(--line);padding-bottom:20px;margin-bottom:8px}
+  .kicker{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.42em;color:var(--muted);text-transform:uppercase;padding-right:90px;line-height:1.7}
+  h1{font-family:'Cormorant Garamond',serif;font-weight:700;font-size:clamp(34px,5vw,58px);line-height:.98;margin:.22em 0 .1em;letter-spacing:.01em}
+  h1 .sub{display:block;font-size:.42em;letter-spacing:.06em;color:var(--c-year);font-weight:600;margin-top:.35em;line-height:1.2}
+  .prov{color:var(--muted);font-size:13px;max-width:800px;line-height:1.55;margin-top:12px}
+  .prov b{color:var(--ink);font-weight:500}
+  .series{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:11px;align-items:center}
+  .series span.l{color:var(--muted);letter-spacing:.2em;text-transform:uppercase;margin-right:4px}
+  .series a{color:var(--muted);text-decoration:none;border:1px solid var(--line2);border-radius:100px;padding:4px 10px}
+  .series a:hover{color:var(--ink);border-color:var(--muted)}
+  .series a.cur{color:#0b0f1a;background:var(--c-year);border-color:var(--c-year)}
+
+  .toolbar{display:flex;flex-wrap:wrap;gap:10px;align-items:center;margin:22px 0 6px}
+  .toolbar .lbl{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase;margin-right:4px}
+  .chip{cursor:pointer;user-select:none;border:1px solid var(--line2);background:var(--panel);color:var(--ink);
+    padding:7px 13px;border-radius:100px;font-size:12.5px;display:inline-flex;align-items:center;gap:8px;transition:.18s}
+  .chip .dot{width:9px;height:9px;border-radius:50%}
+  .chip:hover{border-color:var(--muted)}
+  .chip.off{opacity:.32;filter:saturate(.2)}
+
+  .grid{display:grid;grid-template-columns:1fr;gap:22px;margin-top:20px}
+  .card{background:linear-gradient(180deg,var(--panel),#10162494);border:1px solid var(--line);border-radius:16px;
+    padding:18px 20px 14px;position:relative;overflow:hidden;min-width:0}
+  @media(max-width:600px){.card{padding:14px 12px 12px}}
+  .card h2{font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;margin:2px 0 2px}
+  .card .hint{color:var(--muted);font-size:12.5px;margin-bottom:8px;line-height:1.5}
+  .scroller{overflow-x:auto;-webkit-overflow-scrolling:touch}
+  svg{width:100%;height:auto;display:block;overflow:visible}
+  .scroller svg.wide{min-width:0}
+  @media(max-width:760px){.scroller svg.wide{min-width:760px}.swipe{display:block!important}}
+  .swipe{display:none;font-family:'JetBrains Mono',monospace;font-size:10.5px;color:var(--muted);letter-spacing:.1em;margin-top:6px}
+  .bottom{display:grid;grid-template-columns:1fr 1fr;gap:22px}
+  @media(max-width:900px){.bottom{grid-template-columns:1fr}}
+  text{font-family:'Space Grotesk',sans-serif}
+  .mono{font-family:'JetBrains Mono',monospace}
+
+  #tip{position:fixed;pointer-events:none;z-index:50;max-width:300px;background:#0c1220f2;border:1px solid var(--line2);
+    border-radius:11px;padding:11px 13px;font-size:12.5px;line-height:1.5;color:var(--ink);opacity:0;
+    transition:opacity .12s;box-shadow:0 18px 40px -18px #000;left:0;top:0}
+  #tip .t-h{font-weight:600;margin-bottom:3px;display:flex;align-items:center;gap:7px}
+  #tip .t-h .d{width:9px;height:9px;border-radius:50%;flex:0 0 auto}
+  #tip .t-yr{font-family:'JetBrains Mono',monospace;color:var(--c-year);font-size:11.5px}
+  #tip .t-b{color:var(--muted);margin-top:4px}
+
+  .it.hot line,.it.hot path{filter:drop-shadow(0 0 4px currentColor)}
+  .mk.hot circle{stroke-width:3;filter:drop-shadow(0 0 6px #c3a4ff)}
+  .part:hover>rect,.part:hover>polygon{filter:brightness(1.35)}
+  .notes{display:flex;flex-direction:column;gap:8px}
+  .note{display:flex;gap:10px;padding:9px 11px;border:1px solid var(--line);border-radius:10px;background:#0e1526;font-size:12.5px;line-height:1.5}
+  .note.hot{border-color:var(--c-note);box-shadow:0 0 0 1px #c3a4ff55}
+  .note .nn{flex:0 0 22px;height:22px;border-radius:50%;border:1.5px solid var(--c-note);color:var(--c-note);font-family:'JetBrains Mono',monospace;font-size:11px;display:flex;align-items:center;justify-content:center}
+  .note .nt{font-weight:600}
+  .note .nb{color:var(--muted)}
+
+  .mathgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px 14px;margin:6px 0 10px}
+  @media(max-width:600px){.mathgrid{grid-template-columns:1fr}}
+  .mrow{display:flex;flex-direction:column;gap:2px;padding:10px 12px;border:1px solid var(--line);border-radius:10px;background:#0e1526}
+  .mrow .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--ink);overflow-wrap:anywhere}
+  .mrow .cap{font-size:11.5px;color:var(--muted);line-height:1.45}
+  .mrow .aw{font-size:11px;color:#6f7a95;font-style:italic}
+  .base138{color:var(--anchor);font-weight:600}
+  details.tr summary{cursor:pointer;font-family:'Cormorant Garamond',serif;font-weight:600;font-size:23px;list-style:none}
+  details.tr summary::-webkit-details-marker{display:none}
+  details.tr summary::before{content:'▸ ';color:var(--muted);font-size:16px}
+  details.tr[open] summary::before{content:'▾ '}
+  .trg{margin-top:12px}
+  .trg h3{font-family:'JetBrains Mono',monospace;font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--muted);margin:16px 0 6px;font-weight:500}
+  .trg ul{margin:0;padding-left:18px;font-size:13px;line-height:1.6}
+  .trg li{margin:2px 0}
+  .trg .q{color:var(--ink)}
+  .trg .unc{color:#e79a6b;font-family:'JetBrains Mono',monospace;font-size:11.5px}
+  .foot{color:var(--muted);font-size:12px;line-height:1.6;border-top:1px solid var(--line);margin-top:18px;padding-top:14px}
+
+</style>
+</head>
+<body>
+<a href="../index.html" style="position:fixed;right:18px;top:14px;z-index:60;font-family:'JetBrains Mono',monospace;font-size:12px;letter-spacing:.06em;color:#4fe3ff;text-decoration:none;background:#070d18d9;border:1px solid #26324f;border-radius:100px;padding:8px 15px">&larr; Atlas</a>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Lost Science of Prophetic Engineering · Chart&nbsp;XXVIII · Plate&nbsp;84</div>
+    <h1>Chronotecture
+      <span class="sub">The 52 P″ Ceiling Block — Four 13-Year Periods from 1962</span>
+    </h1>
+    <p class="prov">A modern rebuild of Breshears' hand-drawn chart&nbsp;XXVIII (signed <b>Breshears '06</b>), preserved verbatim. Its structural key: <b>60.96&nbsp;P&Prime; from the 1902 face reaches the 52&nbsp;P&Prime; limestone ceiling block at 1962</b>; the block divides into four 13-year periods (1975, 1988, 2001, 2014), and the first of them, 1975, is the centre point of the 60-year span between the 1945 and 2005 verticals.</p>
+    <nav class="series"><span class="l">Section series</span><a href="p080.html">XXIV</a><a href="p081.html">XXV</a><a href="p082.html">XXVI</a><a href="p083.html">XXVII</a><a href="p084.html" class="cur">XXVIII</a><a href="p085.html">XXIX</a></nav>
+  </header>
+
+  <div class="toolbar" id="filters"><span class="lbl">Filter</span></div>
+
+  <div class="grid">
+    <div class="card">
+      <h2>Great Step · entry passage · ceiling block</h2>
+      <div class="hint">Schematic section, south to the right. Horizontal distances are drawn to scale in pyramid inches (P&Prime;) from the face of the Great Step; heights are compressed. Hover or tap any stone, dimension, vertical or numbered marker. Horizontal scale enlarged around the Great Step.</div>
+      <div class="scroller"><svg id="sec" class="wide" role="img" aria-label="Section schematic"></svg></div>
+      <div class="swipe">&larr; swipe to pan the drawing &rarr;</div>
+    </div>
+    <div class="bottom">
+      <div class="card">
+        <h2>Annotations</h2>
+        <div class="hint">Numbered notes as lettered on the plate. Hover a note to find its marker in the section.</div>
+        <div class="notes" id="notes"></div>
+
+      </div>
+      <div class="card">
+        <h2>Cycle mathematics</h2>
+        <div class="hint">Only the arithmetic actually written on the plate, checked.</div>
+        <div class="mathgrid">
+<div class="mrow"><span class="eq">13 × 4 = 52 P&Prime;</span><span class="cap">“52 P&Prime; Limestone Ceiling Block divided into four 13 Year Periods”.</span></div>
+<div class="mrow"><span class="eq">1962 + 13 = 1975 · 1988 · 2001 · 2014</span><span class="cap">The four period marks lettered under the block.</span></div>
+<div class="mrow"><span class="eq">1902 + 60.96 → 1962 AD</span><span class="cap">“Distance of 60.96 P&Prime; directly terminates at 1962 AD”; “.96 indirectly infers November 1963”.</span></div>
+<div class="mrow"><span class="eq">2005 − 1945 = 60 years</span><span class="cap">“60 Years” above, “60 P&Prime; Variance” below; centre point 1975.</span><span class="aw">check: (1945 + 2005) / 2 = 1975.</span></div>
+<div class="mrow"><span class="eq">60.96 P&Prime; → 2022</span><span class="cap">A second 60.96&nbsp;P&Prime; arrow runs from the block's north face to a dashed line lettered 2022.</span><span class="aw">as written: 1962 + 60.96 ≈ 2023.</span></div>
+        </div>
+
+      </div>
+    </div>
+
+    <div class="card">
+      <details class="tr">
+        <summary>Full transcription</summary>
+        <div class="trg">
+<h3>Upper left</h3><ul><li class="q">52 P″ Limestone Ceiling Block divided into four 13 Year Periods. This is confirmed by Centerpoint Alignment of Vertical Lines perfectly equidistant from first 13-Year Period [1975]</li></ul>
+<h3>Middle left</h3><ul><li class="q">Distance of 60.96 P″ directly terminates at 1962 AD when 7200 yrs of Anunnaki Ner system complete, but .96 indirectly infers November 1963 — Assassination of a King of the World [Kennedy]</li></ul>
+<h3>Ceiling block</h3><ul><li class="q">60.96 P″ (arrow from 1902 AD line to block)</li><li class="q">60.96 P″ (inside block, to 2022)</li><li class="q">2022</li><li class="q">52 P″</li><li class="q">13 × 4</li><li class="q">1975</li><li class="q">1988</li><li class="q">2001</li><li class="q">2014</li></ul>
+<h3>Verticals</h3><ul><li class="q">1902 AD</li><li class="q">1945</li><li class="q">2005</li><li class="q">60 Years</li><li class="q">60 P″ Variance</li><li class="q">North Wall of Subterranean Chamber</li><li class="q">North Wall of Queen's Chamber</li></ul>
+<h3>Frame</h3><ul><li class="q">XXVIII (chart label)</li><li class="q">Breshears '06</li></ul>
+<h3>Uncertain readings</h3><ul><li class="unc">This plate labels 2005 the “North Wall of Queen's Chamber”, where plates XXV, XXVII and XXIX say south wall — kept as written.</li><li class="unc">“Perfectcy” / “Perfectly” — lettering cramped; read as “Perfectly”.</li></ul>
+        </div>
+      </details>
+      <div class="foot">Source: J.&nbsp;M.&nbsp;Breshears, <i>Chronotecture: Lost Science of Prophetic Engineering</i> (2017), chart&nbsp;XXVIII (plate&nbsp;84). Content transcribed unchanged; this is an interpretive redraw for study, not an endorsement of the underlying claims.</div>
+    </div>
+  </div>
+</div>
+
+<div id="tip"></div>
+
+<script>
+/* ---- shared King's Chamber / Antechamber / Grand Gallery section engine (plates 80–85) ----
+   Horizontal coordinate p = pyramid inches (P″) south of the face of the Great Step.
+   Vertical coordinate h = P″ above the top of the Great Step (floor level). */
+const NS='http://www.w3.org/2000/svg';
+function el(n,a,par){const e=document.createElementNS(NS,n);for(const k in a)e.setAttribute(k,a[k]);if(par)par.appendChild(e);return e;}
+function tx(par,x,y,s,a){const t=el('text',Object.assign({x:x,y:y},a||{}),par);t.textContent=s;return t;}
+const CAT={
+  dim :{c:'#5cb3f2',label:'Measurements (P″)'},
+  year:{c:'#e7c355',label:'Dates (AD / AM)'},
+  vert:{c:'#37b6a6',label:'Axes & verticals'},
+  note:{c:'#c3a4ff',label:'Annotations'}
+};
+const tip=document.getElementById('tip');let pinned=null;
+function showTip(h,e){tip.innerHTML=h;tip.style.opacity=1;
+  const cx=(e.touches&&e.touches[0]?e.touches[0].clientX:e.clientX), cy=(e.touches&&e.touches[0]?e.touches[0].clientY:e.clientY);
+  const w=Math.min(300,innerWidth-20);let x=cx+16,y=cy+14;
+  if(x+w>innerWidth)x=Math.max(10,cx-w-6);
+  const th=tip.offsetHeight||140; if(y+th>innerHeight)y=Math.max(8,cy-th-10);
+  tip.style.left=x+'px';tip.style.top=y+'px';}
+function hideTip(){tip.style.opacity=0;}
+function T(h,y,b,col){return `<div class="t-h"><span class="d" style="background:${col||'#e7c355'}"></span>${h}</div>${y?`<div class="t-yr">${y}</div>`:''}${b?`<div class="t-b">${b}</div>`:''}`;}
+function bind(g,html,key){g.style.cursor='pointer';
+  g.addEventListener('mousemove',e=>{if(!pinned)showTip(html,e);if(key)hl(key,true);});
+  g.addEventListener('mouseleave',()=>{if(!pinned)hideTip();if(key)hl(key,false);});
+  g.addEventListener('click',e=>{e.stopPropagation();pinned=g;showTip(html,e);});}
+document.addEventListener('click',()=>{pinned=null;hideTip();});
+function hl(key,on){document.querySelectorAll('[data-key="'+key+'"]').forEach(n=>n.classList.toggle('hot',on));}
+const HALO={'paint-order':'stroke',stroke:'#0b0f1a','stroke-width':3.6,'stroke-linejoin':'round'};
+function arrowLine(g,x1,y1,x2,y2,col,w,heads){
+  el('line',{x1,y1,x2,y2,stroke:col,'stroke-width':w||1.4},g);
+  const a=Math.atan2(y2-y1,x2-x1),L=7,W=3.4;
+  const head=(x,y,ang)=>el('path',{d:`M${x} ${y} L${x-L*Math.cos(ang)+W*Math.sin(ang)} ${y-L*Math.sin(ang)-W*Math.cos(ang)} L${x-L*Math.cos(ang)-W*Math.sin(ang)} ${y-L*Math.sin(ang)+W*Math.cos(ang)}Z`,fill:col},g);
+  if(heads!=='start')head(x2,y2,a);
+  if(heads!=='end')head(x1,y1,a+Math.PI);
+}
+
+function Section(svg,o){
+  const W=o.W||1200,Lm=22,Rm=22;
+  const sx=(W-Lm-Rm)/(o.pmax-o.pmin), sy=o.sy||1.5;
+  const X=p=>Lm+(p-o.pmin)*sx;
+  const hup=o.hup||272, TOP=o.top||30;
+  const FY=TOP+hup*sy, Y=h=>FY-h*sy, floorB=Y(-34);
+  const rowsN=o.rows||0, RH=o.rh||25, ROW0=floorB+22;
+  const LY=ROW0+rowsN*RH+(rowsN?10:0);
+  const LH=o.lower===false?0:(o.lh||92);
+  const RY=LY+LH+24;
+  const mlv=Math.max(-1,...(o.rmarks||[]).map(m=>m.lv||0));
+  const H=o.ruler===false?LY+LH+8:RY+44+(mlv+1)*15;
+  svg.setAttribute('viewBox',`0 0 ${W} ${H}`);
+  const S={X,Y,sx,sy,FY,floorB,ROW0,RH,LY,LH,RY,W,H,o};
+  const defs=el('defs',{},svg);
+  defs.innerHTML=`
+   <pattern id="gran" width="9" height="9" patternUnits="userSpaceOnUse"><rect width="9" height="9" fill="#18213a"/><path d="M0 0L9 9M9 0L0 9" stroke="#33446c" stroke-width=".8"/></pattern>
+   <pattern id="lime" width="7" height="7" patternUnits="userSpaceOnUse"><rect width="7" height="7" fill="#3a3527"/><circle cx="1.5" cy="2" r=".7" fill="#8f8461"/><circle cx="5" cy="5.3" r=".6" fill="#7a7152"/></pattern>
+   <pattern id="core" width="14" height="14" patternUnits="userSpaceOnUse"><rect width="14" height="14" fill="#10172a"/><path d="M0 14L14 0" stroke="#172038" stroke-width="1"/></pattern>
+   <pattern id="blk" width="6" height="6" patternUnits="userSpaceOnUse"><rect width="6" height="6" fill="#2b2f3d"/><path d="M0 6L6 0" stroke="#4a4f63" stroke-width=".7"/></pattern>
+   <clipPath id="clipS"><rect x="${X(o.pmin)}" y="${Y(hup)}" width="${X(o.pmax)-X(o.pmin)}" height="${H}"/></clipPath>`;
+  const gS=el('g',{'clip-path':'url(#clipS)'},svg);
+  S.gS=gS;
+  const RAMP=0.488, ramp=p=>-34-(0-p)*RAMP;
+  const P=(p,h)=>X(p).toFixed(1)+' '+Y(h).toFixed(1);
+  const R=(p1,p2,h1,h2,a,par)=>el('rect',Object.assign({x:X(p1),y:Y(h2),width:X(p2)-X(p1),height:Y(h1)-Y(h2)},a),par||gS);
+  // core masonry
+  R(o.pmin,o.pmax,-34,hup,{fill:'url(#core)'});
+  const pl=Math.min(o.pmin,-1);
+  el('polygon',{points:`${P(pl,ramp(pl))} ${P(0,-34)} ${P(0,-34-30)} ${P(pl,ramp(pl)-30)}`,fill:'url(#core)'},gS);
+  // gallery void
+  const HG=Math.min(hup-6,250), wall=[[60.96,44]];
+  for(let i=1;i<=7;i++){const h=44+i*(HG-44)/7, pf=60.96-(60.96-38)*Math.min(i,6)/6; wall.push([wall[wall.length-1][0],h]); if(i<7) wall.push([pf,h]); }
+  const topP=pl, topH=HG+(38-pl)*RAMP;
+  const gv=[[pl,ramp(pl)],[0,-34],[0,0],[60.96,0],...wall.map(w=>w),[38,HG],[topP,topH]];
+  const gpts=gv.map(v=>P(v[0],v[1])).join(' ');
+  const gal=el('g',{class:'part','data-key':'gallery'},gS);
+  el('polygon',{points:gpts,fill:'#080d19',stroke:'#4a5a84','stroke-width':1.3},gal);
+  el('clipPath',{id:'clipG'},defs).appendChild(el('polygon',{points:gpts}));
+  const gl=el('g',{'clip-path':'url(#clipG)'},gal);
+  for(let k=1;k<=7;k++){const off=k*30; el('line',{x1:X(pl),y1:Y(ramp(pl)+off),x2:X(80),y2:Y(ramp(80)+off),stroke:'#1d2843','stroke-width':1},gl);}
+  // passage 1 + ceiling block
+  const ps1=el('g',{class:'part','data-key':'passage1'},gS);
+  R(60.96,112,0,44,{fill:'#080d19',stroke:'#4a5a84','stroke-width':1.2},ps1);
+  const blk=el('g',{class:'part','data-key':'block'},gS);
+  R(60.96,112.4,44,96,{fill:'url(#blk)',stroke:'#7d7f95','stroke-width':1.2},blk);
+  // antechamber
+  const ante=el('g',{class:'part','data-key':'ante'},gS);
+  R(112,228,0,148,{fill:'#080d19',stroke:'#4a5a84','stroke-width':1.2},ante);
+  [[160,163],[178,181],[196,199]].forEach(pp=>pp.forEach(p=>el('line',{x1:X(p),y1:Y(0),x2:X(p),y2:Y(112),stroke:'#24304d','stroke-width':1},ante)));
+  R(206,228,0,112,{fill:'url(#gran)',opacity:.55},ante);
+  const roof=el('g',{class:'part','data-key':'anteroof'},gS);
+  [[112,150],[150,188],[188,228]].forEach(b=>R(b[0],b[1],148,186,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},roof));
+  const leaf=el('g',{class:'part','data-key':'leaf'},gS);
+  R(134,150,50,104,{fill:'url(#gran)',stroke:'#8fa4d6','stroke-width':1.3,rx:2},leaf);
+  R(132.6,134,72,84,{fill:'#8fa4d6'},leaf);
+  // granite between antechamber and King's Chamber
+  const g2=el('g',{class:'part','data-key':'granite2'},gS);
+  R(228,279,44,170,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
+  R(279,330,44,170,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
+  R(300,330,170,262,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},g2);
+  const ps2=el('g',{class:'part','data-key':'passage2'},gS);
+  R(228,330,0,44,{fill:'#080d19',stroke:'#4a5a84','stroke-width':1.2},ps2);
+  // King's Chamber
+  const kc=el('g',{class:'part','data-key':'kc'},gS);
+  R(330,534,0,230,{fill:'#080d19',stroke:'#4a5a84','stroke-width':1.3},kc);
+  const kw=el('g',{class:'part','data-key':'kcwalls'},gS);
+  R(534,566,-34,262,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},kw);
+  R(300,566,230,268,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1},kw);
+  [60,120,180].forEach(h=>el('line',{x1:X(534),y1:Y(h),x2:X(566),y2:Y(h),stroke:'#4a5a84'},kw));
+  // floor: Great Step + granite floor
+  const st=el('g',{class:'part','data-key':'step'},gS);
+  R(0,126,-34,0,{fill:'url(#lime)',stroke:'#c9b98f','stroke-width':1.5},st);
+  const gf=el('g',{class:'part','data-key':'floor'},gS);
+  R(126,566,-34,0,{fill:'url(#gran)',stroke:'#4a5a84','stroke-width':1.2},gf);
+  // part tooltips
+  const PT=Object.assign({
+    gallery:['Grand Gallery','',''],passage1:['Passage to the Antechamber','60.96 → 112 P″',''],
+    block:['Limestone ceiling block','',''],ante:['Antechamber','',''],anteroof:['Antechamber granite roof blocks','',''],
+    leaf:['Granite leaf','',''],granite2:['Granite masonry','',''],passage2:['Second passage','228 → 330 P″',''],
+    kc:["King's Chamber",'',''],kcwalls:["King's Chamber granite walls & roof",'',''],
+    step:['Great Step','limestone · 0 → 126 P″',''],floor:['Granite floor','',''] },o.parts||{});
+  gS.querySelectorAll('.part').forEach(g=>{const k=g.getAttribute('data-key');const t=PT[k];if(t)bind(g,T(t[0],t[1],t[2],'#c9b98f'));});
+  // labels for parts
+  (o.plabels||[]).forEach(l=>{tx(svg,X(l.p),Y(l.h),l.t,Object.assign({fill:l.c||'#c7cfe2','font-size':l.fs||13,'text-anchor':l.a||'middle','font-family':"'Cormorant Garamond',serif",'font-weight':600,'letter-spacing':'.06em','pointer-events':'none'},HALO));});
+  // floor line
+  el('line',{x1:X(Math.max(o.pmin,0)),y1:FY,x2:X(o.pmax),y2:FY,stroke:'#c9b98f','stroke-width':.8,opacity:.5,'pointer-events':'none'},svg);
+  // layers
+  S.L={};['vert','dim','year','note'].forEach(k=>S.L[k]=el('g',{class:'layer','data-cat':k},svg));
+  if(o.verts)o.verts.forEach(v=>vert(S,v));
+  if(o.ruler!==false)ruler(S);
+  if(o.dims)o.dims.forEach(d=>dim(S,d));
+  if(o.vdims)o.vdims.forEach(d=>vdim(S,d));
+  if(o.rmarks)o.rmarks.forEach(m=>rmark(S,m));
+  if(o.marks)o.marks.forEach(m=>mark(S,m));
+  return S;
+}
+function dim(S,d){
+  const cat=d.cat||'dim',col=d.col||CAT[cat].c, g=el('g',{class:'it','data-key':d.key||''},S.L[cat]);
+  const x1=S.X(d.p1),x2=S.X(d.p2);
+  let y;
+  if(d.h!==undefined) y=S.Y(d.h); else { y=S.ROW0+d.row*S.RH+14;
+    [x1,x2].forEach(x=>el('line',{x1:x,y1:S.floorB+2,x2:x,y2:y+5,stroke:col,'stroke-width':.8,'stroke-dasharray':'2 3',opacity:.35},g)); }
+  arrowLine(g,x1,y,x2,y,col,d.w||1.5,d.heads);
+  el('rect',{x:Math.min(x1,x2),y:y-9,width:Math.abs(x2-x1),height:18,fill:'transparent'},g);
+  if(d.label){const lx=d.lx!==undefined?S.X(d.lx):(x1+x2)/2;
+    tx(g,lx,y-(d.below?-14:5),d.label,Object.assign({fill:d.lc||'#e3eaf7','font-size':d.fs||12.5,'text-anchor':'middle','font-family':"'JetBrains Mono',monospace",'font-weight':500},HALO));}
+  if(d.tip)bind(g,d.tip,d.key);
+}
+function vdim(S,d){
+  const cat=d.cat||'dim',col=CAT[cat].c,g=el('g',{class:'it'},S.L[cat]);
+  const x=S.X(d.p),y1=S.Y(d.h1),y2=S.Y(d.h2);
+  arrowLine(g,x,y1,x,y2,col,1.5);
+  el('rect',{x:x-8,y:Math.min(y1,y2),width:16,height:Math.abs(y2-y1),fill:'transparent'},g);
+  const my=(y1+y2)/2, lx=x+(d.side==='l'?-6:13);
+  tx(g,lx,my,d.label,Object.assign({fill:'#e3eaf7','font-size':d.fs||12,'text-anchor':'middle','font-family':"'JetBrains Mono',monospace",transform:`rotate(-90 ${lx} ${my})`},HALO));
+  if(d.tip)bind(g,d.tip);
+}
+function glyph(S,g,x,kind,col){
+  const y=S.LY+S.LH-26;
+  if(kind==='qc'){el('path',{d:`M${x-11} ${y+10} V${y-2} L${x} ${y-12} L${x+11} ${y-2} V${y+10}`,fill:'#0b1222',stroke:col,'stroke-width':1.6},g);
+    el('line',{x1:x+11,y1:y+8,x2:x+46,y2:y+8,stroke:col,'stroke-width':1.4},g);}
+  else if(kind==='sc'){el('path',{d:`M${x-36} ${y} H${x-10} V${y-8} H${x+10} V${y} H${x+30} L${x+56} ${y-16} M${x-36} ${y+5} H${x-6} V${y+20} M${x+6} ${y+20} V${y+5} H${x+30} L${x+56} ${y-11}`,fill:'none',stroke:col,'stroke-width':1.5},g);}
+  else if(kind==='axis'){el('path',{d:`M${x} ${y-22} V${y+8}`,stroke:col,'stroke-width':4},g);
+    el('path',{d:`M${x-8} ${y+2} L${x} ${y+16} L${x+8} ${y+2}Z`,fill:col},g);}
+  else if(kind==='wp'){el('path',{d:`M${x} ${y-22} V${y+4}`,stroke:col,'stroke-width':4},g);
+    el('path',{d:`M${x-8} ${y-2} L${x} ${y+12} L${x+8} ${y-2}Z`,fill:col},g);}
+}
+function vert(S,v){
+  const cat=v.cat||'vert',col=v.col||CAT[cat].c,g=el('g',{class:'it','data-key':v.key||''},S.L[cat]);
+  const x=S.X(v.p), yt=v.from!==undefined?S.Y(v.from):S.Y(S.o.hup||272);
+  const yb=v.to==='floor'?S.floorB:(S.o.ruler===false?S.LY+S.LH-10:S.RY);
+  el('line',{x1:x,y1:yt,x2:x,y2:yb,stroke:col,'stroke-width':v.w||1.3,'stroke-dasharray':v.solid?'':'5 5',opacity:v.op||.85},g);
+  el('rect',{x:x-7,y:yt,width:14,height:yb-yt,fill:'transparent'},g);
+  if(v.glyph)glyph(S,g,x,v.glyph,col);
+  if(v.label){const lines=v.label.split('\n'), ly=S.LY+12+(v.ly||0), a=v.a||'start', lx=x+(a==='start'?8:a==='end'?-8:0)+(v.dx||0);
+    lines.forEach((s,i)=>tx(g,lx,ly+i*13,s,Object.assign({fill:i?'#9aa5c0':col,'font-size':11,'text-anchor':a,'font-family':"'Space Grotesk',sans-serif",'font-weight':i?400:600},HALO)));}
+  if(v.top){tx(g,x,yt-6,v.top,Object.assign({fill:col,'font-size':11.5,'text-anchor':'middle','font-family':"'JetBrains Mono',monospace"},HALO));}
+  if(v.tip)bind(g,v.tip,v.key);
+}
+function ruler(S){
+  const o=S.o,g=el('g',{class:'ruler'},S.L.year.parentNode), y=S.RY;
+  const p0=Math.max(o.pmin,o.rmin!==undefined?o.rmin:0), p1=o.pmax;
+  el('line',{x1:S.X(p0),y1:y,x2:S.X(p1),y2:y,stroke:'#3a486a','stroke-width':2},g);
+  const step=S.sx*10<14?20:10, lab=S.sx*50<70?100:(S.sx*20<64?50:20);
+  for(let p=Math.ceil(p0/step)*step;p<=p1;p+=step){
+    const big=p%lab===0;
+    el('line',{x1:S.X(p),y1:y-(big?6:3),x2:S.X(p),y2:y+(big?6:3),stroke:'#56628f','stroke-width':1},g);
+    if(big){tx(g,S.X(p),y-10,p+'″',{fill:'#5d6885','font-size':10,'text-anchor':'middle','font-family':"'JetBrains Mono',monospace"});
+      if(o.years!==false)tx(g,S.X(p),y+18,(1902+p)+'',{fill:'#7b86a4','font-size':10.5,'text-anchor':'middle','font-family':"'JetBrains Mono',monospace"});}
+  }
+  tx(g,S.X(p1),y-24,o.years!==false?'P″ from the Great Step face  ·  AD at 1 P″ = 1 year':'P″ from the Great Step face',{fill:'#5d6885','font-size':10,'text-anchor':'end','font-family':"'JetBrains Mono',monospace",'letter-spacing':'.06em'});
+}
+function rmark(S,m){
+  const cat=m.cat||'year',col=m.col||CAT[cat].c,g=el('g',{class:'it','data-key':m.key||''},S.L[cat]);
+  const x=S.X(m.p), y=S.RY, ly=y+34+(m.lv||0)*15;
+  el('circle',{cx:x,cy:y,r:4.5,fill:col,stroke:'#0b0f1a','stroke-width':1.5},g);
+  el('line',{x1:x,y1:y+5,x2:x,y2:ly-9,stroke:col,'stroke-width':1,opacity:.6},g);
+  tx(g,x+(m.dx||0),ly,m.label,Object.assign({fill:col,'font-size':11,'text-anchor':m.a||'middle','font-family':"'JetBrains Mono',monospace",'font-weight':500},HALO));
+  el('rect',{x:x-30,y:y-6,width:60,height:ly-y+10,fill:'transparent'},g);
+  if(m.tip)bind(g,m.tip,m.key);
+}
+function mark(S,m){
+  const col=m.col||CAT.note.c,g=el('g',{class:'it mk','data-key':'n'+m.n},S.L.note);
+  const x=S.X(m.p),y=S.Y(m.h);
+  if(m.to){el('line',{x1:x,y1:y,x2:S.X(m.to[0]),y2:S.Y(m.to[1]),stroke:col,'stroke-width':1,opacity:.7},g);el('circle',{cx:S.X(m.to[0]),cy:S.Y(m.to[1]),r:2.4,fill:col},g);}
+  el('circle',{cx:x,cy:y,r:10,fill:'#0b0f1a',stroke:col,'stroke-width':1.6},g);
+  tx(g,x,y+4,String(m.n),{fill:col,'font-size':11,'text-anchor':'middle','font-family':"'JetBrains Mono',monospace",'font-weight':600});
+  bind(g,T(m.title,m.yr||'',m.body,col),'n'+m.n);
+}
+function noteList(id,marks){
+  const box=document.getElementById(id);
+  marks.forEach(m=>{const d=document.createElement('div');d.className='note';d.setAttribute('data-key','n'+m.n);
+    d.innerHTML=`<span class="nn">${m.n}</span><div><div class="nt">${m.title}</div><div class="nb">${m.body}</div></div>`;
+    d.addEventListener('mouseenter',()=>hl('n'+m.n,true));d.addEventListener('mouseleave',()=>hl('n'+m.n,false));
+    box.appendChild(d);});
+}
+function chips(cats){
+  const bar=document.getElementById('filters');if(!bar)return;
+  const active=new Set(cats);
+  cats.forEach(k=>{const v=CAT[k];const c=document.createElement('div');c.className='chip';
+    c.innerHTML=`<span class="dot" style="background:${v.c}"></span>${v.label}`;
+    c.onclick=e=>{e.stopPropagation();if(active.has(k)){active.delete(k);c.classList.add('off');}else{active.add(k);c.classList.remove('off');}
+      document.querySelectorAll('.layer, .xl').forEach(g=>{const kk=g.getAttribute('data-cat');if(cats.includes(kk))g.style.display=active.has(kk)?'':'none';});};
+    bar.appendChild(c);});
+}
+
+
+const marks=[
+ {n:1,p:88,h:150,to:[86,96],title:'52 P″ ceiling block · four 13-year periods',body:'“52 P″ Limestone Ceiling Block divided into four 13 Year Periods. This is confirmed by Centerpoint Alignment of Vertical Lines perfectly equidistant from first 13-Year Period [1975]”'},
+ {n:2,p:-55,h:120,to:[30,58],title:'60.96 P″ → 1962 / 1963',body:'“Distance of 60.96 P″ directly terminates at 1962 AD when 7200 yrs of Anunnaki Ner system complete, but .96 indirectly infers November 1963 — Assassination of a King of the World [Kennedy]”'},
+];
+const Yt=(h,a,b)=>T(h,a,b,CAT.year.c),V=(h,a,b)=>T(h,a,b,CAT.vert.c),D=(h,a,b)=>T(h,a,b,CAT.dim.c);
+const B=60.96;
+const S=Section(document.getElementById('sec'),{pmin:-90,pmax:250,hup:205,sy:1.5,rows:1,lh:96,
+  plabels:[{p:-48,h:180,t:'GRAND GALLERY'},{p:190,h:120,t:'ANTECHAMBER',fs:12},{p:63,h:-24,t:'GREAT STEP',fs:12,c:'#f1e6c4'}],
+  parts:{block:['52 P″ Limestone Ceiling Block','1962 → 2014','Divided into four 13-year periods: 1975, 1988, 2001, 2014.']},
+  dims:[{p1:0,p2:B,h:58,label:'60.96 P″',tip:D('60.96 P″','1902 AD → 1962 AD','“directly terminates at 1962 AD … .96 indirectly infers November 1963”.')},
+        {p1:B,p2:B+52,h:84,label:'52 P″ · 13×4',fs:11.5,tip:D('52 P″ (13 × 4)','1962 → 2014','')},
+        {p1:B+60.96,p2:B,h:64,heads:'end',label:'60.96 P″',fs:11,lx:B+38,tip:D('60.96 P″','block north face ↔ 2022','Second 60.96 P″ arrow, ending at a dashed line lettered 2022.')},
+        {p1:43,p2:103,h:24,cat:'year',label:'60 YEARS',fs:11.5,lx:88,tip:Yt('60 Years','1945 → 2005','Centre point 1975, aligned with the first 13-year period.')},
+        {p1:43,p2:103,row:0,label:'60 P″ VARIANCE',tip:D('60 P″ Variance','1945 ↔ 2005','Between the North Wall of the Subterranean Chamber and the North Wall of the Queen\'s Chamber verticals.')}],
+  verts:[
+   {p:0,glyph:'axis',top:'1902 AD',label:'1902 AD',tip:V('1902 AD','face of the Great Step','')},
+   {p:43,glyph:'sc',top:'1945',ly:30,dx:28,label:'North Wall of\nSubterranean Chamber',tip:V('North Wall of Subterranean Chamber','1945','')},
+   {p:103,glyph:'qc',top:'2005',label:"North Wall of\nQueen's Chamber",tip:V("North Wall of Queen's Chamber",'2005','(as written on this plate)')},
+   {p:B+60.96,from:64,to:'floor',top:'',col:'#e7c355',cat:'year',op:.9,tip:Yt('2022','end of the second 60.96 P″','')}],
+  rmarks:[{p:0,label:'1902'},{p:43,label:'1945',lv:1,a:'end',dx:-2},{p:B,label:'1962',a:'start',dx:2},{p:B+13,label:'1975',lv:1},{p:B+26,label:'1988'},{p:B+39,label:'2001',lv:1,a:'end',dx:-2},{p:103,label:'2005',lv:2},{p:B+52,label:'2014'},{p:B+60.96,label:'2022',lv:1,a:'start',dx:2}],
+  marks:marks});
+(function(){const g=el('g',{class:'it'},S.L.year);
+  [[13,1975],[26,1988],[39,2001],[52,2014]].forEach(([k,y])=>{const x=S.X(B+k);
+    el('line',{x1:x,y1:S.Y(96),x2:x,y2:S.Y(10),stroke:'#e7c355','stroke-width':1.2,'stroke-dasharray':'4 3'},g);
+    tx(g,x+4,S.Y(40),y,Object.assign({fill:'#e7c355','font-size':11.5,'font-family':"'JetBrains Mono',monospace",transform:`rotate(-90 ${x+4} ${S.Y(40)})`},HALO));});
+  tx(g,S.X(B+60.96)+4,S.Y(20),'2022',Object.assign({fill:'#e7c355','font-size':11.5,'font-family':"'JetBrains Mono',monospace",transform:`rotate(-90 ${S.X(B+60.96)+4} ${S.Y(20)})`},HALO));
+  arrowLine(g,S.X(73),S.Y(30),S.X(73),S.Y(42),'#e7c355',1.4,'end');
+  bind(g,Yt('Four 13-year periods','1975 · 1988 · 2001 · 2014','The centre point of 1945–2005 (1975) aligns with the first period mark.'));})();
+noteList('notes',marks);
+chips(['dim','year','vert','note']);
+
+</script>
+</body>
+</html>
