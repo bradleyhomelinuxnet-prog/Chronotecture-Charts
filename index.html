@@ -34,7 +34,7 @@
     <a class="feat hud" href="redesign/chart-i.html"><div class="tag">&#10022; Chart I</div><h4 class="serif">The Pyramid-Inch Calendar</h4><p>The Great Pyramid's passages read as years &mdash; 3361 and 3036 inches setting the 1902 AD countdown.</p><div class="go">ENTER &rarr;</div></a>
     <a class="feat hud" href="redesign/ie.html"><div class="tag">&#10022; Chart I&middot;e</div><h4 class="serif">The Giza Course Countdown</h4><p>204 levels of bricks as years, 1902 to 2106 AD &mdash; 2448 months, the Anno Mundi year of the Exodus.</p><div class="go">ENTER &rarr;</div></a>
     <a class="feat hud" href="redesign/great-step.html"><div class="tag">&#10022; The Great Step</div><h4 class="serif">The Countdown Calendar</h4><p>126 inches of limestone &mdash; 1902 to 2028 AD, then the red granite era to 2052.</p><div class="go">ENTER &rarr;</div></a>
-    <a class="feat hud" href="pages/p119.html"><div class="tag">&#10022; Plate 119</div><h4 class="serif">The Recursive Palindrome</h4><p>A bespoke closing mirror &mdash; 138's doubling spine and the 19-year Metonic cycle. 138 &minus; 19 = 119.</p><div class="go">ENTER &rarr;</div></a>
+    <a class="feat hud" href="pages/p119.html#redesign"><div class="tag">&#10022; Plate 119</div><h4 class="serif">The Recursive Palindrome</h4><p>A bespoke closing mirror &mdash; 138's doubling spine and the 19-year Metonic cycle. 138 &minus; 19 = 119.</p><div class="go">ENTER &rarr;</div></a>
     <!--auto-feat--><a class="feat hud" href="redesign/p014.html"><div class="tag">&#10022; Chart I·b &middot; Plate 14</div><h4 class="serif">The Passage Conjunct Axis</h4><p>The Passage Conjunct Axis — span-bars from 1460 BC</p><div class="go">ENTER &rarr;</div></a>
     <a class="feat hud" href="redesign/p015.html"><div class="tag">&#10022; Chart I·c &middot; Plate 15</div><h4 class="serif">The 414-Year Stonehenge Calendar</h4><p>The Stonehenge Chronolithic Calendar — fifteen periods of 414 years</p><div class="go">ENTER &rarr;</div></a>
     <a class="feat hud" href="redesign/p016.html"><div class="tag">&#10022; Chart I·d &middot; Plate 16</div><h4 class="serif">The Great Step Axis Year</h4><p>The Great Step Axis Year — the AD era measured into 1902</p><div class="go">ENTER &rarr;</div></a>
@@ -122,7 +122,7 @@ var KW={13:"chart i pyramid inch calendar 3361 3036 1902 giza course",14:"chart 
     var st=STARS[i]?1:0, star=st?'<span class="star">&#10022;</span>':'', sc=st?' star':'';
     var kw=(KW[i]||'')+(ch==='1'?' chart plate':' text page');
     var pg=('00'+i).slice(-3);
-    h+='<a class="cardp'+sc+'" data-pg="'+i+'" data-chart="'+ch+'" data-star="'+st+'" data-kw="'+kw+'" href="pages/p'+pg+'.html">'
+    h+='<a class="cardp'+sc+'" data-pg="'+i+'" data-chart="'+ch+'" data-star="'+st+'" data-kw="'+kw+'" href="pages/p'+pg+'.html'+(st?'#redesign':'')+'">'
       +'<div class="thumbwrap"><img loading="lazy" src="'+(STARS[i]?'thumbs-redesign':'thumbs')+'/p'+pg+'.jpg" alt="Plate '+i+'"></div>'
       +'<div class="cap"><span class="pg">'+pg+' '+star+'</span><span class="dotc" style="background:'+col+'" title="'+lab+'"></span></div></a>';
   }
@@ -154,7 +154,7 @@ var KW={13:"chart i pyramid inch calendar 3361 3036 1902 giza course",14:"chart 
     [].forEach.call(document.querySelectorAll('.chip'),function(x){x.classList.remove('on');});ch.classList.add('on');mode=ch.dataset.f;apply();};});
   var qi=document.getElementById('q');
   qi.addEventListener('input',function(e){q=e.target.value.trim().toLowerCase();apply();});
-  qi.addEventListener('keydown',function(e){if(e.key==='Enter'){var n=+q;if(n>=1&&n<=119)location.href='pages/p'+('00'+n).slice(-3)+'.html';}});
+  qi.addEventListener('keydown',function(e){if(e.key==='Enter'){var n=+q;if(n>=1&&n<=119)location.href='pages/p'+('00'+n).slice(-3)+'.html'+(STARS[n]?'#redesign':'');}});
 })();
 </script>
 </body></html>

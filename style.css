@@ -78,6 +78,10 @@ a{color:inherit;text-decoration:none}
 .frame{position:absolute;inset:0;border:0;width:100%;height:100%;background:var(--bg);display:none}
 .stagewrap.redesign .stage{display:none}
 .stagewrap.redesign .frame{display:block}
+/* The frames fill the wrap, and the wrap's only height came from the stage -- so hiding the
+   stage for any other view collapsed it to 0px and the redesign, text and engine views were
+   blank. Hold the stage's height while it is hidden. */
+.stagewrap.redesign{height:calc(100vh - 61px)}
 
 /* ============================ INDEX / COVER ============================ */
 #stars{position:fixed;inset:0;z-index:-1;pointer-events:none}
@@ -158,4 +162,4 @@ a{color:inherit;text-decoration:none}
 
 .foot{color:var(--dim);font-size:12px;line-height:1.7;border-top:1px solid var(--line);margin-top:44px;padding-top:18px;text-align:center;font-family:'JetBrains Mono',monospace}
 .foot b{color:var(--muted);font-weight:500}
-@media(max-width:640px){.stage{height:calc(100vh - 58px)}.hero{padding:44px 0 20px}}
+@media(max-width:640px){.stage,.stagewrap.redesign{height:calc(100vh - 58px)}.hero{padding:44px 0 20px}}

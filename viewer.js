@@ -7,6 +7,17 @@
 
   var PAGE=location.pathname.split('/').pop();
 
+  // A link can open a plate on a given view: p014.html#redesign (or #text, #engine, #plate).
+  // The index grid uses it, so a card showing the redesign opens on the redesign. The view
+  // buttons arrive at different times (text loads by script), so each bindSegs() retries
+  // until the wanted button exists; a plate without that view just opens as usual.
+  var WANT=(location.hash.match(/^#(redesign|text|engine|plate)$/)||[])[1], opened=false;
+  function openFromHash(){
+    if(!WANT||opened) return;
+    var b=document.querySelector('.seg button[data-view="'+WANT+'"]');
+    if(b){ opened=true; b.click(); }
+  }
+
   // Plates drawn sideways open upright. Any plate you turn remembers its way (per browser).
   var UPRIGHT={'p017.html':90,'p029.html':90,'p030.html':90,'p038.html':90};
   var ROT_KEY='chrono-rot:'+PAGE;
@@ -203,6 +214,22 @@
       if(v!=='plate')wrap.classList.add('redesign');
       else { wrap.classList.remove('redesign'); setTimeout(fit,30); }
     };})(segs[j]); }
+    var fr=document.querySelectorAll('#stagewrap iframe');
+    for(var n=0;n<fr.length;n++) linksToTop(fr[n]);
+    openFromHash();
+  }
+  // The redesign and engine pages are also opened on their own, so their links ("← Atlas")
+  // are plain relative links -- inside the frame they opened the atlas in the frame, a page
+  // within a page. Send every link that leaves the page to the whole window; in-page #links
+  // and links that already pick a target are left alone.
+  function linksToTop(f){
+    if(f.dataset.toTop) return; f.dataset.toTop='1';
+    function fix(){ try{
+      var a=f.contentDocument.querySelectorAll('a[href]');
+      for(var i=0;i<a.length;i++){ var h=a[i].getAttribute('href'); if(!a[i].target && h.charAt(0)!=='#') a[i].target='_top'; }
+    }catch(e){} }
+    f.addEventListener('load',fix);
+    if(f.contentDocument && f.contentDocument.readyState==='complete') fix();
   }
   bindSegs();
 })();
