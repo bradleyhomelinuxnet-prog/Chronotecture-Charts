@@ -11,10 +11,24 @@
   // The index grid uses it, so a card showing the redesign opens on the redesign. The view
   // buttons arrive at different times (text loads by script), so each bindSegs() retries
   // until the wanted button exists; a plate without that view just opens as usual.
+  // With no #view, a plate opens on the rebuilt version first: its interactive redesign if it
+  // has one, else the engine view. Jason's original is the next button along (#plate opens it).
   var WANT=(location.hash.match(/^#(redesign|text|engine|plate)$/)||[])[1], opened=false;
+  // On a text plate the "Read text" button shares data-view="redesign" with the transcription
+  // pane, so buttons are found by what they say as well as by their view.
+  function segButton(view){
+    var bs=document.querySelectorAll('.seg button');
+    for(var i=0;i<bs.length;i++){
+      var t=bs[i].textContent, v=bs[i].dataset.view;
+      if(view==='text' ? (v==='text' || /^Read text/.test(t))
+       : view==='redesign' ? (v==='redesign' && /redesign|interactive/i.test(t))
+       : v===view) return bs[i];
+    }
+    return null;
+  }
   function openFromHash(){
-    if(!WANT||opened) return;
-    var b=document.querySelector('.seg button[data-view="'+WANT+'"]');
+    if(opened) return;
+    var b=WANT ? segButton(WANT) : (segButton('redesign') || segButton('engine'));
     if(b){ opened=true; b.click(); }
   }
 
@@ -203,7 +217,15 @@
   pill('Flip 180','Turn upside down',function(){rotate(2);});
   stage.appendChild(bar);
 
+  // Button order: the rebuilt views first, then Jason's original, then the text.
+  function rank(b){ var v=b.dataset.view;
+    return v==='redesign'&&/redesign|interactive/i.test(b.textContent)?0 : v==='engine'?1 : v==='plate'?2 : 3; }
+  function orderSegs(){
+    var seg=document.querySelector('.seg'); if(!seg) return;
+    [].slice.call(seg.children).sort(function(a,b){return rank(a)-rank(b);}).forEach(function(b){seg.appendChild(b);});
+  }
   function bindSegs(){
+    orderSegs();
     var segs=document.querySelectorAll('.seg button');
     var wrap=document.getElementById('stagewrap');
     for(var j=0;j<segs.length;j++){ segs[j].onclick=(function(btn){return function(){
