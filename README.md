@@ -14,6 +14,7 @@ A navigable study edition of Jason M. Breshears' *Chronotecture: The Lost Scienc
 | `thumbs/` | Thumbnails for the index |
 | `thumbs-redesign/` | Previews of the chart redesigns, shown in the index grid in place of the scans |
 | `redesign/` | The rebuilt interactives: the original nine (Chart I, II·b, II·c, I·e, VI·c, VI·d, the Great Step, the Constellation, Plate 119) plus one page per chart plate, `pNNN.html` |
+| `redesign/pyramid-3d.html` | **The Pyramid Chronograph**: the Great Pyramid's passages in 3D (`engine/pyramid-3d.js`, no library), labelled with every sum from plates 111–117 and carrying the Great Step chronometer (1 P″ = 1 year from 1902). Plates 111–117 show it as **3D view**; `?plate=NNN` focuses one plate, `#dates=2027,2027-04-04` places dates on the chronometer |
 | `redesign/engine/`, `redesign/data/` | The shared chart engine: each `data/pNNN.js` describes one plate and `eNNN.html` draws it with `engine/chart.js`. Every plate (all 119) has one; plate pages show it as **Engine view**, alongside the hand-built redesign or the "Read text" view (spec: `engine/SPEC.md`) |
 | `text/` | Cleaned transcriptions of the text plates (`pNNN.txt`), bundled into `texts.js` for the plate viewer's "Read text" view and the atlas search |
 | `AUDIT.md` | The arithmetic audit: every sum and span on the chart rebuilds, checked plate by plate (report only; the plates' numbers are unchanged) |

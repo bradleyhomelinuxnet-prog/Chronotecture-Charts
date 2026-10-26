@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Chronotecture · The Pyramid Chronograph</title>
+<meta name="description" content="The Great Pyramid's passages in 3D, labelled with the sums from Breshears' plates 111–117, and the Great Step chronometer: one pyramid inch to the year from 1902.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@600;700&family=Space+Grotesk:wght@400;500;600&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="engine/chart.css">
+<style>
+  .stage{position:relative;margin-top:16px;border:1px solid var(--line);border-radius:16px;overflow:hidden;
+    background:radial-gradient(900px 500px at 50% 0%,#18233f 0%,#090d17 70%)}
+  #scene{display:block;width:100%;height:min(72vh,760px);min-height:380px;touch-action:none;cursor:grab;outline:none}
+  #scene:active{cursor:grabbing}
+  #scene:focus-visible{box-shadow:inset 0 0 0 2px var(--c-cycle)}
+  .views{position:absolute;left:12px;top:12px;display:flex;flex-wrap:wrap;gap:6px;max-width:calc(100% - 24px)}
+  .views button,.chip{font:inherit}
+  .views button{cursor:pointer;border:1px solid var(--line2);background:#070d18d9;color:var(--ink);border-radius:100px;padding:6px 12px;font-size:12px}
+  .views button.on{border-color:var(--anchor);color:var(--anchor)}
+  .layout{display:grid;grid-template-columns:1fr 340px;gap:20px}
+  @media(max-width:960px){.layout{grid-template-columns:1fr}}
+  #info{min-height:130px}
+  #info .kick{font-family:'JetBrains Mono',monospace;font-size:10.5px;letter-spacing:.28em;color:var(--muted);text-transform:uppercase}
+  #info h3{font-family:'Cormorant Garamond',serif;font-size:24px;margin:4px 0 6px;font-weight:700}
+  #info .eq{font-family:'JetBrains Mono',monospace;font-size:13.5px;color:var(--c-proph);margin-bottom:6px}
+  #info p{color:#c9cfdd;font-size:14px;line-height:1.5;margin:6px 0}
+  #info .hint{color:var(--muted)}
+  #info a.open{display:inline-block;margin-top:6px;font-size:13px}
+  form.mine{display:flex;gap:8px;margin:8px 0}
+  form.mine input{flex:1;min-width:0;font:inherit;font-size:14px;color:var(--ink);background:#0e1526;border:1px solid var(--line2);border-radius:10px;padding:8px 10px}
+  form.mine button{font:inherit;cursor:pointer;border:1px solid var(--anchor);color:#0b0f1a;background:var(--anchor);border-radius:10px;padding:8px 14px;font-weight:600}
+  #mine-list{list-style:none;margin:6px 0 0;padding:0;display:grid;gap:6px;font-size:13.5px}
+  #mine-list li{display:flex;justify-content:space-between;gap:8px;align-items:center;padding:6px 10px;border:1px solid var(--line);border-radius:10px;border-left:3px solid #ef6f6f}
+  #mine-list li.out{opacity:.6;border-left-color:var(--muted)}
+  #mine-list .x{cursor:pointer;background:none;border:0;color:var(--muted);font-size:14px}
+  .keyrow{display:flex;flex-wrap:wrap;gap:14px;font-size:12px;color:var(--muted);margin-top:10px}
+  .keyrow i{display:inline-block;width:10px;height:10px;border-radius:2px;margin-right:6px;vertical-align:-1px}
+  #focus{color:var(--anchor);font-size:13px;margin-top:8px;min-height:1em}
+  details.list summary{cursor:pointer;color:var(--c-cycle);font-size:13px}
+  details.list ol{color:#c9cfdd;font-size:13px;line-height:1.6}
+</style>
+</head>
+<body>
+<nav class="nav"><a href="../index.html">← Atlas</a></nav>
+<div class="wrap">
+  <header class="masthead">
+    <div class="kicker">Chronotecture · plates 111–117 in three dimensions</div>
+    <h1>The Pyramid Chronograph<span class="sub">The passages, the plates’ sums, and the Great Step chronometer</span></h1>
+    <p class="prov">The Great Pyramid’s passage system in <b>pyramid inches</b> (P″). The labels are the numbers
+      Breshears wrote on plates 111–117, pinned where he wrote them. The shape uses the plates’ own measures where
+      they give one (the Great Step at 1656, the Gallery 1836, the King’s Chamber 412 × 204 × 230 …) and standard
+      survey figures elsewhere, rounded; the passages are drawn in the centre plane, though on the monument they run
+      about 287 P″ east of it. This renders the Archaix thesis as the plates lay it out; it studies the drawings,
+      not the monument’s purpose.</p>
+  </header>
+
+  <div class="toolbar" role="group" aria-label="Layers">
+    <span class="lbl">Show</span>
+    <button class="chip" type="button" data-show="shell"><span class="dot" style="background:var(--c-proph)"></span>Pyramid</button>
+    <button class="chip" type="button" data-show="passages"><span class="dot" style="background:var(--c-comet)"></span>Passages &amp; chambers</button>
+    <button class="chip" type="button" data-show="labels"><span class="dot" style="background:var(--ink)"></span>Plate sums</button>
+    <button class="chip" type="button" data-show="chrono"><span class="dot" style="background:var(--anchor)"></span>Chronometer</button>
+    <button class="chip" type="button" data-show="mine"><span class="dot" style="background:#ef6f6f"></span>Your dates</button>
+  </div>
+  <div id="focus" role="status"></div>
+
+  <div class="layout">
+    <div>
+      <div class="stage">
+        <canvas id="scene" tabindex="0" role="img"
+          aria-label="A turnable 3D model of the Great Pyramid's passages and chambers, labelled with the plates' numbers. Every label is also listed below the model."></canvas>
+        <div class="views" role="group" aria-label="Views">
+          <button type="button" data-view3d="three">3D</button>
+          <button type="button" data-view3d="section">Section</button>
+          <button type="button" data-view3d="top">From above</button>
+          <button type="button" data-view3d="step">Great Step</button>
+          <button type="button" data-view3d="lower">Lower chamber</button>
+        </div>
+      </div>
+      <div class="keyrow">
+        <span><i style="background:var(--c-comet)"></i>Passages</span>
+        <span><i style="background:var(--c-cycle)"></i>Grand Gallery</span>
+        <span><i style="background:var(--c-hist)"></i>Chambers</span>
+        <span><i style="background:var(--anchor)"></i>Great Step &amp; chronometer</span>
+        <span><i style="background:#ef6f6f"></i>Your dates</span>
+      </div>
+      <p class="hint" style="color:var(--muted);font-size:12.5px">Drag to turn · scroll or pinch to zoom · Shift-drag
+        to pan · double-click to reset · arrow keys when the model has focus.</p>
+    </div>
+
+    <aside>
+      <div class="card" id="info" aria-live="polite"></div>
+
+      <div class="card">
+        <h2>Your dates in the stone</h2>
+        <p class="hint">Charts XXIV–XXXIII read the floor south of the Great Step as years: one pyramid inch to the
+          year from <b>1902</b> at the step face, <b>2106</b> (6000 AM) at 204, <b>2232</b> at the King’s Chamber.
+          Add a year or a date and see where it falls.</p>
+        <form class="mine" id="mine-form">
+          <label for="mine-input" class="visually-hidden" style="position:absolute;left:-9999px">Years or dates</label>
+          <input id="mine-input" placeholder="2027 or 2027-04-04" autocomplete="off" inputmode="numeric">
+          <button type="submit">Add</button>
+        </form>
+        <ul id="mine-list"></ul>
+        <p class="hint" style="margin-top:10px">Dates from Ophis <b>Start here</b> arrive here on their own. Nothing
+          you type leaves this page.</p>
+      </div>
+    </aside>
+  </div>
+
+  <div class="card">
+    <details class="list">
+      <summary>Every label, as a list</summary>
+      <ol id="label-list"></ol>
+    </details>
+  </div>
+
+  <p class="foot">Source plates: 111 (vertical distances), 112 (sloping and horizontal distances), 113 (lower chamber
+    level), 114–117 (Phoenix Chronometry I–IV); chronometer from Charts XXIV–XXXIII. Jason M. Breshears,
+    <i>Chronotecture</i> (2017). Drawn without a 3D library: a hand-written projection onto a canvas.</p>
+</div>
+<script src="engine/pyramid-3d.js"></script>
+</body>
+</html>
