@@ -13,7 +13,7 @@
   // until the wanted button exists; a plate without that view just opens as usual.
   // With no #view, a plate opens on the rebuilt version first: its interactive redesign if it
   // has one, else the engine view. Jason's original is the next button along (#plate opens it).
-  var WANT=(location.hash.match(/^#(redesign|text|engine|plate)$/)||[])[1], opened=false;
+  var WANT=(location.hash.match(/^#(redesign|text|engine|plate|3d)$/)||[])[1], opened=false;
   // On a text plate the "Read text" button shares data-view="redesign" with the transcription
   // pane, so buttons are found by what they say as well as by their view.
   function segButton(view){
@@ -54,6 +54,17 @@
     f.src='../redesign/e'+('00'+NUM).slice(-3)+'.html'; f.style.display='none'; wrap.appendChild(f);
     bindSegs();
   }
+  // The Great Pyramid plates also open in the 3D Pyramid Chronograph, focused on this
+  // plate's own numbers. Hand-kept, not generated: wire.py does not touch this line.
+  var PYRAMID=[111,112,113,114,115,116,117];
+  function addPyramid(wrap){
+    if(!wrap || PYRAMID.indexOf(NUM)<0 || wrap.querySelector('[data-view="3d"]')) return;
+    var seg=wrap.querySelector('.seg'); if(!seg) return;
+    var b=document.createElement('button'); b.type='button'; b.dataset.view='3d'; b.textContent='3D view ◭'; seg.appendChild(b);
+    var f=document.createElement('iframe'); f.className='frame'; f.title='3D pyramid'; f.loading='lazy'; f.dataset.pane='3d';
+    f.src='../redesign/pyramid-3d.html?plate='+NUM; f.style.display='none'; wrap.appendChild(f);
+    bindSegs();
+  }
   function addSeg(wrap,second){
     var seg=document.createElement('div'); seg.className='seg';
     seg.innerHTML='<button type="button" class="on" data-view="plate">Original plate</button><button type="button" data-view="redesign">'+second+'</button>';
@@ -61,11 +72,11 @@
   }
   (function wireRedesign(){
     var r=REDESIGNS[PAGE], wrap=document.getElementById('stagewrap');
-    if(wrap && wrap.querySelector('.seg')) addEngine(wrap);
+    if(wrap && wrap.querySelector('.seg')){ addEngine(wrap); addPyramid(wrap); }
     if(!r || !wrap || wrap.querySelector('.seg')) return;
     addSeg(wrap,'Interactive redesign \u2726');
     var f=document.createElement('iframe'); f.className='frame'; f.title='redesign'; f.loading='lazy'; f.src='../redesign/'+r[0];
-    wrap.appendChild(f); addEngine(wrap);
+    wrap.appendChild(f); addEngine(wrap); addPyramid(wrap);
     var pn=document.querySelector('.tb-center .pnum');
     if(pn && !pn.querySelector('.serif')){ var s=document.createElement('span'); s.className='serif'; s.style.cssText='color:#ffcf5c;font-size:17px'; s.textContent=r[1]; pn.appendChild(document.createTextNode('\u00a0\u00b7\u00a0')); pn.appendChild(s); }
   })();
@@ -219,7 +230,7 @@
 
   // Button order: the rebuilt views first, then Jason's original, then the text.
   function rank(b){ var v=b.dataset.view;
-    return v==='redesign'&&/redesign|interactive/i.test(b.textContent)?0 : v==='engine'?1 : v==='plate'?2 : 3; }
+    return v==='redesign'&&/redesign|interactive/i.test(b.textContent)?0 : v==='3d'?0.5 : v==='engine'?1 : v==='plate'?2 : 3; }
   function orderSegs(){
     var seg=document.querySelector('.seg'); if(!seg) return;
     [].slice.call(seg.children).sort(function(a,b){return rank(a)-rank(b);}).forEach(function(b){seg.appendChild(b);});
